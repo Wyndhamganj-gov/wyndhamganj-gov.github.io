@@ -6,7 +6,7 @@
   <title>Wyndhamganj Butbherwa - Official Digital Portal</title>
   <meta name="google-site-verification" content="sAMV3SdxwZgB8pL_-dedxzFUNvOlNWIZR3WPC7Znua0" />
 
-  <!-- SEO Meta Tags -->
+  <!-- Primary SEO Meta Tags -->
   <meta name="title" content="Wyndhamganj Butbherwa - Official Digital Portal">
   <meta name="description" content="Official Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar), Sonbhadra, UP. E-services, sports fixtures, gallery, and village notices.">
   <meta name="keywords" content="Wyndhamganj butbherwa, butbherwa wyndhamganj, Gram Panchayat Wyndhamganj, Shiv Nagar Butbherwa, Piprahwa dam, Wyndhamganj sonbhadra">
@@ -37,10 +37,10 @@
   }
   </script>
   
-  <!-- Fonts & Icons -->
+  <!-- Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Firebase SDKs -->
@@ -50,8 +50,8 @@
   <style>
     :root {
       --bg-dark: #030d14;
-      --bg-card: rgba(8, 25, 38, 0.82);
-      --bg-card-hover: rgba(14, 38, 58, 0.92);
+      --bg-card: rgba(8, 25, 38, 0.85);
+      --bg-card-hover: rgba(14, 38, 58, 0.94);
       --teal: #2dd4bf;
       --teal-hover: #14b8a6;
       --gold: #ffc32c;
@@ -122,31 +122,30 @@
     .section-title { font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
     .section-subtitle { color: var(--text-muted); font-size: 0.88rem; max-width: 640px; margin: 0 auto; }
 
-    /* --- 1. Ultra Compact Top Bar (Minimal Space) --- */
+    /* --- 1. Compact Top Bar --- */
     .ultra-top-bar {
       background: #02090e;
       border-bottom: 1px solid rgba(45, 212, 191, 0.18);
-      font-size: 0.73rem;
-      padding: 4px 0;
-      line-height: 1.3;
+      font-size: 0.74rem;
+      padding: 5px 0;
     }
     .ultra-top-wrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       overflow: hidden;
     }
     .top-meta-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       white-space: nowrap;
       color: var(--text-muted);
       flex-shrink: 0;
     }
     .top-meta-left span { display: inline-flex; align-items: center; gap: 5px; }
-    .top-meta-left i { color: var(--teal); font-size: 0.75rem; }
+    .top-meta-left i { color: var(--teal); }
     .top-ticker-right {
       display: flex;
       align-items: center;
@@ -159,21 +158,21 @@
     .compact-live-badge {
       background: var(--gold);
       color: #04121c;
-      font-size: 0.64rem;
+      font-size: 0.65rem;
       font-weight: 800;
-      padding: 1px 6px;
+      padding: 2px 7px;
       border-radius: 4px;
       text-transform: uppercase;
       flex-shrink: 0;
     }
     .compact-ticker-text {
-      font-size: 0.72rem;
+      font-size: 0.73rem;
       color: var(--text-main);
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* --- 2. Navbar: 🕉️ Wyndhamganj Butbherwa Only --- */
+    /* --- 2. Navbar: 🕉️ Wyndhamganj Butbherwa --- */
     .navbar {
       background: rgba(3, 13, 20, 0.94);
       backdrop-filter: var(--glass-blur);
@@ -181,7 +180,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      padding: 8px 0;
+      padding: 10px 0;
     }
     .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
     .clean-brand {
@@ -192,7 +191,7 @@
       color: var(--text-main);
     }
     .clean-brand-om {
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       filter: drop-shadow(0 0 8px rgba(255, 195, 44, 0.5));
       line-height: 1;
     }
@@ -207,12 +206,12 @@
       display: flex;
       align-items: center;
       list-style: none;
-      gap: 16px;
+      gap: 18px;
     }
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 600;
       transition: var(--transition);
     }
@@ -222,8 +221,8 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      font-size: 1.2rem;
-      padding: 6px 12px;
+      font-size: 1.25rem;
+      padding: 7px 13px;
       border-radius: var(--radius-sm);
       cursor: pointer;
       display: flex;
@@ -252,7 +251,7 @@
       background: #04121c;
       border-left: 1px solid var(--border-color);
       z-index: 2001;
-      padding: 22px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       transform: translateX(100%);
@@ -268,27 +267,27 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       margin-bottom: 18px;
     }
-    .drawer-header h3 { font-size: 1rem; color: #fff; font-weight: 800; }
+    .drawer-header h3 { font-size: 1.05rem; color: #fff; font-weight: 800; }
     .drawer-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
     .drawer-close:hover { color: var(--danger); }
-    .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+    .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
     .drawer-nav-list a {
       color: var(--text-main);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 7px 10px;
+      padding: 8px 10px;
       border-radius: var(--radius-sm);
       transition: var(--transition);
     }
     .drawer-nav-list a i { color: var(--teal); width: 20px; }
     .drawer-nav-list a:hover { background: rgba(45, 212, 191, 0.1); color: var(--teal); }
 
-    .drawer-controls-box { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-    .control-label { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; }
+    .drawer-controls-box { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+    .control-label { font-size: 0.76rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
     .controls-row { display: flex; gap: 8px; margin-bottom: 14px; }
     .ctrl-btn {
       flex: 1; padding: 7px;
@@ -298,13 +297,14 @@
       border-radius: var(--radius-sm);
       font-size: 0.78rem; font-weight: 700;
       cursor: pointer; text-align: center;
+      transition: var(--transition);
     }
     .ctrl-btn.active, .ctrl-btn:hover { background: var(--teal); color: #021513; border-color: var(--teal); }
 
     /* --- 3. Hero Section (Buttons Removed) --- */
     .hero {
       position: relative;
-      padding: 40px 0 35px;
+      padding: 42px 0 38px;
       background: url('IMG_20250929_062521.jpg') center/cover no-repeat #04131d;
       border-bottom: 1px solid var(--border-color);
       overflow: hidden;
@@ -318,7 +318,7 @@
     .hero-container {
       position: relative; z-index: 3;
       display: grid; grid-template-columns: 1.25fr 0.75fr;
-      gap: 25px; align-items: center;
+      gap: 26px; align-items: center;
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 6px;
@@ -327,7 +327,7 @@
       color: var(--gold); padding: 3px 10px;
       border-radius: 50px; font-size: 0.72rem; font-weight: 700; margin-bottom: 8px;
     }
-    .hero-title { font-size: 2.1rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+    .hero-title { font-size: 2.15rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
     .hero-title span { background: linear-gradient(135deg, #fff 30%, var(--teal) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero-desc { color: var(--text-muted); font-size: 0.88rem; max-width: 530px; line-height: 1.5; }
 
@@ -379,12 +379,12 @@
     .festival-heading { font-size: 1.55rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
     .festival-msg { font-size: 0.88rem; color: var(--text-main); line-height: 1.6; margin-bottom: 10px; }
 
-    /* --- 5. UNIFIED MEDIA & MOMENTS SECTION (WDM, FESTIVAL, UPLOAD) --- */
+    /* --- 5. UNIFIED MEDIA (WDM, FESTIVAL, UPLOAD) --- */
     .media-main-tabs {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .media-tab-btn {
       padding: 10px 24px;
@@ -432,7 +432,6 @@
       font-weight: 700;
     }
 
-    /* Citizen Upload Box with Name & Phone Verification */
     .citizen-upload-card {
       background: var(--bg-card);
       border: 1px solid var(--border-gold);
@@ -468,7 +467,6 @@
     }
     .form-control-sm:focus { border-color: var(--teal); }
 
-    /* Gallery Grid & Cards */
     .unified-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -519,11 +517,260 @@
       align-items: center;
     }
 
-    .gallery-more-container { text-align: center; margin-top: 24px; }
+    /* --- 6. HIGH GRAPHICS SPORTS ARENA --- */
+    .games-section {
+      background: radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.08) 0%, rgba(3, 13, 20, 0.95) 70%);
+      border-top: 1px solid rgba(6, 182, 212, 0.25);
+      border-bottom: 1px solid rgba(6, 182, 212, 0.25);
+    }
+    .sports-tabs-wrapper { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
+    .sports-tab {
+      background: rgba(8, 25, 38, 0.8);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: var(--transition);
+    }
+    .sports-tab.active, .sports-tab:hover {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(45, 212, 191, 0.15));
+      border-color: var(--teal);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+    }
+    .sports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .sport-card {
+      background: linear-gradient(145deg, rgba(8, 25, 38, 0.9), rgba(4, 18, 28, 0.95));
+      border: 1px solid rgba(45, 212, 191, 0.22);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .sport-card:hover { transform: translateY(-4px); border-color: var(--neon-cyan); box-shadow: 0 10px 30px rgba(6, 182, 212, 0.25); }
+    .sport-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--gold), var(--neon-cyan)); }
+    .sport-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .sport-badge { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; }
+    .badge-cricket { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35); }
+    .badge-volleyball { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
+    .badge-school { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
+    .badge-state { background: rgba(255, 195, 44, 0.18); color: var(--gold); border: 1px solid var(--border-gold); }
 
-    @media (max-width: 768px) {
+    .match-teams-box {
+      background: rgba(3, 13, 20, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin: 12px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .team-col { text-align: center; flex: 1; }
+    .team-name { font-size: 0.9rem; font-weight: 800; color: #fff; }
+    .team-score { font-size: 0.78rem; color: var(--teal); font-weight: 700; margin-top: 2px; }
+    .vs-emblem { font-size: 0.74rem; font-weight: 900; color: var(--gold); background: rgba(255, 195, 44, 0.12); border: 1px solid var(--border-gold); padding: 4px 8px; border-radius: 50%; }
+    .sport-details-list { list-style: none; font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
+    .sport-details-list li i { color: var(--teal); margin-right: 6px; width: 14px; }
+
+    /* --- 7. Helplines Grid --- */
+    .helpline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+    .helpline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .helpline-card:hover { transform: translateY(-3px); border-color: var(--teal); background: var(--bg-card-hover); }
+    .helpline-icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 1.25rem; flex-shrink: 0; }
+    .icon-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .icon-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .icon-yellow { background: rgba(255, 195, 44, 0.15); color: var(--gold); border: 1px solid var(--border-gold); }
+    .icon-teal { background: rgba(45, 212, 191, 0.15); color: var(--teal); border: 1px solid var(--border-color); }
+    .helpline-info h4 { font-size: 0.92rem; color: var(--text-main); margin-bottom: 2px; }
+    .helpline-info span { display: block; font-size: 0.74rem; color: var(--text-muted); }
+    .helpline-info b { font-size: 0.84rem; color: var(--teal); margin-top: 3px; display: inline-block; }
+
+    /* --- 8. Leadership & Host --- */
+    .rep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 25px; }
+    .rep-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 22px 18px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .rep-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+    .rep-avatar {
+      width: 58px; height: 58px; border-radius: 50%;
+      background: rgba(45, 212, 191, 0.12); border: 2px solid var(--teal);
+      display: grid; place-items: center; font-size: 1.4rem; color: var(--teal);
+      margin: 0 auto 12px;
+    }
+    .rep-name { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
+    .rep-role { font-size: 0.8rem; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+    .rep-desc { font-size: 0.8rem; color: var(--text-muted); }
+
+    .host-section {
+      background: linear-gradient(135deg, rgba(8, 25, 38, 0.9), rgba(3, 13, 20, 0.95));
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 25px;
+    }
+    .host-img-wrap {
+      width: 90px; height: 90px; border-radius: 50%;
+      border: 3px solid var(--gold);
+      overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 0 15px rgba(255, 195, 44, 0.3);
+    }
+    .host-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .host-content h3 { font-size: 1.15rem; color: #fff; margin-bottom: 4px; }
+    .host-badge { display: inline-block; font-size: 0.72rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+    .host-content p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* --- 9. Grievance Form --- */
+    .portal-form-wrapper {
+      max-width: 680px; margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      backdrop-filter: var(--glass-blur);
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+    .form-group label i { color: var(--teal); margin-right: 5px; }
+    .form-control {
+      width: 100%; padding: 10px 14px;
+      background: rgba(3, 13, 20, 0.88);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-main); font-family: inherit; font-size: 0.86rem; outline: none;
+    }
+    .form-control:focus { border-color: var(--teal); box-shadow: 0 0 10px rgba(45, 212, 191, 0.25); }
+
+    .receipt-card {
+      display: none; text-align: center; padding: 24px 16px;
+      border: 1px solid var(--border-gold); border-radius: var(--radius-md);
+      background: rgba(255, 195, 44, 0.05);
+    }
+    .receipt-token {
+      font-size: 1.55rem; font-weight: 800; color: var(--gold);
+      letter-spacing: 2px; margin: 12px 0; padding: 8px 16px;
+      background: rgba(3, 13, 20, 0.75); border: 1px dashed var(--gold);
+      border-radius: var(--radius-sm); display: inline-block;
+    }
+    .tracker-box { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .tracker-box h4 { font-size: 0.94rem; color: var(--text-main); margin-bottom: 4px; }
+    .tracker-input-row { display: flex; gap: 10px; }
+
+    /* Button System */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.86rem;
+      font-weight: 700; text-decoration: none; cursor: pointer; transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--teal), #0d9488); color: #021513; }
+    .btn-secondary { background: rgba(255, 255, 255, 0.06); color: var(--text-main); border-color: var(--border-color); }
+
+    /* --- 10. FLOATING SOS SPEED DIAL --- */
+    .sos-floating-wrapper {
+      position: fixed; bottom: 24px; right: 20px; z-index: 9999;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    }
+    .sos-trigger-btn {
+      width: 58px; height: 58px; border-radius: 50%;
+      background: radial-gradient(circle, #ef4444 40%, #b91c1c 100%);
+      border: 3px solid #fee2e2; color: #fff; font-size: 0.88rem; font-weight: 800;
+      letter-spacing: 1px; cursor: pointer; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.65);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.25s ease; animation: sosPulse 2s infinite; user-select: none;
+    }
+    .sos-trigger-btn:hover { transform: scale(1.08); }
+    .sos-trigger-btn.active { background: #1e293b; border-color: #94a3b8; animation: none; }
+    @keyframes sosPulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 16px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+
+    .sos-menu-items {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+      opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none;
+    }
+    .sos-menu-items.show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
+    .sos-item { display: flex; align-items: center; gap: 10px; text-decoration: none; transition: transform 0.2s ease; }
+    .sos-item:hover { transform: translateX(-4px); }
+    .sos-item-label {
+      background: #ffffff; color: #0f172a; font-size: 0.82rem; font-weight: 700;
+      padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25); white-space: nowrap;
+    }
+    .sos-item-icon {
+      width: 44px; height: 44px; border-radius: 12px; background: #ffffff;
+      display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25); flex-shrink: 0;
+    }
+    .icon-hospital { color: #059669; }
+    .icon-ambulance { color: #0284c7; }
+    .icon-police { color: #0d9488; }
+    .icon-fire { color: #ea580c; }
+    .icon-women { color: #db2777; }
+
+    /* Footer */
+    .footer {
+      background: #02090e; border-top: 1px solid var(--border-color);
+      padding: 42px 0 20px; color: var(--text-muted); font-size: 0.82rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 28px; margin-bottom: 28px; }
+    .footer-col h4 { color: var(--text-main); font-size: 0.94rem; margin-bottom: 12px; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 8px; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
+    .footer-links a:hover { color: var(--teal); }
+
+    /* Lightbox & Toast */
+    .lightbox-modal {
+      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92);
+      z-index: 3000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .lightbox-modal.active { display: flex; }
+    .lightbox-content { position: relative; max-width: 900px; width: 100%; text-align: center; }
+    .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-sm); border: 1px solid var(--border-color); }
+    .lightbox-caption { color: #fff; font-size: 0.9rem; margin-top: 10px; font-weight: 600; }
+    .lightbox-close { position: absolute; top: -40px; right: 0; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+
+    .toast-notification {
+      position: fixed; bottom: 24px; right: 24px; background: rgba(8, 25, 38, 0.96);
+      border: 1px solid var(--teal); border-radius: var(--radius-sm); padding: 12px 20px;
+      color: var(--text-main); display: flex; align-items: center; gap: 10px; z-index: 4000;
+      box-shadow: var(--shadow-lg); transform: translateY(100px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .toast-notification.active { transform: translateY(0); opacity: 1; }
+    #confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+
+    @media (max-width: 820px) {
       .hero-container { grid-template-columns: 1fr; }
       .nav-desktop-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .portal-form-wrapper { padding: 20px 15px; }
+      .tracker-input-row { flex-direction: column; }
+      .host-section { flex-direction: column; text-align: center; }
       .upload-form-grid { grid-template-columns: 1fr; }
       .top-meta-left span:nth-child(3) { display: none; }
     }
@@ -532,7 +779,7 @@
 
 <body>
 
-  <!-- 1. Ultra-Compact Top Bar (Time, Weather & 1 Single Line Alert) -->
+  <!-- 1. Ultra Compact Top Bar (Time, Temp, Single Notice) -->
   <div class="ultra-top-bar">
     <div class="container ultra-top-wrapper">
       <div class="top-meta-left">
@@ -541,13 +788,13 @@
         <span><i class="fa-solid fa-map-pin"></i> Sonbhadra</span>
       </div>
       <div class="top-ticker-right">
-        <span class="compact-live-badge"><i class="fa-solid fa-bullhorn"></i> Notice</span>
-        <span class="compact-ticker-text">Welcome to Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar) • Piprahwa Dam & Grievance Cell Active</span>
+        <span class="compact-live-badge"><i class="fa-solid fa-bullhorn"></i> Live</span>
+        <span class="compact-ticker-text">Welcome to Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar) • Piprahwa Dam & Grievance Cell Online 24x7</span>
       </div>
     </div>
   </div>
 
-  <!-- 2. Clean Navbar: 🕉️ Wyndhamganj Butbherwa Only -->
+  <!-- 2. Clean Navbar: 🕉️ Wyndhamganj Butbherwa -->
   <nav class="navbar">
     <div class="container nav-wrapper">
       <a href="#hero" class="clean-brand">
@@ -592,7 +839,7 @@
       <li><a href="#grievance" onclick="toggleDrawer(false)"><i class="fa-solid fa-paper-plane"></i> E-Grievance Cell</a></li>
     </ul>
 
-    <!-- Font & Theme Controls inside Menu Drawer -->
+    <!-- Accessibility Controls inside Menu Drawer -->
     <div class="drawer-controls-box">
       <div class="control-label">Text Size (अक्षर का आकार):</div>
       <div class="controls-row">
@@ -608,7 +855,7 @@
     </div>
   </div>
 
-  <!-- 3. Hero Section (Buttons Removed as Requested) -->
+  <!-- 3. Hero Section (Buttons Removed) -->
   <section class="hero" id="hero">
     <div class="hero-overlay"></div>
     <canvas id="heroVfxCanvas"></canvas>
@@ -657,7 +904,7 @@
     </div>
   </section>
 
-  <!-- 5. UNIFIED VILLAGE MEDIA & MOMENTS (WDM, FESTIVAL, UPLOAD) -->
+  <!-- 5. UNIFIED VILLAGE MEDIA (WDM, FESTIVAL, UPLOAD) -->
   <section class="section-pad" id="unified-media">
     <div class="container">
       <div class="section-header">
@@ -666,7 +913,7 @@
         <p class="section-subtitle">Explore scenic landscapes, railway heritage, festival celebrations, and citizen captures of Butbherwa.</p>
       </div>
 
-      <!-- 3 Main Top Options: WDM | Festival | Upload -->
+      <!-- 3 Main Tabs: WDM | Festival | Upload -->
       <div class="media-main-tabs">
         <button class="media-tab-btn active" onclick="switchMediaSection('wdm', this)">
           <i class="fa-solid fa-landmark"></i> WDM
@@ -679,15 +926,15 @@
         </button>
       </div>
 
-      <!-- Sub-options for WDM (Nature, Railway, Village) -->
+      <!-- Sub-options for WDM -->
       <div class="sub-filter-row" id="wdmSubFilters">
         <button class="sub-chip active" onclick="filterWdmSub('all', this)">All WDM</button>
         <button class="sub-chip" onclick="filterWdmSub('nature', this)">Nature & Dam</button>
         <button class="sub-chip" onclick="filterWdmSub('railway', this)">Railway Station</button>
-        <button class="sub-chip" onclick="filterWdmSub('village', this)">Village & Infra</button>
+        <button class="sub-chip" onclick="filterWdmSub('village', this)">Village Infra</button>
       </div>
 
-      <!-- Sub-options for Festival (Chhath, Diwali, Holi, Shivratri) -->
+      <!-- Sub-options for Festival -->
       <div class="sub-filter-row" id="festivalSubFilters" style="display:none;">
         <button class="sub-chip active" onclick="filterFestSub('all', this)">All Festivals</button>
         <button class="sub-chip" onclick="filterFestSub('छठ पूजा', this)">छठ पूजा</button>
@@ -696,7 +943,7 @@
         <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">शिवरात्रि</button>
       </div>
 
-      <!-- Citizen Upload Box (Name & Number Required Before Upload) -->
+      <!-- Citizen Upload Form (Name & Phone Required) -->
       <div class="citizen-upload-card" id="citizenUploadCard">
         <h4 style="font-size:0.95rem; color:var(--gold); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
           <i class="fa-solid fa-paper-plane"></i> Share Photo with Telegram Alert
@@ -704,7 +951,7 @@
         <form id="citizenPhotoUploadForm" onsubmit="handleCitizenPhotoSubmit(event)">
           <div class="upload-form-grid">
             <div class="upload-input-group">
-              <label><i class="fa-solid fa-user"></i> Your Name *</label>
+              <label><i class="fa-solid fa-user"></i> Your Full Name *</label>
               <input type="text" id="uploadSenderName" class="form-control-sm" required placeholder="e.g. Rahul Kumar">
             </div>
             <div class="upload-input-group">
@@ -750,11 +997,11 @@
         </form>
       </div>
 
-      <!-- 4 Photos Display Grid (More button expands) -->
+      <!-- 4 Photos Display Grid -->
       <div class="unified-grid" id="unifiedMediaGrid"></div>
 
       <!-- View More / Show Less Toggle Button -->
-      <div class="gallery-more-container" id="mediaMoreBox" style="display:none;">
+      <div class="gallery-more-container" id="mediaMoreBox" style="display:none; text-align:center; margin-top:22px;">
         <button class="sub-chip" id="btnToggleMedia" onclick="toggleMediaExpansion()" style="padding:8px 22px; font-size:0.82rem; border-color:var(--teal); color:var(--teal); cursor:pointer;">
           <i class="fa-solid fa-images"></i> <span id="mediaMoreText">View More Photos</span>
         </button>
@@ -762,7 +1009,7 @@
     </div>
   </section>
 
-    <!-- 6. HIGH GRAPHICS GAMES & SPORTS ARENA SECTION -->
+  <!-- 6. HIGH GRAPHICS GAMES & SPORTS ARENA (STRICT FILTER) -->
   <section class="section-pad games-section" id="sports">
     <div class="container">
       <div class="section-header">
@@ -790,10 +1037,10 @@
         </button>
       </div>
 
-      <!-- Sports Cards Grid (Strict Category Display) -->
+      <!-- Sports Cards Grid (Strict Filtering: Selected shows, others hide) -->
       <div class="sports-grid" id="sportsContainer">
 
-        <!-- Cricket Match Card -->
+        <!-- 1. Cricket Card -->
         <div class="sport-card" data-sport="cricket">
           <div class="sport-header">
             <span class="sport-badge badge-cricket"><i class="fa-solid fa-fire"></i> Live / Upcoming Match</span>
@@ -820,7 +1067,7 @@
           </ul>
         </div>
 
-        <!-- Volleyball Championship Card -->
+        <!-- 2. Volleyball Card -->
         <div class="sport-card" data-sport="volleyball">
           <div class="sport-header">
             <span class="sport-badge badge-volleyball"><i class="fa-solid fa-bolt"></i> Championship</span>
@@ -847,7 +1094,7 @@
           </ul>
         </div>
 
-        <!-- School Athletics Card -->
+        <!-- 3. School Games Card -->
         <div class="sport-card" data-sport="school">
           <div class="sport-header">
             <span class="sport-badge badge-school"><i class="fa-solid fa-graduation-cap"></i> Inter-School</span>
@@ -870,7 +1117,7 @@
           </ul>
         </div>
 
-        <!-- State Representation Card -->
+        <!-- 4. State Level Games Card -->
         <div class="sport-card" data-sport="state">
           <div class="sport-header">
             <span class="sport-badge badge-state"><i class="fa-solid fa-star"></i> State Representation</span>
@@ -897,7 +1144,7 @@
     </div>
   </section>
 
-  <!-- 7. Emergency Helplines (No WhatsApp Link Here) -->
+  <!-- 7. Emergency Helplines (100% Free of WhatsApp Group Link) -->
   <section class="section-pad" id="emergency">
     <div class="container">
       <div class="section-header">
@@ -978,7 +1225,7 @@
         </div>
       </div>
 
-      <!-- The Host Profile Card (Exact Image: 942fe674faf2ef24f01fc8b726c5222a.jpg) -->
+      <!-- The Host Profile Card (Exact Host Image: 942fe674faf2ef24f01fc8b726c5222a.jpg) -->
       <div class="host-section" id="host">
         <div class="host-img-wrap">
           <img src="942fe674faf2ef24f01fc8b726c5222a.jpg" alt="The Host" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
@@ -1107,7 +1354,7 @@
           <div class="brand-logo" style="margin-bottom:12px;">
             <div class="brand-emblem" style="font-size:1.5rem;">🕉️</div>
             <div class="brand-text">
-              <h3 style="font-size:1.1rem; color:var(--text-main);">Gram Panchayat Butbherwa</h3>
+              <h3 style="font-size:1.1rem; color:var(--text-main);">Gram Panchayat Butberhwa</h3>
               <span style="font-size:0.72rem; color:var(--gold);">One Step • for Our Village</span>
             </div>
           </div>
@@ -1143,7 +1390,7 @@
       </div>
 
       <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.76rem;">
-        <div>&copy; Gram Panchayat Butbherwa.</div>
+        <div>&copy; Gram Panchayat Butberhwa.</div>
         <div>All Rights Reserved ©</div>
       </div>
     </div>
@@ -1162,7 +1409,7 @@
       </a>
       <a href="tel:112" class="sos-item">
         <span class="sos-item-label">Police Station (112)</span>
-    <div class="sos-item-icon icon-police"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="sos-item-icon icon-police"><i class="fa-solid fa-shield-halved"></i></div>
       </a>
       <a href="tel:101" class="sos-item">
         <span class="sos-item-label">Fire Station (101)</span>
@@ -1319,7 +1566,7 @@
       reader.readAsDataURL(file);
     }
 
-    /* 5. UNIFIED MEDIA (WDM, FESTIVAL, UPLOAD) WITH EXACT IMAGES */
+    /* 5. UNIFIED MEDIA (WDM, FESTIVAL, UPLOAD) */
     const defaultMediaItems = [
       {
         src: "IMG_20250929_062521.jpg",
@@ -1382,15 +1629,12 @@
       try { stored = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]'); } catch(e) { stored = []; }
       const all = [...stored, ...defaultMediaItems];
 
-      // Filter by Main Section (WDM or Festival)
       let filtered = all.filter(item => item.mainCategory === currentMainSection);
 
-      // Filter by Sub-category
       if (currentSubFilter !== 'all') {
         filtered = filtered.filter(item => item.subCategory === currentSubFilter);
       }
 
-      // Check if more than 4 items
       if (filtered.length > 4) {
         if (moreBox) moreBox.style.display = 'block';
         if (moreBtnText) moreBtnText.textContent = isMediaExpanded ? "Show Less Photos" : `View More Photos (${filtered.length - 4} more)`;
@@ -1496,7 +1740,7 @@
       }
     }
 
-    /* CITIZEN PHOTO SUBMIT + TELEGRAM ALERT DISPATCH WITH SENDER NAME & NUMBER */
+    /* CITIZEN PHOTO SUBMIT + TELEGRAM BROADCAST */
     function handleCitizenPhotoSubmit(e) {
       e.preventDefault();
 
@@ -1541,7 +1785,6 @@
           isUserUpload: true
         };
 
-        // 1. Save to LocalStorage
         try {
           let existing = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]');
           existing.unshift(newPhotoItem);
@@ -1550,7 +1793,6 @@
           console.warn("Storage full");
         }
 
-        // 2. Dispatch Photo & Sender Info to Telegram Bot
         const telegramCaption = 
           `📸 *NEW COMMUNITY PHOTO UPLOAD*\n` +
           `━━━━━━━━━━━━━━━━━━━\n` +
@@ -1562,7 +1804,6 @@
           `━━━━━━━━━━━━━━━━━━━\n` +
           `🌐 *Portal:* Wyndhamganj Butbherwa`;
 
-        // Convert Base64 to Blob for Telegram sendPhoto API
         fetch(compressedBase64)
           .then(res => res.blob())
           .then(blob => {
@@ -1584,7 +1825,6 @@
             document.getElementById('selectedFileNameDisplay').textContent = "No file chosen";
 
             showToast("🚀 Photo uploaded & sent to Admin Telegram!");
-            // Switch back to view uploaded photo
             const targetBtn = document.querySelector(`.media-tab-btn[onclick*="${mainCat}"]`);
             if (targetBtn) targetBtn.click();
           })
@@ -1660,7 +1900,6 @@
       const tokenNumber = 'WDM-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
       const currentTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-      // Save to Cloud Firestore
       db.collection("complaints").add({
         token: tokenNumber,
         name: applicantName,
@@ -1674,7 +1913,6 @@
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
-        // Send alert via Telegram
         const alertMessage = 
           `🚨 *NEW PUBLIC GRIEVANCE / SUGGESTION*\n` +
           `━━━━━━━━━━━━━━━━━━━\n` +
