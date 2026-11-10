@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WDM Media - Wyndhamganj Community Feed</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Grand+Hotel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Firebase v8 Compatibility SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #000000;
+      --bg-surface: #121212;
+      --bg-elevated: #1e1e1e;
+      --border-color: #262626;
+      --text-main: #f5f5f5;
+      --text-sub: #a8a8a8;
+      --insta-pink: #e1306c;
+      --insta-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      --accent-orange: #f97316;
+      --primary: #14b8a6;
+      --radius: 12px;
+      --transition: all 0.25s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+
+    /* Instagram-Style Sticky Header */
+    .media-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 18px;
+    }
+    .header-container {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 900;
+      font-size: 1.45rem;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand-title span {
+      background: var(--insta-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .back-btn {
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .back-btn:hover { color: #fff; border-color: var(--text-sub); }
+
+    .user-header-profile {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .user-header-img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--insta-pink);
+      object-fit: cover;
+    }
+    .btn-login-google {
+      background: #fff;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-login-google:hover { transform: scale(1.04); }
+
+    /* Feed Layout */
+    .feed-container {
+      max-width: 580px;
+      margin: 20px auto 0;
+      padding: 0 12px;
+    }
+
+    /* Create Post Card */
+    .create-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .create-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .create-user-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border-color);
+    }
+    .caption-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.92rem;
+      font-family: inherit;
+      resize: none;
+      min-height: 48px;
+    }
+    .media-type-selectors {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+    }
+    .media-choice-btn {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .media-choice-btn.active {
+      color: #fff;
+      border-color: var(--insta-pink);
+    }
+    .video-link-input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.82rem;
+      outline: none;
+    }
+    .post-btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .btn-share-post {
+      background: var(--insta-gradient);
+      color: #fff;
+      border: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .btn-share-post:hover { opacity: 0.9; transform: scale(1.02); }
+
+    /* Instagram Post Card */
+    .insta-post {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      margin-bottom: 22px;
+      overflow: hidden;
+    }
+    .post-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+    }
+    .post-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .post-author-img-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--insta-gradient);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .post-author-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #000;
+      border: 2px solid #000;
+    }
+    .post-author-info h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .post-author-info span {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+    }
+
+    /* Media Area (Photo or Video Player) */
+    .post-media-area {
+      width: 100%;
+      background: #000;
+      position: relative;
+    }
+    .post-media-area img {
+      width: 100%;
+      max-height: 550px;
+      object-fit: contain;
+      display: block;
+    }
+    .post-media-area iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
+    }
+    .post-media-area video {
+      width: 100%;
+      max-height: 550px;
+      display: block;
+    }
+
+    /* Action Buttons */
+    .post-actions-bar {
+      padding: 10px 14px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .post-actions-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .act-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.35rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .act-btn:hover { transform: scale(1.15); }
+    .act-btn.liked { color: var(--insta-pink); }
+    .act-btn.liked i { font-weight: 900; }
+
+    .likes-count {
+      padding: 0 14px 6px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .post-caption-box {
+      padding: 0 14px 10px;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      color: #e5e5e5;
+    }
+    .post-caption-box b {
+      color: #fff;
+      margin-right: 6px;
+    }
+
+    /* Comments Section */
+    .post-comments-area {
+      padding: 8px 14px 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .comment-item {
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+      line-height: 1.35;
+    }
+    .comment-item b {
+      color: #fff;
+      margin-right: 6px;
+    }
+    .comment-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .comment-input {
+      flex: 1;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 7px 14px;
+      color: #fff;
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .comment-post-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      padding: 0 8px;
+    }
+
+    /* Toast */
+    .toast-box {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #262626;
+      border: 1px solid var(--insta-pink);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 50px;
+      z-index: 5000;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    .toast-box.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- INSTAGRAM STYLE HEADER -->
+  <header class="media-header">
+    <div class="header-container">
+      <a href="media.html" class="brand-title">
+        WDM <span>Media</span> 📸
+      </a>
+
+      <div class="header-actions">
+        <a href="index.html" class="back-btn">
+          <i class="fa-solid fa-arrow-left"></i> Gram Portal
+        </a>
+
+        <!-- Google User Profile / Login -->
+        <div id="authSlot">
+          <button class="btn-login-google" onclick="handleMediaGoogleLogin()">
+            <i class="fa-brands fa-google"></i> Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="feed-container">
+
+    <!-- CREATE POST CARD (INSTAGRAM CREATOR) -->
+    <div class="create-card">
+      <div class="create-card-header">
+        <img src="IMG_20250929_062521.jpg" id="currentPostAvatar" class="create-user-avatar" alt="Avatar">
+        <span style="font-size:0.85rem; font-weight:700;" id="postCreatorName">Share something with Wyndhamganj...</span>
+      </div>
+
+      <textarea id="postCaptionInput" class="caption-input" placeholder="Write a caption or describe your photo/video..."></textarea>
+
+      <!-- Media Type Selection -->
+      <div class="media-type-selectors">
+        <button class="media-choice-btn active" id="btnChooseImage" onclick="selectMediaType('image')">
+          <i class="fa-regular fa-image"></i> Photo
+        </button>
+        <button class="media-choice-btn" id="btnChooseVideo" onclick="selectMediaType('video')">
+          <i class="fa-solid fa-video"></i> Video / YouTube
+        </button>
+      </div>
+
+      <!-- Image Picker -->
+      <div id="imagePickerRow" style="margin-top:10px;">
+        <label for="mediaFileInput" style="cursor:pointer; font-size:0.78rem; color:var(--primary); font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Select Image from Phone
+        </label>
+        <input type="file" id="mediaFileInput" accept="image/*" style="display:none;" onchange="showSelectedMediaFile(this)">
+        <span id="selectedMediaDisplay" style="font-size:0.75rem; color:var(--text-sub); margin-left:8px;">No image selected</span>
+      </div>
+
+      <!-- Video URL Input -->
+      <div id="videoPickerRow" style="display:none;">
+        <input type="text" id="videoUrlInput" class="video-link-input" placeholder="Paste YouTube link or direct video URL...">
+      </div>
+
+      <div class="post-btn-row">
+        <span style="font-size:0.74rem; color:var(--text-sub);">
+          <i class="fa-solid fa-location-dot" style="color:var(--accent-orange);"></i> Wyndhamganj Butbherwa
+        </span>
+        <button class="btn-share-post" id="btnShareSubmit" onclick="submitNewMediaPost()">
+          <i class="fa-solid fa-paper-plane"></i> Share Post
+        </button>
+      </div>
+    </div>
+
+    <!-- FEED POSTS CONTAINER -->
+    <div id="mediaPostsFeed">
+      <!-- Posts dynamically injected by JavaScript -->
+    </div>
+
+  </div>
+
+  <div class="toast-box" id="mediaToast">Post shared successfully!</div>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    /* 1. FIREBASE INITIALIZATION */
+    const firebaseConfig = {
+      apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
+      authDomain: "wdm-update.firebaseapp.com",
+      projectId: "wdm-update",
+      storageBucket: "wdm-update.firebasestorage.app",
+      messagingSenderId: "677435578526",
+      appId: "1:677435578526:web:74119dc8309c4ba744838f",
+      measurementId: "G-R4KWL05ZNR"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    let currentUser = null;
+    let selectedType = 'image';
+
+    /* 2. GOOGLE AUTHENTICATION */
+    function handleMediaGoogleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then((result) => {
+        showToast("Welcome " + (result.user.displayName || "Citizen") + "!");
+      }).catch(err => alert("Login Error: " + err.message));
+    }
+
+    function handleMediaLogout() {
+      auth.signOut().then(() => showToast("Logged out"));
+    }
+
+    auth.onAuthStateChanged((user) => {
+      const slot = document.getElementById('authSlot');
+      const avatar = document.getElementById('currentPostAvatar');
+      const nameTxt = document.getElementById('postCreatorName');
+
+      if (user) {
+        currentUser = user;
+        const photo = user.photoURL || 'IMG_20250929_062521.jpg';
+        const name = user.displayName || "Resident";
+
+        slot.innerHTML = `
+          <div class="user-header-profile" onclick="handleMediaLogout()" title="Click to Logout">
+            <img src="${photo}" class="user-header-img" alt="${name}">
+            <span style="font-size:0.8rem; font-weight:700;">${name.split(" ")[0]}</span>
+          </div>
+        `;
+        avatar.src = photo;
+        nameTxt.textContent = `Posting as ${name}`;
+      } else {
+        currentUser = null;
+        slot.innerHTML = `
+          <button class="btn-login-google" onclick="handleMediaGoogleLogin()">
+            <i class="fa-brands fa-google"></i> Login
+          </button>
+        `;
+        avatar.src = 'IMG_20250929_062521.jpg';
+        nameTxt.textContent = 'Login with Google to share posts';
+      }
+    });
+
+    /* 3. POST MEDIA TYPE SELECTION */
+    function selectMediaType(type) {
+      selectedType = type;
+      if (type === 'image') {
+        document.getElementById('btnChooseImage').classList.add('active');
+        document.getElementById('btnChooseVideo').classList.remove('active');
+        document.getElementById('imagePickerRow').style.display = 'block';
+        document.getElementById('videoPickerRow').style.display = 'none';
+      } else {
+        document.getElementById('btnChooseVideo').classList.add('active');
+        document.getElementById('btnChooseImage').classList.remove('active');
+        document.getElementById('imagePickerRow').style.display = 'none';
+        document.getElementById('videoPickerRow').style.display = 'block';
+      }
+    }
+
+    function showSelectedMediaFile(input) {
+      const disp = document.getElementById('selectedMediaDisplay');
+      if (input.files && input.files[0]) {
+        disp.textContent = input.files[0].name;
+      } else {
+        disp.textContent = "No image selected";
+      }
+    }
+
+    // Canvas Compression to prevent huge images from lagging
+    function compressMediaImage(file, callback) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          if (w > 900) { h = Math.round((h * 900) / w); w = 900; }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          callback(canvas.toDataURL('image/jpeg', 0.72));
+        };
+      };
+    }
+
+    /* 4. POST CREATION WITH GOOGLE USER IDENTIFIERS */
+    function submitNewMediaPost() {
+      if (!currentUser) {
+        alert("Please login with Google before sharing a post!");
+        handleMediaGoogleLogin();
+        return;
+      }
+
+      const caption = document.getElementById('postCaptionInput').value.trim();
+      const btn = document.getElementById('btnShareSubmit');
+
+      if (selectedType === 'image') {
+        const fileInput = document.getElementById('mediaFileInput');
+        if (!fileInput.files || !fileInput.files[0]) {
+          alert("Please select a photo file!");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Posting...';
+
+        compressMediaImage(fileInput.files[0], (compressedData) => {
+          savePostToDatabase({
+            authorId: currentUser.uid,
+            authorName: currentUser.displayName || "Resident",
+            authorPhoto: currentUser.photoURL || "IMG_20250929_062521.jpg",
+            caption: caption,
+            mediaType: 'image',
+            mediaUrl: compressedData,
+            likes: 1,
+            comments: [],
+            createdAt: new Date().toLocaleDateString('en-IN')
+          });
+        });
+      } else {
+        const videoUrl = document.getElementById('videoUrlInput').value.trim();
+        if (!videoUrl) {
+          alert("Please paste a video or YouTube link!");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Posting...';
+
+        savePostToDatabase({
+          authorId: currentUser.uid,
+          authorName: currentUser.displayName || "Resident",
+          authorPhoto: currentUser.photoURL || "IMG_20250929_062521.jpg",
+          caption: caption,
+          mediaType: 'video',
+          mediaUrl: videoUrl,
+          likes: 1,
+          comments: [],
+          createdAt: new Date().toLocaleDateString('en-IN')
+        });
+      }
+    }
+
+    function savePostToDatabase(postObject) {
+      postObject.id = 'post_' + Date.now();
+
+      // Save locally for instant rendering
+      let posts = [];
+      try { posts = JSON.parse(localStorage.getItem('wdm_media_feed') || '[]'); } catch(e){}
+      posts.unshift(postObject);
+      localStorage.setItem('wdm_media_feed', JSON.stringify(posts));
+
+      // Reset form
+      document.getElementById('postCaptionInput').value = '';
+      document.getElementById('mediaFileInput').value = '';
+      document.getElementById('videoUrlInput').value = '';
+      document.getElementById('selectedMediaDisplay').textContent = "No image selected";
+
+      const btn = document.getElementById('btnShareSubmit');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Share Post';
+
+      showToast("🎉 Post shared successfully on WDM Media!");
+      renderMediaFeed();
+    }
+
+    /* 5. PARSE YOUTUBE EMBED HELPER */
+    function getYoutubeEmbedUrl(url) {
+      if (!url) return '';
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
+    }
+
+    /* 6. RENDER INSTAGRAM FEED (WITH DEFAULT VILLAGE POSTS) */
+    const defaultVillagePosts = [
+      {
+        id: "post_def_1",
+        authorName: "The Host - Vivek",
+        authorPhoto: "942fe674faf2ef24f01fc8b726c5222a.jpg",
+        caption: "Welcome to WDM Media! Share verified moments, eco-tourism of Piprahwa Dam, and village updates right here. 🌅",
+        mediaType: "image",
+        mediaUrl: "IMG_20250929_062521.jpg",
+        likes: 24,
+        comments: [{ author: "Gram Pradhan", text: "Bohat sundar pehal! 🙏" }],
+        createdAt: "Today"
+      },
+      {
+        id: "post_def_2",
+        authorName: "Panchayat Sports Club",
+        authorPhoto: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80",
+        caption: "Wyndhamganj Railway Track morning view. Beautiful landscape across Sonbhadra! 🚂",
+        mediaType: "image",
+        mediaUrl: "IMG_20250930_164330 (1).jpg",
+        likes: 18,
+        comments: [],
+        createdAt: "Yesterday"
+      }
+    ];
+
+    function renderMediaFeed() {
+      const container = document.getElementById('mediaPostsFeed');
+      if (!container) return;
+
+      let storedPosts = [];
+      try { storedPosts = JSON.parse(localStorage.getItem('wdm_media_feed') || '[]'); } catch(e){}
+      const allPosts = [...storedPosts, ...defaultVillagePosts];
+
+      let userInteractions = {};
+      try { userInteractions = JSON.parse(localStorage.getItem('wdm_feed_interactions') || '{}'); } catch(e){}
+
+      container.innerHTML = '';
+
+      allPosts.forEach(post => {
+        const interaction = userInteractions[post.id] || { liked: false, likes: post.likes || 0, comments: post.comments || [] };
+        
+        let mediaHtml = '';
+        if (post.mediaType === 'image') {
+          mediaHtml = `<img src="${post.mediaUrl}" alt="Media Post" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">`;
+        } else if (post.mediaType === 'video') {
+          const ytUrl = getYoutubeEmbedUrl(post.mediaUrl);
+          if (ytUrl) {
+            mediaHtml = `<iframe src="${ytUrl}" allowfullscreen></iframe>`;
+          } else {
+            mediaHtml = `<video src="${post.mediaUrl}" controls playsinline></video>`;
+          }
+        }
+
+        const postCard = document.createElement('div');
+        postCard.className = 'insta-post';
+        postCard.innerHTML = `
+          <!-- Post Author Header -->
+          <div class="post-top">
+            <div class="post-author">
+              <div class="post-author-img-wrap">
+                <img src="${post.authorPhoto}" class="post-author-img" alt="${post.authorName}" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
+              </div>
+              <div class="post-author-info">
+                <h4>${post.authorName} <i class="fa-solid fa-circle-check" style="color:var(--primary); font-size:0.72rem;"></i></h4>
+                <span>Wyndhamganj • ${post.createdAt}</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-ellipsis" style="color:var(--text-sub); cursor:pointer;"></i>
+          </div>
+
+          <!-- Media Section -->
+          <div class="post-media-area">
+            ${mediaHtml}
+          </div>
+
+          <!-- Action Buttons Bar -->
+          <div class="post-actions-bar">
+            <div class="post-actions-left">
+              <button class="act-btn ${interaction.liked ? 'liked' : ''}" onclick="togglePostLike('${post.id}')">
+                <i class="fa-${interaction.liked ? 'solid' : 'regular'} fa-heart"></i>
+              </button>
+              <button class="act-btn" onclick="focusCommentInput('${post.id}')">
+                <i class="fa-regular fa-comment"></i>
+              </button>
+              <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(post.caption + ' - Watch on WDM Media: https://wyndhamganj-gov.github.io/media.html')}" target="_blank" class="act-btn" style="text-decoration:none;">
+                <i class="fa-regular fa-paper-plane"></i>
+              </a>
+            </div>
+            <i class="fa-regular fa-bookmark act-btn"></i>
+          </div>
+
+          <!-- Likes Count -->
+          <div class="likes-count">
+            ${interaction.likes} likes
+          </div>
+
+          <!-- Caption -->
+          <div class="post-caption-box">
+            <b>${post.authorName}</b> ${post.caption}
+          </div>
+
+          <!-- Comments Area -->
+          <div class="post-comments-area">
+            <div id="comments_box_${post.id}">
+              ${interaction.comments.map(c => `
+                <div class="comment-item">
+                  <b>${c.author}:</b> <span>${c.text}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="comment-form">
+              <input type="text" id="comm_input_${post.id}" class="comment-input" placeholder="Add a comment...">
+              <button class="comment-post-btn" onclick="submitPostComment('${post.id}')">Post</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(postCard);
+      });
+    }
+
+    /* 7. LIKE & COMMENT HANDLERS */
+    function togglePostLike(pId) {
+      let interactions = {};
+      try { interactions = JSON.parse(localStorage.getItem('wdm_feed_interactions') || '{}'); } catch(e){}
+      if (!interactions[pId]) {
+        interactions[pId] = { liked: false, likes: 1, comments: [] };
+      }
+
+      if (interactions[pId].liked) {
+        interactions[pId].likes = Math.max(0, interactions[pId].likes - 1);
+        interactions[pId].liked = false;
+      } else {
+        interactions[pId].likes += 1;
+        interactions[pId].liked = true;
+      }
+
+      localStorage.setItem('wdm_feed_interactions', JSON.stringify(interactions));
+      renderMediaFeed();
+    }
+
+    function focusCommentInput(pId) {
+      const inp = document.getElementById(`comm_input_${pId}`);
+      if (inp) inp.focus();
+    }
+
+    function submitPostComment(pId) {
+      const inp = document.getElementById(`comm_input_${pId}`);
+      if (!inp) return;
+      const text = inp.value.trim();
+      if (!text) return;
+
+      const authorName = currentUser ? (currentUser.displayName || "Resident") : "Resident";
+
+      let interactions = {};
+      try { interactions = JSON.parse(localStorage.getItem('wdm_feed_interactions') || '{}'); } catch(e){}
+      if (!interactions[pId]) {
+        interactions[pId] = { liked: false, likes: 1, comments: [] };
+      }
+
+      interactions[pId].comments.push({
+        author: authorName,
+        text: text
+      });
+
+      localStorage.setItem('wdm_feed_interactions', JSON.stringify(interactions));
+      inp.value = '';
+      renderMediaFeed();
+      showToast("💬 Comment posted!");
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('mediaToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMediaFeed();
+    });
+  </script>
+</body>
+</html>
