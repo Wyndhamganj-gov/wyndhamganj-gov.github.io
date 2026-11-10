@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wyndhamganj-gov.github.io/sitemap.xml
