@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Wyndhamganj Gramin Social & Media</title>
+  <title>WDM Social Media</title>
   
   <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -507,7 +507,7 @@
       <a href="index.html" class="btn-back-portal" title="Back to Portal">
         <i class="fa-solid fa-arrow-left"></i>
       </a>
-      <span class="brand-title">Wyndhamganj Gramin</span>
+      <span class="brand-title">WDM</span>
     </div>
     <div class="header-actions">
       <i class="fa-regular fa-heart" onclick="switchTab('notifications')" title="Notifications"></i>
@@ -534,7 +534,7 @@
     <div id="postsList">
       <div style="text-align: center; padding: 40px; color: var(--text-muted);">
         <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-        <p style="margin-top: 10px;">Feeds load ho rahe hain...</p>
+        <p style="margin-top: 10px;">loading...</p>
       </div>
     </div>
   </main>
@@ -558,7 +558,7 @@
   <section class="notif-container" id="notifView">
     <h3 style="margin-bottom: 12px; font-size: 1.1rem;">Activity</h3>
     <div id="notifListBox">
-      <p style="color: var(--text-muted); font-size: 0.85rem;">Koi nayi notification nahi hai.</p>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">Not any Notification.</p>
     </div>
   </section>
 
@@ -585,7 +585,7 @@
     <div class="profile-bio-box">
       <div style="font-weight: 700;" id="profileFullnameDisplay">User Name</div>
       <div style="color: var(--text-muted);" id="profileUsernameDisplay">@username</div>
-      <div id="profileBioDisplay" style="margin-top: 4px;">Gram Panchayat Wyndhamganj Butbherwa citizen.</div>
+      <div id="profileBioDisplay" style="margin-top: 4px;">WDM MEDIA.</div>
     </div>
 
     <div style="display: flex; gap: 8px;">
@@ -608,7 +608,7 @@
   <div class="modal-overlay" id="authModal">
     <div class="modal-card">
       <div class="modal-header">
-        <span id="authModalTitle">Create Wyndhamganj Account</span>
+        <span id="authModalTitle">Create WDM Account</span>
       </div>
 
       <!-- Mode Switch Buttons -->
@@ -621,36 +621,37 @@
       <div id="registerFields">
         <div class="form-group">
           <label>Full Name *</label>
-          <input type="text" id="regFullName" class="form-control" placeholder="Aapka Poora Naam">
+          <input type="text" id="regFullName" class="form-control" placeholder="Enter your name">
         </div>
         <div class="form-group">
-          <label>Date of Birth (DDMMYY) *</label>
-          <input type="text" id="regDOB" class="form-control" placeholder="Udaharan: 200707" maxlength="6">
+  <label>Date of Birth (DD/MM/YY) *</label>
+  <input type="text" id="regDOB" class="form-control" placeholder="DDMMYY (eg: 01/01/2001)" maxlength="6" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         </div>
+        
         <div class="form-group">
-          <label>Unique User ID *</label>
-          <input type="text" id="regUsername" class="form-control" placeholder="Jaise: vivek_01">
+          <label>User ID *</label>
+          <input type="text" id="regUsername" class="form-control" placeholder="eg: abc_123,abc-456">
         </div>
       </div>
 
       <!-- Common Fields -->
       <div class="form-group" id="loginUsernameGroup" style="display: none;">
         <label>User ID *</label>
-        <input type="text" id="loginUsername" class="form-control" placeholder="User ID darj karein">
+        <input type="text" id="loginUsername" class="form-control" placeholder="User ID">
       </div>
 
       <div class="form-group">
         <label>Password *</label>
-        <input type="password" id="authPassword" class="form-control" placeholder="Password banayein / darj karein">
+        <input type="password" id="authPassword" class="form-control" placeholder="eg:abc@123">
       </div>
 
-      <button class="btn-submit" id="authSubmitBtn" onclick="handleAuthSubmit()">Khaata Banayein</button>
+      <button class="btn-submit" id="authSubmitBtn" onclick="handleAuthSubmit()">Create Account</button>
       
-      <div style="text-align: center; margin: 12px 0; color: var(--text-muted); font-size: 0.8rem;">YA</div>
+      <div style="text-align: center; margin: 12px 0; color: var(--text-muted); font-size: 0.8rem;">or</div>
 
       <button class="btn-google" onclick="handleGoogleSignIn()">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
-        Google se Aage Badhein
+        login with Google account 
       </button>
     </div>
   </div>
@@ -659,12 +660,12 @@
   <div class="modal-overlay" id="postModal">
     <div class="modal-card">
       <div class="modal-header">
-        <span>Naya Post Upload Karein</span>
+        <span>upload new post</span>
         <i class="fa-solid fa-xmark" onclick="closeModal('postModal')" style="cursor: pointer;"></i>
       </div>
 
       <div class="form-group">
-        <label>Photo ya Video Chunein *</label>
+        <label>choose photo/video*</label>
         <input type="file" id="postFileInput" class="form-control" accept="image/*,video/*">
       </div>
 
@@ -678,7 +679,7 @@
       </div>
       <div id="postUploadStatus" style="font-size: 0.8rem; color: var(--text-muted); text-align: center;"></div>
 
-      <button class="btn-submit" id="btnUploadPost" onclick="uploadPostAction()">Post Share Karein</button>
+      <button class="btn-submit" id="btnUploadPost" onclick="uploadPostAction()">share this post</button>
     </div>
   </div>
 
@@ -686,12 +687,13 @@
   <div class="modal-overlay" id="storyModal">
     <div class="modal-card">
       <div class="modal-header">
-        <span>Story Lagayein</span>
+        <span>create story 
+    </span>
         <i class="fa-solid fa-xmark" onclick="closeModal('storyModal')" style="cursor: pointer;"></i>
       </div>
 
       <div class="form-group">
-        <label>Media Chunein (Photo / Short Video)</label>
+        <label>Media (Photo / Short Video)</label>
         <input type="file" id="storyFileInput" class="form-control" accept="image/*,video/*">
       </div>
 
@@ -700,7 +702,7 @@
       </div>
       <div id="storyUploadStatus" style="font-size: 0.8rem; color: var(--text-muted); text-align: center;"></div>
 
-      <button class="btn-submit" id="btnUploadStory" onclick="uploadStoryAction()">Story Add Karein</button>
+      <button class="btn-submit" id="btnUploadStory" onclick="uploadStoryAction()"> Add Story</button>
     </div>
   </div>
 
@@ -708,7 +710,7 @@
   <div class="modal-overlay" id="editProfileModal">
     <div class="modal-card">
       <div class="modal-header">
-        <span>Profile Edit Karein</span>
+        <span>edit Profile</span>
         <i class="fa-solid fa-xmark" onclick="closeModal('editProfileModal')" style="cursor: pointer;"></i>
       </div>
 
@@ -743,12 +745,12 @@
 
     // Aapka existing Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyDummyKey_ReplaceIfDifferent",
+      apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
       authDomain: "wdm-update.firebaseapp.com",
       projectId: "wdm-update",
-      storageBucket: "wdm-update.appspot.com",
-      messagingSenderId: "100000000000",
-      appId: "1:100000000000:web:abcdef123456"
+      storageBucket: "wdm-update.firebasestorage.app",
+      messagingSenderId: "677435578526",
+      appId: "1:677435578526:web:74119dc8309c4ba744838f",
     };
 
     if (!firebase.apps.length) {
@@ -806,22 +808,22 @@
         loginGroup.style.display = "none";
         btnTabCreate.style.background = "var(--primary-accent)";
         btnTabLogin.style.background = "#262626";
-        authTitle.innerText = "Create Wyndhamganj Account";
-        submitBtn.innerText = "Khaata Banayein";
+        authTitle.innerText = "Create WDM Account";
+        submitBtn.innerText = "Creat account";
       } else {
         regFields.style.display = "none";
         loginGroup.style.display = "block";
         btnTabLogin.style.background = "var(--primary-accent)";
         btnTabCreate.style.background = "#262626";
         authTitle.innerText = "Login to Portal";
-        submitBtn.innerText = "Login Karein";
+        submitBtn.innerText = "Login";
       }
     }
 
     async function handleAuthSubmit() {
       const password = document.getElementById("authPassword").value;
       if (!password || password.length < 6) {
-        alert("Kripya kam se kam 6 akshar ka password banayein!");
+        alert("at least 6 Digt password must be!");
         return;
       }
 
@@ -831,7 +833,7 @@
         const username = document.getElementById("regUsername").value.trim().toLowerCase();
 
         if (!fullName || !dob || !username) {
-          alert("Kripya saare fields bharein!");
+          alert("please full fill up!");
           return;
         }
 
