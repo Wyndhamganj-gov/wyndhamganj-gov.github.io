@@ -3,30 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wyndhamganj Butbherwa - Official Digital Portal</title>
+  <title>Wyndhamganj Butbherwa - Official Digital Portal (Shiv Nagar, Sonbhadra)</title>
   <meta name="google-site-verification" content="sAMV3SdxwZgB8pL_-dedxzFUNvOlNWIZR3WPC7Znua0" />
 
-  <!-- SEO Meta Tags -->
-  <meta name="title" content="Wyndhamganj Butbherwa - Official Digital Portal">
-  <meta name="description" content="Official Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar), Sonbhadra, UP. E-services, sports arena, gallery, and village notices.">
-  <meta name="keywords" content="Wyndhamganj butbherwa, butbherwa wyndhamganj, Gram Panchayat Wyndhamganj, Shiv Nagar Butbherwa, Piprahwa dam, Wyndhamganj sonbhadra">
+  <!-- Targeted Local SEO Meta Tags -->
+  <meta name="title" content="Wyndhamganj Butbherwa - Official Digital Portal (Shiv Nagar, Sonbhadra)">
+  <meta name="description" content="Official Portal for Wyndhamganj, Butbherwa, Shiv Nagar, Murisemar, Dharti Dolwa, Salayadih, Dhooma, and Patel Nagar, Sonbhadra UP. E-services, notice board, and grievance portal.">
+  <meta name="keywords" content="Wyndhamganj, butberhwa, butbherwa, murisemar, sonbhadra, dharti dolwa, salayadih, dhooma, patel nagar, shiv nagar wyndhamganj, piprahwa dam, duddhi sonbhadra, gram panchayat butbherwa">
   <meta name="robots" content="index, follow">
   <meta name="author" content="The Host - Vivek Kumar">
 
-  <!-- Open Graph -->
+  <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wyndhamganj-gov.github.io/">
-  <meta property="og:title" content="Wyndhamganj Butbherwa Portal">
-  <meta property="og:description" content="Official Digital Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar).">
+  <meta property="og:title" content="Wyndhamganj Butbherwa - Official Digital Portal">
+  <meta property="og:description" content="Official Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar), Sonbhadra, UP.">
   <meta property="og:image" content="IMG_20250929_062521.jpg">
 
-  <!-- Local Schema -->
+  <!-- Local Government Organization Schema (All 8 Localities) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "GovernmentOrganization",
     "name": "Gram Panchayat Wyndhamganj Butbherwa",
     "url": "https://wyndhamganj-gov.github.io/",
+    "areaServed": [
+      "Wyndhamganj",
+      "Butbherwa",
+      "Shiv Nagar",
+      "Murisemar",
+      "Dharti Dolwa",
+      "Salayadih",
+      "Dhooma",
+      "Patel Nagar"
+    ],
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Wyndhamganj, Butbherwa",
@@ -43,17 +53,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Firebase v8 SDK (Compatible with Github Pages Scripts) -->
+  <!-- Firebase v8 Compatibility SDKs -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
   <style>
     /* ==========================================================================
-       HIGH-CONTRAST PROFESSIONAL DUAL THEME COLOR ENGINE
+       HIGH-CONTRAST DUAL THEME COLOR SYSTEM
        ========================================================================== */
     :root {
-      /* Dark Theme Defaults (Deep Obsidian Navy) */
+      /* Dark Theme (Deep Obsidian Navy + Glowing Teal & Gold) */
       --bg-body: #050d14;
       --bg-surface: #0b1a26;
       --bg-surface-elevated: #112638;
@@ -68,18 +78,18 @@
       --accent-cyan: #06b6d4;
       --danger: #ef4444;
       --success: #10b981;
-      --input-bg: rgba(5, 13, 20, 0.88);
+      --input-bg: rgba(5, 13, 20, 0.9);
       --topbar-bg: #03080d;
-      --navbar-bg: rgba(5, 13, 20, 0.94);
+      --navbar-bg: rgba(5, 13, 20, 0.95);
       --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      --modal-overlay: rgba(0, 0, 0, 0.82);
+      --modal-overlay: rgba(0, 0, 0, 0.85);
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Light Theme (Crisp, High-Contrast Modern Slate) */
+    /* Light Theme (Crisp Snow/Slate + High-Contrast Dark Navy Text) */
     html[data-theme="light"] {
       --bg-body: #f8fafc;
       --bg-surface: #ffffff;
@@ -136,9 +146,9 @@
     }
 
     .section-title { font-size: 1.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
-    .section-subtitle { color: var(--text-muted); font-size: 0.88rem; max-width: 640px; margin: 0 auto; }
+    .section-subtitle { color: var(--text-muted); font-size: 0.88rem; max-width: 650px; margin: 0 auto; }
 
-    /* --- Top Bar: Minimal Time & Temp (Notice Ticker Removed) --- */
+    /* Top Bar: Minimal Time & Live Weather */
     .ultra-top-bar {
       background: var(--topbar-bg);
       border-bottom: 1px solid var(--border-color);
@@ -154,7 +164,7 @@
     .top-meta-item { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-weight: 600; }
     .top-meta-item i { color: var(--primary); }
 
-    /* --- Navbar: Clean Brand, 👤 Login Logo, ☰ 3-Line Menu --- */
+    /* Navbar */
     .navbar {
       background: var(--navbar-bg);
       backdrop-filter: blur(12px);
@@ -179,7 +189,7 @@
       filter: drop-shadow(0 0 6px var(--accent-gold));
     }
     .clean-brand-name {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 800;
       letter-spacing: -0.2px;
       color: var(--text-primary);
@@ -194,7 +204,7 @@
       padding: 7px 14px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
@@ -204,7 +214,18 @@
     .nav-icon-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
     .user-logged-badge { background: rgba(16, 185, 129, 0.15); border-color: var(--success); color: var(--success); }
 
-    /* --- Drawer Menu --- */
+    /* Localities Strip */
+    .localities-strip {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .localities-strip b { color: var(--accent-gold); }
+
+    /* Drawer Menu */
     .drawer-overlay {
       position: fixed; inset: 0; background: var(--modal-overlay);
       backdrop-filter: blur(5px); z-index: 2000;
@@ -231,11 +252,11 @@
     .drawer-header h3 { font-size: 1.05rem; color: var(--text-primary); font-weight: 800; }
     .drawer-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
     .drawer-close:hover { color: var(--danger); }
-    .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+    .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
     .drawer-nav-list a, .drawer-nav-list button {
-      color: var(--text-primary); text-decoration: none; font-size: 0.92rem;
+      color: var(--text-primary); text-decoration: none; font-size: 0.9rem;
       font-weight: 600; display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border-radius: var(--radius-sm); transition: var(--transition);
+      padding: 9px 12px; border-radius: var(--radius-sm); transition: var(--transition);
       background: none; border: none; width: 100%; text-align: left; cursor: pointer;
     }
     .drawer-nav-list i { color: var(--primary); width: 22px; }
@@ -252,7 +273,7 @@
     }
     .ctrl-btn.active, .ctrl-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* --- SECTION 1: GAON KE BAARE MEIN (HERO) --- */
+ /* SECTION 1: HERO / ABOUT */
     .hero {
       position: relative;
       padding: 44px 0 40px;
@@ -295,10 +316,8 @@
     .hero-info-list li { display: flex; align-items: flex-start; gap: 8px; }
     .hero-info-list i { color: var(--primary); margin-top: 3px; }
 
-    /* --- SECTION 2: SUCHNA PATTA (NOTICE BOARD) --- */
-    .notices-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px;
-    }
+    /* SECTION 2: NOTICES */
+    .notices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
     .notice-item {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
@@ -313,7 +332,7 @@
     .notice-title { font-size: 0.95rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
     .notice-body { font-size: 0.82rem; color: var(--text-secondary); }
 
-    /* --- SECTION 3: FESTIVAL SECTION + WHATSAPP BANNER --- */
+    /* SECTION 3: FESTIVAL + OFFICIAL WHATSAPP BANNER */
     .festival-box {
       background: var(--bg-surface);
       border: 1px solid var(--border-gold);
@@ -327,7 +346,6 @@
     .festival-heading { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
     .festival-msg { font-size: 0.9rem; color: var(--text-secondary); max-width: 720px; margin: 0 auto 12px; line-height: 1.6; }
 
-    /* Official WhatsApp Group Banner (Under Festival, Only Place) */
     .wa-community-banner {
       background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), var(--bg-surface));
       border: 1px solid rgba(37, 211, 102, 0.4);
@@ -347,7 +365,7 @@
     }
     .btn-whatsapp-join:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45); }
 
-    /* --- SECTION 4: UNIFIED VILLAGE GALLERY --- */
+    /* SECTION 4: UNIFIED GALLERY */
     .media-main-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
     .media-tab-btn {
       padding: 9px 22px; border-radius: 50px; background: var(--bg-surface);
@@ -401,7 +419,7 @@
       display: flex; justify-content: space-between; align-items: center;
     }
 
-    /* --- SECTION 5: WORKING DASHBOARD (METRICS) --- */
+    /* SECTION 5: WORKING DASHBOARD */
     .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
     .metric-card {
       background: var(--bg-surface); border: 1px solid var(--border-color);
@@ -418,7 +436,7 @@
     .metric-label { font-size: 0.84rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 4px; }
     .metric-desc { font-size: 0.76rem; color: var(--text-muted); }
 
-    /* --- SECTION 6: GRAM PADADHIKARI & THE HOST --- */
+    /* SECTION 6: REPRESENTATIVES & THE HOST */
     .rep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 24px; }
     .rep-card {
       background: var(--bg-surface); border: 1px solid var(--border-color);
@@ -451,7 +469,7 @@
     .host-badge { display: inline-block; font-size: 0.72rem; color: var(--accent-gold); font-weight: 800; margin-bottom: 6px; }
     .host-content p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
 
-    /* --- SECTION 7: GRIEVANCE & EMERGENCY HELPLINES --- */
+      /* SECTION 7: HELPLINES & GRIEVANCE */
     .helpline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
     .helpline-card {
       background: var(--bg-surface); border: 1px solid var(--border-color);
@@ -508,7 +526,7 @@
     .btn-primary:hover { background: var(--primary-hover); }
     .btn-secondary { background: var(--bg-surface-elevated); color: var(--text-primary); border-color: var(--border-color); }
 
-    /* --- LOGIN MODAL (MOBILE OTP + EMAIL) --- */
+    /* 1-TAP GOOGLE LOGIN MODAL */
     .login-modal {
       display: none; position: fixed; inset: 0; background: var(--modal-overlay);
       backdrop-filter: blur(8px); z-index: 3500; align-items: center; justify-content: center; padding: 18px;
@@ -516,19 +534,13 @@
     .login-modal.active { display: flex; }
     .login-card {
       background: var(--bg-surface); border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg); width: 100%; max-width: 440px;
-      padding: 24px; position: relative; box-shadow: var(--card-shadow);
+      border-radius: var(--radius-lg); width: 100%; max-width: 420px;
+      padding: 26px; position: relative; box-shadow: var(--card-shadow);
+      text-align: center;
     }
     .login-close { position: absolute; top: 16px; right: 18px; font-size: 1.4rem; background: none; border: none; color: var(--text-muted); cursor: pointer; }
-    .login-tabs { display: flex; gap: 8px; margin: 16px 0 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
-    .login-tab-btn {
-      flex: 1; padding: 8px; border-radius: var(--radius-sm); background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.82rem;
-      font-weight: 700; cursor: pointer; text-align: center;
-    }
-    .login-tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* --- GAMES & SPORTS FULLSCREEN DRAWER (WITH EXIT BUTTON AT TOP) --- */
+    /* GAMES MODAL DRAWER (WITH EXIT BUTTON AT TOP) */
     .games-drawer-overlay {
       display: none; position: fixed; inset: 0; background: var(--modal-overlay);
       backdrop-filter: blur(8px); z-index: 4000; align-items: center; justify-content: center; padding: 16px;
@@ -549,10 +561,9 @@
       font-weight: 800; padding: 6px 14px; border-radius: var(--radius-sm);
       cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
     }
-
     .sport-card {
       background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); padding: 18px; margin-bottom: 16px;
+      border-radius: var(--radius-md); padding: 18px; margin-bottom: 16px; text-align: left;
     }
     .sport-badge { font-size: 0.72rem; font-weight: 800; padding: 3px 10px; border-radius: 50px; }
     .badge-cricket { background: rgba(249, 115, 22, 0.18); color: #fb923c; }
@@ -599,7 +610,7 @@
 
 <body>
 
-   <!-- TOP BAR: MINIMAL TIME & WYNDHAMGANJ WEATHER (NOTICE TICKER PERMANENTLY REMOVED) -->
+  <!-- TOP BAR: LIVE CLOCK & WYNDHAMGANJ WEATHER -->
   <div class="ultra-top-bar">
     <div class="container ultra-top-wrapper">
       <div class="top-meta-item">
@@ -614,7 +625,7 @@
     </div>
   </div>
 
-  <!-- NAVBAR: 🕉️ WYNDHAMGANJ BUTBHERWA, 👤 LOGIN, ☰ MENU -->
+  <!-- NAVBAR: BRAND, 👤 LOGIN LOGO, ☰ 3-LINE MENU -->
   <nav class="navbar">
     <div class="container nav-wrapper">
       <a href="#about" class="clean-brand">
@@ -623,12 +634,12 @@
       </a>
 
       <div class="nav-actions">
-        <!-- Citizen Login Button / User Indicator -->
+        <!-- Citizen 1-Tap Google Login -->
         <button class="nav-icon-btn" id="navLoginBtn" onclick="openLoginModal()" title="Citizen Login">
           <i class="fa-solid fa-user"></i> <span id="navLoginText">Login</span>
         </button>
 
-        <!-- 3-Line Menu Button -->
+        <!-- 3-Line Menu -->
         <button class="nav-icon-btn" onclick="toggleDrawer(true)" aria-label="Open Navigation">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -636,7 +647,14 @@
     </div>
   </nav>
 
-  <!-- 3-LINE MENU DRAWER -->
+  <!-- COVERED LOCALITIES BAR (LOCAL SEO BOOST) -->
+  <div class="localities-strip">
+    <div class="container">
+      <b>सेवा क्षेत्र (Covered Areas):</b> Wyndhamganj • Butbherwa • Shiv Nagar • Murisemar • Dharti Dolwa • Salayadih • Dhooma • Patel Nagar (Sonbhadra, UP)
+    </div>
+  </div>
+
+  <!-- 3-LINE DRAWER MENU -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
   <div class="drawer-panel" id="drawerPanel">
     <div class="drawer-header">
@@ -653,7 +671,7 @@
       <li><a href="#representatives" onclick="toggleDrawer(false)"><i class="fa-solid fa-landmark"></i> 6. Gram Padadhikari & Host</a></li>
       <li><a href="#grievance" onclick="toggleDrawer(false)"><i class="fa-solid fa-paper-plane"></i> 7. Grievance & Helplines</a></li>
       
-      <!-- Games & Sports Arena Option Inside Menu -->
+      <!-- Games & Sports Arena (Inside Menu Only) -->
       <li style="border-top:1px solid var(--border-color); padding-top:6px; margin-top:4px;">
         <button onclick="openGamesArenaDrawer(); toggleDrawer(false);" style="color:var(--primary); font-weight:800;">
           <i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> 🎮 Sports & Games Arena
@@ -661,7 +679,7 @@
       </li>
     </ul>
 
-    <!-- Theme & Text Size Accessibility -->
+    <!-- Accessibility & Theme Toggler -->
     <div class="drawer-controls-box">
       <div class="control-label">Text Size:</div>
       <div class="controls-row">
@@ -678,7 +696,7 @@
   </div>
 
   <!-- ==========================================================================
-       SECTION 1: GAON KE BAARE MEIN (ABOUT VILLAGE / HERO)
+       SECTION 1: GAON KE BAARE MEIN (HERO / ABOUT)
        ========================================================================== -->
   <section class="hero" id="about">
     <div class="hero-overlay"></div>
@@ -706,7 +724,7 @@
   </section>
 
   <!-- ==========================================================================
-       SECTION 2: SUCHNA PATTA (OFFICIAL NOTICES & ANNOUNCEMENTS)
+       SECTION 2: SUCHNA PATTA (NOTICE BOARD)
        ========================================================================== -->
   <section class="section-pad" id="notices">
     <div class="container">
@@ -752,7 +770,7 @@
        ========================================================================== -->
   <section class="section-pad" id="festival" style="background: var(--bg-surface-elevated);">
     <div class="container">
-      <!-- Festival Card -->
+      <!-- Festival Greeting -->
       <div class="festival-box">
         <div class="festival-diyas">🌞 🪔 🌞</div>
         <div class="hero-badge"><i class="fa-solid fa-star"></i> आस्था, पवित्रता और सूर्य देव की उपासना 🌅</div>
@@ -765,7 +783,7 @@
         </div>
       </div>
 
-      <!-- The Only Official WhatsApp Community Banner (Placed Right Under Festival) -->
+      <!-- The Official WhatsApp Group Banner (Under Festival, Only Place) -->
       <div class="wa-community-banner">
         <i class="fa-brands fa-whatsapp"></i>
         <h3 class="wa-banner-title">Wyndhamganj Butbherwa Official WhatsApp Community</h3>
@@ -790,7 +808,7 @@
         <p class="section-subtitle">Scenic reservoir landscapes, railway station heritage, and celebrations across our Gram Panchayat.</p>
       </div>
 
-      <!-- 3 Main Tabs: WDM | Festival | Upload -->
+      <!-- Tabs: WDM | Festival | Upload -->
       <div class="media-main-tabs">
         <button class="media-tab-btn active" onclick="switchMediaSection('wdm', this)">
           <i class="fa-solid fa-landmark"></i> WDM
@@ -820,7 +838,7 @@
         <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">शिवरात्रि</button>
       </div>
 
-      <!-- Citizen Upload Form (Name + 10-Digit Mobile Required) -->
+      <!-- Citizen Upload Form (Telegram Bot Integrated) -->
       <div class="citizen-upload-card" id="citizenUploadCard">
         <h4 style="font-size:0.95rem; color:var(--accent-gold); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
           <i class="fa-solid fa-paper-plane"></i> Share Village Photo with Telegram Alert
@@ -869,7 +887,7 @@
         </form>
       </div>
 
-      <!-- Gallery Grid (Max 4 Initially) -->
+      <!-- Gallery Grid -->
       <div class="unified-grid" id="unifiedMediaGrid"></div>
 
       <!-- View More Toggle -->
@@ -881,8 +899,8 @@
     </div>
   </section>
 
-    <!-- ==========================================================================
-       SECTION 5: WORKING DASHBOARD (METRICS & CIVIC PROGRESS)
+  <!-- ==========================================================================
+       SECTION 5: WORKING PROGRESS DASHBOARD (METRICS)
        ========================================================================== -->
   <section class="section-pad" id="dashboard" style="background: var(--bg-surface-elevated);">
     <div class="container">
@@ -958,7 +976,7 @@
         </div>
       </div>
 
-      <!-- The Host Card (Exact image: 942fe674faf2ef24f01fc8b726c5222a.jpg) -->
+      <!-- The Host Card (Photo: 942fe674faf2ef24f01fc8b726c5222a.jpg) -->
       <div class="host-section">
         <div class="host-img-wrap">
           <img src="942fe674faf2ef24f01fc8b726c5222a.jpg" alt="The Host" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
@@ -985,7 +1003,7 @@
         <p class="section-subtitle">Submit complaints directly to Panchayat administration or dial emergency numbers.</p>
       </div>
 
-      <!-- Emergency Helpline Numbers -->
+      <!-- Emergency Helplines -->
       <div class="helpline-grid">
         <a href="tel:112" class="helpline-card">
           <div class="helpline-icon icon-red"><i class="fa-solid fa-shield-virus"></i></div>
@@ -1089,7 +1107,7 @@
   </section>
 
   <!-- ==========================================================================
-       GAMES & SPORTS ARENA MODAL (OPENS FROM 3-LINE MENU WITH EXIT BUTTON)
+       GAMES ARENA MODAL (OPEN FROM 3-LINE MENU WITH TOP EXIT BUTTON)
        ========================================================================== -->
   <div class="games-drawer-overlay" id="gamesDrawerOverlay" onclick="closeGamesDrawer(event)">
     <div class="games-drawer-content" onclick="event.stopPropagation()">
@@ -1100,7 +1118,6 @@
           </h3>
           <span style="font-size:0.76rem; color:var(--text-muted);">Local tournaments, live match details & achievements</span>
         </div>
-        <!-- Prominent Exit Button -->
         <button class="btn-exit-games" onclick="closeGamesDrawer()">
           <i class="fa-solid fa-xmark"></i> Exit
         </button>
@@ -1114,7 +1131,7 @@
         <button class="sub-chip" onclick="filterGamesModal('school', this)">School Sports</button>
       </div>
 
-      <!-- Games Cards -->
+      <!-- Match Details Cards -->
       <div id="modalGamesList">
         <div class="sport-card" data-gametype="cricket">
           <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
@@ -1149,79 +1166,52 @@
   </div>
 
   <!-- ==========================================================================
-       CITIZEN LOGIN POPUP MODAL (MOBILE OTP + EMAIL LOGIN)
+       CITIZEN LOGIN POPUP MODAL (1-TAP GOOGLE SIGN-IN VIA GMAIL)
        ========================================================================== -->
   <div class="login-modal" id="citizenLoginModal" onclick="closeLoginModal(event)">
     <div class="login-card" onclick="event.stopPropagation()">
       <button class="login-close" onclick="closeLoginModal()">&times;</button>
       
+      <!-- Unauthenticated State: 1-Tap Google Login -->
       <div id="loginFormState">
-        <h3 style="font-size:1.15rem; color:var(--text-primary); font-weight:800; display:flex; align-items:center; gap:8px;">
-          <i class="fa-solid fa-user-shield" style="color:var(--primary);"></i> Citizen Portal Login
+        <div style="font-size: 2.2rem; color: var(--primary); margin-bottom: 8px;">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 style="font-size: 1.2rem; color: var(--text-primary); font-weight: 800; margin-bottom: 4px;">
+          Citizen Portal Login
         </h3>
-        <p style="font-size:0.78rem; color:var(--text-muted);">Access fast grievances, verified photo uploads, and community notices.</p>
+        <p style="font-size: 0.82rem; color: var(--text-muted); max-width: 300px; margin: 0 auto 20px;">
+          One-tap secure Google login for complaints, verified photo uploads, and community notices.
+        </p>
 
-        <!-- Switch Tabs -->
-        <div class="login-tabs">
-          <button class="login-tab-btn active" id="tabBtnPhone" onclick="switchLoginMode('phone')">
-            <i class="fa-solid fa-mobile-screen"></i> Mobile OTP
-          </button>
-          <button class="login-tab-btn" id="tabBtnEmail" onclick="switchLoginMode('email')">
-            <i class="fa-solid fa-envelope"></i> Email / Password
-          </button>
-        </div>
+        <!-- Clean Google Button -->
+        <button onclick="handleGoogleSignIn()" class="btn" style="width: 100%; background: #ffffff; color: #1f2937; border: 1px solid #d1d5db; font-weight: 700; padding: 12px; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(0,0,0,0.12); display: inline-flex; align-items: center; justify-content: center; gap: 12px; border-radius: var(--radius-sm);">
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Continue with Google
+        </button>
 
-        <!-- 1. Mobile OTP Form -->
-        <div id="phoneAuthBox">
-          <div class="form-group" id="phoneInputGroup">
-            <label style="font-size:0.8rem; font-weight:700;">Enter 10-Digit Mobile Number:</label>
-            <div style="display:flex; gap:6px;">
-              <span style="padding:9px 12px; background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); font-size:0.85rem; font-weight:700;">+91</span>
-              <input type="tel" id="loginMobileInput" class="form-control" maxlength="10" placeholder="e.g. 9876543210">
-            </div>
-            <div id="recaptcha-container" style="margin-top:10px;"></div>
-            <button class="btn btn-primary" id="btnSendOtp" onclick="sendMobileOtp()" style="width:100%; margin-top:10px;">
-              Send OTP SMS
-            </button>
-          </div>
-
-          <div class="form-group" id="otpVerifyGroup" style="display:none;">
-            <label style="font-size:0.8rem; font-weight:700;">Enter 6-Digit OTP received on SMS:</label>
-            <input type="text" id="loginOtpInput" class="form-control" maxlength="6" placeholder="e.g. 123456" style="letter-spacing:4px; font-weight:800; text-align:center;">
-            <button class="btn btn-primary" id="btnVerifyOtp" onclick="verifyMobileOtp()" style="width:100%; margin-top:10px;">
-              Verify & Log In
-            </button>
-          </div>
-        </div>
-
-        <!-- 2. Email Auth Form -->
-        <div id="emailAuthBox" style="display:none;">
-          <div class="form-group">
-            <label style="font-size:0.8rem; font-weight:700;">Email Address:</label>
-            <input type="email" id="loginEmailInput" class="form-control" placeholder="name@example.com">
-          </div>
-          <div class="form-group">
-            <label style="font-size:0.8rem; font-weight:700;">Password:</label>
-            <input type="password" id="loginPasswordInput" class="form-control" placeholder="••••••••">
-          </div>
-          <div style="display:flex; gap:8px; margin-top:12px;">
-            <button class="btn btn-primary" onclick="handleEmailLogin(false)" style="flex:1;">Sign In</button>
-            <button class="btn btn-secondary" onclick="handleEmailLogin(true)" style="flex:1;">Sign Up</button>
-          </div>
+        <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 14px;">
+          <i class="fa-solid fa-lock"></i> 100% Free & Verified Public Service
         </div>
       </div>
 
-      <!-- User Already Logged In State -->
-      <div id="userLoggedInState" style="display:none; text-align:center; padding:10px 0;">
-        <div style="font-size:2.2rem; color:var(--success); margin-bottom:8px;"><i class="fa-solid fa-circle-check"></i></div>
-        <h4 style="font-size:1.1rem; color:var(--text-primary);" id="loggedInUserTitle">Welcome Back!</h4>
-        <p style="font-size:0.82rem; color:var(--text-muted); margin:4px 0 16px;" id="loggedInUserDetails">Verified Citizen Account</p>
-        <button class="btn btn-secondary" onclick="handlePortalLogout()" style="width:100%; color:var(--danger); border-color:var(--danger);">
+      <!-- Authenticated State -->
+      <div id="userLoggedInState" style="display: none; padding: 10px 0;">
+        <img id="userAvatarImg" src="" alt="Profile" style="width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--primary); margin: 0 auto 8px; object-fit: cover; display: block;">
+        <h4 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800;" id="loggedInUserTitle">Citizen Name</h4>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 2px 0 16px;" id="loggedInUserDetails">user@gmail.com</p>
+        <button class="btn btn-secondary" onclick="handlePortalLogout()" style="width: 100%; color: var(--danger); border-color: var(--danger); font-weight: 700;">
           <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
         </button>
       </div>
     </div>
-          </div>
+  </div>
+
   <!-- PORTAL FOOTER -->
   <footer class="footer">
     <div class="container">
@@ -1232,7 +1222,7 @@
             <div class="clean-brand-name">Gram Panchayat Butbherwa</div>
           </div>
           <p style="line-height:1.6; font-size:0.82rem;">
-            Serving citizens with transparent, rapid, and accountable digital services. Promoting Piprahwa Dam eco-tourism and Shiv Nagar civic welfare.
+            Serving citizens of Wyndhamganj, Butbherwa, Shiv Nagar, Murisemar, Dharti Dolwa, Salayadih, Dhooma, and Patel Nagar with transparent e-services.
           </p>
         </div>
 
@@ -1284,10 +1274,10 @@
   </div>
 
   <!-- ==========================================================================
-       JAVASCRIPT APPLICATION ENGINE (FIREBASE WDM-UPDATE + TELEGRAM INTEGRATED)
+       JAVASCRIPT APPLICATION ENGINE (FIREBASE WDM-UPDATE + GOOGLE AUTH)
        ========================================================================== -->
   <script>
-    /* 1. DUAL THEME PERSISTENCE ENGINE */
+    /* 1. DUAL THEME ENGINE (PERSISTENCE) */
     function applySavedTheme() {
       const savedTheme = localStorage.getItem('wdm_portal_theme') || 'dark';
       document.documentElement.setAttribute('data-theme', savedTheme);
@@ -1358,147 +1348,74 @@
     const TELEGRAM_BOT_TOKEN = "9148416175:AAGHyUUgdsBU3-2dWdrlajV4fLB5g_keVXU";
     const TELEGRAM_CHAT_ID = "6032430283";
 
-    let confirmationResultGlobal = null;
     let currentUserProfile = null;
 
-    /* 4. AUTH STATE LISTENER & CITIZEN MODAL */
+    /* 4. GOOGLE 1-TAP AUTHENTICATION & FIRESTORE USER SYNC */
+    function handleGoogleSignIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          showToast("🎉 Welcome, " + (user.displayName || "Citizen") + "!");
+          closeLoginModal();
+
+          // Sync user profile to Firestore 'users' collection
+          db.collection("users").doc(user.uid).set({
+            name: user.displayName || "Citizen User",
+            email: user.email || "",
+            photoURL: user.photoURL || "",
+            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+
+          // Autofill Grievance & Upload forms
+          const citizenNameInput = document.getElementById('citizenName');
+          if (citizenNameInput && user.displayName) citizenNameInput.value = user.displayName;
+
+          const uploadNameInput = document.getElementById('uploadSenderName');
+          if (uploadNameInput && user.displayName) uploadNameInput.value = user.displayName;
+        })
+        .catch((error) => {
+          alert("Google Sign-In Error: " + error.message);
+        });
+    }
+
     auth.onAuthStateChanged((user) => {
       const loginBtnText = document.getElementById('navLoginText');
       const loginBtn = document.getElementById('navLoginBtn');
       if (user) {
         currentUserProfile = user;
-        const displayIdent = user.phoneNumber || user.email || "Citizen";
-        if (loginBtnText) loginBtnText.textContent = displayIdent.substring(0, 10);
+        const firstName = (user.displayName || "Citizen").split(" ")[0];
+        if (loginBtnText) loginBtnText.textContent = firstName;
         if (loginBtn) loginBtn.classList.add('user-logged-badge');
 
-        // Autofill grievance form if empty
-        const phoneField = document.getElementById('userPhoneInput');
-        if (phoneField && user.phoneNumber && !phoneField.value) {
-          phoneField.value = user.phoneNumber.replace('+91', '');
-        }
-        const uploadPhoneField = document.getElementById('uploadSenderPhone');
-        if (uploadPhoneField && user.phoneNumber && !uploadPhoneField.value) {
-          uploadPhoneField.value = user.phoneNumber.replace('+91', '');
-        }
+        document.getElementById('loginFormState').style.display = 'none';
+        document.getElementById('userLoggedInState').style.display = 'block';
+        document.getElementById('loggedInUserTitle').textContent = user.displayName || "Citizen User";
+        document.getElementById('loggedInUserDetails').textContent = user.email || "";
+        document.getElementById('userAvatarImg').src = user.photoURL || 'IMG_20250929_062521.jpg';
+
+        const citizenNameInput = document.getElementById('citizenName');
+        if (citizenNameInput && !citizenNameInput.value && user.displayName) citizenNameInput.value = user.displayName;
+
+        const uploadNameInput = document.getElementById('uploadSenderName');
+        if (uploadNameInput && !uploadNameInput.value && user.displayName) uploadNameInput.value = user.displayName;
       } else {
         currentUserProfile = null;
         if (loginBtnText) loginBtnText.textContent = "Login";
         if (loginBtn) loginBtn.classList.remove('user-logged-badge');
+        document.getElementById('loginFormState').style.display = 'block';
+        document.getElementById('userLoggedInState').style.display = 'none';
       }
     });
 
     function openLoginModal() {
-      const modal = document.getElementById('citizenLoginModal');
-      const formState = document.getElementById('loginFormState');
-      const loggedState = document.getElementById('userLoggedInState');
-
-      if (currentUserProfile) {
-        formState.style.display = 'none';
-        loggedState.style.display = 'block';
-        document.getElementById('loggedInUserDetails').textContent = currentUserProfile.phoneNumber || currentUserProfile.email || "Citizen User";
-      } else {
-        formState.style.display = 'block';
-        loggedState.style.display = 'none';
-        initRecaptcha();
-      }
-      modal.classList.add('active');
+      document.getElementById('citizenLoginModal').classList.add('active');
     }
 
     function closeLoginModal(e) {
       if (!e || e.target.id === 'citizenLoginModal' || e.target.className === 'login-close') {
         document.getElementById('citizenLoginModal').classList.remove('active');
       }
-    }
-
-    function switchLoginMode(mode) {
-      document.querySelectorAll('.login-tab-btn').forEach(b => b.classList.remove('active'));
-      if (mode === 'phone') {
-        document.getElementById('tabBtnPhone').classList.add('active');
-        document.getElementById('phoneAuthBox').style.display = 'block';
-        document.getElementById('emailAuthBox').style.display = 'none';
-      } else {
-        document.getElementById('tabBtnEmail').classList.add('active');
-        document.getElementById('phoneAuthBox').style.display = 'none';
-        document.getElementById('emailAuthBox').style.display = 'block';
-      }
-    }
-
-    function initRecaptcha() {
-      if (!window.recaptchaVerifier) {
-        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-          size: 'invisible',
-          callback: () => {}
-        });
-      }
-    }
-
-    function sendMobileOtp() {
-      const phone = document.getElementById('loginMobileInput').value.trim();
-      if (!/^[6-9]\d{9}$/.test(phone)) {
-        alert("Please enter a valid 10-digit mobile number!");
-        return;
-      }
-      initRecaptcha();
-      const sendBtn = document.getElementById('btnSendOtp');
-      sendBtn.disabled = true;
-      sendBtn.textContent = "Sending OTP...";
-
-      auth.signInWithPhoneNumber('+91' + phone, window.recaptchaVerifier)
-        .then((confirmationResult) => {
-          confirmationResultGlobal = confirmationResult;
-          document.getElementById('phoneInputGroup').style.display = 'none';
-          document.getElementById('otpVerifyGroup').style.display = 'block';
-          showToast("📲 OTP SMS sent to +91 " + phone);
-        })
-        .catch((error) => {
-          alert("SMS Error: " + error.message);
-          sendBtn.disabled = false;
-          sendBtn.textContent = "Send OTP SMS";
-          if (window.recaptchaVerifier) window.recaptchaVerifier.render().then(wId => grecaptcha.reset(wId));
-        });
-    }
-
-    function verifyMobileOtp() {
-      const code = document.getElementById('loginOtpInput').value.trim();
-      if (code.length !== 6) {
-        alert("Enter 6-digit OTP!");
-        return;
-      }
-      if (!confirmationResultGlobal) return;
-      const verifyBtn = document.getElementById('btnVerifyOtp');
-      verifyBtn.disabled = true;
-      verifyBtn.textContent = "Verifying...";
-
-      confirmationResultGlobal.confirm(code)
-        .then((result) => {
-          showToast("🎉 Logged in successfully!");
-          closeLoginModal();
-          verifyBtn.disabled = false;
-          verifyBtn.textContent = "Verify & Log In";
-        })
-        .catch((error) => {
-          alert("Invalid OTP: " + error.message);
-          verifyBtn.disabled = false;
-          verifyBtn.textContent = "Verify & Log In";
-        });
-    }
-
-    function handleEmailLogin(isSignUp) {
-      const email = document.getElementById('loginEmailInput').value.trim();
-      const pass = document.getElementById('loginPasswordInput').value.trim();
-      if (!email || pass.length < 6) {
-        alert("Enter valid email and at least 6-character password!");
-        return;
-      }
-
-      const action = isSignUp 
-        ? auth.createUserWithEmailAndPassword(email, pass)
-        : auth.signInWithEmailAndPassword(email, pass);
-
-      action.then(() => {
-        showToast(isSignUp ? "Account created & logged in!" : "Welcome back!");
-        closeLoginModal();
-      }).catch(err => alert("Auth Error: " + err.message));
     }
 
     function handlePortalLogout() {
@@ -1508,7 +1425,7 @@
       });
     }
 
-    /* 5. 3-LINE DRAWER & FONT ACCESSIBILITY */
+    /* 5. DRAWER NAVIGATION & ACCESSIBILITY */
     function toggleDrawer(open) {
       const overlay = document.getElementById('drawerOverlay');
       const panel = document.getElementById('drawerPanel');
@@ -1532,13 +1449,13 @@
       if (active) active.classList.add('active');
     }
 
-    /* 6. GAMES ARENA MODAL DRAWER (WITH EXIT BUTTON) */
+    /* 6. GAMES ARENA MODAL (WITH TOP EXIT BUTTON) */
     function openGamesArenaDrawer() {
       document.getElementById('gamesDrawerOverlay').classList.add('active');
     }
 
     function closeGamesDrawer(e) {
-      if (!e || e.target.id === 'gamesDrawerOverlay' || e.className === 'btn-exit-games') {
+      if (!e || e.target.id === 'gamesDrawerOverlay' || (e.currentTarget && e.currentTarget.className === 'btn-exit-games')) {
         document.getElementById('gamesDrawerOverlay').classList.remove('active');
       }
     }
@@ -1557,7 +1474,7 @@
       });
     }
 
-    /* 7. UNIFIED GALLERY & TELEGRAM BROADCAST WITH SENDER INFO */
+    /* 7. UNIFIED GALLERY & TELEGRAM BROADCAST */
     let currentMainSection = 'wdm';
     let currentSubFilter = 'all';
     let isMediaExpanded = false;
@@ -1732,7 +1649,7 @@
         return;
       }
       if (!fileInput.files || !fileInput.files[0]) {
-        alert("Please select a photo file!");
+        alert("Please select an image file!");
         return;
       }
 
@@ -1766,9 +1683,9 @@
           let existing = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]');
           existing.unshift(newPhotoItem);
           localStorage.setItem('wdm_unified_media', JSON.stringify(existing));
-        } catch(err) { console.warn("Storage warning"); }
+        } catch(err) { console.warn("Storage quota warning"); }
 
-        // Send to Telegram Bot
+        // Telegram Notification
         const telegramCaption = 
           `📸 *NEW COMMUNITY PHOTO UPLOAD*\n` +
           `━━━━━━━━━━━━━━━━━━━\n` +
@@ -1806,7 +1723,7 @@
       reader.readAsDataURL(fileInput.files[0]);
     }
 
-    /* 8. GRIEVANCE FORM & TELEGRAM DISPATCH */
+    /* 8. GRIEVANCE CELL & TELEGRAM DISPATCH */
     function handleFormSubmission(e) {
       e.preventDefault();
       const phone = document.getElementById('userPhoneInput').value.trim();
@@ -1946,4 +1863,3 @@
   </script>
 </body>
 </html>
-                                                                 
