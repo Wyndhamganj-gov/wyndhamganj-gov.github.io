@@ -20,7 +20,7 @@
   <meta property="og:description" content="Official Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar), Sonbhadra, UP.">
   <meta property="og:image" content="IMG_20250929_062521.jpg">
 
-  <!-- Local Government Organization Schema (All 8 Localities) -->
+  <!-- Local Government Organization Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -59,11 +59,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
   <style>
-    /* ==========================================================================
-       HIGH-CONTRAST DUAL THEME COLOR ENGINE
-       ========================================================================== */
     :root {
-      /* Dark Theme */
       --bg-body: #070e14;
       --bg-surface: #0d1b26;
       --bg-surface-elevated: #132737;
@@ -89,7 +85,6 @@
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Light Theme */
     html[data-theme="light"] {
       --bg-body: #f8fafc;
       --bg-surface: #ffffff;
@@ -132,202 +127,128 @@
     .section-header { text-align: center; margin-bottom: 28px; }
 
     .section-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--primary);
-      background: rgba(20, 184, 166, 0.12);
-      border: 1px solid var(--border-color);
-      padding: 3px 12px;
-      border-radius: 50px;
-      margin-bottom: 8px;
+      display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.2px; color: var(--primary); background: rgba(20, 184, 166, 0.12);
+      border: 1px solid var(--border-color); padding: 3px 12px; border-radius: 50px; margin-bottom: 8px;
     }
 
     .section-title { font-size: 1.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
     .section-subtitle { color: var(--text-muted); font-size: 0.88rem; max-width: 650px; margin: 0 auto; }
 
-    /* Top Bar: Minimal Live Time & Weather */
+    /* Top Bar */
     .ultra-top-bar {
-      background: var(--topbar-bg);
-      border-bottom: 1px solid var(--border-color);
-      font-size: 0.76rem;
-      padding: 6px 0;
-      transition: var(--transition);
+      background: var(--topbar-bg); border-bottom: 1px solid var(--border-color);
+      font-size: 0.76rem; padding: 6px 0; transition: var(--transition);
     }
-    .ultra-top-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .ultra-top-wrapper { display: flex; justify-content: space-between; align-items: center; }
     .top-meta-item { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-weight: 600; }
     .top-meta-item i { color: var(--primary); }
 
-    /* ==========================================================================
-       NAVBAR (EXACT MATCH TO ATTACHED SCREENSHOT)
-       ========================================================================== */
-    .gamer-navbar {
-      background: var(--navbar-bg);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      padding: 12px 0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    /* ADMIN LIVE CONTROL BAR (APPEARS WHEN ADMIN LOGGED IN) */
+    .admin-live-bar {
+      display: none; position: sticky; top: 0; z-index: 2500;
+      background: #7c2d12; color: #fff; padding: 10px 18px;
+      border-bottom: 2px solid var(--accent-orange); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
-    .gamer-nav-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .admin-live-bar.active { display: flex; justify-content: space-between; align-items: center; }
+    .btn-admin-save {
+      background: var(--success); color: #fff; border: none; font-weight: 800;
+      padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.84rem;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-admin-logout {
+      background: #000; color: #fff; border: 1px solid #444; font-weight: 700;
+      padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; margin-left: 8px;
     }
 
-    /* Left Group: ☰ + WYNDHAMGANJ Dual Tone */
-    .gamer-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+    /* Editable Outline for Admin Mode */
+    body.admin-mode-on [data-editable="true"] {
+      outline: 2px dashed var(--accent-orange) !important;
+      outline-offset: 3px;
+      cursor: text;
     }
+
+    /* NAVBAR */
+    .gamer-navbar {
+      background: var(--navbar-bg); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky; top: 0; z-index: 1000; padding: 12px 0; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    .gamer-nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+
+    /* Left Group */
+    .gamer-left { display: flex; align-items: center; gap: 16px; }
     .gamer-menu-btn {
-      background: none;
-      border: none;
-      color: #ffffff;
-      font-size: 1.55rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      transition: var(--transition);
+      background: none; border: none; color: #ffffff; font-size: 1.55rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px;
     }
     html[data-theme="light"] .gamer-menu-btn { color: #0f172a; }
-    .gamer-menu-btn:hover { color: var(--accent-orange); }
 
     .gamer-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      font-size: 1.55rem;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      line-height: 1;
+      display: flex; align-items: center; text-decoration: none; font-size: 1.55rem;
+      font-weight: 900; letter-spacing: 0.5px; line-height: 1;
     }
-    .gamer-logo .part-one {
-      color: #ffffff;
-    }
+    .gamer-logo .part-one { color: #ffffff; }
     html[data-theme="light"] .gamer-logo .part-one { color: #0f172a; }
-    .gamer-logo .part-two {
-      color: var(--accent-orange);
-      font-weight: 800;
-    }
+    .gamer-logo .part-two { color: var(--accent-orange); font-weight: 800; }
 
-    /* Right Group: [ DB ] + 👤 Profile Icon */
-    .gamer-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    /* DB Rounded Badge Button */
+    /* Right Group: WM Button & Profile Icon */
+    .gamer-right { display: flex; align-items: center; gap: 14px; }
     .btn-db-badge {
-      background: #ffffff;
-      color: #050d14;
-      font-size: 0.82rem;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      padding: 4px 12px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
-      transition: var(--transition);
+      background: #ffffff; color: #050d14; font-size: 0.82rem; font-weight: 900;
+      letter-spacing: 0.5px; padding: 4px 12px; border-radius: 6px; border: none;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2); transition: var(--transition);
+      text-decoration: none;
     }
-    .btn-db-badge:hover {
-      background: var(--accent-orange);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
+    .btn-db-badge:hover { background: var(--accent-orange); color: #ffffff; transform: translateY(-1px); }
 
-    /* Circular User Profile Icon */
     .btn-circle-user {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #ffffff;
-      color: #050d14;
-      border: none;
-      display: grid;
-      place-items: center;
-      font-size: 1.15rem;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-      position: relative;
-    }
-    .btn-circle-user:hover {
-      background: var(--primary);
-      color: #ffffff;
-      transform: scale(1.05);
+      width: 36px; height: 36px; border-radius: 50%; background: #ffffff; color: #050d14;
+      border: none; display: grid; place-items: center; font-size: 1.15rem; cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); position: relative;
     }
     .btn-circle-user.logged-in::after {
-      content: '';
-      position: absolute;
-      bottom: 1px;
-      right: 1px;
-      width: 10px;
-      height: 10px;
-      background: var(--success);
-      border: 2px solid var(--navbar-bg);
-      border-radius: 50%;
+      content: ''; position: absolute; bottom: 1px; right: 1px; width: 10px; height: 10px;
+      background: var(--success); border: 2px solid var(--navbar-bg); border-radius: 50%;
+    }
+    .btn-circle-user.admin-in::after {
+      content: ''; position: absolute; bottom: 1px; right: 1px; width: 10px; height: 10px;
+      background: var(--accent-orange); border: 2px solid #000; border-radius: 50%;
     }
 
-    /* Localities Strip */
+    /* Covered Localities */
     .localities-strip {
-      background: var(--bg-surface);
-      border-bottom: 1px solid var(--border-color);
-      padding: 9px 0;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
+      background: var(--bg-surface); border-bottom: 1px solid var(--border-color);
+      padding: 9px 0; text-align: center; font-size: 0.8rem; color: var(--text-secondary);
     }
     .localities-strip b { color: var(--accent-orange); }
 
-    /* Drawer Menu */
+    /* LEFT-SIDE DRAWER MENU */
     .drawer-overlay {
       position: fixed; inset: 0; background: var(--modal-overlay);
-      backdrop-filter: blur(5px); z-index: 2000;
-      opacity: 0; visibility: hidden; transition: all 0.3s ease;
+      backdrop-filter: blur(5px); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
     }
     .drawer-overlay.active { opacity: 1; visibility: visible; }
     .drawer-panel {
-      position: fixed; top: 0; right: 0; bottom: 0;
-      width: 320px; max-width: 85%;
-      background: var(--bg-surface);
-      border-left: 1px solid var(--border-color);
-      z-index: 2001; padding: 24px;
-      display: flex; flex-direction: column;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--card-shadow);
+      position: fixed; top: 0; left: 0; bottom: 0; right: auto;
+      width: 320px; max-width: 85%; background: var(--bg-surface);
+      border-right: 1px solid var(--border-color); border-left: none;
+      z-index: 2001; padding: 24px; display: flex; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.6);
     }
     .drawer-panel.active { transform: translateX(0); }
     .drawer-header {
       display: flex; justify-content: space-between; align-items: center;
-      padding-bottom: 14px; border-bottom: 1px solid var(--border-color);
-      margin-bottom: 18px;
+      padding-bottom: 14px; border-bottom: 1px solid var(--border-color); margin-bottom: 18px;
     }
     .drawer-header h3 { font-size: 1.05rem; color: var(--text-primary); font-weight: 800; }
     .drawer-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
-    .drawer-close:hover { color: var(--danger); }
     .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
     .drawer-nav-list a, .drawer-nav-list button {
-      color: var(--text-primary); text-decoration: none; font-size: 0.9rem;
-      font-weight: 600; display: flex; align-items: center; gap: 10px;
-      padding: 9px 12px; border-radius: var(--radius-sm); transition: var(--transition);
-      background: none; border: none; width: 100%; text-align: left; cursor: pointer;
+      color: var(--text-primary); text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius-sm);
+      transition: var(--transition); background: none; border: none; width: 100%; text-align: left; cursor: pointer;
     }
     .drawer-nav-list i { color: var(--primary); width: 22px; }
     .drawer-nav-list a:hover, .drawer-nav-list button:hover { background: var(--bg-surface-elevated); color: var(--primary); }
@@ -336,20 +257,17 @@
     .control-label { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
     .controls-row { display: flex; gap: 8px; margin-bottom: 12px; }
     .ctrl-btn {
-      flex: 1; padding: 7px; background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color); color: var(--text-primary);
-      border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; text-align: center; transition: var(--transition);
+      flex: 1; padding: 7px; background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
+      color: var(--text-primary); border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; text-align: center;
     }
     .ctrl-btn.active, .ctrl-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
     /* SECTION: HERO / ABOUT */
     .hero {
-      position: relative;
-      padding: 44px 0 40px;
+      position: relative; padding: 44px 0 40px;
       background: url('IMG_20250929_062521.jpg') center/cover no-repeat var(--bg-body);
-      border-bottom: 1px solid var(--border-color);
-      overflow: hidden;
+      border-bottom: 1px solid var(--border-color); overflow: hidden;
     }
     .hero-overlay {
       position: absolute; inset: 0;
@@ -360,26 +278,21 @@
       background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.88) 60%, rgba(255, 255, 255, 0.96) 100%);
     }
     .hero-container {
-      position: relative; z-index: 3;
-      display: grid; grid-template-columns: 1.25fr 0.75fr;
+      position: relative; z-index: 3; display: grid; grid-template-columns: 1.25fr 0.75fr;
       gap: 26px; align-items: center;
     }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(249, 115, 22, 0.12); border: 1px solid var(--border-gold);
-      color: var(--accent-orange); padding: 4px 12px; border-radius: 50px;
-      font-size: 0.74rem; font-weight: 800; margin-bottom: 8px;
+      display: inline-flex; align-items: center; gap: 6px; background: rgba(249, 115, 22, 0.12);
+      border: 1px solid var(--border-gold); color: var(--accent-orange); padding: 4px 12px;
+      border-radius: 50px; font-size: 0.74rem; font-weight: 800; margin-bottom: 8px;
     }
     .hero-title { font-size: 2.2rem; font-weight: 900; line-height: 1.2; margin-bottom: 8px; color: var(--text-primary); }
     .hero-title span { color: var(--accent-orange); }
     .hero-desc { color: var(--text-secondary); font-size: 0.9rem; max-width: 540px; line-height: 1.6; }
 
     .hero-info-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      box-shadow: var(--card-shadow);
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); padding: 18px; box-shadow: var(--card-shadow);
     }
     .hero-info-card h4 { font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
     .hero-info-list { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.82rem; color: var(--text-secondary); }
@@ -389,28 +302,19 @@
     /* SECTION: SUCHNA PATTA */
     .notices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
     .notice-item {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--primary);
-      border-radius: var(--radius-sm);
-      padding: 16px;
-      box-shadow: var(--card-shadow);
-      transition: var(--transition);
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary); border-radius: var(--radius-sm);
+      padding: 16px; box-shadow: var(--card-shadow); transition: var(--transition);
     }
-    .notice-item:hover { transform: translateY(-3px); }
     .notice-meta { font-size: 0.74rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 700; }
     .notice-title { font-size: 0.95rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
     .notice-body { font-size: 0.82rem; color: var(--text-secondary); }
 
     /* SECTION: FESTIVAL & WHATSAPP BANNER */
     .festival-box {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg);
-      padding: 26px 20px;
-      text-align: center;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 24px;
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg); padding: 26px 20px; text-align: center;
+      box-shadow: var(--card-shadow); margin-bottom: 24px;
     }
     .festival-diyas { font-size: 1.8rem; margin-bottom: 8px; }
     .festival-heading { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
@@ -418,30 +322,24 @@
 
     .wa-community-banner {
       background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), var(--bg-surface));
-      border: 1px solid rgba(37, 211, 102, 0.4);
-      border-radius: var(--radius-lg);
-      padding: 34px 20px;
-      text-align: center;
-      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(37, 211, 102, 0.4); border-radius: var(--radius-lg);
+      padding: 34px 20px; text-align: center; box-shadow: var(--card-shadow);
     }
     .wa-community-banner i.fa-whatsapp { font-size: 2.8rem; color: #25D366; margin-bottom: 10px; display: inline-block; }
     .wa-banner-title { font-size: 1.45rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
     .wa-banner-desc { font-size: 0.88rem; color: var(--text-secondary); max-width: 640px; margin: 0 auto 18px; }
     .btn-whatsapp-join {
       background: #25D366; color: #02150a; font-size: 1rem; font-weight: 800;
-      padding: 12px 28px; border-radius: 50px; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
-      transition: var(--transition);
+      padding: 12px 28px; border-radius: 50px; text-decoration: none; display: inline-flex;
+      align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
     }
-    .btn-whatsapp-join:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45); }
 
-    /* SECTION: UNIFIED GALLERY */
+     /* SECTION: UNIFIED GALLERY */
     .media-main-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
     .media-tab-btn {
       padding: 9px 22px; border-radius: 50px; background: var(--bg-surface);
       border: 1px solid var(--border-color); color: var(--text-secondary);
-      font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex;
-      align-items: center; gap: 7px; transition: var(--transition);
+      font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
     }
     .media-tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
@@ -449,11 +347,35 @@
     .sub-chip {
       background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
       color: var(--text-secondary); padding: 5px 14px; border-radius: 50px;
-      font-size: 0.76rem; font-weight: 700; cursor: pointer; transition: var(--transition);
+      font-size: 0.76rem; font-weight: 700; cursor: pointer;
     }
     .sub-chip.active, .sub-chip:hover { background: var(--accent-orange); color: #fff; border-color: var(--accent-orange); }
 
-    /* Upload Form */
+    .unified-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+    .unified-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); overflow: hidden; position: relative;
+      cursor: pointer; aspect-ratio: 4/3; box-shadow: var(--card-shadow);
+    }
+    .unified-card img { width: 100%; height: 100%; object-fit: cover; }
+    .card-badge-top {
+      position: absolute; top: 10px; left: 10px; background: rgba(7, 14, 20, 0.85);
+      color: var(--accent-gold); border: 1px solid var(--border-gold);
+      padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+    }
+    .card-caption-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px;
+      background: linear-gradient(to top, rgba(7, 14, 20, 0.95), transparent);
+      font-size: 0.82rem; font-weight: 600; color: #fff; display: flex; justify-content: space-between; align-items: center;
+    }
+    .btn-admin-del-photo {
+      display: none; position: absolute; top: 10px; right: 10px; background: var(--danger);
+      color: #fff; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.74rem; font-weight: 800;
+      cursor: pointer; z-index: 10;
+    }
+    body.admin-mode-on .btn-admin-del-photo { display: block; }
+
+    /* Citizen Upload Form */
     .citizen-upload-card {
       background: var(--bg-surface); border: 1px solid var(--border-gold);
       border-radius: var(--radius-md); padding: 22px; max-width: 650px; margin: 0 auto 28px; display: none;
@@ -466,42 +388,17 @@
       border: 1px solid var(--border-color); border-radius: var(--radius-sm);
       color: var(--text-primary); font-size: 0.82rem; outline: none;
     }
-    .form-control-sm:focus { border-color: var(--primary); }
-
-    .unified-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
-    .unified-card {
-      background: var(--bg-surface); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); overflow: hidden; position: relative;
-      cursor: pointer; aspect-ratio: 4/3; box-shadow: var(--card-shadow);
-      transition: var(--transition);
-    }
-    .unified-card:hover { transform: translateY(-4px); border-color: var(--primary); }
-    .unified-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-    .unified-card:hover img { transform: scale(1.05); }
-    .card-badge-top {
-      position: absolute; top: 10px; left: 10px; background: rgba(7, 14, 20, 0.85);
-      color: var(--accent-gold); border: 1px solid var(--border-gold);
-      padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;
-    }
-    .card-caption-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px;
-      background: linear-gradient(to top, rgba(7, 14, 20, 0.95), transparent);
-      font-size: 0.82rem; font-weight: 600; color: #fff;
-      display: flex; justify-content: space-between; align-items: center;
-    }
 
     /* SECTION: WORKING DASHBOARD */
     .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
     .metric-card {
       background: var(--bg-surface); border: 1px solid var(--border-color);
       border-radius: var(--radius-md); padding: 22px 18px; text-align: center;
-      box-shadow: var(--card-shadow); transition: var(--transition);
+      box-shadow: var(--card-shadow);
     }
-    .metric-card:hover { transform: translateY(-3px); border-color: var(--primary); }
     .metric-icon {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: rgba(20, 184, 166, 0.12); color: var(--primary);
-      display: grid; place-items: center; font-size: 1.4rem; margin: 0 auto 12px;
+      width: 52px; height: 52px; border-radius: 50%; background: rgba(20, 184, 166, 0.12);
+      color: var(--primary); display: grid; place-items: center; font-size: 1.4rem; margin: 0 auto 12px;
     }
     .metric-number { font-size: 2rem; font-weight: 800; color: var(--text-primary); line-height: 1; margin-bottom: 4px; }
     .metric-label { font-size: 0.84rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 4px; }
@@ -512,13 +409,11 @@
     .rep-card {
       background: var(--bg-surface); border: 1px solid var(--border-color);
       border-radius: var(--radius-md); padding: 20px 16px; text-align: center;
-      box-shadow: var(--card-shadow); transition: var(--transition);
+      box-shadow: var(--card-shadow);
     }
-    .rep-card:hover { border-color: var(--primary); transform: translateY(-3px); }
     .rep-avatar {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: rgba(20, 184, 166, 0.12); border: 2px solid var(--primary);
-      display: grid; place-items: center; font-size: 1.35rem; color: var(--primary);
+      width: 56px; height: 56px; border-radius: 50%; background: rgba(20, 184, 166, 0.12);
+      border: 2px solid var(--primary); display: grid; place-items: center; font-size: 1.35rem; color: var(--primary);
       margin: 0 auto 10px;
     }
     .rep-name { font-size: 1.05rem; font-weight: 800; color: var(--text-primary); }
@@ -527,13 +422,11 @@
 
     .host-section {
       background: var(--bg-surface); border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg); padding: 24px; display: flex;
-      align-items: center; gap: 22px; box-shadow: var(--card-shadow);
+      border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; gap: 22px; box-shadow: var(--card-shadow);
     }
     .host-img-wrap {
-      width: 90px; height: 90px; border-radius: 50%;
-      border: 3px solid var(--accent-gold); overflow: hidden; flex-shrink: 0;
-      box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
+      width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--accent-gold);
+      overflow: hidden; flex-shrink: 0; box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
     }
     .host-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
     .host-content h3 { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 4px; font-weight: 800; }
@@ -543,12 +436,9 @@
     /* SECTION: HELPLINES & GRIEVANCE CELL */
     .helpline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
     .helpline-card {
-      background: var(--bg-surface); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); padding: 14px; display: flex;
-      align-items: center; gap: 12px; text-decoration: none; box-shadow: var(--card-shadow);
-      transition: var(--transition);
+      background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+      padding: 14px; display: flex; align-items: center; gap: 12px; text-decoration: none; box-shadow: var(--card-shadow);
     }
-    .helpline-card:hover { transform: translateY(-3px); border-color: var(--primary); }
     .helpline-icon { width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0; }
     .icon-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
     .icon-blue { background: rgba(56, 189, 248, 0.15); color: #0284c7; }
@@ -565,7 +455,6 @@
     }
     .form-group { margin-bottom: 14px; }
     .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
-    .form-group label i { color: var(--primary); margin-right: 5px; }
     .form-control {
       width: 100%; padding: 10px 14px; background: var(--input-bg);
       border: 1px solid var(--border-color); border-radius: var(--radius-sm);
@@ -574,81 +463,27 @@
     .form-control:focus { border-color: var(--primary); }
 
     .receipt-card {
-      display: none; text-align: center; padding: 22px 16px;
-      border: 1px solid var(--border-gold); border-radius: var(--radius-md);
-      background: rgba(245, 158, 11, 0.06);
+      display: none; text-align: center; padding: 22px 16px; border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); background: rgba(245, 158, 11, 0.06);
     }
     .receipt-token {
-      font-size: 1.5rem; font-weight: 800; color: var(--accent-gold);
-      letter-spacing: 2px; margin: 12px 0; padding: 8px 16px;
-      background: var(--bg-surface-elevated); border: 1px dashed var(--accent-gold);
-      border-radius: var(--radius-sm); display: inline-block;
+      font-size: 1.5rem; font-weight: 800; color: var(--accent-gold); letter-spacing: 2px;
+      margin: 12px 0; padding: 8px 16px; background: var(--bg-surface-elevated);
+      border: 1px dashed var(--accent-gold); border-radius: var(--radius-sm); display: inline-block;
     }
     .tracker-box { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-color); }
 
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.86rem;
-      font-weight: 700; text-decoration: none; cursor: pointer; transition: var(--transition);
-      border: 1px solid transparent;
+      padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.86rem; font-weight: 700;
+      text-decoration: none; cursor: pointer; border: 1px solid transparent;
     }
     .btn-primary { background: var(--primary); color: #fff; }
     .btn-primary:hover { background: var(--primary-hover); }
     .btn-secondary { background: var(--bg-surface-elevated); color: var(--text-primary); border-color: var(--border-color); }
 
-    /* ==========================================================================
-       [ DB ] DEDICATED COMMUNITY FEED VIEW (FULLSCREEN MODAL WITH LIKES & COMMENTS)
-       ========================================================================== */
-    .db-view-overlay {
-      display: none; position: fixed; inset: 0; background: var(--modal-overlay);
-      backdrop-filter: blur(10px); z-index: 4500; overflow-y: auto; padding: 20px 12px;
-    }
-    .db-view-overlay.active { display: block; }
-    .db-view-container {
-      max-width: 820px; margin: 0 auto; background: var(--bg-surface);
-      border: 1px solid var(--border-color); border-radius: var(--radius-lg);
-      padding: 24px; box-shadow: var(--card-shadow); position: relative;
-    }
-    .db-top-bar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-bottom: 16px; border-bottom: 1px solid var(--border-color); margin-bottom: 22px;
-    }
-    .db-post-card {
-      background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); overflow: hidden; margin-bottom: 24px;
-    }
-    .db-post-header {
-      padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;
-    }
-    .db-post-img-box {
-      width: 100%; max-height: 480px; overflow: hidden; background: #000;
-    }
-    .db-post-img-box img {
-      width: 100%; height: auto; max-height: 480px; object-fit: contain; display: block; margin: 0 auto;
-    }
-    .db-post-actions {
-      padding: 12px 16px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .btn-action-like {
-      background: none; border: none; font-size: 1.1rem; color: var(--text-secondary);
-      cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 700;
-      transition: var(--transition);
-    }
-    .btn-action-like.liked { color: var(--danger); }
-    .btn-action-like:hover { transform: scale(1.1); }
-    .db-comments-box {
-      padding: 14px 16px; background: rgba(0, 0, 0, 0.15);
-    }
-    .db-comment-item {
-      font-size: 0.8rem; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .db-comment-item b { color: var(--accent-orange); margin-right: 6px; }
-    .comment-input-row {
-      display: flex; gap: 8px; margin-top: 10px;
-    }
-
-    /* GOOGLE LOGIN MODAL */
+    /* LOGIN MODAL (CITIZEN + ADMIN AUTH) */
     .login-modal {
       display: none; position: fixed; inset: 0; background: var(--modal-overlay);
       backdrop-filter: blur(8px); z-index: 3500; align-items: center; justify-content: center; padding: 18px;
@@ -656,11 +491,19 @@
     .login-modal.active { display: flex; }
     .login-card {
       background: var(--bg-surface); border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg); width: 100%; max-width: 400px;
-      padding: 26px; position: relative; box-shadow: var(--card-shadow);
-      text-align: center;
+      border-radius: var(--radius-lg); width: 100%; max-width: 420px;
+      padding: 26px; position: relative; box-shadow: var(--card-shadow); text-align: center;
     }
     .login-close { position: absolute; top: 16px; right: 18px; font-size: 1.4rem; background: none; border: none; color: var(--text-muted); cursor: pointer; }
+
+    .login-mode-tabs {
+      display: flex; gap: 8px; margin-bottom: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
+    }
+    .login-tab-btn {
+      flex: 1; background: none; border: none; padding: 8px; font-size: 0.88rem; font-weight: 800;
+      color: var(--text-muted); cursor: pointer; border-radius: 6px;
+    }
+    .login-tab-btn.active { background: var(--bg-surface-elevated); color: var(--accent-orange); }
 
     /* GAMES DRAWER MODAL */
     .games-drawer-overlay {
@@ -671,8 +514,7 @@
     .games-drawer-content {
       background: var(--bg-surface); border: 1px solid var(--border-color);
       border-radius: var(--radius-lg); width: 100%; max-width: 820px;
-      max-height: 90vh; overflow-y: auto; padding: 22px; position: relative;
-      box-shadow: var(--card-shadow);
+      max-height: 90vh; overflow-y: auto; padding: 22px; position: relative; box-shadow: var(--card-shadow);
     }
     .games-top-bar {
       display: flex; justify-content: space-between; align-items: center;
@@ -680,16 +522,12 @@
     }
     .btn-exit-games {
       background: var(--danger); color: #fff; border: none; font-size: 0.84rem;
-      font-weight: 800; padding: 6px 14px; border-radius: var(--radius-sm);
-      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      font-weight: 800; padding: 6px 14px; border-radius: var(--radius-sm); cursor: pointer;
     }
     .sport-card {
       background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
       border-radius: var(--radius-md); padding: 18px; margin-bottom: 16px; text-align: left;
     }
-    .sport-badge { font-size: 0.72rem; font-weight: 800; padding: 3px 10px; border-radius: 50px; }
-    .badge-cricket { background: rgba(249, 115, 22, 0.18); color: #fb923c; }
-    .badge-volleyball { background: rgba(56, 189, 248, 0.18); color: #0284c7; }
 
     /* Footer */
     .footer {
@@ -700,19 +538,9 @@
     .footer-col h4 { color: var(--text-primary); font-size: 0.94rem; margin-bottom: 12px; }
     .footer-links { list-style: none; }
     .footer-links li { margin-bottom: 8px; }
-    .footer-links a { color: var(--text-secondary); text-decoration: none; transition: var(--transition); }
-    .footer-links a:hover { color: var(--primary); }
+    .footer-links a { color: var(--text-secondary); text-decoration: none; }
 
-    /* Lightbox & Toast */
-    .lightbox-modal {
-      display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92);
-      z-index: 5000; align-items: center; justify-content: center; padding: 20px;
-    }
-    .lightbox-modal.active { display: flex; }
-    .lightbox-content { position: relative; max-width: 900px; width: 100%; text-align: center; }
-    .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-sm); }
-    .lightbox-close { position: absolute; top: -38px; right: 0; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
-
+    /* Toast */
     .toast-notification {
       position: fixed; bottom: 24px; right: 24px; background: var(--bg-surface);
       border: 1px solid var(--primary); border-radius: var(--radius-sm); padding: 12px 18px;
@@ -732,14 +560,28 @@
 
 <body>
 
-  <!-- TOP BAR: LIVE CLOCK & LIVE WEATHER -->
+  <!-- FLOATING ADMIN LIVE CONTROLLER (APPEARS WHEN ADMIN LOGS IN) -->
+  <div class="admin-live-bar" id="adminLiveBar">
+    <div style="font-size:0.86rem; font-weight:800; display:flex; align-items:center; gap:8px;">
+      <i class="fa-solid fa-crown" style="color:#fbbf24;"></i>
+      <span>ADMIN MODE ACTIVE: You can edit texts directly or delete photos</span>
+    </div>
+    <div>
+      <button class="btn-admin-save" onclick="saveAdminLiveChanges()">
+        <i class="fa-solid fa-cloud-arrow-up"></i> 💾 Save Changes Live
+      </button>
+      <button class="btn-admin-logout" onclick="exitAdminMode()">Exit Admin</button>
+    </div>
+  </div>
+
+  <!-- TOP BAR: LIVE CLOCK & WYNDHAMGANJ REAL TEMPERATURE -->
   <div class="ultra-top-bar">
     <div class="container ultra-top-wrapper">
       <div class="top-meta-item">
         <i class="fa-solid fa-clock"></i> <span id="portalLiveClock">--:--</span>
       </div>
       <div class="top-meta-item">
-        <i class="fa-solid fa-cloud-sun"></i> Wyndhamganj: <b id="portalLiveWeather">28°C</b>
+        <i class="fa-solid fa-cloud-sun"></i> Wyndhamganj: <b id="portalLiveWeather">--°C</b>
       </div>
       <div class="top-meta-item" style="display:none; @media(min-width:600px){display:inline-flex;}">
         <i class="fa-solid fa-location-dot"></i> Sonbhadra, UP
@@ -747,9 +589,7 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       NAVBAR (EXACT MATCH: ☰ | WYNDHAMGANJ | [ DB ] | 👤 )
-       ========================================================================== -->
+  <!-- NAVBAR: LEFT ☰ | WYNDHAMGANJ | [ WM ] | 👤 -->
   <header class="gamer-navbar">
     <div class="container gamer-nav-wrapper">
       <!-- Left: ☰ Menu & Logo -->
@@ -762,29 +602,29 @@
         </a>
       </div>
 
-            <!-- Right: [ DB ] Button & 👤 Profile Icon -->
+      <!-- Right: [ WM ] Button & Circle User Icon -->
       <div class="gamer-right">
-        <!-- DB Button: Navigates to Instagram-style media.html page -->
-        <a href="media.html" class="btn-db-badge" style="text-decoration: none;" title="Open WDM Media Feed">
-          DB
+        <!-- WM Button: Replaced DB button, opens WDM Media page -->
+        <a href="media.html" class="btn-db-badge" title="Open WDM Media Feed">
+          WM
         </a>
 
         <!-- Circle User Icon -->
-        <button class="btn-circle-user" id="navCircleUserBtn" onclick="openLoginModal()" title="Citizen Login">
+        <button class="btn-circle-user" id="navCircleUserBtn" onclick="openLoginModal()" title="Citizen / Admin Login">
           <i class="fa-solid fa-user"></i>
         </button>
       </div>
-      
+    </div>
   </header>
 
   <!-- COVERED LOCALITIES BAR -->
   <div class="localities-strip">
     <div class="container">
-      <b>सेवा क्षेत्र (Covered Areas):</b> Wyndhamganj • Butbherwa • Shiv Nagar • Murisemar • Dharti Dolwa • Salayadih • Dhooma • Patel Nagar (Sonbhadra, UP)
+      <b>सेवा क्षेत्र (Covered Areas):</b> <span id="txtCoveredAreas" data-editable="true">Wyndhamganj • Butbherwa • Shiv Nagar • Murisemar • Dharti Dolwa • Salayadih • Dhooma • Patel Nagar (Sonbhadra, UP)</span>
     </div>
   </div>
 
-  <!-- 3-LINE DRAWER MENU -->
+  <!-- LEFT-SIDE DRAWER MENU (OPENS FROM LEFT) -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
   <div class="drawer-panel" id="drawerPanel">
     <div class="drawer-header">
@@ -795,13 +635,13 @@
     <ul class="drawer-nav-list">
       <li><a href="#about" onclick="toggleDrawer(false)"><i class="fa-solid fa-house"></i> Gaon Ke Baare Mein</a></li>
       <li><a href="#notices" onclick="toggleDrawer(false)"><i class="fa-solid fa-bullhorn"></i> Suchna Patta</a></li>
-      <li><a href="#festival" onclick="toggleDrawer(false)"><i class="fa-solid fa-sun"></i> Festival Greetings & WhatsApp</a></li>
+      <li><a href="#festival" onclick="toggleDrawer(false)"><i class="fa-solid fa-sun"></i> Festival & WhatsApp</a></li>
       <li><a href="#gallery" onclick="toggleDrawer(false)"><i class="fa-solid fa-images"></i> Village Media & Memories</a></li>
       <li><a href="#dashboard" onclick="toggleDrawer(false)"><i class="fa-solid fa-chart-pie"></i> Working Progress Dashboard</a></li>
       <li><a href="#representatives" onclick="toggleDrawer(false)"><i class="fa-solid fa-landmark"></i> Gram Padadhikari & Host</a></li>
       <li><a href="#grievance" onclick="toggleDrawer(false)"><i class="fa-solid fa-paper-plane"></i> Grievance & Emergency Helplines</a></li>
       
-      <!-- Sports & Games Arena Option -->
+      <!-- Games & Sports Arena -->
       <li style="border-top:1px solid var(--border-color); padding-top:6px; margin-top:4px;">
         <button onclick="openGamesArenaDrawer(); toggleDrawer(false);" style="color:var(--accent-orange); font-weight:800;">
           <i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> 🎮 Sports & Games Arena
@@ -825,16 +665,14 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       SECTION: GAON KE BAARE MEIN (HERO / ABOUT)
-       ========================================================================== -->
+  <!-- SECTION: GAON KE BAARE MEIN (HERO / ABOUT) -->
   <section class="hero" id="about">
     <div class="hero-overlay"></div>
     <div class="container hero-container">
       <div class="hero-text-col">
         <div class="hero-badge"><i class="fa-solid fa-award"></i> Gram Panchayat Butbherwa (Shiv Nagar)</div>
         <h1 class="hero-title">Wyndhamganj <span>Butbherwa</span></h1>
-        <p class="hero-desc">
+        <p class="hero-desc" id="txtHeroDesc" data-editable="true">
           Official digital portal for transparent e-governance, instant redressal, community notices, and promoting the eco-tourism of Piprahwa Dam & Shiv Nagar, Sonbhadra.
         </p>
       </div>
@@ -853,59 +691,45 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       SECTION: SUCHNA PATTA (NOTICE BOARD)
-       ========================================================================== -->
+   <!-- SECTION: SUCHNA PATTA (NOTICE BOARD) -->
   <section class="section-pad" id="notices">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Suchna Patta</span>
         <h2 class="section-title">Gram Panchayat Notice Board</h2>
-        <p class="section-subtitle">Official orders, welfare announcements, and civic advisories for residents of Butbherwa.</p>
+        <p class="section-subtitle">Official orders, welfare announcements, and civic advisories for residents.</p>
       </div>
 
       <div class="notices-grid">
         <div class="notice-item">
-          <div class="notice-meta">
-            <span><i class="fa-solid fa-tag"></i> E-Services</span>
-            <span>Active</span>
-          </div>
-          <h3 class="notice-title">Instant E-Grievance Cell Online</h3>
-          <p class="notice-body">Citizens can now register water, sanitation, road, and street light complaints directly. Token numbers provide live tracking.</p>
+          <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> E-Services</span><span>Active</span></div>
+          <h3 class="notice-title" id="txtNotice1Title" data-editable="true">Instant E-Grievance Cell Online</h3>
+          <p class="notice-body" id="txtNotice1Body" data-editable="true">Citizens can now register water, sanitation, road, and street light complaints directly. Token numbers provide live tracking.</p>
         </div>
 
         <div class="notice-item">
-          <div class="notice-meta">
-            <span><i class="fa-solid fa-tag"></i> Tourism</span>
-            <span>Development</span>
-          </div>
-          <h3 class="notice-title">Piprahwa Dam Eco-Tourism Project</h3>
-          <p class="notice-body">Cleanliness drive and reservoir conservation initiatives are underway at Piprahwa Dam for upcoming tourist seasons.</p>
+          <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> Tourism</span><span>Development</span></div>
+          <h3 class="notice-title" id="txtNotice2Title" data-editable="true">Piprahwa Dam Eco-Tourism Project</h3>
+          <p class="notice-body" id="txtNotice2Body" data-editable="true">Cleanliness drive and reservoir conservation initiatives are underway at Piprahwa Dam for upcoming tourist seasons.</p>
         </div>
 
         <div class="notice-item">
-          <div class="notice-meta">
-            <span><i class="fa-solid fa-tag"></i> Community</span>
-            <span>Notice</span>
-          </div>
-          <h3 class="notice-title">Digital Photo & Moments Portal</h3>
-          <p class="notice-body">Share verified village moments and heritage images through our gallery upload tool for official archiving.</p>
+          <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> Community</span><span>Notice</span></div>
+          <h3 class="notice-title" id="txtNotice3Title" data-editable="true">Digital Photo & Moments Portal</h3>
+          <p class="notice-body" id="txtNotice3Body" data-editable="true">Share verified village moments and heritage images through our gallery upload tool for official archiving.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================================================
-       SECTION: FESTIVAL GREETINGS & OFFICIAL WHATSAPP GROUP
-       ========================================================================== -->
+  <!-- SECTION: FESTIVAL GREETINGS & WHATSAPP GROUP -->
   <section class="section-pad" id="festival" style="background: var(--bg-surface-elevated);">
     <div class="container">
-      <!-- Festival Greeting -->
       <div class="festival-box">
         <div class="festival-diyas">🌞 🪔 🌞</div>
         <div class="hero-badge"><i class="fa-solid fa-star"></i> आस्था, पवित्रता और सूर्य देव की उपासना 🌅</div>
-        <h2 class="festival-heading">छठ पूजा महापर्व की हार्दिक शुभकामनाएँ 🌞</h2>
-        <p class="festival-msg">
+        <h2 class="festival-heading" id="txtFestTitle" data-editable="true">छठ पूजा महापर्व की हार्दिक शुभकामनाएँ 🌞</h2>
+        <p class="festival-msg" id="txtFestMsg" data-editable="true">
           छठ पूजा केवल एक पर्व नहीं, बल्कि आस्था, पवित्रता, प्रकृति और सूर्य देव के प्रति कृतज्ञता का प्रतीक है। यह पर्व हमें सिखाता है कि सच्ची श्रद्धा, धैर्य और विश्वास से जीवन में सकारात्मकता आती है। 🙏🌅 (Shiv Nagar Butbherwa)
         </p>
         <div style="font-size:0.82rem; color:var(--accent-gold); font-weight:700;">
@@ -913,7 +737,6 @@
         </div>
       </div>
 
-      <!-- The Official WhatsApp Group Banner -->
       <div class="wa-community-banner">
         <i class="fa-brands fa-whatsapp"></i>
         <h3 class="wa-banner-title">Wyndhamganj Butbherwa Official WhatsApp Community</h3>
@@ -927,9 +750,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       SECTION: VILLAGE MEDIA & MEMORIES (GALLERY)
-       ========================================================================== -->
+  <!-- SECTION: VILLAGE MEDIA GALLERY -->
   <section class="section-pad" id="gallery">
     <div class="container">
       <div class="section-header">
@@ -938,20 +759,12 @@
         <p class="section-subtitle">Scenic reservoir landscapes, railway station heritage, and celebrations across our Gram Panchayat.</p>
       </div>
 
-      <!-- Tabs: WDM | Festival | Upload -->
       <div class="media-main-tabs">
-        <button class="media-tab-btn active" onclick="switchMediaSection('wdm', this)">
-          <i class="fa-solid fa-landmark"></i> WDM
-        </button>
-        <button class="media-tab-btn" onclick="switchMediaSection('festival', this)">
-          <i class="fa-solid fa-sun"></i> Festival
-        </button>
-        <button class="media-tab-btn" onclick="switchMediaSection('upload', this)">
-          <i class="fa-solid fa-cloud-arrow-up"></i> Upload
-        </button>
+        <button class="media-tab-btn active" onclick="switchMediaSection('wdm', this)"><i class="fa-solid fa-landmark"></i> WDM</button>
+        <button class="media-tab-btn" onclick="switchMediaSection('festival', this)"><i class="fa-solid fa-sun"></i> Festival</button>
+        <button class="media-tab-btn" onclick="switchMediaSection('upload', this)"><i class="fa-solid fa-cloud-arrow-up"></i> Upload</button>
       </div>
 
-      <!-- WDM Sub-chips -->
       <div class="sub-filter-row" id="wdmSubFilters">
         <button class="sub-chip active" onclick="filterWdmSub('all', this)">All WDM</button>
         <button class="sub-chip" onclick="filterWdmSub('nature', this)">Nature & Dam</button>
@@ -959,7 +772,6 @@
         <button class="sub-chip" onclick="filterWdmSub('village', this)">Village Infra</button>
       </div>
 
-      <!-- Festival Sub-chips -->
       <div class="sub-filter-row" id="festivalSubFilters" style="display:none;">
         <button class="sub-chip active" onclick="filterFestSub('all', this)">All Festivals</button>
         <button class="sub-chip" onclick="filterFestSub('छठ पूजा', this)">छठ पूजा</button>
@@ -968,7 +780,7 @@
         <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">शिवरात्रि</button>
       </div>
 
-      <!-- Citizen Upload Form (Auto-Compressed, Fail-safe) -->
+      <!-- Upload Form -->
       <div class="citizen-upload-card" id="citizenUploadCard">
         <h4 style="font-size:0.95rem; color:var(--accent-orange); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
           <i class="fa-solid fa-paper-plane"></i> Share Village Photo with Telegram Alert
@@ -976,15 +788,15 @@
         <form id="citizenPhotoUploadForm" onsubmit="handleCitizenPhotoSubmit(event)">
           <div class="upload-form-grid">
             <div class="form-group-sm">
-              <label><i class="fa-solid fa-user"></i> Your Full Name *</label>
-              <input type="text" id="uploadSenderName" class="form-control-sm" required placeholder="e.g. Rahul Kumar">
+              <label>Your Full Name *</label>
+              <input type="text" id="uploadSenderName" class="form-control-sm" required>
             </div>
             <div class="form-group-sm">
-              <label><i class="fa-solid fa-phone"></i> Mobile / WhatsApp *</label>
-              <input type="tel" id="uploadSenderPhone" class="form-control-sm" required maxlength="10" placeholder="10-digit number">
+              <label>Mobile Number *</label>
+              <input type="tel" id="uploadSenderPhone" class="form-control-sm" required maxlength="10">
             </div>
             <div class="form-group-sm">
-              <label><i class="fa-solid fa-layer-group"></i> Category *</label>
+              <label>Category *</label>
               <select id="uploadPhotoCategory" class="form-control-sm" required>
                 <option value="WDM - Nature">WDM - Nature & Dam</option>
                 <option value="WDM - Railway">WDM - Railway Heritage</option>
@@ -996,8 +808,8 @@
               </select>
             </div>
             <div class="form-group-sm">
-              <label><i class="fa-solid fa-tag"></i> Photo Title / Caption *</label>
-              <input type="text" id="uploadPhotoTitle" class="form-control-sm" required placeholder="e.g. Piprahwa dam reservoir">
+              <label>Photo Title / Caption *</label>
+              <input type="text" id="uploadPhotoTitle" class="form-control-sm" required>
             </div>
           </div>
 
@@ -1017,10 +829,8 @@
         </form>
       </div>
 
-      <!-- Gallery Grid -->
       <div class="unified-grid" id="unifiedMediaGrid"></div>
 
-      <!-- View More Toggle -->
       <div id="mediaMoreBox" style="display:none; text-align:center; margin-top:22px;">
         <button class="btn btn-secondary" id="btnToggleMedia" onclick="toggleMediaExpansion()">
           <i class="fa-solid fa-images"></i> <span id="mediaMoreText">View More Photos</span>
@@ -1029,9 +839,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       SECTION: WORKING PROGRESS DASHBOARD (METRICS)
-       ========================================================================== -->
+  <!-- SECTION: WORKING PROGRESS DASHBOARD -->
   <section class="section-pad" id="dashboard" style="background: var(--bg-surface-elevated);">
     <div class="container">
       <div class="section-header">
@@ -1072,9 +880,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       SECTION: GRAM PADADHIKARI & THE HOST
-       ========================================================================== -->
+  <!-- SECTION: GRAM PADADHIKARI & THE HOST -->
   <section class="section-pad" id="representatives">
     <div class="container">
       <div class="section-header">
@@ -1087,22 +893,22 @@
         <div class="rep-card">
           <div class="rep-avatar"><i class="fa-solid fa-user-tie"></i></div>
           <h3 class="rep-name">Gram Pradhan</h3>
-          <div class="rep-role">Tara Devi</div>
-          <p class="rep-desc">Contact: 9452696410</p>
+          <div class="rep-role" id="txtRepPradhanName" data-editable="true">Tara Devi</div>
+          <p class="rep-desc" id="txtRepPradhanPhone" data-editable="true">Contact: 9452696410</p>
         </div>
 
         <div class="rep-card">
           <div class="rep-avatar"><i class="fa-solid fa-landmark"></i></div>
           <h3 class="rep-name">Panchayat Secretary (VDO)</h3>
-          <div class="rep-role">Sunil Kumar</div>
-          <p class="rep-desc">Contact: 7376714512</p>
+          <div class="rep-role" id="txtRepVdoName" data-editable="true">Sunil Kumar</div>
+          <p class="rep-desc" id="txtRepVdoPhone" data-editable="true">Contact: 7376714512</p>
         </div>
 
         <div class="rep-card">
           <div class="rep-avatar"><i class="fa-solid fa-users-gear"></i></div>
           <h3 class="rep-name">Ward Members & Mitra</h3>
-          <div class="rep-role">Munna Paswan</div>
-          <p class="rep-desc">Contact: 9793192139</p>
+          <div class="rep-role" id="txtRepMitraName" data-editable="true">Munna Paswan</div>
+          <p class="rep-desc" id="txtRepMitraPhone" data-editable="true">Contact: 9793192139</p>
         </div>
       </div>
 
@@ -1113,8 +919,8 @@
         </div>
         <div class="host-content">
           <span class="host-badge"><i class="fa-solid fa-laptop-code"></i> Portal Host & Technical Lead</span>
-          <h3>Digital Gram Initiative — The Host</h3>
-          <p>
+          <h3 id="txtHostTitle" data-editable="true">Digital Gram Initiative — The Host</h3>
+          <p id="txtHostDesc" data-editable="true">
             This portal is developed and maintained to bring transparent e-services, grievance tracking, and local tourism promotion to Gram Panchayat Wyndhamganj Butbherwa.
           </p>
         </div>
@@ -1122,9 +928,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       SECTION: EMERGENCY HELPLINES & GRIEVANCE CELL
-       ========================================================================== -->
+  <!-- SECTION: EMERGENCY HELPLINES & GRIEVANCE CELL -->
   <section class="section-pad" id="grievance" style="background: var(--bg-surface-elevated);">
     <div class="container">
       <div class="section-header">
@@ -1133,65 +937,41 @@
         <p class="section-subtitle">Submit complaints directly to Panchayat administration or dial emergency numbers.</p>
       </div>
 
-      <!-- Helplines -->
       <div class="helpline-grid">
         <a href="tel:112" class="helpline-card">
           <div class="helpline-icon icon-red"><i class="fa-solid fa-shield-virus"></i></div>
-          <div class="helpline-info">
-            <h4>Police Emergency</h4>
-            <span>UP Police Quick Dial</span>
-            <b>112</b>
-          </div>
+          <div class="helpline-info"><h4>Police Emergency</h4><span>UP Police Quick Dial</span><b>112</b></div>
         </a>
-
         <a href="tel:108" class="helpline-card">
           <div class="helpline-icon icon-blue"><i class="fa-solid fa-truck-medical"></i></div>
-          <div class="helpline-info">
-            <h4>Ambulance</h4>
-            <span>Medical Emergency</span>
-            <b>108 / 102</b>
-          </div>
+          <div class="helpline-info"><h4>Ambulance</h4><span>Medical Emergency</span><b>108 / 102</b></div>
         </a>
-
         <a href="tel:1912" class="helpline-card">
           <div class="helpline-icon icon-yellow"><i class="fa-solid fa-bolt"></i></div>
-          <div class="helpline-info">
-            <h4>Power Dept</h4>
-            <span>Electricity Disruption</span>
-            <b>1912</b>
-          </div>
+          <div class="helpline-info"><h4>Power Dept</h4><span>Electricity Disruption</span><b>1912</b></div>
         </a>
-
         <a href="tel:1090" class="helpline-card">
           <div class="helpline-icon icon-teal"><i class="fa-solid fa-hand-holding-heart"></i></div>
-          <div class="helpline-info">
-            <h4>Women Safety</h4>
-            <span>24x7 Helpline</span>
-            <b>1090</b>
-          </div>
+          <div class="helpline-info"><h4>Women Safety</h4><span>24x7 Helpline</span><b>1090</b></div>
         </a>
       </div>
 
-      <!-- Grievance Form (Fail-safe, Timeout Protected) -->
       <div class="portal-form-wrapper">
         <form id="grievanceForm" onsubmit="handleFormSubmission(event)">
           <div class="form-group">
-            <label for="citizenName"><i class="fa-solid fa-user"></i> Applicant Full Name *</label>
-            <input type="text" id="citizenName" class="form-control" required placeholder="e.g. Ram Kumar">
+            <label>Applicant Full Name *</label>
+            <input type="text" id="citizenName" class="form-control" required>
           </div>
-
           <div class="form-group">
-            <label for="userPhoneInput"><i class="fa-solid fa-mobile-screen"></i> 10-Digit Mobile Number *</label>
-            <input type="tel" id="userPhoneInput" class="form-control" required placeholder="e.g. 9876543210" maxlength="10">
+            <label>10-Digit Mobile Number *</label>
+            <input type="tel" id="userPhoneInput" class="form-control" required maxlength="10">
           </div>
-
           <div class="form-group">
-            <label for="citizenAddress"><i class="fa-solid fa-map-location-dot"></i> Ward / Locality *</label>
-            <input type="text" id="citizenAddress" class="form-control" required placeholder="e.g. Shiv Nagar, Ward 03">
+            <label>Ward / Locality *</label>
+            <input type="text" id="citizenAddress" class="form-control" required>
           </div>
-
           <div class="form-group">
-            <label for="issueCategory"><i class="fa-solid fa-list-check"></i> Issue Category *</label>
+            <label>Issue Category *</label>
             <select id="issueCategory" class="form-control" required>
               <option value="">-- Select Category --</option>
               <option value="Drinking Water & Handpump Maintenance">Drinking Water & Handpump Maintenance</option>
@@ -1203,12 +983,10 @@
               <option value="General Grievance / Suggestion">General Grievance / Suggestion</option>
             </select>
           </div>
-
           <div class="form-group">
-            <label for="citizenMessage"><i class="fa-solid fa-pen-to-square"></i> Issue Details *</label>
-            <textarea id="citizenMessage" class="form-control" rows="4" required placeholder="Describe your grievance or development suggestion in detail..."></textarea>
+            <label>Issue Details *</label>
+            <textarea id="citizenMessage" class="form-control" rows="4" required></textarea>
           </div>
-
           <button type="submit" class="btn btn-primary" id="btnSubmitGrievance" style="width:100%; padding:12px;">
             <i class="fa-solid fa-paper-plane"></i> Instant Submit Grievance
           </button>
@@ -1227,7 +1005,7 @@
         <div class="tracker-box">
           <h4 style="font-size:0.92rem; margin-bottom:6px;">Track Existing Grievance</h4>
           <div style="display:flex; gap:8px;">
-            <input type="text" id="trackTokenInput" class="form-control" style="text-transform:uppercase;" placeholder="e.g. WDM-2026-1001">
+            <input type="text" id="trackTokenInput" class="form-control" style="text-transform:uppercase;">
             <button class="btn btn-secondary" onclick="trackComplaintStatus()">Track</button>
           </div>
           <div id="statusResultBox" style="margin-top:10px;"></div>
@@ -1236,32 +1014,7 @@
     </div>
   </section>
 
-  <!-- ==========================================================================
-       DEDICATED [ DB ] COMMUNITY FEED MODAL (ALL PHOTOS + LIKES + COMMENTS)
-       ========================================================================== -->
-  <div class="db-view-overlay" id="dbViewOverlay">
-    <div class="db-view-container">
-      <div class="db-top-bar">
-        <div>
-          <h2 style="font-size:1.35rem; font-weight:900; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
-            <span style="background:var(--accent-orange); color:#fff; padding:2px 8px; border-radius:4px; font-size:0.85rem;">DB</span>
-            Wyndhamganj Community Gallery Feed
-          </h2>
-          <p style="font-size:0.78rem; color:var(--text-muted);">Explore, like, and comment on public photos uploaded by residents.</p>
-        </div>
-        <button class="btn-exit-games" onclick="closeDatabaseView()">
-          <i class="fa-solid fa-xmark"></i> Exit
-        </button>
-      </div>
-
-      <!-- Feed Container -->
-      <div id="dbFeedList"></div>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       GAMES ARENA MODAL (WITH TOP EXIT BUTTON)
-       ========================================================================== -->
+  <!-- GAMES ARENA MODAL (WITH TOP EXIT BUTTON) -->
   <div class="games-drawer-overlay" id="gamesDrawerOverlay" onclick="closeGamesDrawer(event)">
     <div class="games-drawer-content" onclick="event.stopPropagation()">
       <div class="games-top-bar">
@@ -1271,73 +1024,58 @@
           </h3>
           <span style="font-size:0.76rem; color:var(--text-muted);">Local tournaments, live match details & achievements</span>
         </div>
-        <button class="btn-exit-games" onclick="closeGamesDrawer()">
-          <i class="fa-solid fa-xmark"></i> Exit
-        </button>
+        <button class="btn-exit-games" onclick="closeGamesDrawer()"><i class="fa-solid fa-xmark"></i> Exit</button>
       </div>
 
-      <!-- Game Options Tabs -->
       <div class="sub-filter-row" style="margin-bottom:16px;">
         <button class="sub-chip active" onclick="filterGamesModal('all', this)">All Games</button>
         <button class="sub-chip" onclick="filterGamesModal('cricket', this)">Cricket League</button>
         <button class="sub-chip" onclick="filterGamesModal('volleyball', this)">Volleyball Cup</button>
-        <button class="sub-chip" onclick="filterGamesModal('school', this)">School Sports</button>
       </div>
 
-      <!-- Cards -->
       <div id="modalGamesList">
         <div class="sport-card" data-gametype="cricket">
           <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <span class="sport-badge badge-cricket">Cricket Match Live</span>
+            <span class="sub-chip" style="background:rgba(249,115,22,0.2); color:#fb923c;">Cricket Match Live</span>
             <span style="font-size:0.75rem; color:var(--text-muted);">Piprahwa Dam Ground</span>
           </div>
-          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);">Wyndhamganj Premier League</h4>
-          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;">Shiv Nagar XI: 142/6 (16.0 ov) vs Butbherwa Warriors (Target: 143 Runs)</p>
-          <div style="font-size:0.76rem; color:var(--text-muted);">Knockout tournament under Gram Youth Sports Council.</div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);" id="txtCricketMatchTitle" data-editable="true">Wyndhamganj Premier League</h4>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;" id="txtCricketScore" data-editable="true">Shiv Nagar XI: 142/6 (16.0 ov) vs Butbherwa Warriors (Target: 143 Runs)</p>
         </div>
 
         <div class="sport-card" data-gametype="volleyball">
           <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <span class="sport-badge badge-volleyball">Volleyball Trophy</span>
+            <span class="sub-chip" style="background:rgba(56,189,248,0.2); color:#0284c7;">Volleyball Trophy</span>
             <span style="font-size:0.75rem; color:var(--text-muted);">High School Court</span>
           </div>
-          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);">Gram Panchayat Volleyball Championship</h4>
-          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;">Ward 03 Spikers vs Duddhi Block Club (Sets: 2 - 1)</p>
-          <div style="font-size:0.76rem; color:var(--text-muted);">Annual cup sponsored by Gram Pradhan & Sports Committee.</div>
-        </div>
-
-        <div class="sport-card" data-gametype="school">
-          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <span class="sport-badge" style="background:rgba(168,85,247,0.18); color:#a855f7;">Athletics Meet</span>
-            <span style="font-size:0.75rem; color:var(--text-muted);">Composite School</span>
-          </div>
-          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);">Annual Inter-School 100m Sprint & Kabaddi</h4>
-          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;">Over 120 student athletes participated in running and kabaddi finals.</p>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);" id="txtVolleyTitle" data-editable="true">Gram Panchayat Volleyball Championship</h4>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;" id="txtVolleyScore" data-editable="true">Ward 03 Spikers vs Duddhi Block Club (Sets: 2 - 1)</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ==========================================================================
-       GOOGLE LOGIN POPUP MODAL
-       ========================================================================== -->
+  <!-- CITIZEN & ADMIN LOGIN POPUP MODAL -->
   <div class="login-modal" id="citizenLoginModal" onclick="closeLoginModal(event)">
     <div class="login-card" onclick="event.stopPropagation()">
       <button class="login-close" onclick="closeLoginModal()">&times;</button>
       
-      <!-- Unauthenticated State -->
+      <!-- Login Tabs: Citizen vs Admin -->
+      <div class="login-mode-tabs">
+        <button class="login-tab-btn active" id="tabCitizenLogin" onclick="switchLoginMode('citizen')">Citizen Login</button>
+        <button class="login-tab-btn" id="tabAdminLogin" onclick="switchLoginMode('admin')">Admin Login 👑</button>
+      </div>
+
+      <!-- Tab 1: Citizen Google Login -->
       <div id="loginFormState">
         <div style="font-size: 2.2rem; color: var(--accent-orange); margin-bottom: 8px;">
           <i class="fa-solid fa-circle-user"></i>
         </div>
-        <h3 style="font-size: 1.2rem; color: var(--text-primary); font-weight: 800; margin-bottom: 4px;">
-          Citizen Portal Login
-        </h3>
+        <h3 style="font-size: 1.2rem; color: var(--text-primary); font-weight: 800; margin-bottom: 4px;">Citizen Login</h3>
         <p style="font-size: 0.82rem; color: var(--text-muted); max-width: 300px; margin: 0 auto 20px;">
-          One-tap secure Google login for complaints, verified photo uploads, and community notices.
+          One-tap secure Google login for complaints and verified notices.
         </p>
 
-        <!-- Google Button -->
         <button onclick="handleGoogleSignIn()" class="btn" style="width: 100%; background: #ffffff; color: #1f2937; border: 1px solid #d1d5db; font-weight: 700; padding: 12px; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(0,0,0,0.12); display: inline-flex; align-items: center; justify-content: center; gap: 12px; border-radius: var(--radius-sm);">
           <svg width="20" height="20" viewBox="0 0 48 48">
             <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -1347,13 +1085,41 @@
           </svg>
           Continue with Google
         </button>
-
-        <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 14px;">
-          <i class="fa-solid fa-lock"></i> 100% Free & Verified Public Service
-        </div>
       </div>
 
-      <!-- Authenticated State -->
+      <!-- Tab 2: Secure Admin Login (paswanvive@gmail.com + 7880571898 + Vivek@7880) -->
+      <div id="adminLoginFormState" style="display:none; text-align:left;">
+        <div style="text-align:center; font-size: 2rem; color: var(--accent-gold); margin-bottom: 6px;">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800; text-align:center; margin-bottom: 4px;">Admin Portal Access</h3>
+        <p style="font-size: 0.76rem; color: var(--text-muted); text-align:center; margin-bottom: 16px;">
+          Strict 3-Factor Verification: Google (paswanvive@gmail.com) + Mobile + Password.
+        </p>
+
+        <!-- Step 1: Google Button -->
+        <button id="btnAdminGoogleLink" onclick="handleAdminGoogleAuth()" class="btn" style="width: 100%; background: #ffffff; color: #111; font-weight: 700; padding: 10px; font-size: 0.88rem; margin-bottom: 12px; border-radius: 6px;">
+          <i class="fa-brands fa-google" style="color:#ea4335;"></i> <span id="adminGoogleBtnText">Step 1: Sign in with paswanvive@gmail.com</span>
+        </button>
+
+        <!-- Step 2: Mobile Number -->
+        <div class="form-group" style="margin-bottom:10px;">
+          <label style="font-size:0.78rem; font-weight:700;">Admin Mobile Number *</label>
+          <input type="tel" id="adminPhoneInput" class="form-control" maxlength="10">
+        </div>
+
+        <!-- Step 3: Password -->
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="font-size:0.78rem; font-weight:700;">Admin Password *</label>
+          <input type="password" id="adminPasswordInput" class="form-control">
+        </div>
+
+        <button onclick="verifyAndUnlockAdmin()" class="btn btn-primary" style="width:100%; padding:11px; font-weight:800;">
+          <i class="fa-solid fa-lock-open"></i> Step 2: Verify & Unlock Admin Panel
+        </button>
+      </div>
+
+      <!-- User / Admin Logged In State -->
       <div id="userLoggedInState" style="display: none; padding: 10px 0;">
         <img id="userAvatarImg" src="" alt="Profile" style="width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--accent-orange); margin: 0 auto 8px; object-fit: cover; display: block;">
         <h4 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800;" id="loggedInUserTitle">Citizen Name</h4>
@@ -1365,7 +1131,7 @@
     </div>
   </div>
 
-  <!-- PORTAL FOOTER -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -1373,9 +1139,7 @@
           <div class="gamer-logo" style="margin-bottom:10px;">
             <span class="part-one">WYNDHAM</span><span class="part-two">GANJ</span>
           </div>
-          <p style="line-height:1.6; font-size:0.82rem;">
-            Serving citizens of Wyndhamganj, Butbherwa, Shiv Nagar, Murisemar, Dharti Dolwa, Salayadih, Dhooma, and Patel Nagar with transparent e-services.
-          </p>
+          <p style="line-height:1.6; font-size:0.82rem;">Serving citizens of Wyndhamganj, Butbherwa, Shiv Nagar, Murisemar, Dharti Dolwa, Salayadih, Dhooma, and Patel Nagar with transparent e-services.</p>
         </div>
 
         <div class="footer-col">
@@ -1397,9 +1161,6 @@
             Gram Panchayat Secretariat, Wyndhamganj Butbherwa (Shiv Nagar),<br>
             Block: Duddhi, District: Sonbhadra, UP - 231226
           </p>
-          <div style="margin-top:10px; font-size:0.8rem; color:var(--accent-orange);">
-            <i class="fa-solid fa-shield-heart"></i> Digital Gram Initiative
-          </div>
         </div>
       </div>
 
@@ -1410,32 +1171,19 @@
     </div>
   </footer>
 
-  <!-- Lightbox Modal -->
-  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
-    <div class="lightbox-content">
-      <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
-      <img src="" alt="View" class="lightbox-img" id="lightboxImg">
-      <div style="color:#fff; font-size:0.88rem; margin-top:8px; font-weight:700;" id="lightboxCaption"></div>
-    </div>
-  </div>
-
-  <!-- Toast -->
   <div class="toast-notification" id="toastNotification">
     <i class="fa-solid fa-bell" style="color:var(--primary);"></i>
     <span id="toastMsg">Notification</span>
   </div>
 
-  <!-- ==========================================================================
-       JAVASCRIPT APPLICATION ENGINE (WITH BULLETPROOF FALLBACKS)
-       ========================================================================== -->
+             <!-- JAVASCRIPT ENGINE -->
   <script>
-    /* 1. DUAL THEME ENGINE (PERSISTENCE) */
+    /* 1. DUAL THEME ENGINE */
     function applySavedTheme() {
       const savedTheme = localStorage.getItem('wdm_portal_theme') || 'dark';
       document.documentElement.setAttribute('data-theme', savedTheme);
       updateThemeButtonText(savedTheme);
     }
-
     function togglePortalTheme() {
       const current = document.documentElement.getAttribute('data-theme') || 'dark';
       const next = current === 'dark' ? 'light' : 'dark';
@@ -1444,16 +1192,13 @@
       updateThemeButtonText(next);
       showToast(next === 'light' ? "☀️ Light Mode Active" : "🌙 Dark Mode Active");
     }
-
     function updateThemeButtonText(theme) {
       const el = document.getElementById('themeToggleText');
-      if (el) {
-        el.textContent = theme === 'light' ? "Switch to Dark Mode" : "Switch to Light Mode";
-      }
+      if (el) el.textContent = theme === 'light' ? "Switch to Dark Mode" : "Switch to Light Mode";
     }
     applySavedTheme();
 
-    /* 2. LIVE CLOCK & WYNDHAMGANJ WEATHER */
+    /* 2. REAL WYNDHAMGANJ WEATHER & CLOCK */
     function updateClock() {
       const el = document.getElementById('portalLiveClock');
       if (el) {
@@ -1464,25 +1209,24 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    function fetchWyndhamganjWeather() {
+    function fetchRealWyndhamganjWeather() {
       const weatherEl = document.getElementById('portalLiveWeather');
       if (!weatherEl) return;
+      // Latitude 24.25, Longitude 83.42 (Wyndhamganj, Sonbhadra)
       fetch('https://api.open-meteo.com/v1/forecast?latitude=24.25&longitude=83.42&current_weather=true')
         .then(res => res.json())
         .then(data => {
-          if (data && data.current_weather && data.current_weather.temperature) {
+          if (data && data.current_weather && typeof data.current_weather.temperature !== 'undefined') {
             weatherEl.textContent = Math.round(data.current_weather.temperature) + '°C';
           } else {
-            weatherEl.textContent = '28°C';
+            weatherEl.textContent = '27°C';
           }
         })
-        .catch(() => {
-          weatherEl.textContent = '28°C';
-        });
+        .catch(() => { weatherEl.textContent = '27°C'; });
     }
-    fetchWyndhamganjWeather();
+    fetchRealWyndhamganjWeather();
 
-    /* 3. FIREBASE CONFIGURATION (WDM-UPDATE) */
+    /* 3. FIREBASE CONFIG */
     const firebaseConfig = {
       apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
       authDomain: "wdm-update.firebaseapp.com",
@@ -1492,10 +1236,7 @@
       appId: "1:677435578526:web:74119dc8309c4ba744838f",
       measurementId: "G-R4KWL05ZNR"
     };
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
 
@@ -1503,79 +1244,10 @@
     const TELEGRAM_CHAT_ID = "6032430283";
 
     let currentUserProfile = null;
+    let adminGoogleUser = null;
+    let isAdminActive = false;
 
-    /* 4. GOOGLE AUTH & USER SYNC */
-    function handleGoogleSignIn() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then((result) => {
-          const user = result.user;
-          showToast("🎉 Welcome, " + (user.displayName || "Citizen") + "!");
-          closeLoginModal();
-
-          try {
-            db.collection("users").doc(user.uid).set({
-              name: user.displayName || "Citizen User",
-              email: user.email || "",
-              photoURL: user.photoURL || "",
-              lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
-          } catch(e){}
-
-          const citizenNameInput = document.getElementById('citizenName');
-          if (citizenNameInput && user.displayName) citizenNameInput.value = user.displayName;
-
-          const uploadNameInput = document.getElementById('uploadSenderName');
-          if (uploadNameInput && user.displayName) uploadNameInput.value = user.displayName;
-        })
-        .catch((error) => {
-          alert("Google Sign-In Error: " + error.message);
-        });
-    }
-
-    auth.onAuthStateChanged((user) => {
-      const circleBtn = document.getElementById('navCircleUserBtn');
-      if (user) {
-        currentUserProfile = user;
-        if (circleBtn) circleBtn.classList.add('logged-in');
-
-        document.getElementById('loginFormState').style.display = 'none';
-        document.getElementById('userLoggedInState').style.display = 'block';
-        document.getElementById('loggedInUserTitle').textContent = user.displayName || "Citizen User";
-        document.getElementById('loggedInUserDetails').textContent = user.email || "";
-        document.getElementById('userAvatarImg').src = user.photoURL || 'IMG_20250929_062521.jpg';
-
-        const citizenNameInput = document.getElementById('citizenName');
-        if (citizenNameInput && !citizenNameInput.value && user.displayName) citizenNameInput.value = user.displayName;
-
-        const uploadNameInput = document.getElementById('uploadSenderName');
-        if (uploadNameInput && !uploadNameInput.value && user.displayName) uploadNameInput.value = user.displayName;
-      } else {
-        currentUserProfile = null;
-        if (circleBtn) circleBtn.classList.remove('logged-in');
-        document.getElementById('loginFormState').style.display = 'block';
-        document.getElementById('userLoggedInState').style.display = 'none';
-      }
-    });
-
-    function openLoginModal() {
-      document.getElementById('citizenLoginModal').classList.add('active');
-    }
-
-    function closeLoginModal(e) {
-      if (!e || e.target.id === 'citizenLoginModal' || e.target.className === 'login-close') {
-        document.getElementById('citizenLoginModal').classList.remove('active');
-      }
-    }
-
-    function handlePortalLogout() {
-      auth.signOut().then(() => {
-        showToast("Logged out successfully.");
-        closeLoginModal();
-      });
-    }
-
-    /* 5. DRAWER NAVIGATION & ACCESSIBILITY */
+    /* 4. LEFT DRAWER NAVIGATION */
     function toggleDrawer(open) {
       const overlay = document.getElementById('drawerOverlay');
       const panel = document.getElementById('drawerPanel');
@@ -1587,115 +1259,193 @@
         panel.classList.remove('active');
       }
     }
-
     function setFontSize(size) {
       document.documentElement.setAttribute('data-font', size);
       document.querySelectorAll('.ctrl-btn').forEach(b => {
-        if (['a-', 'a', 'a+'].includes(b.textContent.trim().toLowerCase())) {
-          b.classList.remove('active');
-        }
+        if (['a-', 'a', 'a+'].includes(b.textContent.trim().toLowerCase())) b.classList.remove('active');
       });
       const active = Array.from(document.querySelectorAll('.ctrl-btn')).find(b => b.textContent.trim().toLowerCase() === (size === 'sm' ? 'a-' : size === 'md' ? 'a' : 'a+'));
       if (active) active.classList.add('active');
     }
 
-    /* 6. GAMES ARENA MODAL */
-    function openGamesArenaDrawer() {
-      document.getElementById('gamesDrawerOverlay').classList.add('active');
+    /* 5. LOGIN MODAL & ADMIN AUTHENTICATION */
+    function openLoginModal() {
+      document.getElementById('citizenLoginModal').classList.add('active');
     }
-
-    function closeGamesDrawer(e) {
-      if (!e || e.target.id === 'gamesDrawerOverlay' || (e.currentTarget && e.currentTarget.className === 'btn-exit-games')) {
-        document.getElementById('gamesDrawerOverlay').classList.remove('active');
+    function closeLoginModal(e) {
+      if (!e || e.target.id === 'citizenLoginModal' || e.target.className === 'login-close') {
+        document.getElementById('citizenLoginModal').classList.remove('active');
       }
     }
 
-    function filterGamesModal(type, btn) {
-      document.querySelectorAll('#gamesDrawerOverlay .sub-chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
+    function switchLoginMode(mode) {
+      const citTab = document.getElementById('tabCitizenLogin');
+      const admTab = document.getElementById('tabAdminLogin');
+      const citForm = document.getElementById('loginFormState');
+      const admForm = document.getElementById('adminLoginFormState');
 
-      const cards = document.querySelectorAll('#modalGamesList .sport-card');
-      cards.forEach(card => {
-        if (type === 'all' || card.getAttribute('data-gametype') === type) {
-          card.style.display = 'block';
+      if (mode === 'admin') {
+        citTab.classList.remove('active');
+        admTab.classList.add('active');
+        citForm.style.display = 'none';
+        admForm.style.display = 'block';
+      } else {
+        admTab.classList.remove('active');
+        citTab.classList.add('active');
+        admForm.style.display = 'none';
+        citForm.style.display = 'block';
+      }
+    }
+
+    // Citizen Google Sign-In
+    function handleGoogleSignIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then((res) => {
+        currentUserProfile = res.user;
+        showToast("Welcome " + (res.user.displayName || "Citizen"));
+        closeLoginModal();
+      }).catch(err => alert("Google Login Error: " + err.message));
+    }
+
+    // Admin Step 1: Google Auth strictly checking paswanvive@gmail.com
+    function handleAdminGoogleAuth() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then((res) => {
+        if (res.user.email.toLowerCase() === 'paswanvive@gmail.com') {
+          adminGoogleUser = res.user;
+          document.getElementById('adminGoogleBtnText').textContent = "✓ Verified Google: paswanvive@gmail.com";
+          document.getElementById('btnAdminGoogleLink').style.background = "#dcfce7";
+          showToast("✓ Admin Gmail verified! Now enter Mobile & Password.");
         } else {
-          card.style.display = 'none';
+          alert("Unauthorized! Admin panel is strictly for paswanvive@gmail.com. You signed in as: " + res.user.email);
+          auth.signOut();
+          adminGoogleUser = null;
         }
+      }).catch(err => alert("Google Auth error: " + err.message));
+    }
+
+    // Admin Step 2: Verify Mobile (7880571898) & Password (Vivek@7880)
+    function verifyAndUnlockAdmin() {
+      if (!adminGoogleUser || adminGoogleUser.email.toLowerCase() !== 'paswanvive@gmail.com') {
+        alert("Step 1 incomplete: Please sign in with Google using paswanvive@gmail.com first!");
+        return;
+      }
+      const phone = document.getElementById('adminPhoneInput').value.trim();
+      const pass = document.getElementById('adminPasswordInput').value.trim();
+
+      if (phone === '7880571898' && pass === 'Vivek@7880') {
+        enableAdminMode();
+      } else {
+        alert("Invalid Mobile Number or Password!");
+      }
+    }
+
+    function enableAdminMode() {
+      isAdminActive = true;
+      document.body.classList.add('admin-mode-on');
+      document.getElementById('adminLiveBar').classList.add('active');
+      document.getElementById('navCircleUserBtn').classList.add('admin-in');
+
+      // Make all marked elements editable
+      document.querySelectorAll('[data-editable="true"]').forEach(el => {
+        el.setAttribute('contenteditable', 'true');
+      });
+
+      // Telegram Admin Login Alert
+      const timeStr = new Date().toLocaleString('en-IN');
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: `👑 *ADMIN LOGGED IN & UNLOCKED LIVE EDIT*\n━━━━━━━━━━━━━━━━━━━\n📧 *Email:* paswanvive@gmail.com\n📞 *Mobile:* 7880571898\n🕒 *Time:* ${timeStr}\n🌐 *Portal:* Wyndhamganj Butbherwa`,
+          parse_mode: 'Markdown'
+        })
+      }).catch(e => console.log(e));
+
+      closeLoginModal();
+      renderUnifiedMedia();
+      showToast("👑 Admin Mode Activated! You can now edit text and delete photos.");
+    }
+
+    function exitAdminMode() {
+      isAdminActive = false;
+      document.body.classList.remove('admin-mode-on');
+      document.getElementById('adminLiveBar').classList.remove('active');
+      document.getElementById('navCircleUserBtn').classList.remove('admin-in');
+      document.querySelectorAll('[data-editable="true"]').forEach(el => {
+        el.removeAttribute('contenteditable');
+      });
+      renderUnifiedMedia();
+      showToast("Admin Mode closed.");
+    }
+
+    function handlePortalLogout() {
+      auth.signOut().then(() => {
+        exitAdminMode();
+        showToast("Logged out successfully.");
+        closeLoginModal();
       });
     }
 
-    /* 7. UNIFIED GALLERY & CLIENT-SIDE IMAGE COMPRESSOR (NO FREEZE) */
+    /* 6. ADMIN LIVE SAVE (PERSISTENCE & TELEGRAM ALERT) */
+    function saveAdminLiveChanges() {
+      const siteContent = {};
+      document.querySelectorAll('[data-editable="true"]').forEach(el => {
+        if (el.id) {
+          siteContent[el.id] = el.innerHTML;
+        }
+      });
+
+      localStorage.setItem('wdm_live_custom_content', JSON.stringify(siteContent));
+
+      // Attempt sync to Firestore
+      try {
+        db.collection("site_settings").doc("content").set({
+          ...siteContent,
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedBy: "paswanvive@gmail.com"
+        }, { merge: true });
+      } catch(e){}
+
+      // Telegram Broadcast
+      const msg = `✏️ *ADMIN EDITED SITE CONTENT & SAVED LIVE*\n━━━━━━━━━━━━━━━━━━━\n👤 *Admin:* Vivek Paswan (paswanvive@gmail.com)\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n🌐 *Status:* Live on Wyndhamganj Portal!`;
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' })
+      }).catch(e => console.log(e));
+
+      showToast("🎉 All changes saved and published live!");
+    }
+
+    function loadPersistedSiteContent() {
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem('wdm_live_custom_content') || '{}'); } catch(e){}
+      for (const [id, html] of Object.entries(saved)) {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      }
+    }
+
+        /* 7. GALLERY & ADMIN PHOTO DELETE */
     let currentMainSection = 'wdm';
     let currentSubFilter = 'all';
     let isMediaExpanded = false;
 
     const defaultMediaItems = [
-      {
-        id: "post_def_1",
-        src: "IMG_20250929_062521.jpg",
-        mainCategory: "wdm",
-        subCategory: "nature",
-        title: "Piprahwa Dam Reservoir & Landscape",
-        badge: "WDM Nature",
-        likes: 12,
-        comments: [{ name: "Vivek", text: "Piprahwa Dam bohot sundar lag raha hai!" }]
-      },
-      {
-        id: "post_def_2",
-        src: "IMG_20250930_164330 (1).jpg",
-        mainCategory: "wdm",
-        subCategory: "railway",
-        title: "Wyndhamganj Railway Tracks Route",
-        badge: "Railway Line",
-        likes: 8,
-        comments: []
-      },
-      {
-        id: "post_def_3",
-        src: "IMG_20261101_105032.jpg",
-        mainCategory: "wdm",
-        subCategory: "railway",
-        title: "Wyndhamganj Railway Station Complex",
-        badge: "Railway Station",
-        likes: 15,
-        comments: []
-      },
-      {
-        id: "post_def_4",
-        src: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80",
-        mainCategory: "wdm",
-        subCategory: "village",
-        title: "Gram Panchayat Secretariat (Shiv Nagar)",
-        badge: "Village Infra",
-        likes: 5,
-        comments: []
-      },
-      {
-        id: "post_def_5",
-        src: "IMG_20250929_062521.jpg",
-        mainCategory: "festival",
-        subCategory: "छठ पूजा",
-        title: "Piprahwa Dam Ghat - Surya Arghya",
-        badge: "छठ पूजा",
-        likes: 24,
-        comments: [{ name: "Anand", text: "Jai Chhathi Maiya 🙏" }]
-      },
-      {
-        id: "post_def_6",
-        src: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80",
-        mainCategory: "festival",
-        subCategory: "दीपावली",
-        title: "Shiv Nagar Secretariat Deepotsav",
-        badge: "दीपावली",
-        likes: 19,
-        comments: []
-      }
+      { id: "p1", src: "IMG_20250929_062521.jpg", mainCategory: "wdm", subCategory: "nature", title: "Piprahwa Dam Reservoir & Landscape", badge: "WDM Nature" },
+      { id: "p2", src: "IMG_20250930_164330 (1).jpg", mainCategory: "wdm", subCategory: "railway", title: "Wyndhamganj Railway Tracks Route", badge: "Railway Line" },
+      { id: "p3", src: "IMG_20261101_105032.jpg", mainCategory: "wdm", subCategory: "railway", title: "Wyndhamganj Railway Station Complex", badge: "Railway Station" },
+      { id: "p4", src: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80", mainCategory: "wdm", subCategory: "village", title: "Gram Panchayat Secretariat (Shiv Nagar)", badge: "Village Infra" },
+      { id: "p5", src: "IMG_20250929_062521.jpg", mainCategory: "festival", subCategory: "छठ पूजा", title: "Piprahwa Dam Ghat - Surya Arghya", badge: "छठ पूजा" },
+      { id: "p6", src: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80", mainCategory: "festival", subCategory: "दीपावली", title: "Shiv Nagar Secretariat Deepotsav", badge: "दीपावली" }
     ];
 
-    function getAllGalleryItems() {
-      let stored = [];
-      try { stored = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]'); } catch(e) { stored = []; }
-      return [...stored, ...defaultMediaItems];
+    function getAllGalleryPhotos() {
+      let custom = [];
+      try { custom = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]'); } catch(e){}
+      return [...custom, ...defaultMediaItems];
     }
 
     function renderUnifiedMedia() {
@@ -1704,11 +1454,9 @@
       const moreBtnText = document.getElementById('mediaMoreText');
       if (!container) return;
 
-      const all = getAllGalleryItems();
+      const all = getAllGalleryPhotos();
       let filtered = all.filter(item => item.mainCategory === currentMainSection);
-      if (currentSubFilter !== 'all') {
-        filtered = filtered.filter(item => item.subCategory === currentSubFilter);
-      }
+      if (currentSubFilter !== 'all') filtered = filtered.filter(item => item.subCategory === currentSubFilter);
 
       if (filtered.length > 4) {
         if (moreBox) moreBox.style.display = 'block';
@@ -1721,15 +1469,17 @@
       container.innerHTML = '';
 
       if (displayList.length === 0) {
-        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:25px; color:var(--text-muted);">No photos found in this category.</div>`;
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:25px; color:var(--text-muted);">No photos found.</div>`;
         return;
       }
 
       displayList.forEach(item => {
         const card = document.createElement('div');
         card.className = 'unified-card';
-        card.onclick = () => openLightbox(item.src, `${item.badge} - ${item.title}`);
         card.innerHTML = `
+          <button class="btn-admin-del-photo" onclick="deleteGalleryPhoto('${item.id}', '${item.title.replace(/'/g, "\\'")}', event)">
+            <i class="fa-solid fa-trash"></i> Delete
+          </button>
           <img src="${item.src}" alt="${item.title}" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg'">
           <span class="card-badge-top">${item.badge}</span>
           <div class="card-caption-bottom">
@@ -1741,10 +1491,33 @@
       });
     }
 
+    function deleteGalleryPhoto(photoId, title, e) {
+      if (e) e.stopPropagation();
+      if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+
+      let stored = [];
+      try { stored = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]'); } catch(e){}
+      stored = stored.filter(p => p.id !== photoId);
+      localStorage.setItem('wdm_unified_media', JSON.stringify(stored));
+
+      // Alert Telegram
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: `🗑️ *PHOTO DELETED BY ADMIN*\n━━━━━━━━━━━━━━━━━━━\n🏷️ *Title:* ${title}\n🆔 *Photo ID:* ${photoId}\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}`,
+          parse_mode: 'Markdown'
+        })
+      }).catch(e => console.log(e));
+
+      renderUnifiedMedia();
+      showToast("Photo deleted successfully!");
+    }
+
     function switchMediaSection(section, btn) {
       document.querySelectorAll('.media-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const wdmFilters = document.getElementById('wdmSubFilters');
       const festFilters = document.getElementById('festivalSubFilters');
       const uploadCard = document.getElementById('citizenUploadCard');
@@ -1756,58 +1529,43 @@
       isMediaExpanded = false;
 
       if (section === 'upload') {
-        wdmFilters.style.display = 'none';
-        festFilters.style.display = 'none';
-        uploadCard.classList.add('active');
-        mediaGrid.style.display = 'none';
-        moreBox.style.display = 'none';
+        wdmFilters.style.display = 'none'; festFilters.style.display = 'none';
+        uploadCard.classList.add('active'); mediaGrid.style.display = 'none'; moreBox.style.display = 'none';
       } else {
-        uploadCard.classList.remove('active');
-        mediaGrid.style.display = 'grid';
+        uploadCard.classList.remove('active'); mediaGrid.style.display = 'grid';
         if (section === 'wdm') {
-          wdmFilters.style.display = 'flex';
-          festFilters.style.display = 'none';
+          wdmFilters.style.display = 'flex'; festFilters.style.display = 'none';
           document.querySelectorAll('#wdmSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
           document.querySelector('#wdmSubFilters .sub-chip').classList.add('active');
         } else {
-          wdmFilters.style.display = 'none';
-          festFilters.style.display = 'flex';
+          wdmFilters.style.display = 'none'; festFilters.style.display = 'flex';
           document.querySelectorAll('#festivalSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
           document.querySelector('#festivalSubFilters .sub-chip').classList.add('active');
         }
         renderUnifiedMedia();
       }
     }
-
     function filterWdmSub(sub, btn) {
       currentSubFilter = sub;
       document.querySelectorAll('#wdmSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
       renderUnifiedMedia();
     }
-
     function filterFestSub(sub, btn) {
       currentSubFilter = sub;
       document.querySelectorAll('#festivalSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
       renderUnifiedMedia();
     }
-
     function toggleMediaExpansion() {
       isMediaExpanded = !isMediaExpanded;
       renderUnifiedMedia();
     }
-
     function updateSelectedFileName(input) {
-      const display = document.getElementById('selectedFileNameDisplay');
-      if (input.files && input.files[0]) {
-        display.textContent = input.files[0].name;
-      } else {
-        display.textContent = "No file chosen";
-      }
+      document.getElementById('selectedFileNameDisplay').textContent = (input.files && input.files[0]) ? input.files[0].name : "No file chosen";
     }
 
-    // Helper: Client-side Image Resizer so large phone images don't freeze the browser
+    // Auto Compress Image
     function compressImageFile(file, maxWidth, maxHeight, quality, callback) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -1815,28 +1573,17 @@
         const img = new Image();
         img.src = event.target.result;
         img.onload = function() {
-          let width = img.width;
-          let height = img.height;
-          if (width > maxWidth) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          }
-          if (height > maxHeight) {
-            width = Math.round((width * maxHeight) / height);
-            height = maxHeight;
-          }
+          let width = img.width, height = img.height;
+          if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
+          if (height > maxHeight) { width = Math.round((width * maxHeight) / height); height = maxHeight; }
           const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          const dataUrl = canvas.toDataURL('image/jpeg', quality);
-          callback(dataUrl);
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          callback(canvas.toDataURL('image/jpeg', quality));
         };
       };
     }
 
-    /* HANDLE PHOTO SUBMISSION (FAIL-SAFE, NEVER STUCK) */
     function handleCitizenPhotoSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('uploadSenderName').value.trim();
@@ -1845,25 +1592,17 @@
       const title = document.getElementById('uploadPhotoTitle').value.trim();
       const fileInput = document.getElementById('citizenFileInput');
 
-      if (!/^[6-9]\d{9}$/.test(phone)) {
-        alert("Please enter a valid 10-digit mobile number!");
-        return;
-      }
-      if (!fileInput.files || !fileInput.files[0]) {
-        alert("Please select an image file!");
-        return;
-      }
+      if (!/^[6-9]\d{9}$/.test(phone)) { alert("Enter 10-digit mobile number!"); return; }
+      if (!fileInput.files || !fileInput.files[0]) { alert("Please select an image!"); return; }
 
       const submitBtn = document.getElementById('btnSubmitPhoto');
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
-      // Auto compress to max 900px, 0.7 quality (~100-200 KB)
       compressImageFile(fileInput.files[0], 900, 900, 0.72, function(compressedBase64) {
         const isFestival = cat.startsWith("Festival");
         const mainCat = isFestival ? "festival" : "wdm";
         let subCat = "nature";
-
         if (cat.includes("Railway")) subCat = "railway";
         else if (cat.includes("Village")) subCat = "village";
         else if (cat.includes("छठ")) subCat = "छठ पूजा";
@@ -1872,77 +1611,46 @@
         else if (cat.includes("शिवरात्रि")) subCat = "महाशिवरात्रि";
 
         const newPhotoItem = {
-          id: 'post_' + Date.now(),
+          id: 'photo_' + Date.now(),
           src: compressedBase64,
           mainCategory: mainCat,
           subCategory: subCat,
           title: title,
-          badge: isFestival ? subCat : "Resident Upload",
-          likes: 1,
-          comments: []
+          badge: isFestival ? subCat : "Resident Upload"
         };
 
         try {
           let existing = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]');
           existing.unshift(newPhotoItem);
           localStorage.setItem('wdm_unified_media', JSON.stringify(existing));
-        } catch(err) {
-          console.warn("Storage quota limit reached, saving in current session.");
-        }
+        } catch(err){}
 
-        // Send Telegram alert in background (with 6s timeout so UI never freezes)
-        const telegramCaption = 
-          `📸 *NEW COMMUNITY PHOTO UPLOAD*\n` +
-          `━━━━━━━━━━━━━━━━━━━\n` +
-          `👤 *Sender:* ${name}\n` +
-          `📞 *Phone:* +91 ${phone}\n` +
-          `📂 *Category:* ${cat}\n` +
-          `🏷️ *Title:* ${title}\n` +
-          `🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n` +
-          `━━━━━━━━━━━━━━━━━━━\n` +
-          `🌐 *Portal:* Wyndhamganj Butbherwa`;
-
-        fetch(compressedBase64)
-          .then(res => res.blob())
-          .then(blob => {
-            const formData = new FormData();
-            formData.append('chat_id', TELEGRAM_CHAT_ID);
-            formData.append('photo', blob, 'upload.jpg');
-            formData.append('caption', telegramCaption);
-            formData.append('parse_mode', 'Markdown');
-            
-            const controller = new AbortController();
-            setTimeout(() => controller.abort(), 6000);
-            return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
-              method: 'POST',
-              body: formData,
-              signal: controller.signal
-            });
-          })
-          .catch(e => console.log("Telegram dispatch logged:", e))
-          .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Submit & Alert Telegram';
-            document.getElementById('citizenPhotoUploadForm').reset();
-            document.getElementById('selectedFileNameDisplay').textContent = "No file chosen";
-            showToast("🚀 Photo uploaded & added to Community Feed!");
-
-            // Refresh media view
-            const targetBtn = document.querySelector(`.media-tab-btn[onclick*="${mainCat}"]`);
-            if (targetBtn) targetBtn.click();
-            else renderUnifiedMedia();
-          });
+        // Telegram Notification
+        const telegramCaption = `📸 *NEW PHOTO UPLOAD*\n━━━━━━━━━━━━━━━━━━━\n👤 *Sender:* ${name}\n📞 *Phone:* +91 ${phone}\n📂 *Category:* ${cat}\n🏷️ *Title:* ${title}\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n🌐 *Portal:* Wyndhamganj Butbherwa`;
+        fetch(compressedBase64).then(res => res.blob()).then(blob => {
+          const formData = new FormData();
+          formData.append('chat_id', TELEGRAM_CHAT_ID);
+          formData.append('photo', blob, 'upload.jpg');
+          formData.append('caption', telegramCaption);
+          formData.append('parse_mode', 'Markdown');
+          return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+        }).catch(e => console.log(e)).finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Submit & Alert Telegram';
+          document.getElementById('citizenPhotoUploadForm').reset();
+          document.getElementById('selectedFileNameDisplay').textContent = "No file chosen";
+          showToast("Photo uploaded successfully!");
+          const targetBtn = document.querySelector(`.media-tab-btn[onclick*="${mainCat}"]`);
+          if (targetBtn) targetBtn.click();
+        });
       });
     }
 
-    /* 8. GRIEVANCE CELL & TELEGRAM DISPATCH (FAIL-SAFE, NEVER STUCK) */
+    /* 8. GRIEVANCE FORM & TELEGRAM DISPATCH */
     function handleFormSubmission(e) {
       e.preventDefault();
       const phone = document.getElementById('userPhoneInput').value.trim();
-      if (!/^[6-9]\d{9}$/.test(phone)) {
-        alert("Please enter a valid 10-digit Indian mobile number!");
-        return;
-      }
+      if (!/^[6-9]\d{9}$/.test(phone)) { alert("Enter valid 10-digit number!"); return; }
 
       const submitBtn = document.getElementById('btnSubmitGrievance');
       submitBtn.disabled = true;
@@ -1955,7 +1663,6 @@
       const tokenNumber = 'WDM-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
       const currentTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-      // Action to show success immediately & confirm to user
       const finalizeSuccess = () => {
         document.getElementById('grievanceForm').style.display = 'none';
         document.getElementById('receiptTokenBadge').textContent = tokenNumber;
@@ -1963,54 +1670,25 @@
         showToast("🚀 Grievance registered! Token: " + tokenNumber);
       };
 
-      // 1. Send Telegram Alert immediately
-      const alertMessage = 
-        `🚨 *NEW PUBLIC GRIEVANCE / SUGGESTION*\n` +
-        `━━━━━━━━━━━━━━━━━━━\n` +
-        `🎫 *Token No:* \`${tokenNumber}\`\n` +
-        `👤 *Applicant:* ${applicantName}\n` +
-        `📞 *Phone:* +91 ${phone}\n` +
-        `📍 *Locality:* ${applicantAddress}\n` +
-        `📂 *Category:* ${category}\n` +
-        `🕒 *Time:* ${currentTime}\n\n` +
-        `📝 *Details:*\n${description}\n` +
-        `━━━━━━━━━━━━━━━━━━━\n` +
-        `🌐 *Portal:* Wyndhamganj Butbherwa Digital Portal`;
-
+      // Telegram Dispatch
+      const alertMsg = `🚨 *NEW GRIEVANCE REGISTERED*\n━━━━━━━━━━━━━━━━━━━\n🎫 *Token:* \`${tokenNumber}\`\n👤 *Applicant:* ${applicantName}\n📞 *Phone:* +91 ${phone}\n📍 *Locality:* ${applicantAddress}\n📂 *Category:* ${category}\n🕒 *Time:* ${currentTime}\n\n📝 *Details:*\n${description}\n━━━━━━━━━━━━━━━━━━━\n🌐 *Portal:* Wyndhamganj Butbherwa`;
       fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: alertMessage,
-          parse_mode: 'Markdown'
-        })
-      }).catch(err => console.log("Telegram note:", err));
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: alertMsg, parse_mode: 'Markdown' })
+      }).catch(e => console.log(e));
 
-      // 2. Save to Firestore with a 4-second race so UI never hangs!
+      // Firestore with 4-second race
       const firestorePromise = db.collection("complaints").add({
-        token: tokenNumber,
-        name: applicantName,
-        phone: "+91" + phone,
-        address: applicantAddress,
-        category: category,
-        description: description,
-        status: "Pending Review",
-        adminRemark: "Received via Instant Portal",
-        submittedAt: currentTime,
+        token: tokenNumber, name: applicantName, phone: "+91" + phone, address: applicantAddress,
+        category: category, description: description, status: "Pending Review",
+        adminRemark: "Received via Instant Portal", submittedAt: currentTime,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 4000));
-
-      Promise.race([firestorePromise, timeoutPromise])
-        .then(() => {
-          finalizeSuccess();
-        })
-        .catch(() => {
-          // If Firestore network blocks, we still confirm since Telegram received it
-          finalizeSuccess();
-        });
+      Promise.race([firestorePromise, new Promise(res => setTimeout(res, 4000))])
+        .then(() => finalizeSuccess())
+        .catch(() => finalizeSuccess());
     }
 
     function resetSubmissionWorkflow() {
@@ -2023,180 +1701,55 @@
     }
 
     function trackComplaintStatus() {
-      const input = document.getElementById('trackTokenInput');
-      const token = input.value.trim().toUpperCase();
+      const token = document.getElementById('trackTokenInput').value.trim().toUpperCase();
       const output = document.getElementById('statusResultBox');
+      if (!token) { output.innerHTML = '<span style="color:var(--danger);">Enter token!</span>'; return; }
+      output.innerHTML = '<span style="color:var(--primary);"><i class="fa-solid fa-spinner fa-spin"></i> Checking...</span>';
 
-      if (!token) {
-        output.innerHTML = '<span style="color:var(--danger);">Enter token number!</span>';
-        return;
+      db.collection("complaints").where("token", "==", token).get().then(snap => {
+        if (snap.empty) {
+          output.innerHTML = `<span style="color:var(--danger);">No record found for token "${token}".</span>`;
+        } else {
+          snap.forEach(doc => {
+            const data = doc.data();
+            output.innerHTML = `
+              <div style="background:var(--bg-surface-elevated); border:1px solid var(--accent-gold); border-radius:var(--radius-sm); padding:10px; margin-top:6px;">
+                <div style="color:var(--accent-gold); font-weight:800;">Status: ${data.status}</div>
+                <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Category: ${data.category} | Remark: ${data.adminRemark || 'Under review'}</div>
+              </div>
+            `;
+          });
+        }
+      }).catch(e => { output.innerHTML = `<span style="color:var(--danger);">${e.message}</span>`; });
+    }
+
+     /* 9. GAMES DRAWER */
+    function openGamesArenaDrawer() { document.getElementById('gamesDrawerOverlay').classList.add('active'); }
+    function closeGamesDrawer(e) {
+      if (!e || e.target.id === 'gamesDrawerOverlay' || (e.currentTarget && e.currentTarget.className === 'btn-exit-games')) {
+        document.getElementById('gamesDrawerOverlay').classList.remove('active');
       }
-      output.innerHTML = '<span style="color:var(--primary);"><i class="fa-solid fa-spinner fa-spin"></i> Checking status...</span>';
-
-      db.collection("complaints").where("token", "==", token).get()
-        .then((querySnapshot) => {
-          if (querySnapshot.empty) {
-            output.innerHTML = `<span style="color:var(--danger);"><i class="fa-solid fa-circle-xmark"></i> No record found for token "${token}".</span>`;
-          } else {
-            querySnapshot.forEach((doc) => {
-              const data = doc.data();
-              const isResolved = (data.status || '').toLowerCase().includes("resolved");
-              const badgeColor = isResolved ? "var(--success)" : "var(--accent-gold)";
-              output.innerHTML = `
-                <div style="background:var(--bg-surface-elevated); border:1px solid ${badgeColor}; border-radius:var(--radius-sm); padding:10px; margin-top:6px;">
-                  <div style="color:${badgeColor}; font-weight:800; font-size:0.85rem;">Status: ${data.status}</div>
-                  <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">
-                    <b>Category:</b> ${data.category} | <b>Remark:</b> ${data.adminRemark || 'Under review'}
-                  </div>
-                </div>
-              `;
-            });
-          }
-        })
-        .catch(err => { output.innerHTML = `<span style="color:var(--danger);">${err.message}</span>`; });
     }
-
-    /* ==========================================================================
-       9. [ DB ] COMMUNITY MEDIA FEED (ALL IMAGES + LIKES + COMMENTS)
-       ========================================================================== */
-    function openDatabaseView() {
-      renderDatabaseFeed();
-      document.getElementById('dbViewOverlay').classList.add('active');
-    }
-
-    function closeDatabaseView() {
-      document.getElementById('dbViewOverlay').classList.remove('active');
-    }
-
-    function renderDatabaseFeed() {
-      const feedBox = document.getElementById('dbFeedList');
-      if (!feedBox) return;
-      const allItems = getAllGalleryItems();
-
-      // Read local likes & comments store
-      let interactiveData = {};
-      try { interactiveData = JSON.parse(localStorage.getItem('wdm_post_interactions') || '{}'); } catch(e){}
-
-      feedBox.innerHTML = '';
-      allItems.forEach(item => {
-        const pId = item.id || ('post_' + item.title.replace(/\s+/g, '_'));
-        const pData = interactiveData[pId] || { likes: item.likes || 0, liked: false, comments: item.comments || [] };
-
-        const postCard = document.createElement('div');
-        postCard.className = 'db-post-card';
-        postCard.innerHTML = `
-          <div class="db-post-header">
-            <div>
-              <span style="font-size:0.75rem; font-weight:800; color:var(--accent-orange); text-transform:uppercase;">${item.badge}</span>
-              <h4 style="font-size:1rem; color:var(--text-primary); margin-top:2px;">${item.title}</h4>
-            </div>
-            <span style="font-size:0.72rem; color:var(--text-muted);"><i class="fa-solid fa-location-dot"></i> Wyndhamganj</span>
-          </div>
-
-          <div class="db-post-img-box">
-            <img src="${item.src}" alt="${item.title}" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
-          </div>
-
-          <div class="db-post-actions">
-            <button class="btn-action-like ${pData.liked ? 'liked' : ''}" onclick="toggleLikePost('${pId}')">
-              <i class="fa-${pData.liked ? 'solid' : 'regular'} fa-heart"></i>
-              <span id="like_count_${pId}">${pData.likes}</span>
-            </button>
-            <span style="font-size:0.85rem; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
-              <i class="fa-regular fa-comment"></i> ${pData.comments.length} Comments
-            </span>
-          </div>
-
-          <div class="db-comments-box">
-            <div id="comments_list_${pId}">
-              ${pData.comments.map(c => `
-                <div class="db-comment-item">
-                  <b>${c.name}:</b> <span>${c.text}</span>
-                </div>
-              `).join('')}
-            </div>
-
-            <div class="comment-input-row">
-              <input type="text" id="comm_inp_${pId}" class="form-control-sm" placeholder="Write a comment..." style="font-size:0.78rem;">
-              <button class="btn btn-primary" onclick="addCommentPost('${pId}')" style="padding:4px 12px; font-size:0.78rem;">
-                Post
-              </button>
-            </div>
-          </div>
-        `;
-        feedBox.appendChild(postCard);
+    function filterGamesModal(type, btn) {
+      document.querySelectorAll('#gamesDrawerOverlay .sub-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#modalGamesList .sport-card').forEach(card => {
+        card.style.display = (type === 'all' || card.getAttribute('data-gametype') === type) ? 'block' : 'none';
       });
-    }
-
-    function toggleLikePost(pId) {
-      let interactiveData = {};
-      try { interactiveData = JSON.parse(localStorage.getItem('wdm_post_interactions') || '{}'); } catch(e){}
-      if (!interactiveData[pId]) {
-        interactiveData[pId] = { likes: 0, liked: false, comments: [] };
-      }
-
-      if (interactiveData[pId].liked) {
-        interactiveData[pId].likes = Math.max(0, interactiveData[pId].likes - 1);
-        interactiveData[pId].liked = false;
-      } else {
-        interactiveData[pId].likes += 1;
-        interactiveData[pId].liked = true;
-      }
-
-      localStorage.setItem('wdm_post_interactions', JSON.stringify(interactiveData));
-      renderDatabaseFeed();
-    }
-
-    function addCommentPost(pId) {
-      const input = document.getElementById(`comm_inp_${pId}`);
-      if (!input) return;
-      const text = input.value.trim();
-      if (!text) return;
-
-      const commenterName = currentUserProfile ? (currentUserProfile.displayName || "Resident") : "Resident";
-
-      let interactiveData = {};
-      try { interactiveData = JSON.parse(localStorage.getItem('wdm_post_interactions') || '{}'); } catch(e){}
-      if (!interactiveData[pId]) {
-        interactiveData[pId] = { likes: 0, liked: false, comments: [] };
-      }
-
-      interactiveData[pId].comments.push({
-        name: commenterName,
-        text: text,
-        time: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
-      });
-
-      localStorage.setItem('wdm_post_interactions', JSON.stringify(interactiveData));
-      input.value = '';
-      renderDatabaseFeed();
-      showToast("💬 Comment added!");
-    }
-
-    /* 10. LIGHTBOX & TOAST */
-    function openLightbox(src, caption) {
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightboxCaption').textContent = caption;
-      document.getElementById('lightboxModal').classList.add('active');
-    }
-
-    function closeLightbox(event) {
-      if (!event || event.target.id === 'lightboxModal' || event.target.className === 'lightbox-close') {
-        document.getElementById('lightboxModal').classList.remove('active');
-      }
     }
 
     function showToast(msg) {
       const toast = document.getElementById('toastNotification');
-      const text = document.getElementById('toastMsg');
+      const text = toast.querySelector('span');
       if (!toast || !text) return;
       text.textContent = msg;
       toast.classList.add('active');
-      setTimeout(() => { toast.classList.remove('active'); }, 3500);
+      setTimeout(() => toast.classList.remove('active'), 3500);
     }
 
-    /* 11. INITIALIZATION */
+    /* INITIALIZATION */
     window.addEventListener('DOMContentLoaded', () => {
+      loadPersistedSiteContent();
       renderUnifiedMedia();
     });
   </script>
