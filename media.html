@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>WDM Media - Wyndhamganj Community Feed</title>
+  <title>WDM Media - Wyndhamganj Official Feed</title>
   
-  <!-- Fonts & FontAwesome -->
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Grand+Hotel&display=swap" rel="stylesheet">
@@ -19,18 +19,18 @@
   <style>
     :root {
       --bg-black: #000000;
-      --bg-card: #0c0c0c;
-      --bg-elevated: #181818;
+      --bg-card: #121212;
+      --bg-elevated: #1e1e1e;
       --border-dark: #262626;
+      --border-focus: #0095f6;
       --text-white: #ffffff;
       --text-gray: #a8a8a8;
       --text-dim: #737373;
       --insta-pink: #ed4956;
       --insta-blue: #0095f6;
       --insta-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-      --bottom-bar-height: 54px;
+      --bottom-bar-height: 52px;
       --top-bar-height: 50px;
-      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -44,7 +44,7 @@
       user-select: none;
     }
 
-    /* TOP BAR (INSTAGRAM HEADER) */
+    /* TOP BAR */
     .insta-top-bar {
       position: fixed;
       top: 0;
@@ -69,575 +69,223 @@
       color: #fff;
       text-decoration: none;
     }
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
+    .top-actions { display: flex; align-items: center; gap: 16px; }
     .top-icon-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.35rem;
-      cursor: pointer;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: none; border: none; color: #fff; font-size: 1.35rem; cursor: pointer;
+      position: relative; display: flex; align-items: center; justify-content: center;
     }
     .notif-badge {
-      position: absolute;
-      top: -3px;
-      right: -5px;
-      background: var(--insta-pink);
-      color: #fff;
-      font-size: 0.62rem;
-      font-weight: 800;
-      height: 16px;
-      min-width: 16px;
-      padding: 0 4px;
-      border-radius: 50px;
-      display: none;
-      place-items: center;
-      border: 2px solid #000;
+      position: absolute; top: -3px; right: -5px; background: var(--insta-pink);
+      color: #fff; font-size: 0.6rem; font-weight: 800; height: 16px; min-width: 16px;
+      padding: 0 4px; border-radius: 50px; display: none; place-items: center; border: 2px solid #000;
     }
     .notif-badge.active { display: grid; }
 
-    /* STORIES TRAY (SCREENSHOT REPLICA) */
+    /* STORIES TRAY */
     .stories-tray {
-      display: flex;
-      gap: 14px;
-      padding: 12px 14px 10px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      border-bottom: 1px solid var(--border-dark);
-      background: var(--bg-black);
+      display: flex; gap: 14px; padding: 12px 14px 10px; overflow-x: auto;
+      scrollbar-width: none; border-bottom: 1px solid var(--border-dark); background: var(--bg-black);
     }
     .stories-tray::-webkit-scrollbar { display: none; }
-    .story-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 68px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
+    .story-item { display: flex; flex-direction: column; align-items: center; width: 68px; flex-shrink: 0; cursor: pointer; }
     .story-ring {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--insta-gradient);
-      padding: 2.5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      width: 64px; height: 64px; border-radius: 50%; background: var(--insta-gradient);
+      padding: 2.5px; display: flex; align-items: center; justify-content: center; position: relative;
     }
     .story-ring.my-story { background: var(--border-dark); }
-    .story-avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #000;
-      border: 2px solid #000;
-    }
+    .story-avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #000; border: 2px solid #000; }
     .story-add-badge {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--insta-blue);
-      border: 2px solid #000;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 900;
+      position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--insta-blue); border: 2px solid #000; display: grid; place-items: center;
+      color: #fff; font-size: 0.72rem; font-weight: 900;
     }
-    .story-username {
-      font-size: 0.72rem;
-      color: var(--text-gray);
-      margin-top: 5px;
-      text-align: center;
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .story-username { font-size: 0.72rem; color: var(--text-gray); margin-top: 5px; text-align: center; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* FEED POST CARD */
-    .feed-viewport {
-      max-width: 540px;
-      margin: 0 auto;
-    }
-    .insta-post {
-      background: var(--bg-black);
-      border-bottom: 1px solid var(--border-dark);
-      margin-bottom: 8px;
-    }
-    .post-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-    }
-    .post-user-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .post-avatar-ring {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: var(--insta-gradient);
-      padding: 2px;
-      flex-shrink: 0;
-    }
-    .post-avatar-ring img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid #000;
-      background: #111;
-    }
-    .post-meta h4 {
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .post-meta span {
-      font-size: 0.72rem;
-      color: var(--text-gray);
-      display: block;
-    }
+    /* FEED VIEWPORT & POSTS */
+    .feed-viewport { max-width: 540px; margin: 0 auto; }
+    .insta-post { background: var(--bg-black); border-bottom: 1px solid var(--border-dark); margin-bottom: 8px; }
+    .post-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; }
+    .post-user-left { display: flex; align-items: center; gap: 10px; }
+    .post-avatar-ring { width: 38px; height: 38px; border-radius: 50%; background: var(--insta-gradient); padding: 2px; flex-shrink: 0; }
+    .post-avatar-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1.5px solid #000; }
+    .post-meta h4 { font-size: 0.86rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 5px; }
+    .post-meta span { font-size: 0.72rem; color: var(--text-gray); display: block; }
     .btn-follow {
-      background: none;
-      border: 1px solid #363636;
-      color: #fff;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 4px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-      margin-left: 8px;
+      background: none; border: 1px solid #363636; color: #fff; font-size: 0.78rem;
+      font-weight: 700; padding: 4px 14px; border-radius: 8px; cursor: pointer; transition: 0.2s;
     }
-    .btn-follow.following {
-      border-color: #262626;
-      color: var(--text-gray);
-      background: #1a1a1a;
-    }
+    .btn-follow.following { background: #1a1a1a; color: var(--text-gray); border-color: #262626; }
 
-    /* POST IMAGE AREA */
-    .post-media-box {
-      width: 100%;
-      background: #050505;
-      position: relative;
-    }
-    .post-media-box img {
-      width: 100%;
-      max-height: 560px;
-      object-fit: cover;
-      display: block;
-    }
+    .post-media-box { width: 100%; background: #050505; position: relative; }
+    .post-media-box img { width: 100%; max-height: 560px; object-fit: cover; display: block; }
 
-    /* POST ACTION BUTTONS */
-    .post-action-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 14px 6px;
-    }
-    .action-group-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .btn-act-icon {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.45rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      transition: transform 0.15s ease;
-    }
-    .btn-act-icon:active { transform: scale(1.25); }
+    .post-action-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px 6px; }
+    .action-group-left { display: flex; align-items: center; gap: 16px; }
+    .btn-act-icon { background: none; border: none; color: #fff; font-size: 1.45rem; cursor: pointer; display: inline-flex; align-items: center; }
     .btn-act-icon.liked { color: var(--insta-pink); }
-
-    .post-likes-strip {
-      padding: 0 14px 4px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #fff;
-    }
-    .post-caption-strip {
-      padding: 0 14px 8px;
-      font-size: 0.86rem;
-      line-height: 1.4;
-      color: #e5e5e5;
-    }
+    .post-likes-strip { padding: 0 14px 4px; font-size: 0.85rem; font-weight: 800; }
+    .post-caption-strip { padding: 0 14px 8px; font-size: 0.86rem; line-height: 1.4; color: #e5e5e5; }
     .post-caption-strip b { color: #fff; margin-right: 6px; }
 
-    /* COMMENTS ACCORDION */
-    .post-comments-wrap {
-      padding: 0 14px 12px;
-    }
-    .comments-view-all {
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      cursor: pointer;
-      margin-bottom: 6px;
-    }
-    .comment-line {
-      font-size: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
+    .post-comments-wrap { padding: 0 14px 12px; }
+    .comment-line { font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .comment-text-part b { color: #fff; margin-right: 6px; }
-    .btn-like-comment {
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
+    .btn-like-comment { background: none; border: none; color: var(--text-dim); font-size: 0.8rem; cursor: pointer; }
     .btn-like-comment.liked { color: var(--insta-pink); }
+    .comment-input-box { display: flex; align-items: center; gap: 10px; margin-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 8px; }
+    .comment-input-box input { flex: 1; background: transparent; border: none; outline: none; color: #fff; font-size: 0.82rem; }
+    .btn-comment-send { background: none; border: none; color: var(--insta-blue); font-weight: 800; font-size: 0.82rem; cursor: pointer; }
 
-    .comment-input-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 8px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 8px;
-    }
-    .comment-input-box input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-size: 0.82rem;
-    }
-    .btn-comment-send {
-      background: none;
-      border: none;
-      color: var(--insta-blue);
-      font-weight: 800;
-      font-size: 0.82rem;
-      cursor: pointer;
-    }
-
-    /* ==========================================================================
-       BOTTOM NAVIGATION BAR (INSTAGRAM REPLICA)
-       ========================================================================== */
-    .insta-bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: var(--bottom-bar-height);
-      background: #000000;
-      border-top: 1px solid var(--border-dark);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .nav-tab-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.45rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 16px;
-      transition: transform 0.15s ease;
-    }
-    .nav-tab-btn:active { transform: scale(1.15); }
-    .nav-tab-btn.active { color: #fff; font-weight: 900; }
-    
-    .nav-profile-thumb {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid transparent;
-    }
-    .nav-tab-btn.active .nav-profile-thumb {
-      border-color: #fff;
-    }
-
-    /* ==========================================================================
-       PAGES / VIEWPORTS (SWITCHABLE BY BOTTOM NAV & HEADER)
-       ========================================================================== */
-    .viewport-panel {
-      display: none;
-      max-width: 540px;
-      margin: 0 auto;
-      padding: 12px 14px;
-    }
+    /* VIEWPORT PANELS */
+    .viewport-panel { display: none; max-width: 540px; margin: 0 auto; padding: 12px 14px; }
     .viewport-panel.active { display: block; }
 
-    /* VIEW: CREATE POST (+ MODAL / PAGE) */
-    .upload-card-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-dark);
-      border-radius: 14px;
-      padding: 20px 16px;
+    /* BOTTOM NAV */
+    .insta-bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; height: var(--bottom-bar-height);
+      background: #000000; border-top: 1px solid var(--border-dark); display: flex;
+      justify-content: space-around; align-items: center; z-index: 1000; max-width: 600px; margin: 0 auto;
     }
-    .upload-dropzone {
-      border: 2px dashed #363636;
-      border-radius: 12px;
-      padding: 32px 16px;
-      text-align: center;
-      cursor: pointer;
-      margin-bottom: 16px;
-      background: #070707;
-      transition: var(--transition);
+    .nav-tab-btn { background: none; border: none; color: #fff; font-size: 1.45rem; cursor: pointer; padding: 8px 16px; }
+    .nav-tab-btn.active { color: #fff; }
+    .nav-profile-thumb { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid transparent; }
+    .nav-tab-btn.active .nav-profile-thumb { border-color: #fff; }
+
+    /* ==========================================================================
+       PHOTO UPLOADER MODAL (EXACT REPLICA OF 1ST SCREENSHOT)
+       ========================================================================== */
+    .photo-crop-overlay {
+      display: none; position: fixed; inset: 0; background: #000000; z-index: 5000;
+      flex-direction: column;
     }
-    .upload-dropzone:hover { border-color: var(--insta-blue); }
-    .preview-img-box {
-      display: none;
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 14px;
-      max-height: 380px;
+    .photo-crop-overlay.active { display: flex; }
+    .crop-header {
+      height: 52px; display: flex; justify-content: space-between; align-items: center;
+      padding: 0 16px; border-bottom: 1px solid var(--border-dark);
     }
-    .preview-img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .crop-header-btn {
+      background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer;
     }
-    .post-desc-input {
-      width: 100%;
-      background: #141414;
-      border: 1px solid var(--border-dark);
-      border-radius: 10px;
-      color: #fff;
-      padding: 12px;
-      font-size: 0.88rem;
+    .crop-done-btn {
+      background: none; border: none; color: var(--insta-blue); font-size: 1rem;
+      font-weight: 800; cursor: pointer;
+    }
+    .crop-viewport-container {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #000000; position: relative; overflow: hidden;
+    }
+    .circular-mask-wrap {
+      width: 290px; height: 290px; border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.78);
+      position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+      background: #0d0d0d;
+    }
+    .circular-mask-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .crop-gallery-bar {
+      padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border-dark); background: #000;
+    }
+    .crop-gallery-bar span { font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
+
+    /* ==========================================================================
+       STEP-BY-STEP ONBOARDING WIZARD MODAL (CREATING ID)
+       ========================================================================== */
+    .onboarding-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(10px); z-index: 6000; align-items: center; justify-content: center; padding: 18px;
+    }
+    .onboarding-overlay.active { display: flex; }
+    .onboarding-card {
+      background: #121212; border: 1px solid var(--border-dark); border-radius: 16px;
+      width: 100%; max-width: 420px; padding: 26px 22px; text-align: left; position: relative;
+    }
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; }
+    .wizard-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; color: #fff; }
+    .wizard-sub { font-size: 0.8rem; color: var(--text-gray); margin-bottom: 18px; }
+
+    /* Clean inputs with NO placeholder text inside */
+    .clean-input-box {
+      width: 100%; background: #1a1a1a; border: 1px solid #333; border-radius: 10px;
+      padding: 12px 14px; color: #fff; font-size: 0.95rem; outline: none; margin-bottom: 14px;
       font-family: inherit;
-      resize: none;
-      min-height: 80px;
-      outline: none;
-      margin-bottom: 16px;
     }
-    .post-desc-input:focus { border-color: var(--insta-blue); }
-    .btn-share-gradient {
-      width: 100%;
-      background: var(--insta-gradient);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .clean-input-box:focus { border-color: var(--insta-blue); }
+    .error-tag { color: var(--insta-pink); font-size: 0.76rem; font-weight: 700; display: none; margin-top: -8px; margin-bottom: 12px; }
+    .error-tag.show { display: block; }
+    .success-tag { color: #10b981; font-size: 0.76rem; font-weight: 700; display: none; margin-top: -8px; margin-bottom: 12px; }
+    .success-tag.show { display: block; }
+
+    .btn-wizard-next {
+      width: 100%; background: var(--insta-blue); color: #fff; border: none; font-size: 0.92rem;
+      font-weight: 800; padding: 12px; border-radius: 10px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-google-auth {
+      width: 100%; background: #ffffff; color: #000000; border: none; font-size: 0.92rem;
+      font-weight: 800; padding: 12px; border-radius: 10px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.4);
     }
 
-       /* VIEW: NOTIFICATIONS (TOP HEART CLICK) */
-    .notif-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 6px;
-      border-bottom: 1px solid var(--border-dark);
+    /* ==========================================================================
+       EDIT PROFILE UI (EXACT REPLICA OF 2ND SCREENSHOT)
+       ========================================================================== */
+    .edit-profile-view {
+      display: none; position: fixed; inset: 0; background: #000000; z-index: 4000;
+      overflow-y: auto; padding-bottom: 40px;
     }
-    .notif-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .edit-profile-view.active { display: block; }
+    .edit-top-nav {
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; border-bottom: 1px solid var(--border-dark);
     }
-    .notif-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
+    .edit-top-nav h3 { font-size: 1.1rem; font-weight: 800; }
+    .edit-avatar-section {
+      text-align: center; padding: 20px 0 14px;
     }
-    .notif-text {
-      font-size: 0.82rem;
-      line-height: 1.35;
-      color: #e5e5e5;
+    .edit-avatars-row {
+      display: flex; justify-content: center; align-items: center; gap: 14px; margin-bottom: 10px;
     }
-    .notif-text b { color: #fff; }
-    .notif-time {
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      margin-top: 2px;
+    .main-avatar-circle {
+      width: 74px; height: 74px; border-radius: 50%; overflow: hidden; background: #111;
+      border: 2px solid var(--insta-blue);
     }
-
-    /* VIEW: MY PROFILE & EDIT ID */
-    .profile-hero {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 14px 6px 18px;
+    .main-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+    .sub-avatar-circle {
+      width: 58px; height: 58px; border-radius: 50%; background: #141c3a; display: grid;
+      place-items: center; color: #2e4cad; font-size: 1.5rem;
     }
-    .profile-pfp-wrap {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      background: var(--insta-gradient);
-      padding: 2.5px;
-      flex-shrink: 0;
-    }
-    .profile-pfp-wrap img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #000;
-      border: 2px solid #000;
-    }
-    .profile-stats-col {
-      flex: 1;
-      display: flex;
-      justify-content: space-around;
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #fff;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-gray);
-    }
-    .profile-bio-box {
-      padding: 0 6px 14px;
-    }
-    .profile-fullname {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #fff;
-    }
-    .profile-handle {
-      font-size: 0.82rem;
-      color: var(--text-gray);
-      margin-bottom: 6px;
-    }
-    .profile-bio-text {
-      font-size: 0.84rem;
-      color: #ddd;
-      line-height: 1.4;
-      white-space: pre-wrap;
-    }
-    .profile-action-btn-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-    .btn-profile-ctrl {
-      flex: 1;
-      background: #1e1e1e;
-      border: 1px solid var(--border-dark);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.84rem;
-      padding: 8px 0;
-      border-radius: 8px;
-      cursor: pointer;
-      text-align: center;
+    .link-change-pic {
+      color: var(--insta-blue); font-size: 0.85rem; font-weight: 700; text-decoration: none; cursor: pointer;
     }
 
-    /* MODAL: EDIT / CREATE INSTAGRAM ID (WITH TELEGRAM SYNC) */
-    .id-modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      backdrop-filter: blur(8px);
-      z-index: 3000;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+    .edit-form-wrap { padding: 0 16px; }
+    .edit-input-field {
+      background: #0d0d0d; border: 1px solid #222; border-radius: 14px;
+      padding: 10px 14px; margin-bottom: 12px;
     }
-    .id-modal-overlay.active { display: flex; }
-    .id-modal-card {
-      background: #121212;
-      border: 1px solid var(--border-dark);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 440px;
-      padding: 22px;
-      position: relative;
-      max-height: 90vh;
-      overflow-y: auto;
+    .edit-input-field label { display: block; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 2px; }
+    .edit-input-field input, .edit-input-field textarea {
+      width: 100%; background: transparent; border: none; outline: none;
+      color: #fff; font-size: 0.92rem; font-family: inherit; resize: none;
     }
-    .form-group-insta {
-      margin-bottom: 12px;
-    }
-    .form-group-insta label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--text-gray);
-      margin-bottom: 4px;
-    }
-    .insta-input {
-      width: 100%;
-      background: #1a1a1a;
-      border: 1px solid var(--border-dark);
-      border-radius: 8px;
-      padding: 9px 12px;
-      color: #fff;
-      font-size: 0.85rem;
-      outline: none;
-    }
-    .insta-input:focus { border-color: var(--insta-blue); }
 
     /* TOAST */
     .insta-toast {
-      position: fixed;
-      bottom: calc(var(--bottom-bar-height) + 14px);
-      left: 50%;
-      transform: translateX(-50%) translateY(40px);
-      background: #262626;
-      border: 1px solid #404040;
-      color: #fff;
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      z-index: 4000;
-      opacity: 0;
-      transition: all 0.25s ease;
-      white-space: nowrap;
+      position: fixed; bottom: calc(var(--bottom-bar-height) + 14px); left: 50%;
+      transform: translateX(-50%) translateY(40px); background: #262626; border: 1px solid #404040;
+      color: #fff; padding: 8px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 700;
+      z-index: 8000; opacity: 0; transition: all 0.25s ease; white-space: nowrap;
     }
-    .insta-toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
+    .insta-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
 </head>
 
 <body>
 
-   <!-- ==========================================================================
-       TOP BAR (INSTAGRAM REPLICA)
+  <!-- ==========================================================================
+       TOP BAR
        ========================================================================== -->
   <header class="insta-top-bar">
     <a href="index.html" class="top-icon-btn" title="Back to Panchayat Portal">
@@ -647,7 +295,7 @@
     <a href="#" class="insta-logo" onclick="switchNavTab('home')">WDM Media</a>
 
     <div class="top-actions">
-      <!-- Heart (Likes & Notifications) -->
+      <!-- Activity Heart -->
       <button class="top-icon-btn" onclick="switchNavTab('notifications')" title="Notifications">
         <i class="fa-regular fa-heart" id="topHeartIcon"></i>
         <span class="notif-badge" id="topNotifBadge">0</span>
@@ -667,48 +315,37 @@
     <!-- STORIES TRAY -->
     <div class="stories-tray">
       <!-- User's Story Add -->
-      <div class="story-item" onclick="openCreatePostTab()">
+      <div class="story-item" onclick="openPhotoPickerModal('post')">
         <div class="story-ring my-story">
-          <img src="IMG_20250929_062521.jpg" id="storyUserPfp" class="story-avatar" alt="My Story">
+          <img src="IMG_20250929_062521.jpg" id="storyUserPfp" class="story-avatar" alt="Story">
           <div class="story-add-badge">+</div>
         </div>
         <span class="story-username">Your story</span>
       </div>
 
-      <!-- Village Profiles Stories -->
       <div class="story-item">
-        <div class="story-ring">
-          <img src="942fe674faf2ef24f01fc8b726c5222a.jpg" class="story-avatar" alt="The Host">
-        </div>
+        <div class="story-ring"><img src="942fe674faf2ef24f01fc8b726c5222a.jpg" class="story-avatar" alt="The Host"></div>
         <span class="story-username">thehost_vivek</span>
       </div>
 
       <div class="story-item">
-        <div class="story-ring">
-          <img src="IMG_20250929_062521.jpg" class="story-avatar" alt="Piprahwa">
-        </div>
+        <div class="story-ring"><img src="IMG_20250929_062521.jpg" class="story-avatar" alt="Piprahwa"></div>
         <span class="story-username">piprahwa_dam</span>
       </div>
 
       <div class="story-item">
-        <div class="story-ring">
-          <img src="IMG_20250930_164330 (1).jpg" class="story-avatar" alt="WDM Station">
-        </div>
+        <div class="story-ring"><img src="IMG_20250930_164330 (1).jpg" class="story-avatar" alt="Railway"></div>
         <span class="story-username">wdm_railway</span>
       </div>
 
       <div class="story-item">
-        <div class="story-ring">
-          <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=400&q=80" class="story-avatar" alt="Gram Pradhan">
-        </div>
+        <div class="story-ring"><img src="https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=400&q=80" class="story-avatar" alt="Pradhan"></div>
         <span class="story-username">panchayat_gov</span>
       </div>
     </div>
 
     <!-- POSTS FEED CONTAINER -->
-    <div id="postsFeedContainer" class="feed-viewport">
-      <!-- Dynamic Posts injected here -->
-    </div>
+    <div id="postsFeedContainer" class="feed-viewport"></div>
   </main>
 
   <!-- ==========================================================================
@@ -716,95 +353,56 @@
        ========================================================================== -->
   <section id="viewSearch" class="viewport-panel">
     <div style="margin-bottom:14px;">
-      <input type="text" id="exploreSearchInput" class="insta-input" placeholder="🔍 Search Wyndhamganj creators, spots & posts..." oninput="filterExploreFeed(this.value)">
+      <input type="text" id="exploreSearchInput" class="clean-input-box" style="margin-bottom:0;" placeholder="" oninput="filterExploreFeed(this.value)">
     </div>
-    <div id="exploreGrid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
-      <!-- Grid items -->
-    </div>
+    <div id="exploreGrid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 4px;"></div>
   </section>
 
   <!-- ==========================================================================
-       VIEWPORT 3: CREATE POST (+ BUTTON ACTION)
-       ========================================================================== -->
-  <section id="viewCreate" class="viewport-panel">
-    <div class="upload-card-box">
-      <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; text-align:center;">
-        Create New Post 📸
-      </h3>
-
-      <!-- Step 1: Dropzone / Photo Picker -->
-      <div class="upload-dropzone" onclick="document.getElementById('postPhotoFileInput').click()">
-        <i class="fa-regular fa-image" style="font-size:2.4rem; color:var(--text-gray); margin-bottom:8px; display:block;"></i>
-        <span style="font-size:0.86rem; font-weight:700;">Tap to select photo from phone</span>
-        <span style="display:block; font-size:0.72rem; color:var(--text-dim); margin-top:4px;">Auto-compressed for instant loading</span>
-      </div>
-      <input type="file" id="postPhotoFileInput" accept="image/*" style="display:none;" onchange="handleImageSelection(this)">
-
-      <!-- Step 2: Image Preview -->
-      <div class="preview-img-box" id="previewImgContainer">
-        <img src="" id="selectedImgPreview" alt="Preview">
-      </div>
-
-      <!-- Step 3: Description / Caption -->
-      <label style="font-size:0.78rem; font-weight:700; color:var(--text-gray); display:block; margin-bottom:4px;">
-        Write a Caption / Description *
-      </label>
-      <textarea id="postDescriptionInput" class="post-desc-input" placeholder="Share the moment, tag location (e.g. Piprahwa Dam, Shiv Nagar)..."></textarea>
-
-      <!-- Share Button -->
-      <button class="btn-share-gradient" id="btnSharePostNow" onclick="publishNewPost()">
-        <i class="fa-solid fa-paper-plane"></i> Share Post
-      </button>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       VIEWPORT 4: NOTIFICATIONS (LIKES & COMMENTS ACTIVITY)
+       VIEWPORT 3: NOTIFICATIONS / ACTIVITY
        ========================================================================== -->
   <section id="viewNotifications" class="viewport-panel">
-    <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:12px; padding:0 6px;">
+    <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:14px; padding:0 4px;">
       Notifications & Activity ❤️
     </h3>
-    <div id="notificationsList">
-      <!-- Dynamic Notifications injected here -->
-    </div>
+    <div id="notificationsList"></div>
   </section>
 
   <!-- ==========================================================================
-       VIEWPORT 5: MY PROFILE & EDIT ID
+       VIEWPORT 4: MY PROFILE
        ========================================================================== -->
   <section id="viewProfile" class="viewport-panel">
-    <div class="profile-hero">
-      <div class="profile-pfp-wrap">
-        <img src="IMG_20250929_062521.jpg" id="myProfilePfp" alt="Pfp">
+    <div style="display:flex; align-items:center; gap:20px; padding:14px 6px 18px;">
+      <div style="width:82px; height:82px; border-radius:50%; background:var(--insta-gradient); padding:2.5px; flex-shrink:0;">
+        <img src="IMG_20250929_062521.jpg" id="myProfilePfp" style="width:100%; height:100%; border-radius:50%; object-fit:cover; border:2px solid #000;" alt="Pfp">
       </div>
-      <div class="profile-stats-col">
+      <div style="flex:1; display:flex; justify-content:space-around; text-align:center;">
         <div>
-          <div class="stat-number" id="myPostsCount">0</div>
-          <div class="stat-label">Posts</div>
+          <div style="font-size:1.15rem; font-weight:800;" id="myPostsCount">0</div>
+          <div style="font-size:0.75rem; color:var(--text-gray);">Posts</div>
         </div>
         <div>
-          <div class="stat-number" id="myFollowersCount">24</div>
-          <div class="stat-label">Followers</div>
+          <div style="font-size:1.15rem; font-weight:800;" id="myFollowersCount">28</div>
+          <div style="font-size:0.75rem; color:var(--text-gray);">Followers</div>
         </div>
         <div>
-          <div class="stat-number" id="myFollowingCount">12</div>
-          <div class="stat-label">Following</div>
+          <div style="font-size:1.15rem; font-weight:800;" id="myFollowingCount">14</div>
+          <div style="font-size:0.75rem; color:var(--text-gray);">Following</div>
         </div>
       </div>
     </div>
 
-    <div class="profile-bio-box">
-      <div class="profile-fullname" id="myProfileFullName">Citizen User</div>
-      <div class="profile-handle" id="myProfileHandle">@wyndhamganj_resident</div>
-      <div class="profile-bio-text" id="myProfileBio">Welcome to WDM Media! Click Edit Profile to set up your official identity. 🌾📍</div>
+    <div style="padding:0 6px 14px;">
+      <div style="font-size:0.95rem; font-weight:800;" id="myProfileFullName">User</div>
+      <div style="font-size:0.82rem; color:var(--text-gray); margin-bottom:6px;" id="myProfileHandle">@username</div>
+      <div style="font-size:0.84rem; color:#ddd; line-height:1.4; white-space:pre-wrap;" id="myProfileBio">Welcome to WDM Media!</div>
     </div>
 
-    <div class="profile-action-btn-row">
-      <button class="btn-profile-ctrl" onclick="openEditProfileModal()">
-        <i class="fa-solid fa-pen-to-square"></i> Edit Profile / ID
+    <div style="display:flex; gap:8px; margin-bottom:18px;">
+      <button style="flex:1; background:#1e1e1e; border:1px solid var(--border-dark); color:#fff; font-weight:700; font-size:0.84rem; padding:8px 0; border-radius:8px; cursor:pointer;" onclick="openEditProfileScreen()">
+        <i class="fa-solid fa-pen-to-square"></i> Edit profile
       </button>
-      <button class="btn-profile-ctrl" onclick="handleAuthAction()" id="btnAuthToggle">
+      <button style="flex:1; background:#1e1e1e; border:1px solid var(--border-dark); color:#fff; font-weight:700; font-size:0.84rem; padding:8px 0; border-radius:8px; cursor:pointer;" onclick="handleAuthAction()" id="btnAuthToggle">
         <i class="fa-brands fa-google"></i> Login
       </button>
     </div>
@@ -813,62 +411,160 @@
     <h4 style="font-size:0.86rem; color:var(--text-gray); margin-bottom:8px; padding:0 6px;">
       <i class="fa-solid fa-table-cells"></i> My Uploads
     </h4>
-    <div id="myPostsGrid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
-      <!-- Profile photos -->
-    </div>
+    <div id="myPostsGrid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 4px;"></div>
   </section>
 
   <!-- ==========================================================================
-       MODAL: CREATE / EDIT INSTAGRAM ID (SYNCED TO TELEGRAM)
+       PHOTO PICKER / CROP OVERLAY (EXACT REPLICA OF 1ST SCREENSHOT)
        ========================================================================== -->
-  <div class="id-modal-overlay" id="editProfileModal">
-    <div class="id-modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <h3 style="font-size:1.15rem; font-weight:800;">Edit Profile / Create ID</h3>
-        <button style="background:none; border:none; color:var(--text-gray); font-size:1.4rem; cursor:pointer;" onclick="closeEditProfileModal()">&times;</button>
+  <div class="photo-crop-overlay" id="photoCropModal">
+    <div class="crop-header">
+      <button class="crop-header-btn" onclick="closePhotoPickerModal()">&times;</button>
+      <button class="crop-done-btn" onclick="confirmSelectedPhoto()">Done</button>
+    </div>
+
+    <div class="crop-viewport-container">
+      <div class="circular-mask-wrap">
+        <img src="IMG_20250929_062521.jpg" id="cropTargetImage" alt="Preview">
       </div>
+    </div>
 
-      <form id="editProfileForm" onsubmit="saveUserProfileData(event)">
-        <div class="form-group-insta">
-          <label>Full Name *</label>
-          <input type="text" id="inpIdFullName" class="insta-input" required placeholder="e.g. Vivek Kumar">
-        </div>
-
-        <div class="form-group-insta">
-          <label>User ID / Handle * (Instagram Style)</label>
-          <input type="text" id="inpIdUsername" class="insta-input" required placeholder="e.g. vivek_07" style="text-transform:lowercase;">
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-          <div class="form-group-insta">
-            <label>Age *</label>
-            <input type="number" id="inpIdAge" class="insta-input" required placeholder="e.g. 21" min="12" max="100">
-          </div>
-          <div class="form-group-insta">
-            <label>Mobile Number *</label>
-            <input type="tel" id="inpIdPhone" class="insta-input" required maxlength="10" placeholder="10-digit number">
-          </div>
-        </div>
-
-        <div class="form-group-insta">
-          <label>Profile Bio *</label>
-          <textarea id="inpIdBio" class="insta-input" rows="3" placeholder="Tell something about yourself, locality, hobbies..."></textarea>
-        </div>
-
-        <div class="form-group-insta">
-          <label>Profile Photo</label>
-          <input type="file" id="inpIdPhotoFile" accept="image/*" class="insta-input" style="padding:6px;">
-        </div>
-
-        <button type="submit" class="btn-share-gradient" id="btnSaveIdSubmit" style="margin-top:10px;">
-          <i class="fa-solid fa-circle-check"></i> Save ID & Sync to Telegram
-        </button>
-      </form>
+    <div class="crop-gallery-bar">
+      <span>Recents <i class="fa-solid fa-chevron-down" style="font-size:0.75rem;"></i></span>
+      <label for="nativeGalleryFileInput" style="cursor:pointer; color:var(--insta-blue); font-size:0.85rem; font-weight:700;">
+        Choose Photo
+      </label>
+      <input type="file" id="nativeGalleryFileInput" accept="image/*" style="display:none;" onchange="handleNativeFileSelect(this)">
     </div>
   </div>
 
   <!-- ==========================================================================
-       BOTTOM NAVIGATION BAR (INSTAGRAM EXACT LAYOUT)
+       ONBOARDING WIZARD MODAL (STEP-BY-STEP ID CREATION ON DB CLICK)
+       ========================================================================== -->
+  <div class="onboarding-overlay" id="onboardingModal">
+    <div class="onboarding-card">
+      <!-- Step 1: Full Name -->
+      <div class="wizard-step active" id="stepName">
+        <h3 class="wizard-title">Enter your full name</h3>
+        <p class="wizard-sub">This will be shown on your official WDM Media ID.</p>
+        <input type="text" id="wizardNameInput" class="clean-input-box" placeholder="" autofocus>
+        <button class="btn-wizard-next" onclick="nextWizardStep('name')">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <!-- Step 2: Date of Birth / Age in DD/MM/YYYY -->
+      <div class="wizard-step" id="stepDob">
+        <h3 class="wizard-title">Enter your age / DOB</h3>
+        <p class="wizard-sub">Format: DD/MM/YYYY (e.g. 20/07/2005)</p>
+        <input type="text" id="wizardDobInput" class="clean-input-box" placeholder="" maxlength="10">
+        <button class="btn-wizard-next" onclick="nextWizardStep('dob')">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <!-- Step 3: User ID (Strictly Unique Check) -->
+      <div class="wizard-step" id="stepUsername">
+        <h3 class="wizard-title">Choose your user ID</h3>
+        <p class="wizard-sub">Every citizen has a unique handle. Only lowercase letters, numbers, and underscores.</p>
+        <div style="position:relative;">
+          <span style="position:absolute; left:14px; top:13px; color:var(--text-gray); font-weight:700;">@</span>
+          <input type="text" id="wizardUsernameInput" class="clean-input-box" style="padding-left:32px;" placeholder="" oninput="validateUsernameRealtime(this.value)">
+        </div>
+        <div class="error-tag" id="usernameErrorTag">already in use</div>
+        <div class="success-tag" id="usernameSuccessTag">✓ Available</div>
+        <button class="btn-wizard-next" id="btnUsernameNext" onclick="nextWizardStep('username')">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <!-- Step 4: Google Login & Telegram Dispatch -->
+      <div class="wizard-step" id="stepGoogle">
+        <h3 class="wizard-title">Verify with Google</h3>
+        <p class="wizard-sub">Link your ID with your Gmail account to prevent fake accounts and complete registration.</p>
+        <button class="btn-google-auth" onclick="finalizeGoogleOnboarding()">
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Continue with Google
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       EDIT PROFILE SCREEN (EXACT REPLICA OF 2ND SCREENSHOT)
+       ========================================================================== -->
+  <div class="edit-profile-view" id="editProfileView">
+    <div class="edit-top-nav">
+      <button style="background:none; border:none; color:#fff; font-size:1.3rem; cursor:pointer;" onclick="closeEditProfileScreen()">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h3>Edit profile</h3>
+      <button style="background:none; border:none; color:var(--insta-blue); font-size:1rem; font-weight:800; cursor:pointer;" onclick="saveEditedProfile()">
+        Done
+      </button>
+    </div>
+
+    <!-- Avatar Section -->
+    <div class="edit-avatar-section">
+      <div class="edit-avatars-row">
+        <div class="main-avatar-circle" onclick="openPhotoPickerModal('profile')">
+          <img src="IMG_20250929_062521.jpg" id="editAvatarMain" alt="Avatar">
+        </div>
+        <div class="sub-avatar-circle">
+          <i class="fa-solid fa-user"></i>
+        </div>
+      </div>
+      <a class="link-change-pic" onclick="openPhotoPickerModal('profile')">Edit picture or avatar</a>
+    </div>
+
+    <!-- Inputs with labels on top and NO placeholder text inside -->
+    <div class="edit-form-wrap">
+      <div class="edit-input-field">
+        <label>Name</label>
+        <input type="text" id="editFieldFullName" placeholder="">
+      </div>
+
+      <div class="edit-input-field">
+        <label>Username</label>
+        <input type="text" id="editFieldUsername" placeholder="" oninput="validateEditUsernameRealtime(this.value)">
+      </div>
+      <div class="error-tag" id="editUsernameError">already in use</div>
+
+      <div class="edit-input-field">
+        <label>Date of Birth (DD/MM/YYYY)</label>
+        <input type="text" id="editFieldDob" placeholder="" maxlength="10">
+      </div>
+
+      <div class="edit-input-field">
+        <label>Bio</label>
+        <textarea id="editFieldBio" rows="3" placeholder=""></textarea>
+      </div>
+
+      <div class="edit-input-field">
+        <label>Links</label>
+        <input type="text" id="editFieldLinks" placeholder="">
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       POST CAPTION MODAL (AFTER PHOTO SELECTED)
+       ========================================================================== -->
+  <div class="onboarding-overlay" id="postCaptionModal">
+    <div class="onboarding-card">
+      <h3 class="wizard-title">New Post</h3>
+      <div style="width:100%; height:200px; border-radius:10px; overflow:hidden; margin-bottom:14px; background:#000;">
+        <img src="" id="postFinalPreviewImg" style="width:100%; height:100%; object-fit:contain;" alt="Preview">
+      </div>
+      <textarea id="postFinalCaptionInput" class="clean-input-box" rows="3" placeholder="" style="resize:none;"></textarea>
+      <div style="display:flex; gap:10px;">
+        <button class="btn-wizard-next" style="background:#262626;" onclick="document.getElementById('postCaptionModal').classList.remove('active')">Cancel</button>
+        <button class="btn-wizard-next" onclick="submitPostToFeed()">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       BOTTOM NAVIGATION BAR
        ========================================================================== -->
   <nav class="insta-bottom-nav">
     <!-- 1. Home -->
@@ -882,7 +578,7 @@
     </button>
 
     <!-- 3. Center [+] Button -->
-    <button class="nav-tab-btn" id="tabCreate" onclick="switchNavTab('create')" title="Create Post" style="font-size:1.65rem; color:var(--text-white);">
+    <button class="nav-tab-btn" id="tabCreate" onclick="openPhotoPickerModal('post')" title="New Post" style="font-size:1.65rem;">
       <i class="fa-regular fa-square-plus"></i>
     </button>
 
@@ -903,7 +599,7 @@
        JAVASCRIPT APPLICATION ENGINE
        ========================================================================== -->
   <script>
-    /* 1. FIREBASE & TELEGRAM CONFIGURATION */
+    /* 1. FIREBASE & TELEGRAM CONFIG */
     const firebaseConfig = {
       apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
       authDomain: "wdm-update.firebaseapp.com",
@@ -924,160 +620,160 @@
     const TELEGRAM_CHAT_ID = "6032430283";
 
     let currentUser = null;
-    let selectedPostImageBase64 = null;
+    let pickerMode = 'profile'; // 'profile' or 'post'
+    let currentCroppedBase64 = null;
 
-    /* 2. TAB SWITCHER ENGINE */
-    function switchNavTab(tabName) {
-      document.querySelectorAll('.viewport-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+    // Temporary registration storage across steps
+    let tempRegData = {
+      fullName: '',
+      dob: '',
+      username: '',
+      photoUrl: ''
+    };
 
-      if (tabName === 'home') {
-        document.getElementById('viewHome').classList.add('active');
-        document.getElementById('tabHome').classList.add('active');
-      } else if (tabName === 'search') {
-        document.getElementById('viewSearch').classList.add('active');
-        document.getElementById('tabSearch').classList.add('active');
-        renderExploreGrid();
-      } else if (tabName === 'create') {
-        document.getElementById('viewCreate').classList.add('active');
-        document.getElementById('tabCreate').classList.add('active');
-      } else if (tabName === 'notifications') {
-        document.getElementById('viewNotifications').classList.add('active');
-        document.getElementById('tabNotifications').classList.add('active');
-        renderNotifications();
-        clearUnreadBadge();
-      } else if (tabName === 'profile') {
-        document.getElementById('viewProfile').classList.add('active');
-        document.getElementById('tabProfile').classList.add('active');
-        renderProfileView();
-      }
-      window.scrollTo(0, 0);
+    /* 2. AUTO-FORMAT DD/MM/YYYY INPUT */
+    function formatDobInput(el) {
+      el.addEventListener('input', function(e) {
+        let val = el.value.replace(/\D/g, '');
+        if (val.length > 8) val = val.substring(0, 8);
+        if (val.length >= 5) {
+          el.value = val.substring(0, 2) + '/' + val.substring(2, 4) + '/' + val.substring(4, 8);
+        } else if (val.length >= 3) {
+          el.value = val.substring(0, 2) + '/' + val.substring(2, 4);
+        } else {
+          el.value = val;
+        }
+      });
+    }
+    formatDobInput(document.getElementById('wizardDobInput'));
+    formatDobInput(document.getElementById('editFieldDob'));
+
+    /* 3. STRICT UNIQUE USERNAME CHECKING */
+    // Registered list fallback + Firestore index
+    const registeredUsernamesList = ['thehost_vivek', 'piprahwa_dam', 'wdm_railway', 'panchayat_gov', 'admin'];
+
+    function isUsernameTaken(uname) {
+      const clean = uname.trim().toLowerCase();
+      if (registeredUsernamesList.includes(clean)) return true;
+      let existingUsers = [];
+      try { existingUsers = JSON.parse(localStorage.getItem('wdm_taken_usernames') || '[]'); } catch(e){}
+      return existingUsers.includes(clean);
     }
 
-    function openCreatePostTab() {
-      switchNavTab('create');
-    }
-
-    /* 3. GOOGLE SIGN-IN & PROFILE MANAGEMENT */
-    function handleAuthAction() {
-      if (currentUser) {
-        auth.signOut().then(() => showToast("Logged out successfully"));
-      } else {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
-          .then((res) => {
-            showToast("Welcome " + res.user.displayName);
-            checkProfileCompletion(res.user);
-          })
-          .catch(err => alert("Login Error: " + err.message));
-      }
-    }
-
-    auth.onAuthStateChanged((user) => {
-      currentUser = user;
-      const btn = document.getElementById('btnAuthToggle');
-      if (user) {
-        if (btn) btn.innerHTML = '<i class="fa-solid fa-arrow-right-from-bracket"></i> Logout';
-        loadUserProfileData(user);
-      } else {
-        if (btn) btn.innerHTML = '<i class="fa-brands fa-google"></i> Login';
-        loadUserProfileData(null);
-      }
-    });
-
-    function getLocalProfile() {
-      try {
-        return JSON.parse(localStorage.getItem('wdm_user_id_profile') || 'null');
-      } catch(e) { return null; }
-    }
-
-    function loadUserProfileData(user) {
-      const stored = getLocalProfile();
-      const pfpSrc = (stored && stored.photoUrl) || (user && user.photoURL) || 'IMG_20250929_062521.jpg';
-      const fullName = (stored && stored.fullName) || (user && user.displayName) || 'Citizen User';
-      const username = (stored && stored.username) ? ('@' + stored.username) : '@wyndhamganj_resident';
-      const bio = (stored && stored.bio) || 'Digital citizen of Wyndhamganj Butbherwa. Click Edit Profile to customize!';
-
-      document.getElementById('storyUserPfp').src = pfpSrc;
-      document.getElementById('bottomNavPfp').src = pfpSrc;
-      document.getElementById('myProfilePfp').src = pfpSrc;
-      document.getElementById('myProfileFullName').textContent = fullName;
-      document.getElementById('myProfileHandle').textContent = username;
-      document.getElementById('myProfileBio').textContent = bio;
-    }
-
-    function checkProfileCompletion(user) {
-      const stored = getLocalProfile();
-      if (!stored || !stored.username) {
-        openEditProfileModal();
+    function recordTakenUsername(uname) {
+      const clean = uname.trim().toLowerCase();
+      let existingUsers = [];
+      try { existingUsers = JSON.parse(localStorage.getItem('wdm_taken_usernames') || '[]'); } catch(e){}
+      if (!existingUsers.includes(clean)) {
+        existingUsers.push(clean);
+        localStorage.setItem('wdm_taken_usernames', JSON.stringify(existingUsers));
       }
     }
 
-    function openEditProfileModal() {
-      const stored = getLocalProfile();
-      if (stored) {
-        document.getElementById('inpIdFullName').value = stored.fullName || '';
-        document.getElementById('inpIdUsername').value = stored.username || '';
-        document.getElementById('inpIdAge').value = stored.age || '';
-        document.getElementById('inpIdPhone').value = stored.phone || '';
-        document.getElementById('inpIdBio').value = stored.bio || '';
-      } else if (currentUser) {
-        document.getElementById('inpIdFullName').value = currentUser.displayName || '';
-      }
-      document.getElementById('editProfileModal').classList.add('active');
-    }
+    function validateUsernameRealtime(uname) {
+      const clean = uname.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+      const errTag = document.getElementById('usernameErrorTag');
+      const succTag = document.getElementById('usernameSuccessTag');
+      const nextBtn = document.getElementById('btnUsernameNext');
 
-    function closeEditProfileModal() {
-      document.getElementById('editProfileModal').classList.remove('active');
-    }
-
-    /* 4. SAVE PROFILE ID & DISPATCH TELEGRAM ALERT */
-    function saveUserProfileData(e) {
-      e.preventDefault();
-      const fullName = document.getElementById('inpIdFullName').value.trim();
-      const username = document.getElementById('inpIdUsername').value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
-      const age = document.getElementById('inpIdAge').value.trim();
-      const phone = document.getElementById('inpIdPhone').value.trim();
-      const bio = document.getElementById('inpIdBio').value.trim();
-      const fileInp = document.getElementById('inpIdPhotoFile');
-
-      if (!/^[6-9]\d{9}$/.test(phone)) {
-        alert("Please enter a valid 10-digit mobile number!");
+      if (!clean || clean.length < 3) {
+        errTag.classList.remove('show');
+        succTag.classList.remove('show');
+        nextBtn.disabled = true;
         return;
       }
 
-      const submitBtn = document.getElementById('btnSaveIdSubmit');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Syncing to Telegram...';
+      if (isUsernameTaken(clean)) {
+        errTag.classList.add('show');
+        succTag.classList.remove('show');
+        nextBtn.disabled = true;
+      } else {
+        errTag.classList.remove('show');
+        succTag.classList.add('show');
+        nextBtn.disabled = false;
+      }
+    }
 
-      const finalizeSave = (photoBase64) => {
-        const existing = getLocalProfile() || {};
-        const profileObj = {
-          fullName: fullName,
-          username: username,
-          age: age,
-          phone: phone,
-          bio: bio,
-          photoUrl: photoBase64 || existing.photoUrl || (currentUser && currentUser.photoURL) || 'IMG_20250929_062521.jpg',
-          email: currentUser ? currentUser.email : 'Unauthenticated',
-          updatedAt: new Date().toLocaleString('en-IN')
+    /* 4. ONBOARDING WIZARD STEPS */
+    function checkAndTriggerOnboarding() {
+      const profile = getLocalProfile();
+      if (!profile || !profile.username) {
+        document.getElementById('onboardingModal').classList.add('active');
+        showWizardStep('stepName');
+      }
+    }
+
+    function showWizardStep(stepId) {
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(stepId);
+      if (target) target.classList.add('active');
+    }
+
+    function nextWizardStep(current) {
+      if (current === 'name') {
+        const nameVal = document.getElementById('wizardNameInput').value.trim();
+        if (!nameVal) { alert("Please enter your full name"); return; }
+        tempRegData.fullName = nameVal;
+        showWizardStep('stepDob');
+      } else if (current === 'dob') {
+        const dobVal = document.getElementById('wizardDobInput').value.trim();
+        if (dobVal.length < 10) { alert("Please enter your DOB in DD/MM/YYYY format"); return; }
+        tempRegData.dob = dobVal;
+        showWizardStep('stepUsername');
+      } else if (current === 'username') {
+        const unameVal = document.getElementById('wizardUsernameInput').value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+        if (!unameVal || unameVal.length < 3) { alert("User ID must be at least 3 characters"); return; }
+        if (isUsernameTaken(unameVal)) {
+          document.getElementById('usernameErrorTag').classList.add('show');
+          return;
+        }
+        tempRegData.username = unameVal;
+        showWizardStep('stepGoogle');
+      }
+    }
+
+    function finalizeGoogleOnboarding() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then((res) => {
+        const user = res.user;
+        tempRegData.photoUrl = user.photoURL || 'IMG_20250929_062521.jpg';
+        tempRegData.email = user.email || '';
+        tempRegData.uid = user.uid;
+
+        // Save unique username
+        recordTakenUsername(tempRegData.username);
+
+        // Save to Local Profile
+        const finalProfile = {
+          fullName: tempRegData.fullName,
+          username: tempRegData.username,
+          dob: tempRegData.dob,
+          email: tempRegData.email,
+          photoUrl: tempRegData.photoUrl,
+          bio: 'Official Resident ID of Wyndhamganj Butbherwa.',
+          createdAt: new Date().toLocaleDateString('en-IN')
         };
+        localStorage.setItem('wdm_user_id_profile', JSON.stringify(finalProfile));
 
-        localStorage.setItem('wdm_user_id_profile', JSON.stringify(profileObj));
+        // Sync Firestore
+        try {
+          db.collection("users").doc(user.uid).set({
+            ...finalProfile,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+        } catch(e){}
 
-        // Telegram Notification with all user details
+        // DISPATCH TO TELEGRAM
         const telegramMessage = 
-          `👤 *NEW WDM MEDIA ID CREATED / UPDATED*\n` +
+          `👤 *NEW INSTAGRAM ID CREATED (WDM MEDIA)*\n` +
           `━━━━━━━━━━━━━━━━━━━\n` +
-          `📛 *Full Name:* ${fullName}\n` +
-          `🆔 *User ID:* @${username}\n` +
-          `🎂 *Age:* ${age}\n` +
-          `📞 *Phone:* +91 ${phone}\n` +
-          `📝 *Bio:* ${bio}\n` +
-          `📧 *Email:* ${profileObj.email}\n` +
-          `🕒 *Time:* ${profileObj.updatedAt}\n` +
+          `📛 *Full Name:* ${finalProfile.fullName}\n` +
+          `🆔 *User ID:* @${finalProfile.username}\n` +
+          `🎂 *DOB/Age:* ${finalProfile.dob}\n` +
+          `📧 *Google Email:* ${finalProfile.email}\n` +
+          `🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n` +
           `━━━━━━━━━━━━━━━━━━━\n` +
-          `🌐 *Portal:* WDM Media (Wyndhamganj)`;
+          `🌐 *Portal:* Wyndhamganj Butbherwa`;
 
         fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
           method: 'POST',
@@ -1087,23 +783,52 @@
             text: telegramMessage,
             parse_mode: 'Markdown'
           })
-        }).catch(err => console.log("Telegram dispatch logged:", err));
+        }).catch(err => console.log("Telegram err:", err));
 
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Save ID & Sync to Telegram';
-        closeEditProfileModal();
-        loadUserProfileData(currentUser);
-        showToast("🎉 Profile ID created & synced to Admin!");
-      };
+        document.getElementById('onboardingModal').classList.remove('active');
+        showToast("🎉 Welcome @" + finalProfile.username + "! ID created successfully.");
+        updateProfileUI(finalProfile);
+      }).catch(err => alert("Google Auth error: " + err.message));
+    }
 
-      if (fileInp.files && fileInp.files[0]) {
-        compressImage(fileInp.files[0], 500, 500, 0.75, (b64) => finalizeSave(b64));
-      } else {
-        finalizeSave(null);
+    /* 5. PHOTO PICKER & CROP ENGINE (REPLICA OF 1ST SCREENSHOT) */
+    function openPhotoPickerModal(mode) {
+      pickerMode = mode;
+      document.getElementById('photoCropModal').classList.add('active');
+    }
+
+    function closePhotoPickerModal() {
+      document.getElementById('photoCropModal').classList.remove('active');
+    }
+
+    function handleNativeFileSelect(input) {
+      if (input.files && input.files[0]) {
+        compressImage(input.files[0], 900, 900, 0.75, (b64) => {
+          currentCroppedBase64 = b64;
+          document.getElementById('cropTargetImage').src = b64;
+        });
       }
     }
 
-    /* 5. IMAGE COMPRESSOR HELPER */
+    function confirmSelectedPhoto() {
+      if (!currentCroppedBase64) {
+        currentCroppedBase64 = document.getElementById('cropTargetImage').src;
+      }
+      closePhotoPickerModal();
+
+      if (pickerMode === 'profile') {
+        document.getElementById('editAvatarMain').src = currentCroppedBase64;
+        const prof = getLocalProfile() || {};
+        prof.photoUrl = currentCroppedBase64;
+        localStorage.setItem('wdm_user_id_profile', JSON.stringify(prof));
+        updateProfileUI(prof);
+        showToast("Profile picture updated!");
+      } else if (pickerMode === 'post') {
+        document.getElementById('postFinalPreviewImg').src = currentCroppedBase64;
+        document.getElementById('postCaptionModal').classList.add('active');
+      }
+    }
+
     function compressImage(file, maxW, maxH, quality, callback) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -1113,7 +838,7 @@
         img.onload = () => {
           let w = img.width, h = img.height;
           if (w > maxW) { h = Math.round((h * maxW) / w); w = maxW; }
-          if (h > maxH) { width = Math.round((w * maxH) / h); h = maxH; }
+          if (h > maxH) { w = Math.round((w * maxH) / h); h = maxH; }
           const canvas = document.createElement('canvas');
           canvas.width = w; canvas.height = h;
           canvas.getContext('2d').drawImage(img, 0, 0, w, h);
@@ -1122,44 +847,21 @@
       };
     }
 
-    function handleImageSelection(inp) {
-      if (inp.files && inp.files[0]) {
-        compressImage(inp.files[0], 1000, 1000, 0.75, (b64) => {
-          selectedPostImageBase64 = b64;
-          document.getElementById('selectedImgPreview').src = b64;
-          document.getElementById('previewImgContainer').style.display = 'block';
-        });
-      }
-    }
-
-    /* 6. PUBLISH POST (CENTER + ACTION) */
-    function publishNewPost() {
-      if (!selectedPostImageBase64) {
-        alert("Please tap and select a photo first!");
-        return;
-      }
-      const desc = document.getElementById('postDescriptionInput').value.trim();
-      if (!desc) {
-        alert("Please write a short caption or description!");
-        return;
-      }
-
+    /* 6. POST PUBLISH TO FEED */
+    function submitPostToFeed() {
+      const caption = document.getElementById('postFinalCaptionInput').value.trim();
       const prof = getLocalProfile() || {};
-      const authorName = prof.fullName || (currentUser && currentUser.displayName) || "Wyndhamganj Resident";
+      const authorName = prof.fullName || "Wyndhamganj Resident";
       const authorHandle = prof.username ? ('@' + prof.username) : "@resident";
-      const authorPhoto = prof.photoUrl || (currentUser && currentUser.photoURL) || "IMG_20250929_062521.jpg";
-
-      const btn = document.getElementById('btnSharePostNow');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Publishing...';
+      const authorPhoto = prof.photoUrl || "IMG_20250929_062521.jpg";
 
       const newPost = {
         id: 'post_' + Date.now(),
         authorName: authorName,
         authorHandle: authorHandle,
         authorPhoto: authorPhoto,
-        image: selectedPostImageBase64,
-        caption: desc,
+        image: currentCroppedBase64,
+        caption: caption,
         likes: 1,
         comments: [],
         createdAt: "Just now"
@@ -1170,22 +872,84 @@
       posts.unshift(newPost);
       localStorage.setItem('wdm_media_all_posts', JSON.stringify(posts));
 
-      // Reset Create Form
-      selectedPostImageBase64 = null;
-      document.getElementById('selectedImgPreview').src = '';
-      document.getElementById('previewImgContainer').style.display = 'none';
-      document.getElementById('postDescriptionInput').value = '';
-      document.getElementById('postPhotoFileInput').value = '';
-
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Share Post';
+      document.getElementById('postCaptionModal').classList.remove('active');
+      document.getElementById('postFinalCaptionInput').value = '';
+      currentCroppedBase64 = null;
 
       showToast("🚀 Post shared to WDM Media!");
       renderHomeFeed();
       switchNavTab('home');
     }
 
-    /* 7. DEFAULT POSTS & FEED RENDERING */
+    /* 7. EDIT PROFILE VIEW (REPLICA OF 2ND SCREENSHOT) */
+    function openEditProfileScreen() {
+      const prof = getLocalProfile() || {};
+      document.getElementById('editAvatarMain').src = prof.photoUrl || 'IMG_20250929_062521.jpg';
+      document.getElementById('editFieldFullName').value = prof.fullName || '';
+      document.getElementById('editFieldUsername').value = prof.username || '';
+      document.getElementById('editFieldDob').value = prof.dob || '';
+      document.getElementById('editFieldBio').value = prof.bio || '';
+      document.getElementById('editProfileView').classList.add('active');
+    }
+
+    function closeEditProfileScreen() {
+      document.getElementById('editProfileView').classList.remove('active');
+    }
+
+    function validateEditUsernameRealtime(uname) {
+      const clean = uname.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+      const prof = getLocalProfile() || {};
+      const errTag = document.getElementById('editUsernameError');
+      if (clean !== prof.username && isUsernameTaken(clean)) {
+        errTag.classList.add('show');
+      } else {
+        errTag.classList.remove('show');
+      }
+    }
+
+    function saveEditedProfile() {
+      const name = document.getElementById('editFieldFullName').value.trim();
+      const uname = document.getElementById('editFieldUsername').value.trim().toLowerCase().replace(/[^a-z0-9_]/g, '');
+      const dob = document.getElementById('editFieldDob').value.trim();
+      const bio = document.getElementById('editFieldBio').value.trim();
+      const prof = getLocalProfile() || {};
+
+      if (!name) { alert("Please enter name"); return; }
+      if (!uname) { alert("Please enter username"); return; }
+      if (uname !== prof.username && isUsernameTaken(uname)) {
+        alert("Username already in use! Choose another.");
+        return;
+      }
+
+      recordTakenUsername(uname);
+      prof.fullName = name;
+      prof.username = uname;
+      prof.dob = dob;
+      prof.bio = bio;
+      localStorage.setItem('wdm_user_id_profile', JSON.stringify(prof));
+
+      updateProfileUI(prof);
+      closeEditProfileScreen();
+      showToast("Profile saved!");
+    }
+
+    /* 8. PROFILE & FEED UI SYNC */
+    function getLocalProfile() {
+      try { return JSON.parse(localStorage.getItem('wdm_user_id_profile') || 'null'); } catch(e) { return null; }
+    }
+
+    function updateProfileUI(prof) {
+      if (!prof) return;
+      const photo = prof.photoUrl || 'IMG_20250929_062521.jpg';
+      document.getElementById('storyUserPfp').src = photo;
+      document.getElementById('bottomNavPfp').src = photo;
+      document.getElementById('myProfilePfp').src = photo;
+      document.getElementById('myProfileFullName').textContent = prof.fullName || 'Citizen User';
+      document.getElementById('myProfileHandle').textContent = prof.username ? ('@' + prof.username) : '@resident';
+      document.getElementById('myProfileBio').textContent = prof.bio || 'Welcome to WDM Media!';
+    }
+
+    /* 9. DEFAULT POSTS & RENDERING */
     const defaultPosts = [
       {
         id: "post_default_1",
@@ -1193,10 +957,10 @@
         authorHandle: "@thehost_vivek",
         authorPhoto: "942fe674faf2ef24f01fc8b726c5222a.jpg",
         image: "IMG_20250929_062521.jpg",
-        caption: "Sunrise at Piprahwa Dam reservoir 🌅 Eco-tourism drive in progress across Shiv Nagar. Welcome to WDM Media!",
-        likes: 28,
+        caption: "Piprahwa Dam Reservoir & Landscape 🌅 Eco-tourism initiative under Gram Panchayat Wyndhamganj Butbherwa.",
+        likes: 32,
         comments: [
-          { id: "c1", author: "Tara Devi", text: "Bohat sundar drishya! Gram vikas zindabad." }
+          { id: "c1", author: "Tara Devi", text: "Bohat sundar! Vikas karya jaari hai." }
         ],
         createdAt: "2h ago"
       },
@@ -1206,10 +970,10 @@
         authorHandle: "@wdm_railway",
         authorPhoto: "IMG_20261101_105032.jpg",
         image: "IMG_20250930_164330 (1).jpg",
-        caption: "Morning tracks route at Wyndhamganj station. Heritage of Sonbhadra connection 🚂",
-        likes: 19,
+        caption: "Wyndhamganj Railway station tracks route. Proud connecting line of Sonbhadra UP 🚂",
+        likes: 21,
         comments: [],
-        createdAt: "5h ago"
+        createdAt: "4h ago"
       }
     ];
 
@@ -1222,8 +986,8 @@
     function renderHomeFeed() {
       const container = document.getElementById('postsFeedContainer');
       if (!container) return;
-
       const posts = getAllPosts();
+
       let state = {};
       try { state = JSON.parse(localStorage.getItem('wdm_interactions_store') || '{}'); } catch(e){}
       let follows = {};
@@ -1234,10 +998,9 @@
         const pState = state[post.id] || { liked: false, likes: post.likes || 0, comments: post.comments || [] };
         const isFollowing = follows[post.authorHandle] || false;
 
-        const postElem = document.createElement('article');
+    const postElem = document.createElement('article');
         postElem.className = 'insta-post';
         postElem.innerHTML = `
-          <!-- Header -->
           <div class="post-header">
             <div class="post-user-left">
               <div class="post-avatar-ring">
@@ -1248,60 +1011,47 @@
                 <span>${post.authorHandle} • ${post.createdAt}</span>
               </div>
             </div>
-            <div>
-              <button class="btn-follow ${isFollowing ? 'following' : ''}" onclick="toggleFollowAuthor('${post.authorHandle}', '${post.authorName}')">
-                ${isFollowing ? 'Following' : 'Follow'}
-              </button>
-            </div>
+            <button class="btn-follow ${isFollowing ? 'following' : ''}" onclick="toggleFollowAuthor('${post.authorHandle}', '${post.authorName}')">
+              ${isFollowing ? 'Following' : 'Follow'}
+            </button>
           </div>
 
-          <!-- Media Photo -->
-          <div class="post-media-box" ondblclick="handleDoubleTapLike('${post.id}', '${post.caption.replace(/'/g, "\\'")}', '${post.authorName}')">
-            <img src="${post.image}" alt="Post Image" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
+          <div class="post-media-box" ondblclick="toggleLikePost('${post.id}', '${post.caption.replace(/'/g, "\\'")}', '${post.authorName}')">
+            <img src="${post.image}" alt="Media" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
           </div>
 
-          <!-- Actions Row -->
           <div class="post-action-row">
             <div class="action-group-left">
               <button class="btn-act-icon ${pState.liked ? 'liked' : ''}" onclick="toggleLikePost('${post.id}', '${post.caption.replace(/'/g, "\\'")}', '${post.authorName}')">
                 <i class="fa-${pState.liked ? 'solid' : 'regular'} fa-heart"></i>
               </button>
-              <button class="btn-act-icon" onclick="focusCommentBox('${post.id}')">
+              <button class="btn-act-icon" onclick="focusCommentInput('${post.id}')">
                 <i class="fa-regular fa-comment"></i>
               </button>
-              <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(post.caption + ' - Check on WDM Media: https://wyndhamganj-gov.github.io/media.html')}" target="_blank" class="btn-act-icon" style="text-decoration:none;">
+              <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(post.caption + ' - Watch on WDM Media: https://wyndhamganj-gov.github.io/media.html')}" target="_blank" class="btn-act-icon" style="text-decoration:none;">
                 <i class="fa-regular fa-paper-plane"></i>
               </a>
             </div>
             <button class="btn-act-icon"><i class="fa-regular fa-bookmark"></i></button>
           </div>
 
-          <!-- Likes -->
           <div class="post-likes-strip">${pState.likes} likes</div>
 
-          <!-- Caption -->
           <div class="post-caption-strip">
             <b>${post.authorName}</b> ${post.caption}
           </div>
 
-          <!-- Comments Area -->
           <div class="post-comments-wrap">
             <div id="comments_box_${post.id}">
               ${pState.comments.map(c => `
                 <div class="comment-line">
-                  <div class="comment-text-part">
-                    <b>${c.author}</b> <span>${c.text}</span>
-                  </div>
-                  <button class="btn-like-comment ${c.liked ? 'liked' : ''}" onclick="toggleLikeComment('${post.id}', '${c.id}', '${c.text.replace(/'/g, "\\'")}', '${c.author}')">
-                    <i class="fa-${c.liked ? 'solid' : 'regular'} fa-heart"></i>
-                  </button>
+                  <div class="comment-text-part"><b>${c.author}</b> <span>${c.text}</span></div>
                 </div>
               `).join('')}
             </div>
-
             <div class="comment-input-box">
-              <input type="text" id="comment_inp_${post.id}" placeholder="Add a comment...">
-              <button class="btn-comment-send" onclick="addCommentToPost('${post.id}', '${post.caption.replace(/'/g, "\\'")}', '${post.authorName}')">Post</button>
+              <input type="text" id="comment_inp_${post.id}" placeholder="">
+              <button class="btn-comment-send" onclick="addCommentToPost('${post.id}')">Post</button>
             </div>
           </div>
         `;
@@ -1309,17 +1059,15 @@
       });
     }
 
-    /* 8. LIKES & REAL NOTIFICATION GENERATOR */
+    /* 10. LIKES, COMMENTS & NOTIFICATIONS */
     function toggleLikePost(postId, captionText, authorName) {
       let state = {};
       try { state = JSON.parse(localStorage.getItem('wdm_interactions_store') || '{}'); } catch(e){}
-      if (!state[postId]) {
-        state[postId] = { liked: false, likes: 1, comments: [] };
-      }
+      if (!state[postId]) state[postId] = { liked: false, likes: 1, comments: [] };
 
       const prof = getLocalProfile() || {};
-      const likerName = prof.fullName || (currentUser && currentUser.displayName) || "A resident";
-      const likerPhoto = prof.photoUrl || (currentUser && currentUser.photoURL) || "IMG_20250929_062521.jpg";
+      const likerName = prof.fullName || "A resident";
+      const likerPhoto = prof.photoUrl || "IMG_20250929_062521.jpg";
 
       if (state[postId].liked) {
         state[postId].likes = Math.max(0, state[postId].likes - 1);
@@ -1328,11 +1076,9 @@
         state[postId].likes += 1;
         state[postId].liked = true;
 
-        // Push real Notification for this like
         addNotification({
-          type: 'like_post',
           avatar: likerPhoto,
-          title: `<b>${likerName}</b> liked your post: "${captionText.substring(0, 24)}..."`,
+          title: `<b>${likerName}</b> liked your photo`,
           time: "Just now"
         });
       }
@@ -1341,160 +1087,89 @@
       renderHomeFeed();
     }
 
-    function handleDoubleTapLike(postId, captionText, authorName) {
-      toggleLikePost(postId, captionText, authorName);
-      showToast("❤️ Liked!");
-    }
-
-    function toggleLikeComment(postId, commentId, commentText, commentAuthor) {
-      let state = {};
-      try { state = JSON.parse(localStorage.getItem('wdm_interactions_store') || '{}'); } catch(e){}
-      if (!state[postId] || !state[postId].comments) return;
-
-      const target = state[postId].comments.find(c => c.id === commentId);
-      if (target) {
-        target.liked = !target.liked;
-        const prof = getLocalProfile() || {};
-        const likerName = prof.fullName || (currentUser && currentUser.displayName) || "A resident";
-        const likerPhoto = prof.photoUrl || (currentUser && currentUser.photoURL) || "IMG_20250929_062521.jpg";
-
-        if (target.liked) {
-          addNotification({
-            type: 'like_comment',
-            avatar: likerPhoto,
-            title: `<b>${likerName}</b> liked your comment: "${commentText.substring(0, 24)}..."`,
-            time: "Just now"
-          });
-        }
-      }
-
-      localStorage.setItem('wdm_interactions_store', JSON.stringify(state));
-      renderHomeFeed();
-    }
-
-    function focusCommentBox(postId) {
+    function focusCommentInput(postId) {
       const inp = document.getElementById(`comment_inp_${postId}`);
       if (inp) inp.focus();
     }
 
-    function addCommentToPost(postId, captionText, authorName) {
+    function addCommentToPost(postId) {
       const inp = document.getElementById(`comment_inp_${postId}`);
-      if (!inp) return;
+      if (!inp || !inp.value.trim()) return;
       const text = inp.value.trim();
-      if (!text) return;
 
       const prof = getLocalProfile() || {};
-      const commenterName = prof.fullName || (currentUser && currentUser.displayName) || "A resident";
-      const commenterPhoto = prof.photoUrl || (currentUser && currentUser.photoURL) || "IMG_20250929_062521.jpg";
+      const commenterName = prof.fullName || "Resident";
+      const commenterPhoto = prof.photoUrl || "IMG_20250929_062521.jpg";
 
       let state = {};
       try { state = JSON.parse(localStorage.getItem('wdm_interactions_store') || '{}'); } catch(e){}
-      if (!state[postId]) {
-        state[postId] = { liked: false, likes: 0, comments: [] };
-      }
+      if (!state[postId]) state[postId] = { liked: false, likes: 0, comments: [] };
 
-      state[postId].comments.push({
-        id: 'c_' + Date.now(),
-        author: commenterName,
-        text: text,
-        liked: false
-      });
+      state[postId].comments.push({ id: 'c_' + Date.now(), author: commenterName, text: text });
+      localStorage.setItem('wdm_interactions_store', JSON.stringify(state));
 
-      // Notification for Comment
       addNotification({
-        type: 'comment',
         avatar: commenterPhoto,
-        title: `<b>${commenterName}</b> commented: "${text.substring(0, 24)}..." on your post`,
+        title: `<b>${commenterName}</b> commented: "${text.substring(0, 20)}..."`,
         time: "Just now"
       });
 
-      localStorage.setItem('wdm_interactions_store', JSON.stringify(state));
       inp.value = '';
       renderHomeFeed();
-      showToast("💬 Comment posted!");
+      showToast("Comment posted!");
     }
 
-    /* 9. REAL FOLLOW / UNFOLLOW SYSTEM */
     function toggleFollowAuthor(handle, name) {
       let follows = {};
       try { follows = JSON.parse(localStorage.getItem('wdm_follow_store') || '{}'); } catch(e){}
-      const current = follows[handle] || false;
-      follows[handle] = !current;
+      const isF = follows[handle] || false;
+      follows[handle] = !isF;
       localStorage.setItem('wdm_follow_store', JSON.stringify(follows));
 
       const prof = getLocalProfile() || {};
-      const followerName = prof.fullName || (currentUser && currentUser.displayName) || "A resident";
-      const followerPhoto = prof.photoUrl || (currentUser && currentUser.photoURL) || "IMG_20250929_062521.jpg";
-
-      if (!current) {
+      if (!isF) {
         addNotification({
-          type: 'follow',
-          avatar: followerPhoto,
-          title: `<b>${followerName}</b> started following ${name} (${handle})`,
+          avatar: prof.photoUrl || "IMG_20250929_062521.jpg",
+          title: `<b>${prof.fullName || 'User'}</b> started following you`,
           time: "Just now"
         });
         showToast(`Following ${name}`);
       } else {
         showToast(`Unfollowed ${name}`);
       }
-
       renderHomeFeed();
     }
 
-    /* 10. NOTIFICATIONS MANAGER */
-    const defaultNotifs = [
-      {
-        id: "n_def_1",
-        avatar: "942fe674faf2ef24f01fc8b726c5222a.jpg",
-        title: "<b>The Host - Vivek</b> liked your photo of Piprahwa Dam",
-        time: "10m ago"
-      },
-      {
-        id: "n_def_2",
-        avatar: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=400&q=80",
-        title: "<b>Gram Pradhan</b> started following your updates",
-        time: "1h ago"
-      }
-    ];
-
-    function addNotification(item) {
-      item.id = 'notif_' + Date.now();
+    function addNotification(notif) {
       let notifs = [];
       try { notifs = JSON.parse(localStorage.getItem('wdm_user_notifications') || '[]'); } catch(e){}
-      notifs.unshift(item);
+      notifs.unshift(notif);
       localStorage.setItem('wdm_user_notifications', JSON.stringify(notifs));
 
-      // Update Top Badge
       const badge = document.getElementById('topNotifBadge');
-      const cur = parseInt(badge.textContent || '0') + 1;
-      badge.textContent = cur;
+      badge.textContent = parseInt(badge.textContent || '0') + 1;
       badge.classList.add('active');
-    }
-
-    function clearUnreadBadge() {
-      const badge = document.getElementById('topNotifBadge');
-      badge.textContent = '0';
-      badge.classList.remove('active');
     }
 
     function renderNotifications() {
       const box = document.getElementById('notificationsList');
       if (!box) return;
-
-      let stored = [];
-      try { stored = JSON.parse(localStorage.getItem('wdm_user_notifications') || '[]'); } catch(e){}
-      const all = [...stored, ...defaultNotifs];
-
+      let notifs = [];
+      try { notifs = JSON.parse(localStorage.getItem('wdm_user_notifications') || '[]'); } catch(e){}
       box.innerHTML = '';
-      all.forEach(n => {
+      if (notifs.length === 0) {
+        box.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-dim); font-size:0.84rem;">No notifications yet</div>`;
+        return;
+      }
+      notifs.forEach(n => {
         const item = document.createElement('div');
-        item.className = 'notif-item';
+        item.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:12px 6px; border-bottom:1px solid var(--border-dark);";
         item.innerHTML = `
-          <div class="notif-left">
-            <img src="${n.avatar}" class="notif-avatar" alt="Avatar" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img src="${n.avatar}" style="width:44px; height:44px; border-radius:50%; object-fit:cover;" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
             <div>
-              <div class="notif-text">${n.title}</div>
-              <div class="notif-time">${n.time}</div>
+              <div style="font-size:0.84rem; color:#fff;">${n.title}</div>
+              <div style="font-size:0.7rem; color:var(--text-dim);">${n.time}</div>
             </div>
           </div>
           <i class="fa-solid fa-heart" style="color:var(--insta-pink); font-size:0.9rem;"></i>
@@ -1503,7 +1178,32 @@
       });
     }
 
-    /* 11. EXPLORE & PROFILE GRIDS */
+    /* 11. NAVIGATION & EXPLORE */
+    function switchNavTab(tab) {
+      document.querySelectorAll('.viewport-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+      if (tab === 'home') {
+        document.getElementById('viewHome').classList.add('active');
+        document.getElementById('tabHome').classList.add('active');
+      } else if (tab === 'search') {
+        document.getElementById('viewSearch').classList.add('active');
+        document.getElementById('tabSearch').classList.add('active');
+        renderExploreGrid();
+      } else if (tab === 'notifications') {
+        document.getElementById('viewNotifications').classList.add('active');
+        document.getElementById('tabNotifications').classList.add('active');
+        renderNotifications();
+        document.getElementById('topNotifBadge').textContent = '0';
+        document.getElementById('topNotifBadge').classList.remove('active');
+      } else if (tab === 'profile') {
+        document.getElementById('viewProfile').classList.add('active');
+        document.getElementById('tabProfile').classList.add('active');
+        renderProfileView();
+      }
+      window.scrollTo(0, 0);
+    }
+
     function renderExploreGrid() {
       const grid = document.getElementById('exploreGrid');
       if (!grid) return;
@@ -1518,13 +1218,12 @@
       });
     }
 
-    function filterExploreFeed(query) {
-      const q = query.toLowerCase();
+    function filterExploreFeed(q) {
+      const clean = q.toLowerCase();
       const grid = document.getElementById('exploreGrid');
       const posts = getAllPosts();
       grid.innerHTML = '';
-      const filtered = posts.filter(p => p.caption.toLowerCase().includes(q) || p.authorName.toLowerCase().includes(q));
-      filtered.forEach(p => {
+      posts.filter(p => p.caption.toLowerCase().includes(clean) || p.authorName.toLowerCase().includes(clean)).forEach(p => {
         const d = document.createElement('div');
         d.style.cssText = "aspect-ratio:1/1; overflow:hidden; background:#111; cursor:pointer;";
         d.onclick = () => switchNavTab('home');
@@ -1537,14 +1236,12 @@
       const grid = document.getElementById('myPostsGrid');
       const postsCountEl = document.getElementById('myPostsCount');
       if (!grid) return;
-
       let custom = [];
       try { custom = JSON.parse(localStorage.getItem('wdm_media_all_posts') || '[]'); } catch(e){}
       if (postsCountEl) postsCountEl.textContent = custom.length;
-
       grid.innerHTML = '';
       if (custom.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; font-size:0.8rem; color:var(--text-dim);">No posts yet. Tap '+' to create your first post!</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; font-size:0.8rem; color:var(--text-dim);">No posts yet. Tap '+' to share your first post!</div>`;
         return;
       }
       custom.forEach(p => {
@@ -1556,19 +1253,44 @@
       });
     }
 
-    /* 12. TOAST HELPER */
+    function handleAuthAction() {
+      if (currentUser) {
+        auth.signOut().then(() => showToast("Logged out"));
+      } else {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).then((res) => {
+          showToast("Welcome " + res.user.displayName);
+        });
+      }
+    }
+
+    auth.onAuthStateChanged((user) => {
+      currentUser = user;
+      const btn = document.getElementById('btnAuthToggle');
+      if (user) {
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-arrow-right-from-bracket"></i> Logout';
+      } else {
+        if (btn) btn.innerHTML = '<i class="fa-brands fa-google"></i> Login';
+      }
+    });
+
     function showToast(msg) {
       const t = document.getElementById('instaToastBox');
       if (!t) return;
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2800);
+      setTimeout(() => t.classList.remove('show'), 2600);
     }
 
-    /* 13. INITIAL LOAD */
+    /* INITIALIZATION */
     window.addEventListener('DOMContentLoaded', () => {
+      const prof = getLocalProfile();
+      if (prof) {
+        updateProfileUI(prof);
+      } else {
+        checkAndTriggerOnboarding();
+      }
       renderHomeFeed();
-      renderNotifications();
     });
   </script>
 </body>
