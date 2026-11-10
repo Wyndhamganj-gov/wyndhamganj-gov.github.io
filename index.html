@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" data-font="md">
+<html lang="en" data-theme="dark" data-font="md">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wyndhamganj Butbherwa - Official Digital Portal</title>
   <meta name="google-site-verification" content="sAMV3SdxwZgB8pL_-dedxzFUNvOlNWIZR3WPC7Znua0" />
 
-  <!-- Primary SEO Meta Tags -->
+  <!-- SEO Meta Tags -->
   <meta name="title" content="Wyndhamganj Butbherwa - Official Digital Portal">
-  <meta name="description" content="Official Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar), Sonbhadra, UP. E-services, sports fixtures, gallery, and village notices.">
+  <meta name="description" content="Official Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar), Sonbhadra, UP. E-services, sports arena, gallery, and village notices.">
   <meta name="keywords" content="Wyndhamganj butbherwa, butbherwa wyndhamganj, Gram Panchayat Wyndhamganj, Shiv Nagar Butbherwa, Piprahwa dam, Wyndhamganj sonbhadra">
   <meta name="robots" content="index, follow">
   <meta name="author" content="The Host - Vivek Kumar">
@@ -20,7 +20,7 @@
   <meta property="og:description" content="Official Digital Portal of Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar).">
   <meta property="og:image" content="IMG_20250929_062521.jpg">
 
-  <!-- Google Local Search Schema -->
+  <!-- Local Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -37,50 +37,69 @@
   }
   </script>
   
-  <!-- Fonts & FontAwesome -->
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Firebase SDKs -->
+  <!-- Firebase v8 SDK (Compatible with Github Pages Scripts) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
   <style>
+    /* ==========================================================================
+       HIGH-CONTRAST PROFESSIONAL DUAL THEME COLOR ENGINE
+       ========================================================================== */
     :root {
-      --bg-dark: #030d14;
-      --bg-card: rgba(8, 25, 38, 0.85);
-      --bg-card-hover: rgba(14, 38, 58, 0.94);
-      --teal: #2dd4bf;
-      --teal-hover: #14b8a6;
-      --gold: #ffc32c;
-      --gold-dark: #d99b16;
+      /* Dark Theme Defaults (Deep Obsidian Navy) */
+      --bg-body: #050d14;
+      --bg-surface: #0b1a26;
+      --bg-surface-elevated: #112638;
+      --border-color: rgba(45, 212, 191, 0.22);
+      --border-gold: rgba(245, 158, 11, 0.35);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --primary: #14b8a6;
+      --primary-hover: #0d9488;
+      --accent-gold: #f59e0b;
+      --accent-cyan: #06b6d4;
       --danger: #ef4444;
       --success: #10b981;
-      --neon-cyan: #06b6d4;
-      --text-main: #f0fdfa;
-      --text-muted: #94a3b8;
-      --border-color: rgba(45, 212, 191, 0.22);
-      --border-gold: rgba(255, 195, 44, 0.35);
-      --glass-blur: blur(14px);
-      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
-      --shadow-lg: 0 16px 38px rgba(0, 0, 0, 0.6);
+      --input-bg: rgba(5, 13, 20, 0.88);
+      --topbar-bg: #03080d;
+      --navbar-bg: rgba(5, 13, 20, 0.94);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --modal-overlay: rgba(0, 0, 0, 0.82);
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    body.light-theme {
-      --bg-dark: #f8fafc;
-      --bg-card: rgba(255, 255, 255, 0.94);
-      --bg-card-hover: rgba(241, 245, 249, 0.98);
-      --text-main: #0f172a;
+    /* Light Theme (Crisp, High-Contrast Modern Slate) */
+    html[data-theme="light"] {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --border-color: #cbd5e1;
+      --border-gold: #d97706;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
       --text-muted: #64748b;
-      --border-color: rgba(20, 184, 166, 0.28);
-      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
+      --primary: #0d9488;
+      --primary-hover: #0f766e;
+      --accent-gold: #b45309;
+      --accent-cyan: #0284c7;
+      --danger: #dc2626;
+      --success: #059669;
+      --input-bg: #ffffff;
+      --topbar-bg: #e2e8f0;
+      --navbar-bg: rgba(255, 255, 255, 0.97);
+      --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+      --modal-overlay: rgba(15, 23, 42, 0.65);
     }
 
     [data-font="sm"] { font-size: 14px; }
@@ -90,15 +109,12 @@
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
+      background-color: var(--bg-body);
+      color: var(--text-primary);
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
-      line-height: 1.55;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(45, 212, 191, 0.04) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(255, 195, 44, 0.03) 0%, transparent 45%);
-      background-attachment: fixed;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 18px; }
@@ -111,76 +127,43 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.2px;
-      color: var(--teal);
-      background: rgba(45, 212, 191, 0.12);
+      color: var(--primary);
+      background: rgba(20, 184, 166, 0.12);
       border: 1px solid var(--border-color);
       padding: 3px 12px;
       border-radius: 50px;
       margin-bottom: 8px;
     }
 
-    .section-title { font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
+    .section-title { font-size: 1.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
     .section-subtitle { color: var(--text-muted); font-size: 0.88rem; max-width: 640px; margin: 0 auto; }
 
-    /* --- 1. Compact Top Bar --- */
+    /* --- Top Bar: Minimal Time & Temp (Notice Ticker Removed) --- */
     .ultra-top-bar {
-      background: #02090e;
-      border-bottom: 1px solid rgba(45, 212, 191, 0.18);
-      font-size: 0.74rem;
-      padding: 5px 0;
+      background: var(--topbar-bg);
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.76rem;
+      padding: 6px 0;
+      transition: var(--transition);
     }
     .ultra-top-wrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      overflow: hidden;
     }
-    .top-meta-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      white-space: nowrap;
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
-    .top-meta-left span { display: inline-flex; align-items: center; gap: 5px; }
-    .top-meta-left i { color: var(--teal); }
-    .top-ticker-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow: hidden;
-      white-space: nowrap;
-      flex-grow: 1;
-      justify-content: flex-end;
-    }
-    .compact-live-badge {
-      background: var(--gold);
-      color: #04121c;
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      flex-shrink: 0;
-    }
-    .compact-ticker-text {
-      font-size: 0.73rem;
-      color: var(--text-main);
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .top-meta-item { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-weight: 600; }
+    .top-meta-item i { color: var(--primary); }
 
-    /* --- 2. Navbar: 🕉️ Wyndhamganj Butbherwa --- */
+    /* --- Navbar: Clean Brand, 👤 Login Logo, ☰ 3-Line Menu --- */
     .navbar {
-      background: rgba(3, 13, 20, 0.94);
-      backdrop-filter: var(--glass-blur);
+      background: var(--navbar-bg);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
       z-index: 1000;
       padding: 10px 0;
+      transition: var(--transition);
     }
     .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
     .clean-brand {
@@ -188,133 +171,103 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      color: var(--text-main);
+      color: var(--text-primary);
     }
     .clean-brand-om {
-      font-size: 1.5rem;
-      filter: drop-shadow(0 0 8px rgba(255, 195, 44, 0.5));
+      font-size: 1.55rem;
       line-height: 1;
+      filter: drop-shadow(0 0 6px var(--accent-gold));
     }
     .clean-brand-name {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 800;
       letter-spacing: -0.2px;
-      color: #fff;
+      color: var(--text-primary);
     }
 
-    .nav-desktop-links {
-      display: flex;
-      align-items: center;
-      list-style: none;
-      gap: 18px;
-    }
-    .nav-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.84rem;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-    .nav-link:hover, .nav-link.active { color: var(--teal); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
 
-    .menu-toggle-btn {
-      background: rgba(255, 255, 255, 0.08);
+    .nav-icon-btn {
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      color: var(--text-main);
-      font-size: 1.25rem;
-      padding: 7px 13px;
+      color: var(--text-primary);
+      padding: 7px 14px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      display: flex;
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 7px;
       transition: var(--transition);
     }
-    .menu-toggle-btn:hover { background: var(--teal); color: #021513; }
+    .nav-icon-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .user-logged-badge { background: rgba(16, 185, 129, 0.15); border-color: var(--success); color: var(--success); }
 
-    /* 3-Line Side Drawer */
+    /* --- Drawer Menu --- */
     .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.72);
-      backdrop-filter: blur(5px);
-      z-index: 2000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
+      position: fixed; inset: 0; background: var(--modal-overlay);
+      backdrop-filter: blur(5px); z-index: 2000;
+      opacity: 0; visibility: hidden; transition: all 0.3s ease;
     }
     .drawer-overlay.active { opacity: 1; visibility: visible; }
     .drawer-panel {
-      position: fixed;
-      top: 0; right: 0; bottom: 0;
-      width: 310px; max-width: 85%;
-      background: #04121c;
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 320px; max-width: 85%;
+      background: var(--bg-surface);
       border-left: 1px solid var(--border-color);
-      z-index: 2001;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
+      z-index: 2001; padding: 24px;
+      display: flex; flex-direction: column;
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.65);
+      box-shadow: var(--card-shadow);
     }
     .drawer-panel.active { transform: translateX(0); }
     .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid var(--border-color);
       margin-bottom: 18px;
     }
-    .drawer-header h3 { font-size: 1.05rem; color: #fff; font-weight: 800; }
+    .drawer-header h3 { font-size: 1.05rem; color: var(--text-primary); font-weight: 800; }
     .drawer-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
     .drawer-close:hover { color: var(--danger); }
-    .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
-    .drawer-nav-list a {
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: var(--radius-sm);
-      transition: var(--transition);
+    .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+    .drawer-nav-list a, .drawer-nav-list button {
+      color: var(--text-primary); text-decoration: none; font-size: 0.92rem;
+      font-weight: 600; display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: var(--radius-sm); transition: var(--transition);
+      background: none; border: none; width: 100%; text-align: left; cursor: pointer;
     }
-    .drawer-nav-list a i { color: var(--teal); width: 20px; }
-    .drawer-nav-list a:hover { background: rgba(45, 212, 191, 0.1); color: var(--teal); }
+    .drawer-nav-list i { color: var(--primary); width: 22px; }
+    .drawer-nav-list a:hover, .drawer-nav-list button:hover { background: var(--bg-surface-elevated); color: var(--primary); }
 
-    .drawer-controls-box { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-    .control-label { font-size: 0.76rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
-    .controls-row { display: flex; gap: 8px; margin-bottom: 14px; }
+    .drawer-controls-box { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--border-color); }
+    .control-label { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
+    .controls-row { display: flex; gap: 8px; margin-bottom: 12px; }
     .ctrl-btn {
-      flex: 1; padding: 7px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      border-radius: var(--radius-sm);
-      font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; text-align: center;
-      transition: var(--transition);
+      flex: 1; padding: 7px; background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color); color: var(--text-primary);
+      border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; text-align: center; transition: var(--transition);
     }
-    .ctrl-btn.active, .ctrl-btn:hover { background: var(--teal); color: #021513; border-color: var(--teal); }
+    .ctrl-btn.active, .ctrl-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* --- 3. Hero Section (Buttons Removed) --- */
+    /* --- SECTION 1: GAON KE BAARE MEIN (HERO) --- */
     .hero {
       position: relative;
-      padding: 42px 0 38px;
-      background: url('IMG_20250929_062521.jpg') center/cover no-repeat #04131d;
+      padding: 44px 0 40px;
+      background: url('IMG_20250929_062521.jpg') center/cover no-repeat var(--bg-body);
       border-bottom: 1px solid var(--border-color);
       overflow: hidden;
     }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(3, 13, 20, 0.95) 0%, rgba(3, 13, 20, 0.85) 60%, rgba(4, 25, 38, 0.94) 100%);
+      background: linear-gradient(135deg, rgba(5, 13, 20, 0.94) 0%, rgba(5, 13, 20, 0.84) 60%, rgba(11, 26, 38, 0.95) 100%);
       z-index: 1;
     }
-    #heroVfxCanvas { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+    html[data-theme="light"] .hero-overlay {
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.88) 60%, rgba(255, 255, 255, 0.96) 100%);
+    }
     .hero-container {
       position: relative; z-index: 3;
       display: grid; grid-template-columns: 1.25fr 0.75fr;
@@ -322,365 +275,227 @@
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255, 195, 44, 0.12);
-      border: 1px solid var(--border-gold);
-      color: var(--gold); padding: 3px 10px;
-      border-radius: 50px; font-size: 0.72rem; font-weight: 700; margin-bottom: 8px;
+      background: rgba(245, 158, 11, 0.12); border: 1px solid var(--border-gold);
+      color: var(--accent-gold); padding: 4px 12px; border-radius: 50px;
+      font-size: 0.74rem; font-weight: 800; margin-bottom: 8px;
     }
-    .hero-title { font-size: 2.15rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
-    .hero-title span { background: linear-gradient(135deg, #fff 30%, var(--teal) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-desc { color: var(--text-muted); font-size: 0.88rem; max-width: 530px; line-height: 1.5; }
+    .hero-title { font-size: 2.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: var(--text-primary); }
+    .hero-title span { color: var(--primary); }
+    .hero-desc { color: var(--text-secondary); font-size: 0.9rem; max-width: 540px; line-height: 1.6; }
 
-    .updates-card {
-      background: var(--bg-card);
-      backdrop-filter: var(--glass-blur);
+    .hero-info-card {
+      background: var(--bg-surface);
       border: 1px solid var(--border-gold);
       border-radius: var(--radius-md);
-      padding: 16px;
+      padding: 18px;
+      box-shadow: var(--card-shadow);
     }
-    .updates-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 10px; padding-bottom: 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .updates-header h3 { font-size: 0.92rem; color: var(--gold); display: flex; align-items: center; gap: 6px; margin: 0; }
-    .live-dot-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 0.68rem; font-weight: 700; color: var(--teal);
-      background: rgba(45, 212, 191, 0.12); border: 1px solid var(--border-color);
-      padding: 2px 7px; border-radius: 50px;
-    }
-    .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: pulseAnim 1.8s infinite; }
-    @keyframes pulseAnim { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
-    .updates-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .updates-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.78rem; color: var(--text-main); line-height: 1.4; }
-    .updates-list li i { margin-top: 3px; font-size: 0.82rem; flex-shrink: 0; }
+    .hero-info-card h4 { font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+    .hero-info-list { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.82rem; color: var(--text-secondary); }
+    .hero-info-list li { display: flex; align-items: flex-start; gap: 8px; }
+    .hero-info-list i { color: var(--primary); margin-top: 3px; }
 
-    /* --- 4. Festive Greeting --- */
-    .festival-section {
-      background: radial-gradient(circle at center, rgba(255, 195, 44, 0.08) 0%, rgba(3, 13, 20, 0.85) 100%);
-      border-top: 1px solid var(--border-gold);
-      border-bottom: 1px solid var(--border-gold);
-      padding: 38px 0; text-align: center;
+    /* --- SECTION 2: SUCHNA PATTA (NOTICE BOARD) --- */
+    .notices-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px;
     }
-    .festival-card {
-      max-width: 800px; margin: 0 auto;
-      background: rgba(8, 25, 38, 0.85);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg);
-      padding: 24px 18px;
-    }
-    .festival-diyas { display: flex; justify-content: center; gap: 16px; font-size: 1.7rem; margin-bottom: 8px; }
-    .festival-badge {
-      display: inline-block; font-size: 0.72rem; font-weight: 700; color: var(--gold);
-      background: rgba(255, 195, 44, 0.15); border: 1px solid var(--border-gold);
-      padding: 3px 12px; border-radius: 50px; margin-bottom: 8px;
-    }
-    .festival-heading { font-size: 1.55rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
-    .festival-msg { font-size: 0.88rem; color: var(--text-main); line-height: 1.6; margin-bottom: 10px; }
-
-    /* --- 5. UNIFIED MEDIA (WDM, FESTIVAL, UPLOAD) --- */
-    .media-main-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-    .media-tab-btn {
-      padding: 10px 24px;
-      border-radius: 50px;
-      background: rgba(8, 25, 38, 0.85);
+    .notice-item {
+      background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      font-size: 0.86rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      box-shadow: var(--card-shadow);
       transition: var(--transition);
     }
-    .media-tab-btn.active {
-      background: var(--teal);
-      color: #021513;
-      border-color: var(--teal);
-      box-shadow: 0 4px 16px rgba(45, 212, 191, 0.35);
-    }
+    .notice-item:hover { transform: translateY(-3px); }
+    .notice-meta { font-size: 0.74rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 700; }
+    .notice-title { font-size: 0.95rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .notice-body { font-size: 0.82rem; color: var(--text-secondary); }
 
-    .sub-filter-row {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
+    /* --- SECTION 3: FESTIVAL SECTION + WHATSAPP BANNER --- */
+    .festival-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 26px 20px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
       margin-bottom: 24px;
     }
-    .sub-chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 5px 14px;
-      border-radius: 50px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      cursor: pointer;
+    .festival-diyas { font-size: 1.8rem; margin-bottom: 8px; }
+    .festival-heading { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+    .festival-msg { font-size: 0.9rem; color: var(--text-secondary); max-width: 720px; margin: 0 auto 12px; line-height: 1.6; }
+
+    /* Official WhatsApp Group Banner (Under Festival, Only Place) */
+    .wa-community-banner {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), var(--bg-surface));
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 34px 20px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+    .wa-community-banner i.fa-whatsapp { font-size: 2.8rem; color: #25D366; margin-bottom: 10px; display: inline-block; }
+    .wa-banner-title { font-size: 1.45rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .wa-banner-desc { font-size: 0.88rem; color: var(--text-secondary); max-width: 640px; margin: 0 auto 18px; }
+    .btn-whatsapp-join {
+      background: #25D366; color: #02150a; font-size: 1rem; font-weight: 800;
+      padding: 12px 28px; border-radius: 50px; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
       transition: var(--transition);
     }
-    .sub-chip.active, .sub-chip:hover {
-      background: var(--gold);
-      color: #04121c;
-      border-color: var(--gold);
-      font-weight: 700;
+    .btn-whatsapp-join:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45); }
+
+    /* --- SECTION 4: UNIFIED VILLAGE GALLERY --- */
+    .media-main-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .media-tab-btn {
+      padding: 9px 22px; border-radius: 50px; background: var(--bg-surface);
+      border: 1px solid var(--border-color); color: var(--text-secondary);
+      font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex;
+      align-items: center; gap: 7px; transition: var(--transition);
     }
+    .media-tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .sub-filter-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+    .sub-chip {
+      background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
+      color: var(--text-secondary); padding: 5px 14px; border-radius: 50px;
+      font-size: 0.76rem; font-weight: 700; cursor: pointer; transition: var(--transition);
+    }
+    .sub-chip.active, .sub-chip:hover { background: var(--accent-gold); color: #050d14; border-color: var(--accent-gold); }
 
     .citizen-upload-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-md);
-      padding: 22px;
-      max-width: 650px;
-      margin: 0 auto 28px;
-      display: none;
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); padding: 22px; max-width: 650px; margin: 0 auto 28px; display: none;
     }
     .citizen-upload-card.active { display: block; }
-    .upload-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    .upload-input-group label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 5px;
-      color: var(--text-main);
-    }
+    .upload-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .form-group-sm label { display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 5px; color: var(--text-primary); }
     .form-control-sm {
-      width: 100%;
-      padding: 9px 12px;
-      background: rgba(3, 13, 20, 0.88);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      color: #fff;
-      font-size: 0.82rem;
-      outline: none;
+      width: 100%; padding: 9px 12px; background: var(--input-bg);
+      border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+      color: var(--text-primary); font-size: 0.82rem; outline: none;
     }
-    .form-control-sm:focus { border-color: var(--teal); }
+    .form-control-sm:focus { border-color: var(--primary); }
 
-    .unified-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 18px;
-    }
+    .unified-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
     .unified-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); overflow: hidden; position: relative;
+      cursor: pointer; aspect-ratio: 4/3; box-shadow: var(--card-shadow);
       transition: var(--transition);
-      aspect-ratio: 4/3;
     }
-    .unified-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--teal);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    }
-    .unified-card img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.4s ease;
-    }
+    .unified-card:hover { transform: translateY(-4px); border-color: var(--primary); }
+    .unified-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
     .unified-card:hover img { transform: scale(1.05); }
     .card-badge-top {
-      position: absolute;
-      top: 10px; left: 10px;
-      background: rgba(3, 13, 20, 0.85);
-      color: var(--gold);
-      border: 1px solid var(--border-gold);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      z-index: 2;
+      position: absolute; top: 10px; left: 10px; background: rgba(5, 13, 20, 0.85);
+      color: var(--accent-gold); border: 1px solid var(--border-gold);
+      padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;
     }
     .card-caption-bottom {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 10px 12px;
-      background: linear-gradient(to top, rgba(3, 13, 20, 0.95), transparent);
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px;
+      background: linear-gradient(to top, rgba(5, 13, 20, 0.95), transparent);
+      font-size: 0.82rem; font-weight: 600; color: #fff;
+      display: flex; justify-content: space-between; align-items: center;
     }
 
-    /* --- 6. HIGH GRAPHICS SPORTS ARENA --- */
-    .games-section {
-      background: radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.08) 0%, rgba(3, 13, 20, 0.95) 70%);
-      border-top: 1px solid rgba(6, 182, 212, 0.25);
-      border-bottom: 1px solid rgba(6, 182, 212, 0.25);
+    /* --- SECTION 5: WORKING DASHBOARD (METRICS) --- */
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+    .metric-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 22px 18px; text-align: center;
+      box-shadow: var(--card-shadow); transition: var(--transition);
     }
-    .sports-tabs-wrapper { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
-    .sports-tab {
-      background: rgba(8, 25, 38, 0.8);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 8px 18px;
-      border-radius: var(--radius-sm);
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      transition: var(--transition);
+    .metric-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+    .metric-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(20, 184, 166, 0.12); color: var(--primary);
+      display: grid; place-items: center; font-size: 1.4rem; margin: 0 auto 12px;
     }
-    .sports-tab.active, .sports-tab:hover {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(45, 212, 191, 0.15));
-      border-color: var(--teal);
-      color: #fff;
-      box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
-    }
-    .sports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-    .sport-card {
-      background: linear-gradient(145deg, rgba(8, 25, 38, 0.9), rgba(4, 18, 28, 0.95));
-      border: 1px solid rgba(45, 212, 191, 0.22);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      transition: var(--transition);
-    }
-    .sport-card:hover { transform: translateY(-4px); border-color: var(--neon-cyan); box-shadow: 0 10px 30px rgba(6, 182, 212, 0.25); }
-    .sport-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--gold), var(--neon-cyan)); }
-    .sport-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .sport-badge { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; }
-    .badge-cricket { background: rgba(249, 115, 22, 0.18); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.35); }
-    .badge-volleyball { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
-    .badge-school { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
-    .badge-state { background: rgba(255, 195, 44, 0.18); color: var(--gold); border: 1px solid var(--border-gold); }
+    .metric-number { font-size: 2rem; font-weight: 800; color: var(--text-primary); line-height: 1; margin-bottom: 4px; }
+    .metric-label { font-size: 0.84rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 4px; }
+    .metric-desc { font-size: 0.76rem; color: var(--text-muted); }
 
-    .match-teams-box {
-      background: rgba(3, 13, 20, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-      margin: 12px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .team-col { text-align: center; flex: 1; }
-    .team-name { font-size: 0.9rem; font-weight: 800; color: #fff; }
-    .team-score { font-size: 0.78rem; color: var(--teal); font-weight: 700; margin-top: 2px; }
-    .vs-emblem { font-size: 0.74rem; font-weight: 900; color: var(--gold); background: rgba(255, 195, 44, 0.12); border: 1px solid var(--border-gold); padding: 4px 8px; border-radius: 50%; }
-    .sport-details-list { list-style: none; font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
-    .sport-details-list li i { color: var(--teal); margin-right: 6px; width: 14px; }
-
-    /* --- 7. Helplines Grid --- */
-    .helpline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
-    .helpline-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-      transition: var(--transition);
-    }
-    .helpline-card:hover { transform: translateY(-3px); border-color: var(--teal); background: var(--bg-card-hover); }
-    .helpline-icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 1.25rem; flex-shrink: 0; }
-    .icon-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
-    .icon-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
-    .icon-yellow { background: rgba(255, 195, 44, 0.15); color: var(--gold); border: 1px solid var(--border-gold); }
-    .icon-teal { background: rgba(45, 212, 191, 0.15); color: var(--teal); border: 1px solid var(--border-color); }
-    .helpline-info h4 { font-size: 0.92rem; color: var(--text-main); margin-bottom: 2px; }
-    .helpline-info span { display: block; font-size: 0.74rem; color: var(--text-muted); }
-    .helpline-info b { font-size: 0.84rem; color: var(--teal); margin-top: 3px; display: inline-block; }
-
-    /* --- 8. Leadership & Host --- */
-    .rep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 25px; }
+    /* --- SECTION 6: GRAM PADADHIKARI & THE HOST --- */
+    .rep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 24px; }
     .rep-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 22px 18px;
-      text-align: center;
-      transition: var(--transition);
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 20px 16px; text-align: center;
+      box-shadow: var(--card-shadow); transition: var(--transition);
     }
-    .rep-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+    .rep-card:hover { border-color: var(--primary); transform: translateY(-3px); }
     .rep-avatar {
-      width: 58px; height: 58px; border-radius: 50%;
-      background: rgba(45, 212, 191, 0.12); border: 2px solid var(--teal);
-      display: grid; place-items: center; font-size: 1.4rem; color: var(--teal);
-      margin: 0 auto 12px;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(20, 184, 166, 0.12); border: 2px solid var(--primary);
+      display: grid; place-items: center; font-size: 1.35rem; color: var(--primary);
+      margin: 0 auto 10px;
     }
-    .rep-name { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
-    .rep-role { font-size: 0.8rem; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
-    .rep-desc { font-size: 0.8rem; color: var(--text-muted); }
+    .rep-name { font-size: 1.05rem; font-weight: 800; color: var(--text-primary); }
+    .rep-role { font-size: 0.8rem; color: var(--accent-gold); font-weight: 700; margin-bottom: 4px; }
+    .rep-desc { font-size: 0.8rem; color: var(--text-secondary); }
 
     .host-section {
-      background: linear-gradient(135deg, rgba(8, 25, 38, 0.9), rgba(3, 13, 20, 0.95));
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      margin-top: 25px;
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg); padding: 24px; display: flex;
+      align-items: center; gap: 22px; box-shadow: var(--card-shadow);
     }
     .host-img-wrap {
       width: 90px; height: 90px; border-radius: 50%;
-      border: 3px solid var(--gold);
-      overflow: hidden; flex-shrink: 0;
-      box-shadow: 0 0 15px rgba(255, 195, 44, 0.3);
+      border: 3px solid var(--accent-gold); overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
     }
     .host-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .host-content h3 { font-size: 1.15rem; color: #fff; margin-bottom: 4px; }
-    .host-badge { display: inline-block; font-size: 0.72rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
-    .host-content p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
+    .host-content h3 { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 4px; font-weight: 800; }
+    .host-badge { display: inline-block; font-size: 0.72rem; color: var(--accent-gold); font-weight: 800; margin-bottom: 6px; }
+    .host-content p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
 
-    /* --- 9. Grievance Form --- */
+    /* --- SECTION 7: GRIEVANCE & EMERGENCY HELPLINES --- */
+    .helpline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .helpline-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 14px; display: flex;
+      align-items: center; gap: 12px; text-decoration: none; box-shadow: var(--card-shadow);
+      transition: var(--transition);
+    }
+    .helpline-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+    .helpline-icon { width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0; }
+    .icon-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+    .icon-blue { background: rgba(56, 189, 248, 0.15); color: #0284c7; }
+    .icon-yellow { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); }
+    .icon-teal { background: rgba(20, 184, 166, 0.15); color: var(--primary); }
+    .helpline-info h4 { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 1px; }
+    .helpline-info span { display: block; font-size: 0.72rem; color: var(--text-muted); }
+    .helpline-info b { font-size: 0.82rem; color: var(--primary); }
+
     .portal-form-wrapper {
-      max-width: 680px; margin: 0 auto;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 28px 22px;
-      backdrop-filter: var(--glass-blur);
+      max-width: 680px; margin: 0 auto; background: var(--bg-surface);
+      border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+      padding: 26px 20px; box-shadow: var(--card-shadow);
     }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
-    .form-group label i { color: var(--teal); margin-right: 5px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+    .form-group label i { color: var(--primary); margin-right: 5px; }
     .form-control {
-      width: 100%; padding: 10px 14px;
-      background: rgba(3, 13, 20, 0.88);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      color: var(--text-main); font-family: inherit; font-size: 0.86rem; outline: none;
+      width: 100%; padding: 10px 14px; background: var(--input-bg);
+      border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+      color: var(--text-primary); font-family: inherit; font-size: 0.86rem; outline: none;
     }
-    .form-control:focus { border-color: var(--teal); box-shadow: 0 0 10px rgba(45, 212, 191, 0.25); }
+    .form-control:focus { border-color: var(--primary); }
 
     .receipt-card {
-      display: none; text-align: center; padding: 24px 16px;
+      display: none; text-align: center; padding: 22px 16px;
       border: 1px solid var(--border-gold); border-radius: var(--radius-md);
-      background: rgba(255, 195, 44, 0.05);
+      background: rgba(245, 158, 11, 0.06);
     }
     .receipt-token {
-      font-size: 1.55rem; font-weight: 800; color: var(--gold);
+      font-size: 1.5rem; font-weight: 800; color: var(--accent-gold);
       letter-spacing: 2px; margin: 12px 0; padding: 8px 16px;
-      background: rgba(3, 13, 20, 0.75); border: 1px dashed var(--gold);
+      background: var(--bg-surface-elevated); border: 1px dashed var(--accent-gold);
       border-radius: var(--radius-sm); display: inline-block;
     }
-    .tracker-box { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
-    .tracker-box h4 { font-size: 0.94rem; color: var(--text-main); margin-bottom: 4px; }
-    .tracker-input-row { display: flex; gap: 10px; }
+    .tracker-box { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-color); }
 
     /* Button System */
     .btn {
@@ -689,138 +504,139 @@
       font-weight: 700; text-decoration: none; cursor: pointer; transition: var(--transition);
       border: 1px solid transparent;
     }
-    .btn-primary { background: linear-gradient(135deg, var(--teal), #0d9488); color: #021513; }
-    .btn-secondary { background: rgba(255, 255, 255, 0.06); color: var(--text-main); border-color: var(--border-color); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--bg-surface-elevated); color: var(--text-primary); border-color: var(--border-color); }
 
-    /* --- 10. FLOATING SOS SPEED DIAL --- */
-    .sos-floating-wrapper {
-      position: fixed; bottom: 24px; right: 20px; z-index: 9999;
-      display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    /* --- LOGIN MODAL (MOBILE OTP + EMAIL) --- */
+    .login-modal {
+      display: none; position: fixed; inset: 0; background: var(--modal-overlay);
+      backdrop-filter: blur(8px); z-index: 3500; align-items: center; justify-content: center; padding: 18px;
     }
-    .sos-trigger-btn {
-      width: 58px; height: 58px; border-radius: 50%;
-      background: radial-gradient(circle, #ef4444 40%, #b91c1c 100%);
-      border: 3px solid #fee2e2; color: #fff; font-size: 0.88rem; font-weight: 800;
-      letter-spacing: 1px; cursor: pointer; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.65);
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.25s ease; animation: sosPulse 2s infinite; user-select: none;
+    .login-modal.active { display: flex; }
+    .login-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); width: 100%; max-width: 440px;
+      padding: 24px; position: relative; box-shadow: var(--card-shadow);
     }
-    .sos-trigger-btn:hover { transform: scale(1.08); }
-    .sos-trigger-btn.active { background: #1e293b; border-color: #94a3b8; animation: none; }
-    @keyframes sosPulse { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 16px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+    .login-close { position: absolute; top: 16px; right: 18px; font-size: 1.4rem; background: none; border: none; color: var(--text-muted); cursor: pointer; }
+    .login-tabs { display: flex; gap: 8px; margin: 16px 0 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    .login-tab-btn {
+      flex: 1; padding: 8px; border-radius: var(--radius-sm); background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.82rem;
+      font-weight: 700; cursor: pointer; text-align: center;
+    }
+    .login-tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    .sos-menu-items {
-      display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
-      opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none;
+    /* --- GAMES & SPORTS FULLSCREEN DRAWER (WITH EXIT BUTTON AT TOP) --- */
+    .games-drawer-overlay {
+      display: none; position: fixed; inset: 0; background: var(--modal-overlay);
+      backdrop-filter: blur(8px); z-index: 4000; align-items: center; justify-content: center; padding: 16px;
     }
-    .sos-menu-items.show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
-    .sos-item { display: flex; align-items: center; gap: 10px; text-decoration: none; transition: transform 0.2s ease; }
-    .sos-item:hover { transform: translateX(-4px); }
-    .sos-item-label {
-      background: #ffffff; color: #0f172a; font-size: 0.82rem; font-weight: 700;
-      padding: 6px 14px; border-radius: 8px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25); white-space: nowrap;
+    .games-drawer-overlay.active { display: flex; }
+    .games-drawer-content {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); width: 100%; max-width: 820px;
+      max-height: 90vh; overflow-y: auto; padding: 22px; position: relative;
+      box-shadow: var(--card-shadow);
     }
-    .sos-item-icon {
-      width: 44px; height: 44px; border-radius: 12px; background: #ffffff;
-      display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25); flex-shrink: 0;
+    .games-top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid var(--border-color); margin-bottom: 18px;
     }
-    .icon-hospital { color: #059669; }
-    .icon-ambulance { color: #0284c7; }
-    .icon-police { color: #0d9488; }
-    .icon-fire { color: #ea580c; }
-    .icon-women { color: #db2777; }
+    .btn-exit-games {
+      background: var(--danger); color: #fff; border: none; font-size: 0.84rem;
+      font-weight: 800; padding: 6px 14px; border-radius: var(--radius-sm);
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    .sport-card {
+      background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 18px; margin-bottom: 16px;
+    }
+    .sport-badge { font-size: 0.72rem; font-weight: 800; padding: 3px 10px; border-radius: 50px; }
+    .badge-cricket { background: rgba(249, 115, 22, 0.18); color: #fb923c; }
+    .badge-volleyball { background: rgba(56, 189, 248, 0.18); color: #0284c7; }
 
     /* Footer */
     .footer {
-      background: #02090e; border-top: 1px solid var(--border-color);
-      padding: 42px 0 20px; color: var(--text-muted); font-size: 0.82rem;
+      background: var(--topbar-bg); border-top: 1px solid var(--border-color);
+      padding: 40px 0 20px; color: var(--text-muted); font-size: 0.82rem;
     }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 28px; margin-bottom: 28px; }
-    .footer-col h4 { color: var(--text-main); font-size: 0.94rem; margin-bottom: 12px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 26px; margin-bottom: 24px; }
+    .footer-col h4 { color: var(--text-primary); font-size: 0.94rem; margin-bottom: 12px; }
     .footer-links { list-style: none; }
     .footer-links li { margin-bottom: 8px; }
-    .footer-links a { color: var(--text-muted); text-decoration: none; transition: var(--transition); }
-    .footer-links a:hover { color: var(--teal); }
+    .footer-links a { color: var(--text-secondary); text-decoration: none; transition: var(--transition); }
+    .footer-links a:hover { color: var(--primary); }
 
     /* Lightbox & Toast */
     .lightbox-modal {
       display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92);
-      z-index: 3000; align-items: center; justify-content: center; padding: 20px;
+      z-index: 5000; align-items: center; justify-content: center; padding: 20px;
     }
     .lightbox-modal.active { display: flex; }
     .lightbox-content { position: relative; max-width: 900px; width: 100%; text-align: center; }
-    .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-sm); border: 1px solid var(--border-color); }
-    .lightbox-caption { color: #fff; font-size: 0.9rem; margin-top: 10px; font-weight: 600; }
-    .lightbox-close { position: absolute; top: -40px; right: 0; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+    .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: var(--radius-sm); }
+    .lightbox-close { position: absolute; top: -38px; right: 0; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
 
     .toast-notification {
-      position: fixed; bottom: 24px; right: 24px; background: rgba(8, 25, 38, 0.96);
-      border: 1px solid var(--teal); border-radius: var(--radius-sm); padding: 12px 20px;
-      color: var(--text-main); display: flex; align-items: center; gap: 10px; z-index: 4000;
-      box-shadow: var(--shadow-lg); transform: translateY(100px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease;
+      position: fixed; bottom: 24px; right: 24px; background: var(--bg-surface);
+      border: 1px solid var(--primary); border-radius: var(--radius-sm); padding: 12px 18px;
+      color: var(--text-primary); display: flex; align-items: center; gap: 10px; z-index: 6000;
+      box-shadow: var(--card-shadow); transform: translateY(100px); opacity: 0; transition: all 0.3s ease;
     }
     .toast-notification.active { transform: translateY(0); opacity: 1; }
-    #confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
 
     @media (max-width: 820px) {
       .hero-container { grid-template-columns: 1fr; }
-      .nav-desktop-links { display: none; }
       .footer-grid { grid-template-columns: 1fr; }
-      .portal-form-wrapper { padding: 20px 15px; }
-      .tracker-input-row { flex-direction: column; }
       .host-section { flex-direction: column; text-align: center; }
       .upload-form-grid { grid-template-columns: 1fr; }
-      .top-meta-left span:nth-child(3) { display: none; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 1. Ultra Compact Top Bar (Time, Temp, Single Notice) -->
+   <!-- TOP BAR: MINIMAL TIME & WYNDHAMGANJ WEATHER (NOTICE TICKER PERMANENTLY REMOVED) -->
   <div class="ultra-top-bar">
     <div class="container ultra-top-wrapper">
-      <div class="top-meta-left">
-        <span><i class="fa-solid fa-clock"></i> <b id="portalLiveClock">--:--</b></span>
-        <span><i class="fa-solid fa-cloud-sun"></i> Wyndhamganj: <b id="portalLiveWeather">--°C</b></span>
-        <span><i class="fa-solid fa-map-pin"></i> Sonbhadra</span>
+      <div class="top-meta-item">
+        <i class="fa-solid fa-clock"></i> <span id="portalLiveClock">--:--</span>
       </div>
-      <div class="top-ticker-right">
-        <span class="compact-live-badge"><i class="fa-solid fa-bullhorn"></i> Live</span>
-        <span class="compact-ticker-text">Welcome to Gram Panchayat Wyndhamganj Butbherwa (Shiv Nagar) • Piprahwa Dam & Grievance Cell Online 24x7</span>
+      <div class="top-meta-item">
+        <i class="fa-solid fa-cloud-sun"></i> Wyndhamganj: <b id="portalLiveWeather">--°C</b>
+      </div>
+      <div class="top-meta-item" style="display:none; @media(min-width:600px){display:inline-flex;}">
+        <i class="fa-solid fa-location-dot"></i> Sonbhadra, UP
       </div>
     </div>
   </div>
 
-  <!-- 2. Clean Navbar: 🕉️ Wyndhamganj Butbherwa -->
+  <!-- NAVBAR: 🕉️ WYNDHAMGANJ BUTBHERWA, 👤 LOGIN, ☰ MENU -->
   <nav class="navbar">
     <div class="container nav-wrapper">
-      <a href="#hero" class="clean-brand">
+      <a href="#about" class="clean-brand">
         <div class="clean-brand-om">🕉️</div>
         <div class="clean-brand-name">Wyndhamganj Butbherwa</div>
       </a>
 
-      <!-- Desktop Links -->
-      <ul class="nav-desktop-links">
-        <li><a href="#hero" class="nav-link">Home</a></li>
-        <li><a href="#festival" class="nav-link">Festivel</a></li>
-        <li><a href="#unified-media" class="nav-link">Gallery & Moments</a></li>
-        <li><a href="#sports" class="nav-link">Sports</a></li>
-        <li><a href="#emergency" class="nav-link">Emergency</a></li>
-        <li><a href="#leadership" class="nav-link">Representatives</a></li>
-        <li><a href="#grievance" class="nav-link" style="color:var(--teal); font-weight:700;"><i class="fa-solid fa-paper-plane"></i> Grievance</a></li>
-      </ul>
+      <div class="nav-actions">
+        <!-- Citizen Login Button / User Indicator -->
+        <button class="nav-icon-btn" id="navLoginBtn" onclick="openLoginModal()" title="Citizen Login">
+          <i class="fa-solid fa-user"></i> <span id="navLoginText">Login</span>
+        </button>
 
-      <!-- 3-Line Hamburger Button -->
-      <button class="menu-toggle-btn" onclick="toggleDrawer(true)" aria-label="Open Navigation">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+        <!-- 3-Line Menu Button -->
+        <button class="nav-icon-btn" onclick="toggleDrawer(true)" aria-label="Open Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </div>
   </nav>
 
-  <!-- 3-Line Drawer Menu (Overlay + Slide Panel) -->
+  <!-- 3-LINE MENU DRAWER -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
   <div class="drawer-panel" id="drawerPanel">
     <div class="drawer-header">
@@ -829,19 +645,25 @@
     </div>
 
     <ul class="drawer-nav-list">
-      <li><a href="#hero" onclick="toggleDrawer(false)"><i class="fa-solid fa-house"></i> Home</a></li>
-      <li><a href="#festival" onclick="toggleDrawer(false)"><i class="fa-solid fa-sun"></i> Festival Greeting</a></li>
-      <li><a href="#unified-media" onclick="toggleDrawer(false)"><i class="fa-solid fa-images"></i> Village Media & Moments</a></li>
-      <li><a href="#sports" onclick="toggleDrawer(false)"><i class="fa-solid fa-trophy"></i> Sports & Games Arena</a></li>
-      <li><a href="#emergency" onclick="toggleDrawer(false)"><i class="fa-solid fa-phone-volume"></i> Emergency Helplines</a></li>
-      <li><a href="#leadership" onclick="toggleDrawer(false)"><i class="fa-solid fa-landmark"></i> Representatives</a></li>
-      <li><a href="#host" onclick="toggleDrawer(false)"><i class="fa-solid fa-laptop-code"></i> The Host Profile</a></li>
-      <li><a href="#grievance" onclick="toggleDrawer(false)"><i class="fa-solid fa-paper-plane"></i> E-Grievance Cell</a></li>
+      <li><a href="#about" onclick="toggleDrawer(false)"><i class="fa-solid fa-house"></i> 1. Gaon Ke Baare Mein</a></li>
+      <li><a href="#notices" onclick="toggleDrawer(false)"><i class="fa-solid fa-bullhorn"></i> 2. Suchna Patta (Notices)</a></li>
+      <li><a href="#festival" onclick="toggleDrawer(false)"><i class="fa-solid fa-sun"></i> 3. Festival & WhatsApp Group</a></li>
+      <li><a href="#gallery" onclick="toggleDrawer(false)"><i class="fa-solid fa-images"></i> 4. Village Gallery & Upload</a></li>
+      <li><a href="#dashboard" onclick="toggleDrawer(false)"><i class="fa-solid fa-chart-pie"></i> 5. Working Dashboard</a></li>
+      <li><a href="#representatives" onclick="toggleDrawer(false)"><i class="fa-solid fa-landmark"></i> 6. Gram Padadhikari & Host</a></li>
+      <li><a href="#grievance" onclick="toggleDrawer(false)"><i class="fa-solid fa-paper-plane"></i> 7. Grievance & Helplines</a></li>
+      
+      <!-- Games & Sports Arena Option Inside Menu -->
+      <li style="border-top:1px solid var(--border-color); padding-top:6px; margin-top:4px;">
+        <button onclick="openGamesArenaDrawer(); toggleDrawer(false);" style="color:var(--primary); font-weight:800;">
+          <i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> 🎮 Sports & Games Arena
+        </button>
+      </li>
     </ul>
 
-    <!-- Accessibility Controls inside Menu Drawer -->
+    <!-- Theme & Text Size Accessibility -->
     <div class="drawer-controls-box">
-      <div class="control-label">Text Size (अक्षर का आकार):</div>
+      <div class="control-label">Text Size:</div>
       <div class="controls-row">
         <button class="ctrl-btn" onclick="setFontSize('sm')">A-</button>
         <button class="ctrl-btn active" onclick="setFontSize('md')">A</button>
@@ -850,67 +672,122 @@
 
       <div class="control-label">Theme Mode:</div>
       <button class="ctrl-btn" onclick="togglePortalTheme()" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
-        <i class="fa-solid fa-circle-half-stroke"></i> Switch Light / Dark
+        <i class="fa-solid fa-circle-half-stroke"></i> <span id="themeToggleText">Switch Light / Dark</span>
       </button>
     </div>
   </div>
 
-  <!-- 3. Hero Section (Buttons Removed) -->
-  <section class="hero" id="hero">
+  <!-- ==========================================================================
+       SECTION 1: GAON KE BAARE MEIN (ABOUT VILLAGE / HERO)
+       ========================================================================== -->
+  <section class="hero" id="about">
     <div class="hero-overlay"></div>
-    <canvas id="heroVfxCanvas"></canvas>
-
     <div class="container hero-container">
       <div class="hero-text-col">
-        <div class="hero-badge"><i class="fa-solid fa-award"></i> Gram Panchayat Butbherwa</div>
-        <h2 class="hero-title">Wyndhamganj <span>Butbherwa</span></h2>
+        <div class="hero-badge"><i class="fa-solid fa-award"></i> Gram Panchayat Butbherwa (Shiv Nagar)</div>
+        <h1 class="hero-title">Wyndhamganj <span>Butbherwa</span></h1>
         <p class="hero-desc">
-          Official digital portal for transparent e-governance, instant redressal, community notices, and promoting the eco-tourism of Piprahwa Dam & Shiv Nagar.
+          Official digital portal for transparent e-governance, instant redressal, community notices, and promoting the eco-tourism of Piprahwa Dam & Shiv Nagar, Sonbhadra.
         </p>
       </div>
 
       <div class="hero-widget-col">
-        <div class="updates-card">
-          <div class="updates-header">
-            <h3><i class="fa-solid fa-tower-broadcast"></i> Village Desk</h3>
-            <div class="live-dot-badge"><span class="pulse-dot"></span> Live Portal</div>
-          </div>
-          <ul class="updates-list">
-            <li><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> <span>Instant Telegram & Cloud Grievance cell active 24x7.</span></li>
-            <li><i class="fa-solid fa-sun" style="color:var(--gold);"></i> <span>Piprahwa Dam development & tourism updates.</span></li>
-            <li><i class="fa-solid fa-shield-halved" style="color:var(--teal);"></i> <span>24x7 Emergency Helplines & SOS speed-dial enabled.</span></li>
+        <div class="hero-info-card">
+          <h4><i class="fa-solid fa-landmark-flag"></i> Gram Panchayat Overview</h4>
+          <ul class="hero-info-list">
+            <li><i class="fa-solid fa-check-circle"></i> <span><b>Block:</b> Duddhi | <b>District:</b> Sonbhadra, UP</span></li>
+            <li><i class="fa-solid fa-water"></i> <span><b>Eco Tourism:</b> Piprahwa Dam Reservoir & Landscape</span></li>
+            <li><i class="fa-solid fa-train"></i> <span><b>Heritage:</b> Wyndhamganj Railway Station Hub</span></li>
+            <li><i class="fa-solid fa-shield-halved"></i> <span><b>Portal:</b> 24x7 Digital Grievance Cell & Updates</span></li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. Festive Greeting Section -->
-  <section class="festival-section" id="festival">
+  <!-- ==========================================================================
+       SECTION 2: SUCHNA PATTA (OFFICIAL NOTICES & ANNOUNCEMENTS)
+       ========================================================================== -->
+  <section class="section-pad" id="notices">
     <div class="container">
-      <div class="festival-card">
-        <div class="festival-diyas">
-          <span>🌞</span><span>🪔</span><span>🌞</span>
+      <div class="section-header">
+        <span class="section-tag">2. Suchna Patta</span>
+        <h2 class="section-title">Gram Panchayat Notice Board</h2>
+        <p class="section-subtitle">Official orders, welfare announcements, and civic advisories for residents of Butbherwa.</p>
+      </div>
+
+      <div class="notices-grid">
+        <div class="notice-item">
+          <div class="notice-meta">
+            <span><i class="fa-solid fa-tag"></i> E-Services</span>
+            <span>Active</span>
+          </div>
+          <h3 class="notice-title">Instant E-Grievance Cell Online</h3>
+          <p class="notice-body">Citizens can now register water, sanitation, road, and street light complaints directly. Token numbers provide live tracking.</p>
         </div>
-        <div class="festival-badge"><i class="fa-solid fa-star"></i> A festival of faith, purity, gratitude and endless blessings 🌅</div>
-        <h2 class="festival-heading">Coming Soon- छठ पूजा 🌞</h2>
-        <p class="festival-msg">
-          छठ पूजा केवल एक पर्व नहीं, बल्कि आस्था, पवित्रता, प्रकृति और सूर्य देव के प्रति कृतज्ञता का प्रतीक है। यह पर्व हमें सिखाता है कि सच्ची श्रद्धा, धैर्य और विश्वास से जीवन में सकारात्मकता आती है। 🙏🌅 (Shiv Nagar)!
-        </p>
-        <div style="font-size:0.8rem; color:var(--gold); font-weight:700;">
-          — Gram Panchayat Administration & The Host Initiative
+
+        <div class="notice-item">
+          <div class="notice-meta">
+            <span><i class="fa-solid fa-tag"></i> Tourism</span>
+            <span>Development</span>
+          </div>
+          <h3 class="notice-title">Piprahwa Dam Eco-Tourism Project</h3>
+          <p class="notice-body">Cleanliness drive and reservoir conservation initiatives are underway at Piprahwa Dam for upcoming tourist seasons.</p>
+        </div>
+
+        <div class="notice-item">
+          <div class="notice-meta">
+            <span><i class="fa-solid fa-tag"></i> Community</span>
+            <span>Notice</span>
+          </div>
+          <h3 class="notice-title">Digital Photo & Moments Portal</h3>
+          <p class="notice-body">Share verified village moments and heritage images through our gallery upload tool for official archiving.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 5. UNIFIED VILLAGE MEDIA (WDM, FESTIVAL, UPLOAD) -->
-  <section class="section-pad" id="unified-media">
+  <!-- ==========================================================================
+       SECTION 3: FESTIVAL GREETINGS + THE ONLY OFFICIAL WHATSAPP GROUP BANNER
+       ========================================================================== -->
+  <section class="section-pad" id="festival" style="background: var(--bg-surface-elevated);">
+    <div class="container">
+      <!-- Festival Card -->
+      <div class="festival-box">
+        <div class="festival-diyas">🌞 🪔 🌞</div>
+        <div class="hero-badge"><i class="fa-solid fa-star"></i> आस्था, पवित्रता और सूर्य देव की उपासना 🌅</div>
+        <h2 class="festival-heading">छठ पूजा महापर्व की हार्दिक शुभकामनाएँ 🌞</h2>
+        <p class="festival-msg">
+          छठ पूजा केवल एक पर्व नहीं, बल्कि आस्था, पवित्रता, प्रकृति और सूर्य देव के प्रति कृतज्ञता का प्रतीक है। यह पर्व हमें सिखाता है कि सच्ची श्रद्धा, धैर्य और विश्वास से जीवन में सकारात्मकता आती है। 🙏🌅 (Shiv Nagar Butbherwa)
+        </p>
+        <div style="font-size:0.82rem; color:var(--accent-gold); font-weight:700;">
+          — Gram Panchayat Administration & The Host Initiative
+        </div>
+      </div>
+
+      <!-- The Only Official WhatsApp Community Banner (Placed Right Under Festival) -->
+      <div class="wa-community-banner">
+        <i class="fa-brands fa-whatsapp"></i>
+        <h3 class="wa-banner-title">Wyndhamganj Butbherwa Official WhatsApp Community</h3>
+        <p class="wa-banner-desc">
+          Stay connected with daily village notices, government welfare announcements, emergency broadcasts, and sports fixtures directly on WhatsApp.
+        </p>
+        <a href="https://chat.whatsapp.com/CeyuuvTdSAf3873UJLJIjb?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" class="btn-whatsapp-join">
+          <i class="fa-brands fa-whatsapp"></i> Join Official WhatsApp Group <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: UNIFIED VILLAGE GALLERY & MOMENTS
+       ========================================================================== -->
+  <section class="section-pad" id="gallery">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Village Gallery & Moments</span>
-        <h2 class="section-title">Media & Memories Portal</h2>
-        <p class="section-subtitle">Explore scenic landscapes, railway heritage, festival celebrations, and citizen captures of Butbherwa.</p>
+        <span class="section-tag">4. Village Media & Memories</span>
+        <h2 class="section-title">Piprahwa & WDM Gallery</h2>
+        <p class="section-subtitle">Scenic reservoir landscapes, railway station heritage, and celebrations across our Gram Panchayat.</p>
       </div>
 
       <!-- 3 Main Tabs: WDM | Festival | Upload -->
@@ -926,7 +803,7 @@
         </button>
       </div>
 
-      <!-- Sub-options for WDM -->
+      <!-- WDM Sub-chips -->
       <div class="sub-filter-row" id="wdmSubFilters">
         <button class="sub-chip active" onclick="filterWdmSub('all', this)">All WDM</button>
         <button class="sub-chip" onclick="filterWdmSub('nature', this)">Nature & Dam</button>
@@ -934,7 +811,7 @@
         <button class="sub-chip" onclick="filterWdmSub('village', this)">Village Infra</button>
       </div>
 
-      <!-- Sub-options for Festival -->
+      <!-- Festival Sub-chips -->
       <div class="sub-filter-row" id="festivalSubFilters" style="display:none;">
         <button class="sub-chip active" onclick="filterFestSub('all', this)">All Festivals</button>
         <button class="sub-chip" onclick="filterFestSub('छठ पूजा', this)">छठ पूजा</button>
@@ -943,22 +820,22 @@
         <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">शिवरात्रि</button>
       </div>
 
-      <!-- Citizen Upload Form (Name & Phone Required) -->
+      <!-- Citizen Upload Form (Name + 10-Digit Mobile Required) -->
       <div class="citizen-upload-card" id="citizenUploadCard">
-        <h4 style="font-size:0.95rem; color:var(--gold); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
-          <i class="fa-solid fa-paper-plane"></i> Share Photo with Telegram Alert
+        <h4 style="font-size:0.95rem; color:var(--accent-gold); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-paper-plane"></i> Share Village Photo with Telegram Alert
         </h4>
         <form id="citizenPhotoUploadForm" onsubmit="handleCitizenPhotoSubmit(event)">
           <div class="upload-form-grid">
-            <div class="upload-input-group">
+            <div class="form-group-sm">
               <label><i class="fa-solid fa-user"></i> Your Full Name *</label>
               <input type="text" id="uploadSenderName" class="form-control-sm" required placeholder="e.g. Rahul Kumar">
             </div>
-            <div class="upload-input-group">
+            <div class="form-group-sm">
               <label><i class="fa-solid fa-phone"></i> Mobile / WhatsApp *</label>
               <input type="tel" id="uploadSenderPhone" class="form-control-sm" required maxlength="10" placeholder="10-digit number">
             </div>
-            <div class="upload-input-group">
+            <div class="form-group-sm">
               <label><i class="fa-solid fa-layer-group"></i> Category *</label>
               <select id="uploadPhotoCategory" class="form-control-sm" required>
                 <option value="WDM - Nature">WDM - Nature & Dam</option>
@@ -970,236 +847,92 @@
                 <option value="Festival - महाशिवरात्रि">Festival - महाशिवरात्रि</option>
               </select>
             </div>
-            <div class="upload-input-group">
+            <div class="form-group-sm">
               <label><i class="fa-solid fa-tag"></i> Photo Title / Caption *</label>
-              <input type="text" id="uploadPhotoTitle" class="form-control-sm" required placeholder="e.g. Sunset view from bridge">
+              <input type="text" id="uploadPhotoTitle" class="form-control-sm" required placeholder="e.g. Piprahwa dam reservoir">
             </div>
           </div>
 
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
             <div>
-              <label for="citizenFileInput" class="sub-chip" style="cursor:pointer; background:rgba(45,212,191,0.15); color:var(--teal); border-color:var(--teal);">
-                <i class="fa-solid fa-image"></i> Select Photo
+              <label for="citizenFileInput" class="sub-chip" style="cursor:pointer; background:var(--primary); color:#fff; border-color:var(--primary);">
+                <i class="fa-solid fa-image"></i> Choose File
               </label>
               <input type="file" id="citizenFileInput" accept="image/*" required style="display:none;" onchange="updateSelectedFileName(this)">
               <span id="selectedFileNameDisplay" style="font-size:0.75rem; color:var(--text-muted); margin-left:8px;">No file chosen</span>
             </div>
 
-            <div style="display:flex; gap:8px;">
-              <button type="submit" id="btnSubmitPhoto" class="sub-chip" style="background:var(--teal); color:#021513; border-color:var(--teal); font-weight:800; cursor:pointer;">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Submit & Broadcast
-              </button>
-              <button type="button" class="sub-chip" onclick="toggleAdminModeration()" style="cursor:pointer;">
-                <i class="fa-solid fa-user-shield"></i> Admin
-              </button>
-            </div>
+            <button type="submit" id="btnSubmitPhoto" class="btn btn-primary" style="padding:7px 18px; font-size:0.82rem;">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Submit & Alert Telegram
+            </button>
           </div>
         </form>
       </div>
 
-      <!-- 4 Photos Display Grid -->
+      <!-- Gallery Grid (Max 4 Initially) -->
       <div class="unified-grid" id="unifiedMediaGrid"></div>
 
-      <!-- View More / Show Less Toggle Button -->
-      <div class="gallery-more-container" id="mediaMoreBox" style="display:none; text-align:center; margin-top:22px;">
-        <button class="sub-chip" id="btnToggleMedia" onclick="toggleMediaExpansion()" style="padding:8px 22px; font-size:0.82rem; border-color:var(--teal); color:var(--teal); cursor:pointer;">
+      <!-- View More Toggle -->
+      <div id="mediaMoreBox" style="display:none; text-align:center; margin-top:22px;">
+        <button class="btn btn-secondary" id="btnToggleMedia" onclick="toggleMediaExpansion()">
           <i class="fa-solid fa-images"></i> <span id="mediaMoreText">View More Photos</span>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- 6. HIGH GRAPHICS GAMES & SPORTS ARENA (STRICT FILTER) -->
-  <section class="section-pad games-section" id="sports">
+    <!-- ==========================================================================
+       SECTION 5: WORKING DASHBOARD (METRICS & CIVIC PROGRESS)
+       ========================================================================== -->
+  <section class="section-pad" id="dashboard" style="background: var(--bg-surface-elevated);">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Yuva Shakti & Sports</span>
-        <h2 class="section-title">Panchayat Games & Sports Arena</h2>
-        <p class="section-subtitle">Local tournaments, match fixtures, live score updates, and youth athletic achievements of Butbherwa & Shiv Nagar.</p>
+        <span class="section-tag">5. Civic Infrastructure</span>
+        <h2 class="section-title">Working Progress Dashboard</h2>
+        <p class="section-subtitle">Real-time indicators tracking municipal development, e-governance, and sanitation across Butbherwa wards.</p>
       </div>
 
-      <!-- Sports Strict Filter Tabs -->
-      <div class="sports-tabs-wrapper">
-        <button class="sports-tab active" onclick="filterSportsStrict('all', this)">
-          <i class="fa-solid fa-trophy"></i> All Sports
-        </button>
-        <button class="sports-tab" onclick="filterSportsStrict('cricket', this)">
-          <i class="fa-solid fa-baseball-bat-ball"></i> Cricket League
-        </button>
-        <button class="sports-tab" onclick="filterSportsStrict('volleyball', this)">
-          <i class="fa-solid fa-volleyball"></i> Volleyball Cup
-        </button>
-        <button class="sports-tab" onclick="filterSportsStrict('school', this)">
-          <i class="fa-solid fa-medal"></i> School Games
-        </button>
-        <button class="sports-tab" onclick="filterSportsStrict('state', this)">
-          <i class="fa-solid fa-award"></i> State Level
-        </button>
-      </div>
-
-      <!-- Sports Cards Grid (Strict Filtering: Selected shows, others hide) -->
-      <div class="sports-grid" id="sportsContainer">
-
-        <!-- 1. Cricket Card -->
-        <div class="sport-card" data-sport="cricket">
-          <div class="sport-header">
-            <span class="sport-badge badge-cricket"><i class="fa-solid fa-fire"></i> Live / Upcoming Match</span>
-            <span style="font-size:0.75rem; color:var(--text-muted);"><i class="fa-regular fa-calendar"></i> Seasonal Cup 2026</span>
-          </div>
-          <h3 style="font-size:1.15rem; color:#fff; font-weight:800;">Wyndhamganj Premier Cricket League</h3>
-          
-          <div class="match-teams-box">
-            <div class="team-col">
-              <div class="team-name">Shiv Nagar XI</div>
-              <div class="team-score">142/6 (16.0 ov)</div>
-            </div>
-            <div class="vs-emblem">VS</div>
-            <div class="team-col">
-              <div class="team-name">Butbherwa Warriors</div>
-              <div class="team-score">Target: 143 Runs</div>
-            </div>
-          </div>
-
-          <ul class="sport-details-list">
-            <li><i class="fa-solid fa-location-dot"></i> <b>Venue:</b> Piprahwa Dam Sports Ground</li>
-            <li><i class="fa-solid fa-clock"></i> <b>Time:</b> 02:30 PM (Match Day)</li>
-            <li><i class="fa-solid fa-user-group"></i> <b>Format:</b> 20 Overs • Knockout Stage</li>
-          </ul>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-hand-holding-droplet"></i></div>
+          <div class="metric-number">98%</div>
+          <div class="metric-label">Jal Jeevan Coverage</div>
+          <div class="metric-desc">Clean piped drinking water connected across Shiv Nagar & Butbherwa households.</div>
         </div>
 
-        <!-- 2. Volleyball Card -->
-        <div class="sport-card" data-sport="volleyball">
-          <div class="sport-header">
-            <span class="sport-badge badge-volleyball"><i class="fa-solid fa-bolt"></i> Championship</span>
-            <span style="font-size:0.75rem; color:var(--text-muted);"><i class="fa-regular fa-calendar"></i> Annual Cup</span>
-          </div>
-          <h3 style="font-size:1.15rem; color:#fff; font-weight:800;">Gram Panchayat Volleyball Trophy</h3>
-
-          <div class="match-teams-box">
-            <div class="team-col">
-              <div class="team-name">Ward 03 Spikers</div>
-              <div class="team-score">Sets: 2</div>
-            </div>
-            <div class="vs-emblem">VS</div>
-            <div class="team-col">
-              <div class="team-name">Duddhi Block Club</div>
-              <div class="team-score">Sets: 1</div>
-            </div>
-          </div>
-
-          <ul class="sport-details-list">
-            <li><i class="fa-solid fa-location-dot"></i> <b>Venue:</b> Butbherwa High School Court</li>
-            <li><i class="fa-solid fa-trophy"></i> <b>Prize:</b> Gram Pradhan Shield & Medals</li>
-            <li><i class="fa-solid fa-users"></i> <b>Organizer:</b> Gram Youth Committee</li>
-          </ul>
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-lightbulb"></i></div>
+          <div class="metric-number">140+</div>
+          <div class="metric-label">Solar Street Lights</div>
+          <div class="metric-desc">Installed at public squares, temple junctions, and school routes for night safety.</div>
         </div>
 
-        <!-- 3. School Games Card -->
-        <div class="sport-card" data-sport="school">
-          <div class="sport-header">
-            <span class="sport-badge badge-school"><i class="fa-solid fa-graduation-cap"></i> Inter-School</span>
-            <span style="font-size:0.75rem; color:var(--text-muted);"><i class="fa-solid fa-flag"></i> Youth Meet</span>
-          </div>
-          <h3 style="font-size:1.15rem; color:#fff; font-weight:800;">Annual Inter-School Athletics</h3>
-
-          <div style="background:rgba(3,13,20,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius-sm); padding:12px; margin:12px 0;">
-            <div style="font-size:0.84rem; color:var(--gold); font-weight:700; margin-bottom:4px;">
-              🏃 100m & 400m Sprint Finals
-            </div>
-            <p style="font-size:0.78rem; color:var(--text-muted);">
-              Kabaddi, Kho-Kho and Running events concluded with high participation from Shiv Nagar students.
-            </p>
-          </div>
-
-          <ul class="sport-details-list">
-            <li><i class="fa-solid fa-medal"></i> <b>Top School:</b> Composite School Butbherwa</li>
-            <li><i class="fa-solid fa-award"></i> <b>Participants:</b> 120+ Village Students</li>
-          </ul>
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="metric-number">94%</div>
+          <div class="metric-label">Grievance Redressal</div>
+          <div class="metric-desc">Direct complaints processed & solved via Gram Secretariat and Ward Mitra desk.</div>
         </div>
 
-        <!-- 4. State Level Games Card -->
-        <div class="sport-card" data-sport="state">
-          <div class="sport-header">
-            <span class="sport-badge badge-state"><i class="fa-solid fa-star"></i> State Representation</span>
-            <span style="font-size:0.75rem; color:var(--text-muted);"><i class="fa-solid fa-ribbon"></i> UP State Meet</span>
-          </div>
-          <h3 style="font-size:1.15rem; color:#fff; font-weight:800;">Sonbhadra & State Level Honors</h3>
-
-          <div style="background:rgba(3,13,20,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius-sm); padding:12px; margin:12px 0;">
-            <div style="font-size:0.84rem; color:var(--teal); font-weight:700; margin-bottom:4px;">
-              🎖️ Athletics & Taekwondo Selections
-            </div>
-            <p style="font-size:0.78rem; color:var(--text-muted);">
-              Youth athletes from Wyndhamganj selected for District & State level training trials.
-            </p>
-          </div>
-
-          <ul class="sport-details-list">
-            <li><i class="fa-solid fa-bullseye"></i> <b>Discipline:</b> Long Jump & Middle-Distance Run</li>
-            <li><i class="fa-solid fa-check"></i> <b>Status:</b> State Camp Training Ongoing</li>
-          </ul>
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-recycle"></i></div>
+          <div class="metric-number">12</div>
+          <div class="metric-label">Wards Swachhata Drive</div>
+          <div class="metric-desc">Door-to-door sanitation & plastic cleanup around Piprahwa Dam catchment area.</div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- 7. Emergency Helplines (100% Free of WhatsApp Group Link) -->
-  <section class="section-pad" id="emergency">
+  <!-- ==========================================================================
+       SECTION 6: GRAM PADADHIKARI & THE HOST
+       ========================================================================== -->
+  <section class="section-pad" id="representatives">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">24x7 Emergency Contacts</span>
-        <h2 class="section-title">Emergency & Public Helplines</h2>
-        <p class="section-subtitle">Instant emergency contacts for our village residents, law enforcement, and health centers.</p>
-      </div>
-
-      <div class="helpline-grid">
-        <a href="tel:112" class="helpline-card">
-          <div class="helpline-icon icon-red"><i class="fa-solid fa-shield-virus"></i></div>
-          <div class="helpline-info">
-            <h4>Police Emergency</h4>
-            <span>UP Police Emergency</span>
-            <b>Dial: 112</b>
-          </div>
-        </a>
-
-        <a href="tel:108" class="helpline-card">
-          <div class="helpline-icon icon-blue"><i class="fa-solid fa-truck-medical"></i></div>
-          <div class="helpline-info">
-            <h4>Ambulance Service</h4>
-            <span>Emergency Medical Response</span>
-            <b>Dial: 108 / 102</b>
-          </div>
-        </a>
-
-        <a href="tel:1912" class="helpline-card">
-          <div class="helpline-icon icon-yellow"><i class="fa-solid fa-bolt"></i></div>
-          <div class="helpline-info">
-            <h4>Electricity Helpline</h4>
-            <span>Power Dept</span>
-            <b>Dial: 1912</b>
-          </div>
-        </a>
-
-        <a href="tel:1090" class="helpline-card">
-          <div class="helpline-icon icon-teal"><i class="fa-solid fa-hand-holding-hand"></i></div>
-          <div class="helpline-info">
-            <h4>Women & Child Safety</h4>
-            <span>24x7 State Protection</span>
-            <b>Dial: 1090 / 1098</b>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 8. Panchayat Leadership & The Host Profile -->
-  <section class="section-pad" id="leadership" style="background: rgba(4, 18, 28, 0.45);">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Panchayat Administration</span>
-        <h2 class="section-title">Elected Representatives & Officials</h2>
-        <p class="section-subtitle">Dedicated to serving the citizens of Wyndhamganj Butbherwa and Shiv Nagar with integrity.</p>
+        <span class="section-tag">6. Administration & Leadership</span>
+        <h2 class="section-title">Gram Panchayat Representatives</h2>
+        <p class="section-subtitle">Serving the residents of Wyndhamganj Butbherwa and Shiv Nagar with integrity.</p>
       </div>
 
       <div class="rep-grid">
@@ -1219,14 +952,14 @@
 
         <div class="rep-card">
           <div class="rep-avatar"><i class="fa-solid fa-users-gear"></i></div>
-          <h3 class="rep-name">Ward Members & Panchayat Mitra</h3>
+          <h3 class="rep-name">Ward Members & Mitra</h3>
           <div class="rep-role">Munna Paswan</div>
           <p class="rep-desc">Contact: 9793192139</p>
         </div>
       </div>
 
-      <!-- The Host Profile Card (Exact Host Image: 942fe674faf2ef24f01fc8b726c5222a.jpg) -->
-      <div class="host-section" id="host">
+      <!-- The Host Card (Exact image: 942fe674faf2ef24f01fc8b726c5222a.jpg) -->
+      <div class="host-section">
         <div class="host-img-wrap">
           <img src="942fe674faf2ef24f01fc8b726c5222a.jpg" alt="The Host" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
         </div>
@@ -1234,22 +967,64 @@
           <span class="host-badge"><i class="fa-solid fa-laptop-code"></i> Portal Host & Technical Lead</span>
           <h3>Digital Gram Initiative — The Host</h3>
           <p>
-            This digital platform is initiated and hosted to empower the residents of Gram Panchayat Butbherwa (Shiv Nagar) with transparent modern digital services.
+            This portal is developed and maintained to bring transparent e-services, grievance tracking, and local tourism promotion to Gram Panchayat Wyndhamganj Butbherwa.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 9. Grievance & Public Redressal Portal -->
-  <section class="section-pad" id="grievance">
+  <!-- ==========================================================================
+       SECTION 7: GRIEVANCE REDRESSAL & EMERGENCY HELPLINES
+       ========================================================================== -->
+  <section class="section-pad" id="grievance" style="background: var(--bg-surface-elevated);">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Instant E-Grievance Cell</span>
-        <h2 class="section-title">Public Grievance & Redressal Portal</h2>
-        <p class="section-subtitle">Submit complaints, suggestions, or official village inquiries directly to Panchayat Administration.</p>
+        <span class="section-tag">7. Public Redressal & Help</span>
+        <h2 class="section-title">Emergency Helplines & Grievance Cell</h2>
+        <p class="section-subtitle">Submit complaints directly to Panchayat administration or dial emergency numbers.</p>
       </div>
 
+      <!-- Emergency Helpline Numbers -->
+      <div class="helpline-grid">
+        <a href="tel:112" class="helpline-card">
+          <div class="helpline-icon icon-red"><i class="fa-solid fa-shield-virus"></i></div>
+          <div class="helpline-info">
+            <h4>Police Emergency</h4>
+            <span>UP Police Quick Dial</span>
+            <b>112</b>
+          </div>
+        </a>
+
+        <a href="tel:108" class="helpline-card">
+          <div class="helpline-icon icon-blue"><i class="fa-solid fa-truck-medical"></i></div>
+          <div class="helpline-info">
+            <h4>Ambulance</h4>
+            <span>Medical Emergency</span>
+            <b>108 / 102</b>
+          </div>
+        </a>
+
+        <a href="tel:1912" class="helpline-card">
+          <div class="helpline-icon icon-yellow"><i class="fa-solid fa-bolt"></i></div>
+          <div class="helpline-info">
+            <h4>Power Dept</h4>
+            <span>Electricity Disruption</span>
+            <b>1912</b>
+          </div>
+        </a>
+
+        <a href="tel:1090" class="helpline-card">
+          <div class="helpline-icon icon-teal"><i class="fa-solid fa-hand-holding-heart"></i></div>
+          <div class="helpline-info">
+            <h4>Women Safety</h4>
+            <span>24x7 Helpline</span>
+            <b>1090</b>
+          </div>
+        </a>
+      </div>
+
+      <!-- Grievance Form -->
       <div class="portal-form-wrapper">
         <form id="grievanceForm" onsubmit="handleFormSubmission(event)">
           <div class="form-group">
@@ -1258,12 +1033,12 @@
           </div>
 
           <div class="form-group">
-            <label for="userPhoneInput"><i class="fa-solid fa-mobile-screen"></i> 10-Digit Mobile / WhatsApp Number *</label>
+            <label for="userPhoneInput"><i class="fa-solid fa-mobile-screen"></i> 10-Digit Mobile Number *</label>
             <input type="tel" id="userPhoneInput" class="form-control" required placeholder="e.g. 9876543210" maxlength="10">
           </div>
 
           <div class="form-group">
-            <label for="citizenAddress"><i class="fa-solid fa-map-location-dot"></i> Ward / Locality / Address *</label>
+            <label for="citizenAddress"><i class="fa-solid fa-map-location-dot"></i> Ward / Locality *</label>
             <input type="text" id="citizenAddress" class="form-control" required placeholder="e.g. Shiv Nagar, Ward 03">
           </div>
 
@@ -1282,156 +1057,270 @@
           </div>
 
           <div class="form-group">
-            <label for="citizenMessage"><i class="fa-solid fa-pen-to-square"></i> Detailed Grievance Description *</label>
-            <textarea id="citizenMessage" class="form-control" rows="4" required placeholder="Provide complete details of your request or issue..."></textarea>
+            <label for="citizenMessage"><i class="fa-solid fa-pen-to-square"></i> Issue Details *</label>
+            <textarea id="citizenMessage" class="form-control" rows="4" required placeholder="Describe your grievance or development suggestion in detail..."></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary" id="btnSubmitGrievance" style="width:100%; padding:13px; font-size:0.96rem; cursor:pointer;">
+          <button type="submit" class="btn btn-primary" id="btnSubmitGrievance" style="width:100%; padding:12px;">
             <i class="fa-solid fa-paper-plane"></i> Instant Submit Grievance
           </button>
         </form>
 
         <div class="receipt-card" id="submissionReceipt">
-          <div style="font-size:2.6rem; color:var(--success); margin-bottom:8px;">
-            <i class="fa-solid fa-circle-check"></i>
-          </div>
-          <h3 style="color:var(--text-main); font-size:1.25rem;">Grievance Submitted Successfully!</h3>
-          <p style="color:var(--text-muted); font-size:0.86rem; margin-top:4px;">
-            Panchayat administration & Telegram bot have received your request. Save your token for future reference:
-          </p>
+          <div style="font-size:2.4rem; color:var(--success); margin-bottom:6px;"><i class="fa-solid fa-circle-check"></i></div>
+          <h3 style="color:var(--text-primary); font-size:1.2rem;">Grievance Registered Successfully</h3>
+          <p style="color:var(--text-muted); font-size:0.84rem;">Your application token has been broadcasted to the secretariat.</p>
           <div class="receipt-token" id="receiptTokenBadge">WDM-2026-XXXX</div>
-
-          <div style="margin: 16px 0; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-            <a href="#" id="whatsappShareBtn" target="_blank" class="btn btn-primary" style="background:#25D366; color:#02150a; font-size:0.84rem;">
-              <i class="fa-brands fa-whatsapp"></i> Send Copy via WhatsApp
-            </a>
-            <button class="btn btn-secondary" onclick="resetSubmissionWorkflow()" style="font-size:0.84rem;">
-              <i class="fa-solid fa-rotate-right"></i> Submit Another Request
-            </button>
+          <div style="margin-top:14px;">
+            <button class="btn btn-secondary" onclick="resetSubmissionWorkflow()">Submit Another Complaint</button>
           </div>
         </div>
 
         <div class="tracker-box">
-          <h4><i class="fa-solid fa-magnifying-glass-chart"></i> Track Grievance Status</h4>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">
-            Enter your assigned token number to inspect real-time progress and admin remarks.
-          </p>
-          <div class="tracker-input-row">
-            <input type="text" id="trackTokenInput" class="form-control" style="max-width:280px; text-transform:uppercase;" placeholder="e.g. WDM-2026-1001">
-            <button class="btn btn-secondary" onclick="trackComplaintStatus()" style="padding:10px 20px;">
-              Check Status
-            </button>
+          <h4 style="font-size:0.92rem; margin-bottom:6px;">Track Existing Grievance</h4>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="trackTokenInput" class="form-control" style="text-transform:uppercase;" placeholder="e.g. WDM-2026-1001">
+            <button class="btn btn-secondary" onclick="trackComplaintStatus()">Track</button>
           </div>
-          <div id="statusResultBox"></div>
+          <div id="statusResultBox" style="margin-top:10px;"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 10. THE ONLY OFFICIAL WHATSAPP COMMUNITY CONNECT (BADE SIZE MEIN - WORKING LINK) -->
-  <section style="background: linear-gradient(135deg, rgba(37,211,102,0.12), rgba(3,13,20,0.94)); border-top:1px solid rgba(37,211,102,0.3); border-bottom:1px solid rgba(37,211,102,0.3); padding:48px 0; text-align:center;">
-    <div class="container">
-      <div style="font-size:2.6rem; color:#4ade80; margin-bottom:10px;">
-        <i class="fa-brands fa-whatsapp"></i>
+  <!-- ==========================================================================
+       GAMES & SPORTS ARENA MODAL (OPENS FROM 3-LINE MENU WITH EXIT BUTTON)
+       ========================================================================== -->
+  <div class="games-drawer-overlay" id="gamesDrawerOverlay" onclick="closeGamesDrawer(event)">
+    <div class="games-drawer-content" onclick="event.stopPropagation()">
+      <div class="games-top-bar">
+        <div>
+          <h3 style="font-size:1.15rem; color:var(--text-primary); font-weight:800; display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> Panchayat Games & Sports Arena
+          </h3>
+          <span style="font-size:0.76rem; color:var(--text-muted);">Local tournaments, live match details & achievements</span>
+        </div>
+        <!-- Prominent Exit Button -->
+        <button class="btn-exit-games" onclick="closeGamesDrawer()">
+          <i class="fa-solid fa-xmark"></i> Exit
+        </button>
       </div>
-      <h3 style="color:#4ade80; font-size:1.65rem; font-weight:800; margin-bottom:8px;">
-        Wyndhamganj Butbherwa Digital WhatsApp Community
-      </h3>
-      <p style="color:var(--text-muted); font-size:0.92rem; max-width:680px; margin:0 auto 22px; line-height:1.6;">
-        Join our official village WhatsApp channel for instant alerts, government scheme notifications, sports updates, and local event broadcasts.
-      </p>
-      <a href="https://chat.whatsapp.com/CeyuuvTdSAf3873UJLJIjb?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" class="btn btn-primary" style="background:#25D366; color:#02150a; font-weight:800; font-size:1.05rem; padding:14px 32px; box-shadow:0 8px 24px rgba(37,211,102,0.35);">
-        Join Official WhatsApp Community <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </a>
-    </div>
-  </section>
 
-  <!-- 11. Portal Footer -->
+      <!-- Game Options Tabs -->
+      <div class="sub-filter-row" style="margin-bottom:16px;">
+        <button class="sub-chip active" onclick="filterGamesModal('all', this)">All Games</button>
+        <button class="sub-chip" onclick="filterGamesModal('cricket', this)">Cricket League</button>
+        <button class="sub-chip" onclick="filterGamesModal('volleyball', this)">Volleyball Cup</button>
+        <button class="sub-chip" onclick="filterGamesModal('school', this)">School Sports</button>
+      </div>
+
+      <!-- Games Cards -->
+      <div id="modalGamesList">
+        <div class="sport-card" data-gametype="cricket">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span class="sport-badge badge-cricket">Cricket Match Live</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">Piprahwa Dam Ground</span>
+          </div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);">Wyndhamganj Premier League</h4>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;">Shiv Nagar XI: 142/6 (16.0 ov) vs Butbherwa Warriors (Target: 143 Runs)</p>
+          <div style="font-size:0.76rem; color:var(--text-muted);">Knockout tournament under Gram Youth Sports Council.</div>
+        </div>
+
+        <div class="sport-card" data-gametype="volleyball">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span class="sport-badge badge-volleyball">Volleyball Trophy</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">High School Court</span>
+          </div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);">Gram Panchayat Volleyball Championship</h4>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;">Ward 03 Spikers vs Duddhi Block Club (Sets: 2 - 1)</p>
+          <div style="font-size:0.76rem; color:var(--text-muted);">Annual cup sponsored by Gram Pradhan & Sports Committee.</div>
+        </div>
+
+        <div class="sport-card" data-gametype="school">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span class="sport-badge" style="background:rgba(168,85,247,0.18); color:#a855f7;">Athletics Meet</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">Composite School</span>
+          </div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);">Annual Inter-School 100m Sprint & Kabaddi</h4>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;">Over 120 student athletes participated in running and kabaddi finals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CITIZEN LOGIN POPUP MODAL (MOBILE OTP + EMAIL LOGIN)
+       ========================================================================== -->
+  <div class="login-modal" id="citizenLoginModal" onclick="closeLoginModal(event)">
+    <div class="login-card" onclick="event.stopPropagation()">
+      <button class="login-close" onclick="closeLoginModal()">&times;</button>
+      
+      <div id="loginFormState">
+        <h3 style="font-size:1.15rem; color:var(--text-primary); font-weight:800; display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-user-shield" style="color:var(--primary);"></i> Citizen Portal Login
+        </h3>
+        <p style="font-size:0.78rem; color:var(--text-muted);">Access fast grievances, verified photo uploads, and community notices.</p>
+
+        <!-- Switch Tabs -->
+        <div class="login-tabs">
+          <button class="login-tab-btn active" id="tabBtnPhone" onclick="switchLoginMode('phone')">
+            <i class="fa-solid fa-mobile-screen"></i> Mobile OTP
+          </button>
+          <button class="login-tab-btn" id="tabBtnEmail" onclick="switchLoginMode('email')">
+            <i class="fa-solid fa-envelope"></i> Email / Password
+          </button>
+        </div>
+
+        <!-- 1. Mobile OTP Form -->
+        <div id="phoneAuthBox">
+          <div class="form-group" id="phoneInputGroup">
+            <label style="font-size:0.8rem; font-weight:700;">Enter 10-Digit Mobile Number:</label>
+            <div style="display:flex; gap:6px;">
+              <span style="padding:9px 12px; background:var(--bg-surface-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); font-size:0.85rem; font-weight:700;">+91</span>
+              <input type="tel" id="loginMobileInput" class="form-control" maxlength="10" placeholder="e.g. 9876543210">
+            </div>
+            <div id="recaptcha-container" style="margin-top:10px;"></div>
+            <button class="btn btn-primary" id="btnSendOtp" onclick="sendMobileOtp()" style="width:100%; margin-top:10px;">
+              Send OTP SMS
+            </button>
+          </div>
+
+          <div class="form-group" id="otpVerifyGroup" style="display:none;">
+            <label style="font-size:0.8rem; font-weight:700;">Enter 6-Digit OTP received on SMS:</label>
+            <input type="text" id="loginOtpInput" class="form-control" maxlength="6" placeholder="e.g. 123456" style="letter-spacing:4px; font-weight:800; text-align:center;">
+            <button class="btn btn-primary" id="btnVerifyOtp" onclick="verifyMobileOtp()" style="width:100%; margin-top:10px;">
+              Verify & Log In
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Email Auth Form -->
+        <div id="emailAuthBox" style="display:none;">
+          <div class="form-group">
+            <label style="font-size:0.8rem; font-weight:700;">Email Address:</label>
+            <input type="email" id="loginEmailInput" class="form-control" placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label style="font-size:0.8rem; font-weight:700;">Password:</label>
+            <input type="password" id="loginPasswordInput" class="form-control" placeholder="••••••••">
+          </div>
+          <div style="display:flex; gap:8px; margin-top:12px;">
+            <button class="btn btn-primary" onclick="handleEmailLogin(false)" style="flex:1;">Sign In</button>
+            <button class="btn btn-secondary" onclick="handleEmailLogin(true)" style="flex:1;">Sign Up</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Already Logged In State -->
+      <div id="userLoggedInState" style="display:none; text-align:center; padding:10px 0;">
+        <div style="font-size:2.2rem; color:var(--success); margin-bottom:8px;"><i class="fa-solid fa-circle-check"></i></div>
+        <h4 style="font-size:1.1rem; color:var(--text-primary);" id="loggedInUserTitle">Welcome Back!</h4>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin:4px 0 16px;" id="loggedInUserDetails">Verified Citizen Account</p>
+        <button class="btn btn-secondary" onclick="handlePortalLogout()" style="width:100%; color:var(--danger); border-color:var(--danger);">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+        </button>
+      </div>
+    </div>
+          </div>
+  <!-- PORTAL FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <div class="brand-logo" style="margin-bottom:12px;">
-            <div class="brand-emblem" style="font-size:1.5rem;">🕉️</div>
-            <div class="brand-text">
-              <h3 style="font-size:1.1rem; color:var(--text-main);">Gram Panchayat Butberhwa</h3>
-              <span style="font-size:0.72rem; color:var(--gold);">One Step • for Our Village</span>
-            </div>
+          <div class="clean-brand" style="margin-bottom:10px;">
+            <div class="clean-brand-om">🕉️</div>
+            <div class="clean-brand-name">Gram Panchayat Butbherwa</div>
           </div>
-          <p style="line-height:1.65; font-size:0.82rem;">
-            Serving citizens with transparent, rapid, and accountable e-governance services. Promoting the eco-tourism of Piprahwa Dam and continuous development of Shiv Nagar.
+          <p style="line-height:1.6; font-size:0.82rem;">
+            Serving citizens with transparent, rapid, and accountable digital services. Promoting Piprahwa Dam eco-tourism and Shiv Nagar civic welfare.
           </p>
         </div>
 
         <div class="footer-col">
-          <h4>Quick Navigation</h4>
+          <h4>Navigation</h4>
           <ul class="footer-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#festival">Festivel</a></li>
-            <li><a href="#unified-media">Village Media & Moments</a></li>
-            <li><a href="#sports">Sports Arena</a></li>
-            <li><a href="#emergency">Emergency Helplines</a></li>
-            <li><a href="#leadership">Representatives</a></li>
-            <li><a href="#grievance">Grievance Redressal</a></li>
+            <li><a href="#about">Gaon Ke Baare Mein</a></li>
+            <li><a href="#notices">Notice Board</a></li>
+            <li><a href="#festival">Festival & WhatsApp</a></li>
+            <li><a href="#gallery">Village Gallery</a></li>
+            <li><a href="#dashboard">Working Dashboard</a></li>
+            <li><a href="#representatives">Representatives</a></li>
+            <li><a href="#grievance">Grievance Cell</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Secretariat Address</h4>
-          <p style="font-size:0.82rem; line-height:1.65;">
+          <p style="line-height:1.6; font-size:0.82rem;">
             Gram Panchayat Secretariat, Wyndhamganj Butbherwa (Shiv Nagar),<br>
-            Block: Duddhi,<br>
-            District: Sonbhadra, Uttar Pradesh - 231226
+            Block: Duddhi, District: Sonbhadra, UP - 231226
           </p>
-          <div style="margin-top:12px; font-size:0.8rem; color:var(--gold);">
-            <i class="fa-solid fa-shield-heart"></i> Dedicated to Citizen Welfare & Digital Transparency
+          <div style="margin-top:10px; font-size:0.8rem; color:var(--accent-gold);">
+            <i class="fa-solid fa-shield-heart"></i> Digital Gram Initiative
           </div>
         </div>
       </div>
 
-      <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.76rem;">
-        <div>&copy; Gram Panchayat Butberhwa.</div>
-        <div>All Rights Reserved ©</div>
+      <div style="border-top:1px solid var(--border-color); padding-top:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:0.76rem;">
+        <div>&copy; Gram Panchayat Butbherwa. All Rights Reserved.</div>
+        <div>Hosted by The Host</div>
       </div>
     </div>
   </footer>
-
-
-    <button class="sos-trigger-btn" id="sosTriggerBtn" onclick="toggleSosMenu(event)" title="Emergency Helplines">
-      SOS
-    </button>
-  </div>
 
   <!-- Lightbox Modal -->
   <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
     <div class="lightbox-content">
       <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
-      <img src="" alt="Enlarged View" class="lightbox-img" id="lightboxImg">
-      <div class="lightbox-caption" id="lightboxCaption"></div>
+      <img src="" alt="View" class="lightbox-img" id="lightboxImg">
+      <div style="color:#fff; font-size:0.88rem; margin-top:8px; font-weight:700;" id="lightboxCaption"></div>
     </div>
   </div>
 
-  <!-- Toast Notification & Confetti Canvas -->
+  <!-- Toast -->
   <div class="toast-notification" id="toastNotification">
-    <i class="fa-solid fa-bell" style="color:var(--teal);"></i>
+    <i class="fa-solid fa-bell" style="color:var(--primary);"></i>
     <span id="toastMsg">Notification</span>
   </div>
-  <canvas id="confettiCanvas"></canvas>
 
   <!-- ==========================================================================
-       JAVASCRIPT APPLICATION ENGINE (CRASH-PROOF & FULLY FUNCTIONAL)
+       JAVASCRIPT APPLICATION ENGINE (FIREBASE WDM-UPDATE + TELEGRAM INTEGRATED)
        ========================================================================== -->
   <script>
-    /* 1. CLOCK & REAL WYNDHAMGANJ WEATHER */
-    function updateLiveClock() {
+    /* 1. DUAL THEME PERSISTENCE ENGINE */
+    function applySavedTheme() {
+      const savedTheme = localStorage.getItem('wdm_portal_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeButtonText(savedTheme);
+    }
+
+    function togglePortalTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('wdm_portal_theme', next);
+      updateThemeButtonText(next);
+      showToast(next === 'light' ? "☀️ Light Mode Active" : "🌙 Dark Mode Active");
+    }
+
+    function updateThemeButtonText(theme) {
+      const el = document.getElementById('themeToggleText');
+      if (el) {
+        el.textContent = theme === 'light' ? "Switch to Dark Mode" : "Switch to Light Mode";
+      }
+    }
+    applySavedTheme();
+
+    /* 2. LIVE CLOCK & WYNDHAMGANJ WEATHER */
+    function updateClock() {
       const el = document.getElementById('portalLiveClock');
       if (el) {
         const now = new Date();
         el.textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
       }
     }
-    setInterval(updateLiveClock, 1000);
-    updateLiveClock();
+    setInterval(updateClock, 1000);
+    updateClock();
 
     function fetchWyndhamganjWeather() {
       const weatherEl = document.getElementById('portalLiveWeather');
@@ -1445,37 +1334,181 @@
             weatherEl.textContent = '28°C';
           }
         })
-        .catch(() => {
-          weatherEl.textContent = '28°C';
-        });
+        .catch(() => { weatherEl.textContent = '28°C'; });
     }
     fetchWyndhamganjWeather();
 
-    /* 2. FIREBASE & TELEGRAM CONFIGURATION */
+    /* 3. FIREBASE CONFIGURATION (WDM-UPDATE) */
     const firebaseConfig = {
-      apiKey: "AIzaSyDAG3mFHxUNzndIqxX7Gvp7hfL8d087u0U",
-      authDomain: "testing-project-5df0e.firebaseapp.com",
-      projectId: "testing-project-5df0e",
-      storageBucket: "testing-project-5df0e.firebasestorage.app",
-      messagingSenderId: "1002577167949",
-      appId: "1:1002577167949:web:3e0a99fd2c2b2823d4be04",
-      measurementId: "G-P80XDGWR29"
+      apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
+      authDomain: "wdm-update.firebaseapp.com",
+      projectId: "wdm-update",
+      storageBucket: "wdm-update.firebasestorage.app",
+      messagingSenderId: "677435578526",
+      appId: "1:677435578526:web:74119dc8309c4ba744838f",
+      measurementId: "G-R4KWL05ZNR"
     };
 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
+    const auth = firebase.auth();
     const db = firebase.firestore();
 
     const TELEGRAM_BOT_TOKEN = "9148416175:AAGHyUUgdsBU3-2dWdrlajV4fLB5g_keVXU";
     const TELEGRAM_CHAT_ID = "6032430283";
 
-    let isAdminModerator = false;
-    let isMediaExpanded = false;
-    let currentMainSection = 'wdm';
-    let currentSubFilter = 'all';
+    let confirmationResultGlobal = null;
+    let currentUserProfile = null;
 
-    /* 3. 3-LINE DRAWER MENU & ACCESSIBILITY */
+    /* 4. AUTH STATE LISTENER & CITIZEN MODAL */
+    auth.onAuthStateChanged((user) => {
+      const loginBtnText = document.getElementById('navLoginText');
+      const loginBtn = document.getElementById('navLoginBtn');
+      if (user) {
+        currentUserProfile = user;
+        const displayIdent = user.phoneNumber || user.email || "Citizen";
+        if (loginBtnText) loginBtnText.textContent = displayIdent.substring(0, 10);
+        if (loginBtn) loginBtn.classList.add('user-logged-badge');
+
+        // Autofill grievance form if empty
+        const phoneField = document.getElementById('userPhoneInput');
+        if (phoneField && user.phoneNumber && !phoneField.value) {
+          phoneField.value = user.phoneNumber.replace('+91', '');
+        }
+        const uploadPhoneField = document.getElementById('uploadSenderPhone');
+        if (uploadPhoneField && user.phoneNumber && !uploadPhoneField.value) {
+          uploadPhoneField.value = user.phoneNumber.replace('+91', '');
+        }
+      } else {
+        currentUserProfile = null;
+        if (loginBtnText) loginBtnText.textContent = "Login";
+        if (loginBtn) loginBtn.classList.remove('user-logged-badge');
+      }
+    });
+
+    function openLoginModal() {
+      const modal = document.getElementById('citizenLoginModal');
+      const formState = document.getElementById('loginFormState');
+      const loggedState = document.getElementById('userLoggedInState');
+
+      if (currentUserProfile) {
+        formState.style.display = 'none';
+        loggedState.style.display = 'block';
+        document.getElementById('loggedInUserDetails').textContent = currentUserProfile.phoneNumber || currentUserProfile.email || "Citizen User";
+      } else {
+        formState.style.display = 'block';
+        loggedState.style.display = 'none';
+        initRecaptcha();
+      }
+      modal.classList.add('active');
+    }
+
+    function closeLoginModal(e) {
+      if (!e || e.target.id === 'citizenLoginModal' || e.target.className === 'login-close') {
+        document.getElementById('citizenLoginModal').classList.remove('active');
+      }
+    }
+
+    function switchLoginMode(mode) {
+      document.querySelectorAll('.login-tab-btn').forEach(b => b.classList.remove('active'));
+      if (mode === 'phone') {
+        document.getElementById('tabBtnPhone').classList.add('active');
+        document.getElementById('phoneAuthBox').style.display = 'block';
+        document.getElementById('emailAuthBox').style.display = 'none';
+      } else {
+        document.getElementById('tabBtnEmail').classList.add('active');
+        document.getElementById('phoneAuthBox').style.display = 'none';
+        document.getElementById('emailAuthBox').style.display = 'block';
+      }
+    }
+
+    function initRecaptcha() {
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+          size: 'invisible',
+          callback: () => {}
+        });
+      }
+    }
+
+    function sendMobileOtp() {
+      const phone = document.getElementById('loginMobileInput').value.trim();
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+        alert("Please enter a valid 10-digit mobile number!");
+        return;
+      }
+      initRecaptcha();
+      const sendBtn = document.getElementById('btnSendOtp');
+      sendBtn.disabled = true;
+      sendBtn.textContent = "Sending OTP...";
+
+      auth.signInWithPhoneNumber('+91' + phone, window.recaptchaVerifier)
+        .then((confirmationResult) => {
+          confirmationResultGlobal = confirmationResult;
+          document.getElementById('phoneInputGroup').style.display = 'none';
+          document.getElementById('otpVerifyGroup').style.display = 'block';
+          showToast("📲 OTP SMS sent to +91 " + phone);
+        })
+        .catch((error) => {
+          alert("SMS Error: " + error.message);
+          sendBtn.disabled = false;
+          sendBtn.textContent = "Send OTP SMS";
+          if (window.recaptchaVerifier) window.recaptchaVerifier.render().then(wId => grecaptcha.reset(wId));
+        });
+    }
+
+    function verifyMobileOtp() {
+      const code = document.getElementById('loginOtpInput').value.trim();
+      if (code.length !== 6) {
+        alert("Enter 6-digit OTP!");
+        return;
+      }
+      if (!confirmationResultGlobal) return;
+      const verifyBtn = document.getElementById('btnVerifyOtp');
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = "Verifying...";
+
+      confirmationResultGlobal.confirm(code)
+        .then((result) => {
+          showToast("🎉 Logged in successfully!");
+          closeLoginModal();
+          verifyBtn.disabled = false;
+          verifyBtn.textContent = "Verify & Log In";
+        })
+        .catch((error) => {
+          alert("Invalid OTP: " + error.message);
+          verifyBtn.disabled = false;
+          verifyBtn.textContent = "Verify & Log In";
+        });
+    }
+
+    function handleEmailLogin(isSignUp) {
+      const email = document.getElementById('loginEmailInput').value.trim();
+      const pass = document.getElementById('loginPasswordInput').value.trim();
+      if (!email || pass.length < 6) {
+        alert("Enter valid email and at least 6-character password!");
+        return;
+      }
+
+      const action = isSignUp 
+        ? auth.createUserWithEmailAndPassword(email, pass)
+        : auth.signInWithEmailAndPassword(email, pass);
+
+      action.then(() => {
+        showToast(isSignUp ? "Account created & logged in!" : "Welcome back!");
+        closeLoginModal();
+      }).catch(err => alert("Auth Error: " + err.message));
+    }
+
+    function handlePortalLogout() {
+      auth.signOut().then(() => {
+        showToast("Logged out successfully.");
+        closeLoginModal();
+      });
+    }
+
+    /* 5. 3-LINE DRAWER & FONT ACCESSIBILITY */
     function toggleDrawer(open) {
       const overlay = document.getElementById('drawerOverlay');
       const panel = document.getElementById('drawerPanel');
@@ -1495,54 +1528,40 @@
           b.classList.remove('active');
         }
       });
-      const activeBtn = Array.from(document.querySelectorAll('.ctrl-btn')).find(b => b.textContent.trim().toLowerCase() === (size === 'sm' ? 'a-' : size === 'md' ? 'a' : 'a+'));
-      if (activeBtn) activeBtn.classList.add('active');
+      const active = Array.from(document.querySelectorAll('.ctrl-btn')).find(b => b.textContent.trim().toLowerCase() === (size === 'sm' ? 'a-' : size === 'md' ? 'a' : 'a+'));
+      if (active) active.classList.add('active');
     }
 
-    function togglePortalTheme() {
-      document.body.classList.toggle('light-theme');
-      const isLight = document.body.classList.contains('light-theme');
-      showToast(isLight ? "☀️ Light Mode active" : "🌙 Dark Mode active");
+    /* 6. GAMES ARENA MODAL DRAWER (WITH EXIT BUTTON) */
+    function openGamesArenaDrawer() {
+      document.getElementById('gamesDrawerOverlay').classList.add('active');
     }
 
-    function showToast(message) {
-      const toast = document.getElementById('toastNotification');
-      const text = document.getElementById('toastMsg');
-      if (!toast || !text) return;
-      text.textContent = message;
-      toast.classList.add('active');
-      setTimeout(() => { toast.classList.remove('active'); }, 4000);
+    function closeGamesDrawer(e) {
+      if (!e || e.target.id === 'gamesDrawerOverlay' || e.className === 'btn-exit-games') {
+        document.getElementById('gamesDrawerOverlay').classList.remove('active');
+      }
     }
 
-    /* 4. CLIENT-SIDE IMAGE COMPRESSOR */
-    function compressImageFile(file, maxDimension, quality, callback) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          let width = img.width;
-          let height = img.height;
-          if (width > height && width > maxDimension) {
-            height = Math.round((height * maxDimension) / width);
-            width = maxDimension;
-          } else if (height > maxDimension) {
-            width = Math.round((width * maxDimension) / height);
-            height = maxDimension;
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          const compressedData = canvas.toDataURL('image/jpeg', quality);
-          callback(compressedData);
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    function filterGamesModal(type, btn) {
+      document.querySelectorAll('#gamesDrawerOverlay .sub-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('#modalGamesList .sport-card');
+      cards.forEach(card => {
+        if (type === 'all' || card.getAttribute('data-gametype') === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
 
-    /* 5. UNIFIED MEDIA (WDM, FESTIVAL, UPLOAD) */
+    /* 7. UNIFIED GALLERY & TELEGRAM BROADCAST WITH SENDER INFO */
+    let currentMainSection = 'wdm';
+    let currentSubFilter = 'all';
+    let isMediaExpanded = false;
+
     const defaultMediaItems = [
       {
         src: "IMG_20250929_062521.jpg",
@@ -1555,7 +1574,7 @@
         src: "IMG_20250930_164330 (1).jpg",
         mainCategory: "wdm",
         subCategory: "railway",
-        title: "Wyndhamganj Railway Tracks & Route",
+        title: "Wyndhamganj Railway Tracks Route",
         badge: "Railway Line"
       },
       {
@@ -1576,22 +1595,15 @@
         src: "IMG_20250929_062521.jpg",
         mainCategory: "festival",
         subCategory: "छठ पूजा",
-        title: "Piprahwa Dam Ghat - Surya Arghya Gathering",
+        title: "Piprahwa Dam Ghat - Surya Arghya",
         badge: "छठ पूजा"
       },
       {
         src: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80",
         mainCategory: "festival",
         subCategory: "दीपावली",
-        title: "Shiv Nagar Secretariat Lighting & Diyas",
+        title: "Shiv Nagar Secretariat Deepotsav",
         badge: "दीपावली"
-      },
-      {
-        src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
-        mainCategory: "festival",
-        subCategory: "महाशिवरात्रि",
-        title: "Shiv Mandir Pilgrimage & Aarti",
-        badge: "शिवरात्रि"
       }
     ];
 
@@ -1606,7 +1618,6 @@
       const all = [...stored, ...defaultMediaItems];
 
       let filtered = all.filter(item => item.mainCategory === currentMainSection);
-
       if (currentSubFilter !== 'all') {
         filtered = filtered.filter(item => item.subCategory === currentSubFilter);
       }
@@ -1619,26 +1630,18 @@
       }
 
       const displayList = isMediaExpanded ? filtered : filtered.slice(0, 4);
-
       container.innerHTML = '';
+
       if (displayList.length === 0) {
-        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">No photos found in this category yet.</div>`;
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:25px; color:var(--text-muted);">No photos found in this category.</div>`;
         return;
       }
 
-      displayList.forEach((item, index) => {
+      displayList.forEach(item => {
         const card = document.createElement('div');
         card.className = 'unified-card';
         card.onclick = () => openLightbox(item.src, `${item.badge} - ${item.title}`);
-
-        const deleteBtn = (item.isUserUpload && isAdminModerator) ? `
-          <button onclick="deleteUnifiedPhoto(${index}, event)" style="position:absolute; top:8px; right:8px; background:rgba(239,68,68,0.92); color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; z-index:10;" title="Delete Photo">
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
-        ` : '';
-
         card.innerHTML = `
-          ${deleteBtn}
           <img src="${item.src}" alt="${item.title}" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg'">
           <span class="card-badge-top">${item.badge}</span>
           <div class="card-caption-bottom">
@@ -1716,10 +1719,8 @@
       }
     }
 
-    /* CITIZEN PHOTO SUBMIT + TELEGRAM BROADCAST */
     function handleCitizenPhotoSubmit(e) {
       e.preventDefault();
-
       const name = document.getElementById('uploadSenderName').value.trim();
       const phone = document.getElementById('uploadSenderPhone').value.trim();
       const cat = document.getElementById('uploadPhotoCategory').value;
@@ -1731,16 +1732,17 @@
         return;
       }
       if (!fileInput.files || !fileInput.files[0]) {
-        alert("Please choose a photo file!");
+        alert("Please select a photo file!");
         return;
       }
 
       const submitBtn = document.getElementById('btnSubmitPhoto');
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
 
-      const file = fileInput.files[0];
-      compressImageFile(file, 800, 0.72, function(compressedBase64) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const compressedBase64 = evt.target.result;
         const isFestival = cat.startsWith("Festival");
         const mainCat = isFestival ? "festival" : "wdm";
         let subCat = "nature";
@@ -1757,18 +1759,16 @@
           mainCategory: mainCat,
           subCategory: subCat,
           title: title,
-          badge: isFestival ? subCat : "Resident Upload",
-          isUserUpload: true
+          badge: isFestival ? subCat : "Resident Upload"
         };
 
         try {
           let existing = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]');
           existing.unshift(newPhotoItem);
           localStorage.setItem('wdm_unified_media', JSON.stringify(existing));
-        } catch (err) {
-          console.warn("Storage full");
-        }
+        } catch(err) { console.warn("Storage warning"); }
 
+        // Send to Telegram Bot
         const telegramCaption = 
           `📸 *NEW COMMUNITY PHOTO UPLOAD*\n` +
           `━━━━━━━━━━━━━━━━━━━\n` +
@@ -1788,77 +1788,27 @@
             formData.append('photo', blob, 'upload.jpg');
             formData.append('caption', telegramCaption);
             formData.append('parse_mode', 'Markdown');
-
             return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
               method: 'POST',
               body: formData
             });
           })
-          .then(() => {
+          .finally(() => {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Submit & Broadcast';
+            submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Submit & Alert Telegram';
             document.getElementById('citizenPhotoUploadForm').reset();
             document.getElementById('selectedFileNameDisplay').textContent = "No file chosen";
-
             showToast("🚀 Photo uploaded & sent to Admin Telegram!");
             const targetBtn = document.querySelector(`.media-tab-btn[onclick*="${mainCat}"]`);
             if (targetBtn) targetBtn.click();
-          })
-          .catch(err => {
-            console.error("Telegram upload error:", err);
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Submit & Broadcast';
-            showToast("Photo saved locally!");
           });
-      });
+      };
+      reader.readAsDataURL(fileInput.files[0]);
     }
 
-    function toggleAdminModeration() {
-      if (isAdminModerator) {
-        isAdminModerator = false;
-        renderUnifiedMedia();
-        showToast("🔒 Admin mode turned off.");
-        return;
-      }
-      const pin = prompt("Enter Admin PIN:");
-      if (pin === "Vive@07") {
-        isAdminModerator = true;
-        renderUnifiedMedia();
-        showToast("🔓 Admin mode unlocked! Moderation active.");
-      } else if (pin !== null) {
-        alert("❌ Invalid PIN! Access denied.");
-      }
-    }
-
-    function deleteUnifiedPhoto(index, event) {
-      event.stopPropagation();
-      if (!confirm("Are you sure you want to delete this photo?")) return;
-      let existing = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]');
-      existing.splice(index, 1);
-      localStorage.setItem('wdm_unified_media', JSON.stringify(existing));
-      renderUnifiedMedia();
-      showToast("🗑️ Photo removed successfully!");
-    }
-
-    /* 6. STRICT SPORTS ARENA FILTER (ONLY CHOSEN SPORT SHOWS) */
-    function filterSportsStrict(category, btn) {
-      document.querySelectorAll('.sports-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-
-      const cards = document.querySelectorAll('.sport-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-sport') === category) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    /* 7. GRIEVANCE FORM & TELEGRAM DISPATCH */
+    /* 8. GRIEVANCE FORM & TELEGRAM DISPATCH */
     function handleFormSubmission(e) {
       e.preventDefault();
-
       const phone = document.getElementById('userPhoneInput').value.trim();
       if (!/^[6-9]\d{9}$/.test(phone)) {
         alert("Please enter a valid 10-digit Indian mobile number!");
@@ -1910,26 +1860,15 @@
             text: alertMessage,
             parse_mode: 'Markdown'
           })
-        }).catch(err => console.error("Telegram alert error:", err));
+        }).catch(err => console.error(err));
 
-        const waText = encodeURIComponent(
-          `*Panchayat Grievance Token:* ${tokenNumber}\n` +
-          `*Name:* ${applicantName}\n` +
-          `*Ward:* ${applicantAddress}\n` +
-          `*Category:* ${category}\n` +
-          `*Issue:* ${description}`
-        );
-        document.getElementById('whatsappShareBtn').href = `https://wa.me/?text=${waText}`;
-
-        triggerConfetti();
         document.getElementById('grievanceForm').style.display = 'none';
         document.getElementById('receiptTokenBadge').textContent = tokenNumber;
         document.getElementById('submissionReceipt').style.display = 'block';
-
-        showToast("🚀 Grievance submitted & Telegram alert dispatched!");
+        showToast("🚀 Grievance registered & Telegram alert dispatched!");
       })
       .catch((error) => {
-        alert("Database Error: " + error.message);
+        alert("Submission Error: " + error.message);
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Instant Submit Grievance';
       });
@@ -1950,11 +1889,10 @@
       const output = document.getElementById('statusResultBox');
 
       if (!token) {
-        output.innerHTML = '<span style="color:var(--danger);">Please enter a valid token number!</span>';
+        output.innerHTML = '<span style="color:var(--danger);">Enter token number!</span>';
         return;
       }
-
-      output.innerHTML = '<span style="color:var(--teal);"><i class="fa-solid fa-spinner fa-spin"></i> Checking records...</span>';
+      output.innerHTML = '<span style="color:var(--primary);"><i class="fa-solid fa-spinner fa-spin"></i> Checking status...</span>';
 
       db.collection("complaints").where("token", "==", token).get()
         .then((querySnapshot) => {
@@ -1963,154 +1901,49 @@
           } else {
             querySnapshot.forEach((doc) => {
               const data = doc.data();
-              const isResolved = data.status.toLowerCase().includes("resolved");
-              const badgeColor = isResolved ? "var(--success)" : "var(--gold)";
-
+              const isResolved = (data.status || '').toLowerCase().includes("resolved");
+              const badgeColor = isResolved ? "var(--success)" : "var(--accent-gold)";
               output.innerHTML = `
-                <div style="background:rgba(3,13,20,0.85); border:1px solid ${badgeColor}; border-radius:var(--radius-sm); padding:12px; margin-top:8px;">
-                  <div style="color:${badgeColor}; font-weight:800; margin-bottom:4px;">Status: ${data.status}</div>
-                  <div style="font-size:0.84rem; color:var(--text-main);">
-                    <b>Applicant:</b> ${data.name} | <b>Category:</b> ${data.category}<br>
-                    <b>Remark:</b> ${data.adminRemark || 'Application under administrative review.'}
+                <div style="background:var(--bg-surface-elevated); border:1px solid ${badgeColor}; border-radius:var(--radius-sm); padding:10px; margin-top:6px;">
+                  <div style="color:${badgeColor}; font-weight:800; font-size:0.85rem;">Status: ${data.status}</div>
+                  <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">
+                    <b>Category:</b> ${data.category} | <b>Remark:</b> ${data.adminRemark || 'Under review'}
                   </div>
                 </div>
               `;
             });
           }
         })
-        .catch((err) => {
-          output.innerHTML = `<span style="color:var(--danger);">Verification error: ${err.message}</span>`;
-        });
+        .catch(err => { output.innerHTML = `<span style="color:var(--danger);">${err.message}</span>`; });
     }
 
-    /* 8. WORKING FLOATING SOS SPEED DIAL */
-    function toggleSosMenu(event) {
-      event.stopPropagation();
-      const menu = document.getElementById('sosMenuItems');
-      const btn = document.getElementById('sosTriggerBtn');
-      const isOpen = menu.classList.contains('show');
-      if (isOpen) {
-        menu.classList.remove('show');
-        btn.classList.remove('active');
-        btn.innerHTML = 'SOS';
-      } else {
-        menu.classList.add('show');
-        btn.classList.add('active');
-        btn.innerHTML = '<i class="fa-solid fa-xmark" style="font-size:1.2rem;"></i>';
-      }
-    }
-
-    document.addEventListener('click', (e) => {
-      const wrapper = document.getElementById('sosFloatingWrapper');
-      if (wrapper && !wrapper.contains(e.target)) {
-        const menu = document.getElementById('sosMenuItems');
-        const btn = document.getElementById('sosTriggerBtn');
-        if (menu && menu.classList.contains('show')) {
-          menu.classList.remove('show');
-          btn.classList.remove('active');
-          btn.innerHTML = 'SOS';
-        }
-      }
-    });
-
-    /* 9. LIGHTBOX CONTROLS */
+    /* 9. LIGHTBOX & TOAST */
     function openLightbox(src, caption) {
-      const modal = document.getElementById('lightboxModal');
       document.getElementById('lightboxImg').src = src;
       document.getElementById('lightboxCaption').textContent = caption;
-      modal.classList.add('active');
+      document.getElementById('lightboxModal').classList.add('active');
     }
 
     function closeLightbox(event) {
-      if (event.target.id === 'lightboxModal' || event.target.className === 'lightbox-close') {
+      if (!event || event.target.id === 'lightboxModal' || event.target.className === 'lightbox-close') {
         document.getElementById('lightboxModal').classList.remove('active');
       }
     }
 
-    /* 10. HERO VFX CANVAS & SUCCESS CONFETTI */
-    function initHeroVfx() {
-      const canvas = document.getElementById('heroVfxCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-      let width, height;
-
-      function resize() {
-        width = canvas.width = canvas.parentElement.offsetWidth;
-        height = canvas.height = canvas.parentElement.offsetHeight;
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      for (let i = 0; i < 35; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 2 + 1,
-          speedX: (Math.random() - 0.5) * 0.4,
-          speedY: (Math.random() - 0.5) * 0.4,
-          color: Math.random() > 0.5 ? 'rgba(255, 195, 44, ' : 'rgba(45, 212, 191, ',
-          alpha: Math.random() * 0.5 + 0.2
-        });
-      }
-
-      function loop() {
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-          p.x += p.speedX; p.y += p.speedY;
-          if (p.x < 0) p.x = width; if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height; if (p.y > height) p.y = 0;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = p.color + p.alpha + ')';
-          ctx.fill();
-        });
-        requestAnimationFrame(loop);
-      }
-      loop();
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMsg');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.add('active');
+      setTimeout(() => { toast.classList.remove('active'); }, 3800);
     }
 
-    function triggerConfetti() {
-      const canvas = document.getElementById('confettiCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      const particles = [];
-      const colors = ['#ffc32c', '#2dd4bf', '#ffffff', '#10b981', '#38bdf8'];
-      for (let i = 0; i < 90; i++) {
-        particles.push({
-          x: canvas.width / 2, y: canvas.height / 2,
-          w: Math.random() * 8 + 4, h: Math.random() * 8 + 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          vx: (Math.random() - 0.5) * 14, vy: (Math.random() - 0.5) * 14 - 3,
-          gravity: 0.28, rotation: Math.random() * 360, rotSpeed: (Math.random() - 0.5) * 8
-        });
-      }
-      let frames = 0;
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          p.x += p.vx; p.y += p.vy; p.vy += p.gravity; p.rotation += p.rotSpeed;
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate((p.rotation * Math.PI) / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          ctx.restore();
-        });
-        frames++;
-        if (frames < 120) requestAnimationFrame(animate);
-        else ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-      animate();
-    }
-
-    /* 11. BOOTSTRAP INITIALIZATION */
+    /* 10. INITIALIZATION */
     window.addEventListener('DOMContentLoaded', () => {
-      initHeroVfx();
       renderUnifiedMedia();
     });
   </script>
 </body>
 </html>
+                                                                 
