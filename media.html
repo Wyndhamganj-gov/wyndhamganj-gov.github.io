@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>WDM Social Media</title>
+  <title>Gramin Social & Media Portal</title>
   
   <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Firebase App SDKs (Compat) -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
   <style>
     :root {
-      --bg-color: #000000;
+      --bg-dark: #000000;
       --card-bg: #121212;
-      --border-color: #262626;
-      --primary-accent: #0095f6;
-      --danger: #ed4956;
-      --text-main: #f5f5f5;
-      --text-muted: #8e8e8e;
+      --border: #262626;
+      --accent: #0095f6;
+      --accent-hover: #1877f2;
+      --like: #ed4956;
+      --text-primary: #f5f5f5;
+      --text-secondary: #8e8e8e;
+      --online: #31a24c;
     }
 
     * {
@@ -34,99 +36,111 @@
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
       padding-bottom: 65px;
       overflow-x: hidden;
     }
 
-    /* Top Navigation Header */
-    header.app-header {
+    /* Top App Header */
+    header.top-header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
-      height: 52px;
+      height: 54px;
     }
 
-    .brand-section {
+    .brand-box {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .btn-back-portal {
-      color: var(--text-main);
+    .back-btn {
+      color: var(--text-primary);
       font-size: 1.1rem;
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 6px;
+      padding: 4px;
     }
 
-    .brand-title {
+    .logo-text {
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       letter-spacing: -0.5px;
       background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .header-actions {
+    .header-icons {
       display: flex;
       align-items: center;
-      gap: 16px;
-      font-size: 1.25rem;
+      gap: 18px;
+      font-size: 1.3rem;
     }
 
-    .header-actions i {
+    .header-icons i {
       cursor: pointer;
+      position: relative;
     }
 
-    /* Stories Tray */
-    .stories-container {
+    .badge-dot {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 8px;
+      height: 8px;
+      background: var(--like);
+      border-radius: 50%;
+      border: 1.5px solid #000;
+    }
+
+    /* Stories Bar */
+    .stories-bar {
       display: flex;
       gap: 14px;
       padding: 12px 14px;
       overflow-x: auto;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border);
       scrollbar-width: none;
     }
-    .stories-container::-webkit-scrollbar { display: none; }
+    .stories-bar::-webkit-scrollbar { display: none; }
 
-    .story-bubble {
+    .story-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 68px;
+      width: 66px;
       flex-shrink: 0;
       cursor: pointer;
     }
 
-    .story-ring {
-      width: 64px;
-      height: 64px;
+    .story-avatar-wrap {
+      width: 62px;
+      height: 62px;
       border-radius: 50%;
       padding: 2px;
       background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .story-ring.add-story {
-      background: var(--border-color);
       position: relative;
     }
 
-    .story-ring img {
+    .story-avatar-wrap.add-story {
+      background: #333;
+    }
+
+    .story-avatar-wrap img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -134,25 +148,41 @@
       border: 2px solid #000;
     }
 
-    .story-username {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
+    .add-story-icon {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: var(--accent);
+      color: #fff;
+      font-size: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #000;
     }
 
-    /* Post Feed Cards */
-    .feed-container {
-      max-width: 500px;
+    .story-user {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-top: 5px;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Feed Layout */
+    .content-container {
+      max-width: 520px;
       margin: 0 auto;
     }
 
     .post-card {
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border);
       padding-bottom: 12px;
       margin-bottom: 8px;
     }
@@ -164,41 +194,42 @@
       padding: 10px 14px;
     }
 
-    .post-user-info {
+    .post-user-meta {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .post-avatar {
+    .avatar-sm {
       width: 36px;
       height: 36px;
       border-radius: 50%;
       object-fit: cover;
     }
 
-    .post-user-name {
+    .post-username {
       font-weight: 600;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
     }
 
-    .post-media-box {
+    .post-media-container {
       width: 100%;
-      max-height: 520px;
-      background: #050505;
+      background: #080808;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
+      max-height: 520px;
+      overflow: hidden;
     }
 
-    .post-media-box img, .post-media-box video {
+    .post-media-container img, 
+    .post-media-container video {
       width: 100%;
       max-height: 520px;
       object-fit: contain;
     }
 
-    .post-actions {
+    .post-interactions {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -206,40 +237,40 @@
       font-size: 1.35rem;
     }
 
-    .post-actions-left {
+    .interactions-left {
       display: flex;
       gap: 16px;
     }
 
-    .post-actions i {
+    .post-interactions i {
       cursor: pointer;
     }
 
-    .post-actions i.liked {
-      color: var(--danger);
+    .post-interactions i.liked {
+      color: var(--like);
     }
 
-    .post-stats {
+    .post-metrics {
       padding: 0 14px;
       font-size: 0.82rem;
       font-weight: 600;
-      color: var(--text-main);
+      color: var(--text-primary);
       display: flex;
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 6px;
     }
 
-    .post-caption {
+    .post-caption-box {
       padding: 0 14px;
-      font-size: 0.86rem;
-      line-height: 1.35;
+      font-size: 0.88rem;
+      line-height: 1.4;
     }
 
-    .post-caption strong {
+    .post-caption-box strong {
       margin-right: 6px;
     }
 
-    /* Bottom Navigation Bar */
+    /* Bottom Navigation */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
@@ -247,7 +278,7 @@
       right: 0;
       height: 56px;
       background: #000;
-      border-top: 1px solid var(--border-color);
+      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-around;
@@ -255,48 +286,48 @@
       font-size: 1.3rem;
     }
 
-    .nav-btn {
-      color: var(--text-muted);
+    .nav-icon {
+      color: var(--text-secondary);
       cursor: pointer;
-      position: relative;
     }
 
-    .nav-btn.active {
-      color: var(--text-main);
+    .nav-icon.active {
+      color: var(--text-primary);
     }
 
-    /* Modals & Full Views */
-    .modal-overlay {
+    /* Modals & Overlays */
+    .modal-backdrop {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.85);
-      z-index: 200;
+      z-index: 250;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
 
-    .modal-overlay.active {
+    .modal-backdrop.show {
       display: flex;
     }
 
-    .modal-card {
+    .modal-sheet {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
       width: 100%;
-      max-width: 420px;
-      max-height: 90vh;
+      max-width: 440px;
+      max-height: 92vh;
       overflow-y: auto;
-      padding: 20px;
+      padding: 22px;
     }
 
-    .modal-header {
+    .modal-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
+      font-size: 1.1rem;
       font-weight: 700;
     }
 
@@ -307,905 +338,1217 @@
     .form-group label {
       display: block;
       font-size: 0.8rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-bottom: 6px;
+      font-weight: 500;
     }
 
-    .form-control {
+    .input-field {
       width: 100%;
-      background: #202020;
-      border: 1px solid var(--border-color);
+      background: #1c1c1c;
+      border: 1px solid var(--border);
       color: #fff;
-      padding: 11px 12px;
-      border-radius: 8px;
-      font-size: 0.9rem;
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-size: 0.92rem;
       outline: none;
     }
 
-    .form-control:focus {
-      border-color: var(--primary-accent);
+    .input-field:focus {
+      border-color: var(--accent);
     }
 
-    .btn-submit {
+    .btn-main {
       width: 100%;
-      background: var(--primary-accent);
+      background: var(--accent);
       color: #fff;
       border: none;
       padding: 12px;
-      border-radius: 8px;
+      border-radius: 9px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 8px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-main:active {
+      background: var(--accent-hover);
     }
 
     .btn-google {
       width: 100%;
-      background: #fff;
+      background: #ffffff;
       color: #000;
       border: none;
       padding: 11px;
-      border-radius: 8px;
+      border-radius: 9px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 12px;
+      font-size: 0.92rem;
     }
-
-    /* Progress bar */
-    .progress-bar-container {
-      width: 100%;
-      background: #262626;
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 10px 0;
-      display: none;
-    }
-
-    .progress-bar-fill {
-      width: 0%;
-      height: 6px;
-      background: var(--primary-accent);
-      transition: width 0.2s ease;
-    }
-
-    /* Profile Section */
-    .profile-container {
+    /* Profile View */
+    .profile-view {
       display: none;
       padding: 16px;
-      max-width: 500px;
-      margin: 0 auto;
     }
 
-    .profile-top {
+    .profile-header {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 22px;
       margin-bottom: 16px;
     }
 
-    .profile-img-large {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--border-color);
+    .profile-avatar-wrap {
+      position: relative;
+      width: 82px;
+      height: 82px;
+      cursor: pointer;
     }
 
-    .profile-metrics {
+    .profile-avatar-large {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+    }
+
+    .avatar-edit-badge {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: var(--accent);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
       display: flex;
-      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #fff;
+      border: 2px solid #000;
+    }
+
+    .profile-stats-group {
+      display: flex;
+      gap: 24px;
       text-align: center;
     }
 
-    .metric-value {
+    .stat-number {
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
-    .metric-lbl {
+    .stat-label {
       font-size: 0.75rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
-    .profile-bio-box {
-      font-size: 0.88rem;
+    .profile-info {
       margin-bottom: 16px;
+    }
+
+    .profile-display-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .profile-display-handle {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .profile-bio-text {
+      font-size: 0.88rem;
       line-height: 1.4;
     }
 
-    .profile-grid {
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background: #242424;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 9px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .profile-grid-feed {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 3px;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
-    .profile-grid-item {
+    .grid-feed-item {
       aspect-ratio: 1;
       background: #181818;
-      overflow: hidden;
+      position: relative;
     }
 
-    .profile-grid-item img, .profile-grid-item video {
+    .grid-feed-item img, 
+    .grid-feed-item video {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    /* Chat Section */
-    .chat-container {
+    /* Chat View */
+    .chat-view {
       display: none;
-      max-width: 500px;
-      margin: 0 auto;
       height: calc(100vh - 120px);
       flex-direction: column;
     }
 
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 12px;
+    .active-users-bar {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
     }
 
-    .chat-msg {
+    .active-user-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .active-avatar-wrap {
+      width: 46px;
+      height: 46px;
+      position: relative;
+    }
+
+    .active-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .online-indicator {
+      width: 11px;
+      height: 11px;
+      background: var(--online);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      border: 2px solid #000;
+    }
+
+    .chat-inbox-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 14px;
+    }
+
+    .chat-bubble-msg {
       max-width: 75%;
-      padding: 8px 12px;
-      border-radius: 16px;
+      padding: 10px 14px;
+      border-radius: 18px;
       font-size: 0.88rem;
+      margin-bottom: 8px;
       word-break: break-word;
     }
 
-    .chat-msg.mine {
+    .chat-bubble-msg.outgoing {
+      background: var(--accent);
+      color: #fff;
       align-self: flex-end;
-      background: var(--primary-accent);
-      color: #fff;
+      margin-left: auto;
     }
 
-       .chat-msg.theirs {
+    .chat-bubble-msg.incoming {
+      background: #242424;
+      color: #fff;
       align-self: flex-start;
-      background: #262626;
-      color: #fff;
+      margin-right: auto;
     }
 
-    .chat-bar {
+    .chat-send-bar {
       display: flex;
       gap: 8px;
       padding: 10px 14px;
-      border-top: 1px solid var(--border-color);
+      border-top: 1px solid var(--border);
     }
 
-    /* Notification Tray */
-    .notif-container {
+    /* Comments Drawer */
+    .comments-drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 300;
       display: none;
-      padding: 14px;
-      max-width: 500px;
-      margin: 0 auto;
+      align-items: flex-end;
     }
 
-    .notif-item {
+    .comments-drawer.show {
       display: flex;
+    }
+
+    .drawer-content {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      border-radius: 16px 16px 0 0;
+      width: 100%;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comments-list-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 0;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .comment-unit {
       font-size: 0.85rem;
+      line-height: 1.35;
+    }
+
+    .comment-unit strong {
+      margin-right: 6px;
+    }
+
+    /* Upload Progress Indicator */
+    .upload-progress-box {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .progress-track {
+      background: #282828;
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: var(--accent);
+      height: 100%;
+      width: 0%;
+      transition: width 0.2s ease;
     }
   </style>
 </head>
 <body>
 
-  <!-- App Header -->
-  <header class="app-header">
-    <div class="brand-section">
-      <!-- Back to Main Portal -->
-      <a href="index.html" class="btn-back-portal" title="Back to Portal">
+  <!-- Top Header Navigation -->
+  <header class="top-header">
+    <div class="brand-box">
+      <!-- Direct Back to Portal -->
+      <a href="index.html" class="back-btn" title="Back to Main Portal">
         <i class="fa-solid fa-arrow-left"></i>
       </a>
-      <span class="brand-title">WDM</span>
+      <span class="logo-text">Gramin Connect</span>
     </div>
-    <div class="header-actions">
-      <i class="fa-regular fa-heart" onclick="switchTab('notifications')" title="Notifications"></i>
-      <i class="fa-brands fa-facebook-messenger" onclick="switchTab('chat')" title="Messages"></i>
+    <div class="header-icons">
+      <i class="fa-regular fa-heart" onclick="switchMainTab('notifications')"></i>
+      <i class="fa-brands fa-facebook-messenger" onclick="switchMainTab('chat')">
+        <span class="badge-dot" id="chatBadge" style="display:none;"></span>
+      </i>
     </div>
   </header>
 
-  <!-- Stories Tray -->
-  <div class="stories-container" id="storiesTray">
-    <!-- Story Add Button -->
-    <div class="story-bubble" onclick="openStoryUploadModal()">
-      <div class="story-ring add-story">
-        <img id="myStoryAvatar" src="https://via.placeholder.com/64" alt="Me">
-        <i class="fa-solid fa-plus" style="position: absolute; bottom: 2px; right: 2px; background: var(--primary-accent); border-radius: 50%; font-size: 11px; padding: 3px; color: #fff;"></i>
+  <!-- Stories Bar -->
+  <div class="stories-bar" id="storiesBar">
+    <!-- Story Upload Action -->
+    <div class="story-item" onclick="triggerStoryUpload()">
+      <div class="story-avatar-wrap add-story">
+        <img id="myStoryAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="You">
+        <div class="add-story-icon"><i class="fa-solid fa-plus"></i></div>
       </div>
-      <span class="story-username">Your Story</span>
+      <span class="story-user">Your Story</span>
     </div>
-    <!-- Dynamically loaded stories -->
-    <div id="dynamicStories" style="display: flex; gap: 14px;"></div>
+    <div id="activeStoriesTray" style="display: flex; gap: 14px;"></div>
   </div>
 
-  <!-- Main Feed View -->
-  <main class="feed-container" id="feedView">
-    <div id="postsList">
-      <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-        <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-        <p style="margin-top: 10px;">loading...</p>
-      </div>
-    </div>
+  <!-- Feed Section -->
+  <main class="content-container" id="feedSection">
+    <div id="postsFeedContainer"></div>
   </main>
 
-  <!-- Search View -->
-  <section class="feed-container" id="searchView" style="display: none; padding: 14px;">
-    <input type="text" id="searchInput" class="form-control" placeholder="Search user, posts or captions..." oninput="handleSearch(this.value)">
-    <div id="searchResults" style="margin-top: 14px;"></div>
+  <!-- Search Section -->
+  <section class="content-container" id="searchSection" style="display: none; padding: 14px;">
+    <input type="text" id="mainSearchInput" class="input-field" placeholder="Search people, tags or captions..." oninput="filterMediaSearch(this.value)">
+    <div id="searchListResults" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px;"></div>
   </section>
 
-  <!-- Chat / Messages View -->
-  <section class="chat-container" id="chatView">
-    <div class="chat-messages" id="chatMessagesBox"></div>
-    <div class="chat-bar">
-      <input type="text" id="chatInputText" class="form-control" placeholder="Message likhein...">
-      <button class="btn-submit" style="width: auto; padding: 0 16px; margin: 0;" onclick="sendDirectMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+  <!-- Direct Messages / Chat Section -->
+  <section class="content-container chat-view" id="chatSection">
+    <!-- Active Online Users -->
+    <div class="active-users-bar" id="activeUsersTray"></div>
+    <div class="chat-inbox-list" id="chatMessagesContainer"></div>
+    <div class="chat-send-bar">
+      <input type="text" id="chatInputMessage" class="input-field" placeholder="Send a message...">
+      <button class="btn-main" style="width: auto; padding: 0 18px;" onclick="sendChatMessage()">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
     </div>
   </section>
 
-  <!-- Notifications View -->
-  <section class="notif-container" id="notifView">
-    <h3 style="margin-bottom: 12px; font-size: 1.1rem;">Activity</h3>
-    <div id="notifListBox">
-      <p style="color: var(--text-muted); font-size: 0.85rem;">Not any Notification.</p>
-    </div>
+  <!-- Notifications Section -->
+  <section class="content-container" id="notifSection" style="display: none; padding: 16px;">
+    <h3 style="font-size: 1.1rem; margin-bottom: 14px;">Notifications</h3>
+    <div id="notificationsListBox" style="display: flex; flex-direction: column; gap: 12px;"></div>
   </section>
 
-  <!-- Profile View -->
-  <section class="profile-container" id="profileView">
-    <div class="profile-top">
-      <img id="profileUserAvatar" src="https://via.placeholder.com/80" class="profile-img-large" alt="Profile">
-      <div class="profile-metrics">
+  <!-- My Profile Section -->
+  <section class="content-container profile-view" id="profileSection">
+    <div class="profile-header">
+      <div class="profile-avatar-wrap" onclick="triggerProfilePhotoPicker()">
+        <img id="profileUserImg" class="profile-avatar-large" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar">
+        <div class="avatar-edit-badge"><i class="fa-solid fa-camera"></i></div>
+      </div>
+      <div class="profile-stats-group">
         <div>
-          <div class="metric-value" id="profilePostsCount">0</div>
-          <div class="metric-lbl">Posts</div>
+          <div class="stat-number" id="userPostsCount">0</div>
+          <div class="stat-label">Posts</div>
         </div>
         <div>
-          <div class="metric-value" id="profileFollowersCount">0</div>
-          <div class="metric-lbl">Followers</div>
+          <div class="stat-number" id="userFollowersCount">128</div>
+          <div class="stat-label">Followers</div>
         </div>
         <div>
-          <div class="metric-value" id="profileFollowingCount">0</div>
-          <div class="metric-lbl">Following</div>
+          <div class="stat-number" id="userFollowingCount">64</div>
+          <div class="stat-label">Following</div>
         </div>
       </div>
     </div>
 
-    <div class="profile-bio-box">
-      <div style="font-weight: 700;" id="profileFullnameDisplay">User Name</div>
-      <div style="color: var(--text-muted);" id="profileUsernameDisplay">@username</div>
-      <div id="profileBioDisplay" style="margin-top: 4px;">WDM MEDIA.</div>
+    <div class="profile-info">
+      <div class="profile-display-name" id="userFullnameLabel">Citizen User</div>
+      <div class="profile-display-handle" id="userHandleLabel">@user_abc</div>
+      <div class="profile-bio-text" id="userBioLabel">Digital Panchayat member. Exploring village events.</div>
     </div>
 
-    <div style="display: flex; gap: 8px;">
-      <button class="btn-submit" style="background: #262626; color: #fff; font-size: 0.85rem; padding: 8px;" onclick="openEditProfileModal()">Edit Profile</button>
-      <button class="btn-submit" style="background: #262626; color: var(--danger); font-size: 0.85rem; padding: 8px;" onclick="handleUserLogout()">Logout</button>
+    <div class="profile-actions">
+      <button class="btn-secondary" onclick="openProfileEditModal()">Edit Profile</button>
+      <button class="btn-secondary" style="color: var(--like);" onclick="handleUserLogout()">Logout</button>
     </div>
 
-    <div class="profile-grid" id="profilePostsGrid"></div>
+    <div class="profile-grid-feed" id="userGridPostsContainer"></div>
   </section>
 
-  <!-- Bottom Navigation -->
+  <!-- Bottom App Navigation Bar -->
   <nav class="bottom-nav">
-    <i class="fa-solid fa-house nav-btn active" onclick="switchTab('feed')" id="navHome"></i>
-    <i class="fa-solid fa-magnifying-glass nav-btn" onclick="switchTab('search')" id="navSearch"></i>
-    <i class="fa-regular fa-square-plus nav-btn" onclick="openCreatePostModal()" id="navAdd"></i>
-    <i class="fa-solid fa-user nav-btn" onclick="switchTab('profile')" id="navProfile"></i>
+    <i class="fa-solid fa-house nav-icon active" id="navItemHome" onclick="switchMainTab('feed')"></i>
+    <i class="fa-solid fa-magnifying-glass nav-icon" id="navItemSearch" onclick="switchMainTab('search')"></i>
+    <i class="fa-regular fa-square-plus nav-icon" onclick="triggerPostFilePicker()"></i>
+    <i class="fa-solid fa-user nav-icon" id="navItemProfile" onclick="switchMainTab('profile')"></i>
   </nav>
 
-  <!-- 1. Authentication Modal (Create Account / Login) -->
-  <div class="modal-overlay" id="authModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <span id="authModalTitle">Create WDM Account</span>
+  <!-- Hidden Native File Inputs (Direct Phone Picker Trigger) -->
+  <input type="file" id="hiddenPostFileInput" accept="image/*,video/*" style="display:none;" onchange="onPostFileSelected(this)">
+  <input type="file" id="hiddenStoryFileInput" accept="image/*,video/*" style="display:none;" onchange="onStoryFileSelected(this)">
+  <input type="file" id="hiddenAvatarFileInput" accept="image/*" style="display:none;" onchange="onAvatarFileSelected(this)">
+
+  <!-- MODALS -->
+
+  <!-- 1. Post Preview & Caption Modal -->
+  <div class="modal-backdrop" id="postCreateModal">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <span>New Post</span>
+        <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="closeModal('postCreateModal')"></i>
+      </div>
+      <div id="postPreviewContainer" style="width: 100%; max-height: 250px; background: #000; border-radius: 8px; overflow: hidden; margin-bottom: 12px; display: flex; align-items: center; justify-content: center;"></div>
+      <div class="form-group">
+        <label>Caption / Description</label>
+        <textarea id="newPostCaption" class="input-field" rows="3" placeholder="Write something about this post..."></textarea>
+      </div>
+      <div class="upload-progress-box" id="postUploadProgressBox">
+        <div class="progress-track"><div class="progress-fill" id="postProgressBar"></div></div>
+        <div style="font-size: 0.75rem; color: var(--text-secondary); text-align: right; margin-top: 4px;" id="postProgressPercent">0%</div>
+      </div>
+      <button class="btn-main" id="btnSubmitPost" onclick="executePostUpload()">Share Post</button>
+    </div>
+  </div>
+
+  <!-- 2. Auth Modal (Register / Login) -->
+  <div class="modal-backdrop" id="authGatewayModal">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <span id="authHeaderTitle">Join Community</span>
       </div>
 
-      <!-- Mode Switch Buttons -->
-      <div style="display: flex; gap: 8px; margin-bottom: 14px;">
-        <button id="btnTabCreate" class="btn-submit" style="margin: 0; padding: 8px;" onclick="setAuthMode('create')">Register</button>
-        <button id="btnTabLogin" class="btn-submit" style="margin: 0; padding: 8px; background: #262626;" onclick="setAuthMode('login')">Login</button>
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <button id="tabRegisterBtn" class="btn-main" style="margin: 0; padding: 8px;" onclick="setAuthTab('register')">Create Account</button>
+        <button id="tabLoginBtn" class="btn-main" style="margin: 0; padding: 8px; background: #242424;" onclick="setAuthTab('login')">Sign In</button>
       </div>
 
-      <!-- Register Form Fields -->
-      <div id="registerFields">
+      <!-- Registration Form -->
+      <div id="registerFormFields">
         <div class="form-group">
           <label>Full Name *</label>
-          <input type="text" id="regFullName" class="form-control" placeholder="Enter your name">
+          <input type="text" id="regFullName" class="input-field" placeholder="e.g. Alex Smith">
         </div>
         <div class="form-group">
-  <label>Date of Birth (DD/MM/YY) *</label>
-  <input type="text" id="regDOB" class="form-control" placeholder="DDMMYY (eg: 01/01/2001)" maxlength="6" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+          <label>User ID (Unique) *</label>
+          <input type="text" id="regUserId" class="input-field" placeholder="e.g. abc_user">
         </div>
-        
+        <div class="form-group">
+          <label>Date of Birth *</label>
+          <input type="date" id="regDob" class="input-field">
+        </div>
+        <div class="form-group">
+          <label>Short Bio</label>
+          <input type="text" id="regBio" class="input-field" placeholder="Tell something about yourself...">
+        </div>
+      </div>
+
+      <!-- Login Form Fields -->
+      <div id="loginFormFields" style="display: none;">
         <div class="form-group">
           <label>User ID *</label>
-          <input type="text" id="regUsername" class="form-control" placeholder="eg: abc_123,abc-456">
+          <input type="text" id="loginUserId" class="input-field" placeholder="Enter your User ID">
         </div>
       </div>
 
-      <!-- Common Fields -->
-      <div class="form-group" id="loginUsernameGroup" style="display: none;">
-        <label>User ID *</label>
-        <input type="text" id="loginUsername" class="form-control" placeholder="User ID">
-      </div>
-
+      <!-- Password Field -->
       <div class="form-group">
         <label>Password *</label>
-        <input type="password" id="authPassword" class="form-control" placeholder="eg:abc@123">
+        <input type="password" id="authPass" class="input-field" placeholder="Minimum 6 characters">
       </div>
 
-      <button class="btn-submit" id="authSubmitBtn" onclick="handleAuthSubmit()">Create Account</button>
-      
-      <div style="text-align: center; margin: 12px 0; color: var(--text-muted); font-size: 0.8rem;">or</div>
+      <button class="btn-main" id="authSubmitActionBtn" onclick="processAuthSubmit()">Continue</button>
 
-      <button class="btn-google" onclick="handleGoogleSignIn()">
+      <div style="text-align: center; margin: 12px 0; color: var(--text-secondary); font-size: 0.8rem;">OR</div>
+
+      <button class="btn-google" onclick="triggerGoogleAuthentication()">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
-        login with Google account 
+        Continue with Google
       </button>
     </div>
   </div>
 
-  <!-- 2. Create Post Modal -->
-  <div class="modal-overlay" id="postModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <span>upload new post</span>
-        <i class="fa-solid fa-xmark" onclick="closeModal('postModal')" style="cursor: pointer;"></i>
+  <!-- 3. Edit Profile Modal -->
+  <div class="modal-backdrop" id="editProfileDialog">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <span>Edit Profile</span>
+        <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="closeModal('editProfileDialog')"></i>
       </div>
 
-      <div class="form-group">
-        <label>choose photo/video*</label>
-        <input type="file" id="postFileInput" class="form-control" accept="image/*,video/*">
-      </div>
-
-      <div class="form-group">
-        <label>Description / Caption</label>
-        <textarea id="postCaptionInput" class="form-control" rows="3" placeholder="Apne post ke baare mein likhein..."></textarea>
-      </div>
-
-      <div class="progress-bar-container" id="postProgressBarBox">
-        <div class="progress-bar-fill" id="postProgressBar"></div>
-      </div>
-      <div id="postUploadStatus" style="font-size: 0.8rem; color: var(--text-muted); text-align: center;"></div>
-
-      <button class="btn-submit" id="btnUploadPost" onclick="uploadPostAction()">share this post</button>
-    </div>
-  </div>
-
-  <!-- 3. Create Story Modal -->
-  <div class="modal-overlay" id="storyModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <span>create story 
-    </span>
-        <i class="fa-solid fa-xmark" onclick="closeModal('storyModal')" style="cursor: pointer;"></i>
-      </div>
-
-      <div class="form-group">
-        <label>Media (Photo / Short Video)</label>
-        <input type="file" id="storyFileInput" class="form-control" accept="image/*,video/*">
-      </div>
-
-      <div class="progress-bar-container" id="storyProgressBarBox">
-        <div class="progress-bar-fill" id="storyProgressBar"></div>
-      </div>
-      <div id="storyUploadStatus" style="font-size: 0.8rem; color: var(--text-muted); text-align: center;"></div>
-
-      <button class="btn-submit" id="btnUploadStory" onclick="uploadStoryAction()"> Add Story</button>
-    </div>
-  </div>
-
-  <!-- 4. Edit Profile Modal -->
-  <div class="modal-overlay" id="editProfileModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <span>edit Profile</span>
-        <i class="fa-solid fa-xmark" onclick="closeModal('editProfileModal')" style="cursor: pointer;"></i>
-      </div>
-
-      <div class="form-group">
-        <label>New Profile Picture</label>
-        <input type="file" id="editAvatarFileInput" class="form-control" accept="image/*">
+      <div class="form-group" style="text-align: center;">
+        <div class="profile-avatar-wrap" style="margin: 0 auto;" onclick="triggerProfilePhotoPicker()">
+          <img id="editModalAvatarPreview" class="profile-avatar-large" src="" alt="Avatar">
+          <div class="avatar-edit-badge"><i class="fa-solid fa-camera"></i></div>
+        </div>
+        <span style="font-size: 0.75rem; color: var(--accent); margin-top: 6px; display: inline-block;">Change Photo</span>
       </div>
 
       <div class="form-group">
         <label>Full Name</label>
-        <input type="text" id="editFullNameInput" class="form-control">
+        <input type="text" id="editProfileName" class="input-field">
       </div>
-
+      <div class="form-group">
+        <label>User ID</label>
+        <input type="text" id="editProfileUserId" class="input-field">
+      </div>
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" id="editProfileDob" class="input-field">
+      </div>
       <div class="form-group">
         <label>Bio</label>
-        <textarea id="editBioInput" class="form-control" rows="3"></textarea>
+        <textarea id="editProfileBio" class="input-field" rows="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label>New Password (Leave empty to keep same)</label>
+        <input type="password" id="editProfileNewPassword" class="input-field" placeholder="Enter new password">
       </div>
 
-      <div class="progress-bar-container" id="profileProgressBarBox">
-        <div class="progress-bar-fill" id="profileProgressBar"></div>
-      </div>
-
-      <button class="btn-submit" id="btnSaveProfile" onclick="saveProfileChanges()">Update Karein</button>
+      <button class="btn-main" onclick="saveProfileUpdates()">Save Changes</button>
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- 4. Comments Drawer -->
+  <div class="comments-drawer" id="commentsDrawer">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <strong>Comments</strong>
+        <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="closeCommentsDrawer()"></i>
+      </div>
+      <div class="comments-list-box" id="commentsListWrapper"></div>
+      <div style="display: flex; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border);">
+        <input type="text" id="newCommentInput" class="input-field" placeholder="Add a comment...">
+        <button class="btn-main" style="width: auto; padding: 0 16px;" onclick="postCommentAction()">Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT CORE SYSTEM -->
   <script>
-    // --- 1. CONFIGURATION ---
+    // --- 1. CONFIGURATIONS ---
     const CLOUDINARY_CLOUD_NAME = "afcw94ij";
     const CLOUDINARY_UPLOAD_PRESET = "wdm_media";
 
-    // Aapka existing Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
-      authDomain: "wdm-update.firebaseapp.com",
-      projectId: "wdm-update",
-      storageBucket: "wdm-update.firebasestorage.app",
-      messagingSenderId: "677435578526",
-      appId: "1:677435578526:web:74119dc8309c4ba744838f",
+    // Optional Telegram Configuration (Direct Bot Updates)
+    const TELEGRAM_CONFIG = {
+      botToken: "", // Optional: Insert Telegram Bot Token if required
+      chatId: ""    // Optional: Insert Telegram Chat ID
     };
 
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    // Firebase fallback config (auto-updated from index.html if found)
+    let firebaseConfig = {
+      apiKey: "AIzaSy_DEFAULT_KEY",
+      authDomain: "wdm-update.firebaseapp.com",
+      projectId: "wdm-update",
+      storageBucket: "wdm-update.appspot.com",
+      messagingSenderId: "100000000000",
+      appId: "1:100000000000:web:sample"
+    };
 
-    let currentUserData = null;
-    let authMode = "create";
+    let auth, db;
+    let currentUser = null;
+    let currentAuthMode = "register";
+    let selectedPostFile = null;
+    let activeCommentPostId = null;
 
-    // --- 2. AUTHENTICATION & SESSION HANDLING ---
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        // Fetch User Data from Firestore
-        const userDoc = await db.collection("users").doc(user.uid).get();
-        if (userDoc.exists) {
-          currentUserData = { uid: user.uid, ...userDoc.data() };
-          postAuthInit();
-        } else {
-          // If Google signin first time
-          const tempUsername = "user_" + user.uid.substring(0, 6);
-          const initialData = {
-            fullName: user.displayName || "Gramin Citizen",
-            username: tempUsername,
-            dob: "",
-            email: user.email || "",
-            avatar: user.photoURL || "https://via.placeholder.com/80",
-            bio: "Gram Panchayat Wyndhamganj Butbherwa citizen.",
-            followers: [],
-            following: [],
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          };
-          await db.collection("users").doc(user.uid).set(initialData);
-          currentUserData = { uid: user.uid, ...initialData };
-          postAuthInit();
+    // --- 2. DUMMY FEEDS INITIALIZER ---
+    const INITIAL_SAMPLE_POSTS = [
+      {
+        id: "sample_post_1",
+        authorName: "Panchayat Media Hub",
+        authorUsername: "panchayat_news",
+        authorAvatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&auto=format&fit=crop&q=80",
+        mediaUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop&q=80",
+        mediaType: "image",
+        caption: "Sunrise views across the fields of Wyndhamganj. Have a productive day ahead everyone! 🌾☀️",
+        likes: ["usr_sample1", "usr_sample2"],
+        views: 240,
+        createdAt: new Date()
+      },
+      {
+        id: "sample_post_2",
+        authorName: "Village Sports Club",
+        authorUsername: "sports_arena",
+        authorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80",
+        mediaUrl: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&auto=format&fit=crop&q=80",
+        mediaType: "image",
+        caption: "Friendly local cricket championship tournament announced for next Sunday. Join your village team! 🏏",
+        likes: ["usr_sample1"],
+        views: 185,
+        createdAt: new Date()
+      },
+      {
+        id: "sample_post_3",
+        authorName: "Community Library",
+        authorUsername: "digital_shiksha",
+        authorAvatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80",
+        mediaUrl: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&auto=format&fit=crop&q=80",
+        mediaType: "image",
+        caption: "New computer and coding books now available at the Panchayat center. Free access for all students. 💻📚",
+        likes: ["usr_sample3", "usr_sample4"],
+        views: 310,
+        createdAt: new Date()
+      }
+    ];
+
+    // --- 3. DYNAMIC FIREBASE INITIALIZER ---
+    async function bootFirebase() {
+      try {
+        const response = await fetch("index.html");
+        if (response.ok) {
+          const content = await response.text();
+          const extractedConfig = content.match(/firebaseConfig\s*=\s*({[\s\S]*?});/);
+          if (extractedConfig && extractedConfig[1]) {
+            firebaseConfig = (new Function("return " + extractedConfig[1]))();
+          }
         }
-      } else {
-        // Open Auth Modal
-        document.getElementById("authModal").classList.add("active");
+      } catch (err) {
+        console.log("Auto-fetch fallback used.");
       }
-    });
 
-    function setAuthMode(mode) {
-      authMode = mode;
-      const regFields = document.getElementById("registerFields");
-      const loginGroup = document.getElementById("loginUsernameGroup");
-      const btnTabCreate = document.getElementById("btnTabCreate");
-      const btnTabLogin = document.getElementById("btnTabLogin");
-      const authTitle = document.getElementById("authModalTitle");
-      const submitBtn = document.getElementById("authSubmitBtn");
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      auth = firebase.auth();
+      db = firebase.firestore();
 
-      if (mode === "create") {
-        regFields.style.display = "block";
-        loginGroup.style.display = "none";
-        btnTabCreate.style.background = "var(--primary-accent)";
-        btnTabLogin.style.background = "#262626";
-        authTitle.innerText = "Create WDM Account";
-        submitBtn.innerText = "Creat account";
+      listenAuthStatus();
+    }
+
+    bootFirebase();
+
+    // --- 4. TELEGRAM NOTIFIER HELPER ---
+    function sendTelegramAlert(eventMessage) {
+      if (!TELEGRAM_CONFIG.botToken || !TELEGRAM_CONFIG.chatId) return;
+      const apiEndpoint = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
+      fetch(apiEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CONFIG.chatId,
+          text: `[Portal Notification]\n${eventMessage}`
+        })
+      }).catch(err => console.warn("Telegram ping failed", err));
+    }
+
+    // --- 5. AUTHENTICATION LIFECYCLE ---
+    function listenAuthStatus() {
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          const userDoc = await db.collection("users").doc(user.uid).get();
+          if (userDoc.exists) {
+            currentUser = { uid: user.uid, ...userDoc.data() };
+            completeLoginSuccess();
+          } else {
+            // Google user first sign in
+            const defaultUid = "user_" + user.uid.substring(0, 5);
+            currentUser = {
+              uid: user.uid,
+              fullName: user.displayName || "Portal Citizen",
+              username: defaultUid,
+              dob: "",
+              bio: "Member of Gramin Portal.",
+              avatar: user.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
+              followers: [],
+              following: []
+            };
+            await db.collection("users").doc(user.uid).set(currentUser);
+            sendTelegramAlert(`New User via Google: ${currentUser.fullName} (@${currentUser.username})`);
+            completeLoginSuccess();
+          }
+        } else {
+          document.getElementById("authGatewayModal").classList.add("show");
+        }
+      });
+    }
+
+    function setAuthTab(mode) {
+      currentAuthMode = mode;
+      const regForm = document.getElementById("registerFormFields");
+      const loginForm = document.getElementById("loginFormFields");
+      const regTab = document.getElementById("tabRegisterBtn");
+      const loginTab = document.getElementById("tabLoginBtn");
+      const title = document.getElementById("authHeaderTitle");
+
+      if (mode === "register") {
+        regForm.style.display = "block";
+        loginForm.style.display = "none";
+        regTab.style.background = "var(--accent)";
+        loginTab.style.background = "#242424";
+        title.innerText = "Create Account";
       } else {
-        regFields.style.display = "none";
-        loginGroup.style.display = "block";
-        btnTabLogin.style.background = "var(--primary-accent)";
-        btnTabCreate.style.background = "#262626";
-        authTitle.innerText = "Login to Portal";
-        submitBtn.innerText = "Login";
+        regForm.style.display = "none";
+        loginForm.style.display = "block";
+        loginTab.style.background = "var(--accent)";
+        regTab.style.background = "#242424";
+        title.innerText = "Sign In to Account";
       }
     }
 
-    async function handleAuthSubmit() {
-      const password = document.getElementById("authPassword").value;
-      if (!password || password.length < 6) {
-        alert("at least 6 Digt password must be!");
+    async function processAuthSubmit() {
+      const pass = document.getElementById("authPass").value.trim();
+      if (!pass || pass.length < 6) {
+        alert("Password must be at least 6 characters!");
         return;
       }
 
-      if (authMode === "create") {
+      if (currentAuthMode === "register") {
         const fullName = document.getElementById("regFullName").value.trim();
-        const dob = document.getElementById("regDOB").value.trim();
-        const username = document.getElementById("regUsername").value.trim().toLowerCase();
+        const username = document.getElementById("regUserId").value.trim().toLowerCase();
+        const dob = document.getElementById("regDob").value;
+        const bio = document.getElementById("regBio").value.trim() || "Village community member.";
 
-        if (!fullName || !dob || !username) {
-          alert("please full fill up!");
+        if (!fullName || !username || !dob) {
+          alert("Please fill all required fields!");
           return;
         }
 
         // Check if username already exists
-        const checkUsername = await db.collection("users").where("username", "==", username).get();
-        if (!checkUsername.empty) {
+        const existsCheck = await db.collection("users").where("username", "==", username).get();
+        if (!existsCheck.empty) {
           alert("already exists");
           return;
         }
 
-        const email = `${username}@wyndhamganj.local`;
-
+        const internalEmail = `${username}@portal.local`;
         try {
-          const cred = await auth.createUserWithEmailAndPassword(email, password);
+          const creds = await auth.createUserWithEmailAndPassword(internalEmail, pass);
           const userData = {
             fullName,
-            dob,
             username,
-            avatar: "https://via.placeholder.com/80",
-            bio: "Gram Panchayat Wyndhamganj Butbherwa citizen.",
+            dob,
+            bio,
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
             followers: [],
             following: [],
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           };
-          await db.collection("users").doc(cred.user.uid).set(userData);
-          currentUserData = { uid: cred.user.uid, ...userData };
-          closeModal("authModal");
-          postAuthInit();
+          await db.collection("users").doc(creds.user.uid).set(userData);
+          currentUser = { uid: creds.user.uid, ...userData };
+          sendTelegramAlert(`New Account Registered: ${fullName} (@${username}), DOB: ${dob}`);
+          completeLoginSuccess();
         } catch (err) {
-          alert("Registration Error: " + err.message);
+          if (err.code === "auth/email-already-in-use") {
+            alert("already exists");
+          } else {
+            alert("Error: " + err.message);
+          }
         }
       } else {
-        // Login mode
-        const username = document.getElementById("loginUsername").value.trim().toLowerCase();
+        const username = document.getElementById("loginUserId").value.trim().toLowerCase();
         if (!username) {
-          alert("User ID darj karein!");
+          alert("Please enter your User ID!");
           return;
         }
-        const email = `${username}@wyndhamganj.local`;
+        const internalEmail = `${username}@portal.local`;
         try {
-          await auth.signInWithEmailAndPassword(email, password);
-          closeModal("authModal");
+          await auth.signInWithEmailAndPassword(internalEmail, pass);
+          completeLoginSuccess();
         } catch (err) {
-          alert("Invalid User ID ya Password!");
+          alert("Invalid User ID or Password!");
         }
       }
     }
 
-    async function handleGoogleSignIn() {
+    async function triggerGoogleAuthentication() {
       const provider = new firebase.auth.GoogleAuthProvider();
       try {
         await auth.signInWithPopup(provider);
-        closeModal("authModal");
-      } catch (e) {
-        alert("Google Login Error: " + e.message);
+        completeLoginSuccess();
+      } catch (err) {
+        alert("Google Sign-In failed: " + err.message);
       }
+    }
+
+    function completeLoginSuccess() {
+      closeModal("authGatewayModal");
+      document.getElementById("userFullnameLabel").innerText = currentUser.fullName;
+      document.getElementById("userHandleLabel").innerText = "@" + currentUser.username;
+      document.getElementById("userBioLabel").innerText = currentUser.bio;
+      document.getElementById("profileUserImg").src = currentUser.avatar;
+      document.getElementById("myStoryAvatar").src = currentUser.avatar;
+
+      initFeedSubscription();
+      initStoriesSubscription();
+      initChatSubscription();
+      initNotificationsSubscription();
+      loadUserGridPosts();
     }
 
     function handleUserLogout() {
-      auth.signOut().then(() => {
-        location.reload();
-      });
+      auth.signOut().then(() => location.reload());
     }
 
-    function postAuthInit() {
-      document.getElementById("authModal").classList.remove("active");
-      if (currentUserData.avatar) {
-        document.getElementById("myStoryAvatar").src = currentUserData.avatar;
-        document.getElementById("profileUserAvatar").src = currentUserData.avatar;
-      }
-      document.getElementById("profileFullnameDisplay").innerText = currentUserData.fullName || "";
-      document.getElementById("profileUsernameDisplay").innerText = "@" + (currentUserData.username || "");
-      document.getElementById("profileBioDisplay").innerText = currentUserData.bio || "";
-      
-      initFeedListener();
-      initStoriesListener();
-      initChatListener();
-      loadProfilePosts();
-    }
-
-    // --- 3. CLOUDINARY UPLOAD HELPER ---
-    async function uploadToCloudinary(file, progressCb) {
-      const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    // --- 6. CLOUDINARY UPLOADER ---
+    async function executeCloudinaryUpload(file, progressCallback) {
+      const endpoint = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
+        xhr.open("POST", endpoint, true);
         xhr.upload.onprogress = (e) => {
-          if (e.lengthComputable && progressCb) {
-            progressCb(Math.round((e.loaded / e.total) * 100));
+          if (e.lengthComputable && progressCallback) {
+            progressCallback(Math.round((e.loaded / e.total) * 100));
           }
         };
         xhr.onload = () => {
           if (xhr.status === 200) {
-            const res = JSON.parse(xhr.responseText);
-            resolve(res.secure_url);
+            const data = JSON.parse(xhr.responseText);
+            resolve(data.secure_url);
           } else {
-            reject("Cloudinary upload failed: " + xhr.statusText);
+            reject("Cloudinary upload failed: " + xhr.status);
           }
         };
-        xhr.onerror = () => reject("Network error during media upload");
-        xhr.send(fd);
+        xhr.onerror = () => reject("Network error during file transfer.");
+        xhr.send(formData);
       });
     }
 
-     // --- 4. CREATE POST & FEED SYSTEM ---
-    async function uploadPostAction() {
-      const fileInput = document.getElementById("postFileInput");
-      const caption = document.getElementById("postCaptionInput").value;
-      const barBox = document.getElementById("postProgressBarBox");
-      const bar = document.getElementById("postProgressBar");
-      const status = document.getElementById("postUploadStatus");
-      const btn = document.getElementById("btnUploadPost");
+    // --- 7. POST CREATION & NATIVE PICKER ---
+    function triggerPostFilePicker() {
+      document.getElementById("hiddenPostFileInput").click();
+    }
 
-      if (!fileInput.files[0]) {
-        alert("Kripya ek photo ya video select karein!");
-        return;
+    function onPostFileSelected(input) {
+      if (input.files && input.files[0]) {
+        selectedPostFile = input.files[0];
+        const previewContainer = document.getElementById("postPreviewContainer");
+        previewContainer.innerHTML = "";
+
+        const isVideo = selectedPostFile.type.startsWith("video/");
+        const fileUrl = URL.createObjectURL(selectedPostFile);
+
+        if (isVideo) {
+          const video = document.createElement("video");
+          video.src = fileUrl;
+          video.controls = true;
+          video.style.maxWidth = "100%";
+          video.style.maxHeight = "250px";
+          previewContainer.appendChild(video);
+        } else {
+          const img = document.createElement("img");
+          img.src = fileUrl;
+          img.style.maxWidth = "100%";
+          img.style.maxHeight = "250px";
+          img.style.objectFit = "contain";
+          previewContainer.appendChild(img);
+        }
+
+        document.getElementById("postCreateModal").classList.add("show");
       }
+    }
 
-      const file = fileInput.files[0];
-      const isVideo = file.type.startsWith("video/");
+    async function executePostUpload() {
+      if (!selectedPostFile) return;
+
+      const caption = document.getElementById("newPostCaption").value.trim();
+      const progressBox = document.getElementById("postUploadProgressBox");
+      const progressBar = document.getElementById("postProgressBar");
+      const progressText = document.getElementById("postProgressPercent");
+      const submitBtn = document.getElementById("btnSubmitPost");
 
       try {
-        btn.disabled = true;
-        barBox.style.display = "block";
-        status.innerText = "Cloudinary par upload ho raha hai...";
+        submitBtn.disabled = true;
+        progressBox.style.display = "block";
 
-        const mediaUrl = await uploadToCloudinary(file, (p) => {
-          bar.style.width = p + "%";
-          status.innerText = `Uploading: ${p}%`;
+        const mediaUrl = await executeCloudinaryUpload(selectedPostFile, (percent) => {
+          progressBar.style.width = percent + "%";
+          progressText.innerText = percent + "%";
         });
 
-        status.innerText = "Feed me save ho raha hai...";
+        const isVideo = selectedPostFile.type.startsWith("video/");
         await db.collection("posts").add({
-          mediaUrl,
+          authorId: currentUser.uid,
+          authorName: currentUser.fullName,
+          authorUsername: currentUser.username,
+          authorAvatar: currentUser.avatar,
+          mediaUrl: mediaUrl,
           mediaType: isVideo ? "video" : "image",
-          caption,
-          userId: currentUserData.uid,
-          authorName: currentUserData.fullName,
-          authorUsername: currentUserData.username,
-          authorAvatar: currentUserData.avatar,
+          caption: caption,
           likes: [],
           views: 1,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
-        closeModal("postModal");
-        fileInput.value = "";
-        document.getElementById("postCaptionInput").value = "";
-        barBox.style.display = "none";
-        status.innerText = "";
+        sendTelegramAlert(`New Post uploaded by @${currentUser.username}: "${caption}"\nURL: ${mediaUrl}`);
+
+        closeModal("postCreateModal");
+        selectedPostFile = null;
+        document.getElementById("hiddenPostFileInput").value = "";
+        document.getElementById("newPostCaption").value = "";
+        progressBox.style.display = "none";
+        loadUserGridPosts();
       } catch (err) {
-        alert("Post failed: " + err);
+        alert("Upload error: " + err);
       } finally {
-        btn.disabled = false;
+        submitBtn.disabled = false;
       }
     }
 
-    function initFeedListener() {
+    // --- 8. FEED & INTERACTIONS ---
+    function initFeedSubscription() {
       db.collection("posts").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
-        const postsList = document.getElementById("postsList");
-        postsList.innerHTML = "";
+        const feedWrapper = document.getElementById("postsFeedContainer");
+        feedWrapper.innerHTML = "";
 
-        if (snapshot.empty) {
-          postsList.innerHTML = '<p style="text-align:center; padding: 40px; color: var(--text-muted);">Abhi koi post nahi hai. Pehla post aap karein!</p>';
-          return;
-        }
+        const allPosts = [];
+        snapshot.forEach(doc => allPosts.push({ id: doc.id, ...doc.data() }));
 
-        snapshot.forEach((doc) => {
-          const post = doc.data();
-          const postId = doc.id;
-          const isLiked = post.likes && post.likes.includes(currentUserData.uid);
+        // Combine live posts with sample posts if list is small
+        const renderList = allPosts.length > 0 ? allPosts : INITIAL_SAMPLE_POSTS;
 
-          const postEl = document.createElement("div");
-          postEl.className = "post-card";
-          postEl.innerHTML = `
+        renderList.forEach(post => {
+          const isLiked = post.likes && post.likes.includes(currentUser.uid);
+          const postCard = document.createElement("div");
+          postCard.className = "post-card";
+          postCard.innerHTML = `
             <div class="post-header">
-              <div class="post-user-info">
-                <img src="${post.authorAvatar || 'https://via.placeholder.com/36'}" class="post-avatar">
-                <span class="post-user-name">${post.authorName || post.authorUsername}</span>
+              <div class="post-user-meta">
+                <img src="${post.authorAvatar}" class="avatar-sm" alt="Author">
+                <span class="post-username">${post.authorUsername}</span>
               </div>
+              <i class="fa-solid fa-ellipsis" style="color: var(--text-secondary); cursor: pointer;"></i>
             </div>
-            <div class="post-media-box">
+            <div class="post-media-container">
               ${post.mediaType === "video" 
                 ? `<video src="${post.mediaUrl}" controls playsinline></video>` 
-                : `<img src="${post.mediaUrl}" loading="lazy">`
-              }
+                : `<img src="${post.mediaUrl}" loading="lazy" alt="Post">`}
             </div>
-            <div class="post-actions">
-              <div class="post-actions-left">
-                <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" onclick="toggleLike('${postId}')"></i>
-                <i class="fa-regular fa-comment" onclick="openCommentPrompt('${postId}')"></i>
-                <i class="fa-regular fa-paper-plane" onclick="sharePostInternal('${postId}')"></i>
+            <div class="post-interactions">
+              <div class="interactions-left">
+                <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" onclick="togglePostLike('${post.id}')"></i>
+                <i class="fa-regular fa-comment" onclick="openCommentsDrawer('${post.id}')"></i>
+                <i class="fa-regular fa-paper-plane" onclick="sharePostItem('${post.id}')"></i>
               </div>
+              <i class="fa-regular fa-bookmark"></i>
             </div>
-            <div class="post-stats">
+            <div class="post-metrics">
               <span>${(post.likes || []).length} likes</span>
               <span>${post.views || 1} views</span>
             </div>
-            <div class="post-caption">
+            <div class="post-caption-box">
               <strong>${post.authorUsername}</strong>${post.caption || ""}
             </div>
           `;
-          postsList.appendChild(postEl);
+          feedWrapper.appendChild(postCard);
         });
       });
     }
 
-    async function toggleLike(postId) {
-      const ref = db.collection("posts").doc(postId);
-      const doc = await ref.get();
-      if (!doc.exists) return;
-      const post = doc.data();
-      const likes = post.likes || [];
-      const uid = currentUserData.uid;
+    async function togglePostLike(postId) {
+      if (postId.startsWith("sample_")) return; // ignore sample posts
+      const postRef = db.collection("posts").doc(postId);
+      const postDoc = await postRef.get();
+      if (!postDoc.exists) return;
 
-      if (likes.includes(uid)) {
-        await ref.update({ likes: firebase.firestore.FieldValue.arrayRemove(uid) });
+      const postData = postDoc.data();
+      const currentLikes = postData.likes || [];
+      const uid = currentUser.uid;
+
+      if (currentLikes.includes(uid)) {
+        await postRef.update({ likes: firebase.firestore.FieldValue.arrayRemove(uid) });
       } else {
-        await ref.update({ likes: firebase.firestore.FieldValue.arrayUnion(uid) });
-        // Send Notification
-        if (post.userId !== uid) {
+        await postRef.update({ likes: firebase.firestore.FieldValue.arrayUnion(uid) });
+        if (postData.authorId !== uid) {
           db.collection("notifications").add({
-            toUser: post.userId,
-            fromName: currentUserData.fullName,
-            text: "ne aapke post ko like kiya.",
+            receiverId: postData.authorId,
+            text: `@${currentUser.username} liked your post.`,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
+          sendTelegramAlert(`@${currentUser.username} liked a post by @${postData.authorUsername}`);
         }
       }
     }
 
-    // --- 5. STORIES SYSTEM ---
-    async function uploadStoryAction() {
-      const fileInput = document.getElementById("storyFileInput");
-      const barBox = document.getElementById("storyProgressBarBox");
-      const bar = document.getElementById("storyProgressBar");
-      const status = document.getElementById("storyUploadStatus");
-
-      if (!fileInput.files[0]) {
-        alert("Photo ya video select karein!");
-        return;
-      }
-
-      try {
-        barBox.style.display = "block";
-        const mediaUrl = await uploadToCloudinary(fileInput.files[0], (p) => {
-          bar.style.width = p + "%";
-          status.innerText = `Uploading: ${p}%`;
-        });
-
-        await db.collection("stories").add({
-          mediaUrl,
-          userId: currentUserData.uid,
-          authorName: currentUserData.fullName,
-          authorAvatar: currentUserData.avatar,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        closeModal("storyModal");
-        fileInput.value = "";
-        barBox.style.display = "none";
-      } catch (e) {
-        alert("Story failed: " + e);
+    function sharePostItem(postId) {
+      const shareUrl = window.location.href.split('#')[0] + "#post=" + postId;
+      if (navigator.share) {
+        navigator.share({ title: "Gramin Media Post", url: shareUrl });
+      } else {
+        navigator.clipboard.writeText(shareUrl);
+        alert("Link copied to clipboard!");
       }
     }
 
-    function initStoriesListener() {
-      db.collection("stories").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
-        const container = document.getElementById("dynamicStories");
-        container.innerHTML = "";
+    // --- 9. STORIES SYSTEM ---
+    function triggerStoryUpload() {
+      document.getElementById("hiddenStoryFileInput").click();
+    }
 
-        snapshot.forEach((doc) => {
+    async function onStoryFileSelected(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        try {
+          const mediaUrl = await executeCloudinaryUpload(file);
+          await db.collection("stories").add({
+            userId: currentUser.uid,
+            authorName: currentUser.fullName,
+            authorUsername: currentUser.username,
+            authorAvatar: currentUser.avatar,
+            mediaUrl: mediaUrl,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          sendTelegramAlert(`New Story uploaded by @${currentUser.username}`);
+          alert("Story posted successfully!");
+        } catch (e) {
+          alert("Story upload failed: " + e);
+        }
+      }
+    }
+
+    function initStoriesSubscription() {
+      db.collection("stories").orderBy("createdAt", "desc").onSnapshot(snap => {
+        const tray = document.getElementById("activeStoriesTray");
+        tray.innerHTML = "";
+
+        snap.forEach(doc => {
           const s = doc.data();
-          const bubble = document.createElement("div");
-          bubble.className = "story-bubble";
-          bubble.innerHTML = `
-            <div class="story-ring" onclick="viewStory('${s.mediaUrl}', '${s.authorName}', '${doc.id}', '${s.userId}')">
-              <img src="${s.authorAvatar || 'https://via.placeholder.com/64'}">
+          const item = document.createElement("div");
+          item.className = "story-item";
+          item.innerHTML = `
+            <div class="story-avatar-wrap" onclick="viewStoryDetail('${s.mediaUrl}', '${s.authorUsername}', '${doc.id}', '${s.userId}')">
+              <img src="${s.authorAvatar}" alt="Story">
             </div>
-            <span class="story-username">${s.authorName || 'Citizen'}</span>
+            <span class="story-user">${s.authorUsername}</span>
           `;
-          container.appendChild(bubble);
+          tray.appendChild(item);
         });
       });
     }
 
-    function viewStory(url, name, storyId, ownerId) {
-      const isOwner = ownerId === currentUserData.uid;
-      let opt = prompt(`${name} ki story.\nType 'R' for Reaction (❤️), or 'D' to Delete (agar aapki hai):`);
-      if (opt && opt.toUpperCase() === 'D' && isOwner) {
+    function viewStoryDetail(url, username, storyId, ownerId) {
+      const isOwner = ownerId === currentUser.uid;
+      const action = prompt(`Story by @${username}\nType 'R' for Heart Reaction (❤️)\nType 'D' to Delete Story (Owner only)`);
+      if (action && action.toUpperCase() === 'D' && isOwner) {
         db.collection("stories").doc(storyId).delete();
-        alert("Story delete ho gayi!");
-      } else if (opt && opt.toUpperCase() === 'R') {
-        alert("Aapne reaction bhej diya: ❤️");
+        alert("Story deleted.");
+      } else if (action && action.toUpperCase() === 'R') {
+        alert("Reaction sent: ❤️");
+        sendTelegramAlert(`@${currentUser.username} reacted ❤️ to @${username}'s story`);
       }
     }
 
-    // --- 6. REAL-TIME CHAT ---
-    async function sendDirectMessage() {
-      const input = document.getElementById("chatInputText");
+    // --- 10. REAL-TIME CHAT & ACTIVE STATUS ---
+    function initChatSubscription() {
+      // Active users list
+      const activeTray = document.getElementById("activeUsersTray");
+      activeTray.innerHTML = `
+        <div class="active-user-item">
+          <div class="active-avatar-wrap">
+            <img src="${currentUser ? currentUser.avatar : ''}">
+            <span class="online-indicator"></span>
+          </div>
+          <span style="font-size:0.7rem; color:var(--text-secondary);">You</span>
+        </div>
+      `;
+
+      // Messages sync
+      db.collection("messages").orderBy("createdAt", "asc").limitToLast(40).onSnapshot(snap => {
+        const container = document.getElementById("chatMessagesContainer");
+        container.innerHTML = "";
+
+        snap.forEach(doc => {
+          const msg = doc.data();
+          const isMine = msg.senderId === currentUser.uid;
+          const bubble = document.createElement("div");
+          bubble.className = `chat-bubble-msg ${isMine ? 'outgoing' : 'incoming'}`;
+          bubble.innerText = `${isMine ? '' : '@' + msg.senderUsername + ': '}${msg.text}`;
+          container.appendChild(bubble);
+        });
+        container.scrollTop = container.scrollHeight;
+      });
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById("chatInputMessage");
       const text = input.value.trim();
       if (!text) return;
 
       await db.collection("messages").add({
-        text,
-        senderId: currentUserData.uid,
-        senderName: currentUserData.fullName,
+        text: text,
+        senderId: currentUser.uid,
+        senderUsername: currentUser.username,
+        senderName: currentUser.fullName,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
+
+      sendTelegramAlert(`New Message from @${currentUser.username}: "${text}"`);
       input.value = "";
     }
 
-    function initChatListener() {
-      db.collection("messages").orderBy("createdAt", "asc").limitToLast(50).onSnapshot((snap) => {
-        const box = document.getElementById("chatMessagesBox");
-        box.innerHTML = "";
-        snap.forEach((doc) => {
-          const msg = doc.data();
-          const isMine = msg.senderId === currentUserData.uid;
-          const msgDiv = document.createElement("div");
-          msgDiv.className = `chat-msg ${isMine ? 'mine' : 'theirs'}`;
-          msgDiv.innerText = `${isMine ? '' : msg.senderName + ': '}${msg.text}`;
-          box.appendChild(msgDiv);
-        });
-        box.scrollTop = box.scrollHeight;
-      });
+    // --- 11. PROFILE MANAGEMENT ---
+    function triggerProfilePhotoPicker() {
+      document.getElementById("hiddenAvatarFileInput").click();
     }
 
-    // --- 7. EDIT PROFILE & CLOUDINARY ---
-    async function saveProfileChanges() {
-      const name = document.getElementById("editFullNameInput").value.trim();
-      const bio = document.getElementById("editBioInput").value.trim();
-      const fileInput = document.getElementById("editAvatarFileInput");
-      const barBox = document.getElementById("profileProgressBarBox");
-      const bar = document.getElementById("profileProgressBar");
-
-      let updatedData = { fullName: name, bio: bio };
-
-      try {
-        if (fileInput.files[0]) {
-          barBox.style.display = "block";
-          const avatarUrl = await uploadToCloudinary(fileInput.files[0], (p) => {
-            bar.style.width = p + "%";
-          });
-          updatedData.avatar = avatarUrl;
+    async function onAvatarFileSelected(input) {
+      if (input.files && input.files[0]) {
+        try {
+          const newAvatar = await executeCloudinaryUpload(input.files[0]);
+          await db.collection("users").doc(currentUser.uid).update({ avatar: newAvatar });
+          currentUser.avatar = newAvatar;
+          document.getElementById("profileUserImg").src = newAvatar;
+          document.getElementById("myStoryAvatar").src = newAvatar;
+          alert("Profile photo updated!");
+        } catch (e) {
+          alert("Avatar update failed: " + e);
         }
-
-        await db.collection("users").doc(currentUserData.uid).update(updatedData);
-        currentUserData = { ...currentUserData, ...updatedData };
-        postAuthInit();
-        closeModal("editProfileModal");
-      } catch (err) {
-        alert("Update failed: " + err);
       }
     }
 
-    async function loadProfilePosts() {
-      const grid = document.getElementById("profilePostsGrid");
-      const countEl = document.getElementById("profilePostsCount");
-      const snap = await db.collection("posts").where("userId", "==", currentUserData.uid).get();
+    function openProfileEditModal() {
+      document.getElementById("editModalAvatarPreview").src = currentUser.avatar;
+      document.getElementById("editProfileName").value = currentUser.fullName || "";
+      document.getElementById("editProfileUserId").value = currentUser.username || "";
+      document.getElementById("editProfileDob").value = currentUser.dob || "";
+      document.getElementById("editProfileBio").value = currentUser.bio || "";
+      document.getElementById("editProfileDialog").classList.add("show");
+    }
+
+    async function saveProfileUpdates() {
+      const name = document.getElementById("editProfileName").value.trim();
+      const username = document.getElementById("editProfileUserId").value.trim().toLowerCase();
+      const dob = document.getElementById("editProfileDob").value;
+      const bio = document.getElementById("editProfileBio").value.trim();
+      const newPass = document.getElementById("editProfileNewPassword").value.trim();
+
+      if (!name || !username) {
+        alert("Name and User ID cannot be empty!");
+        return;
+      }
+
+      // Check unique username if altered
+      if (username !== currentUser.username) {
+        const check = await db.collection("users").where("username", "==", username).get();
+        if (!check.empty) {
+          alert("already exists");
+          return;
+        }
+      }
+
+      const updates = { fullName: name, username: username, dob: dob, bio: bio };
+      await db.collection("users").doc(currentUser.uid).update(updates);
+      currentUser = { ...currentUser, ...updates };
+
+      if (newPass && newPass.length >= 6) {
+        auth.currentUser.updatePassword(newPass).catch(e => alert("Password update requires recent login: " + e.message));
+      }
+
+      document.getElementById("userFullnameLabel").innerText = name;
+      document.getElementById("userHandleLabel").innerText = "@" + username;
+      document.getElementById("userBioLabel").innerText = bio;
+
+      closeModal("editProfileDialog");
+      alert("Profile updated successfully!");
+    }
+
+    async function loadUserGridPosts() {
+      const grid = document.getElementById("userGridPostsContainer");
+      const countLabel = document.getElementById("userPostsCount");
+      const snap = await db.collection("posts").where("authorId", "==", currentUser.uid).get();
 
       grid.innerHTML = "";
-      countEl.innerText = snap.size;
+      countLabel.innerText = snap.size;
 
-      snap.forEach((doc) => {
+      snap.forEach(doc => {
         const p = doc.data();
         const item = document.createElement("div");
-        item.className = "profile-grid-item";
+        item.className = "grid-feed-item";
         item.innerHTML = p.mediaType === "video" 
           ? `<video src="${p.mediaUrl}"></video>` 
           : `<img src="${p.mediaUrl}">`;
@@ -1213,51 +1556,104 @@
       });
     }
 
-    // --- 8. SEARCH & TABS ROUTER ---
-    function switchTab(tab) {
-      document.getElementById("feedView").style.display = tab === 'feed' ? 'block' : 'none';
-      document.getElementById("searchView").style.display = tab === 'search' ? 'block' : 'none';
-      document.getElementById("chatView").style.display = tab === 'chat' ? 'flex' : 'none';
-      document.getElementById("profileView").style.display = tab === 'profile' ? 'block' : 'none';
-      document.getElementById("notifView").style.display = tab === 'notifications' ? 'block' : 'none';
-
-      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-      if (tab === 'feed') document.getElementById("navHome").classList.add("active");
-      if (tab === 'search') document.getElementById("navSearch").classList.add("active");
-      if (tab === 'profile') document.getElementById("navProfile").classList.add("active");
+    // --- 12. NOTIFICATIONS & COMMENTS ---
+    function initNotificationsSubscription() {
+      db.collection("notifications").where("receiverId", "==", currentUser.uid).limitToLast(20).onSnapshot(snap => {
+        const box = document.getElementById("notificationsListBox");
+        box.innerHTML = "";
+        if (snap.empty) {
+          box.innerHTML = '<p style="font-size:0.85rem; color:var(--text-secondary);">No new notifications.</p>';
+          return;
+        }
+        snap.forEach(d => {
+          const n = d.data();
+          const item = document.createElement("div");
+          item.style.padding = "8px 0";
+          item.style.borderBottom = "1px solid var(--border)";
+          item.style.fontSize = "0.85rem";
+          item.innerText = n.text;
+          box.appendChild(item);
+        });
+      });
     }
 
-    async function handleSearch(q) {
-      q = q.trim().toLowerCase();
-      const resBox = document.getElementById("searchResults");
-      if (!q) { resBox.innerHTML = ""; return; }
+    function openCommentsDrawer(postId) {
+      activeCommentPostId = postId;
+      document.getElementById("commentsDrawer").classList.add("show");
+      loadCommentsList(postId);
+    }
+
+    function closeCommentsDrawer() {
+      document.getElementById("commentsDrawer").classList.remove("show");
+      activeCommentPostId = null;
+    }
+
+    function loadCommentsList(postId) {
+      const wrapper = document.getElementById("commentsListWrapper");
+      wrapper.innerHTML = "";
+      db.collection("posts").doc(postId).collection("comments").orderBy("createdAt", "asc").onSnapshot(snap => {
+        wrapper.innerHTML = "";
+        snap.forEach(doc => {
+          const c = doc.data();
+          const row = document.createElement("div");
+          row.className = "comment-unit";
+          row.innerHTML = `<strong>@${c.username}</strong> ${c.text}`;
+          wrapper.appendChild(row);
+        });
+      });
+    }
+
+    async function postCommentAction() {
+      const input = document.getElementById("newCommentInput");
+      const text = input.value.trim();
+      if (!text || !activeCommentPostId) return;
+
+      await db.collection("posts").doc(activeCommentPostId).collection("comments").add({
+        username: currentUser.username,
+        text: text,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      input.value = "";
+    }
+
+    // --- 13. NAVIGATION TAB ROUTER ---
+    function switchMainTab(tab) {
+      document.getElementById("feedSection").style.display = tab === 'feed' ? 'block' : 'none';
+      document.getElementById("searchSection").style.display = tab === 'search' ? 'block' : 'none';
+      document.getElementById("chatSection").style.display = tab === 'chat' ? 'flex' : 'none';
+      document.getElementById("profileSection").style.display = tab === 'profile' ? 'block' : 'none';
+      document.getElementById("notifSection").style.display = tab === 'notifications' ? 'block' : 'none';
+
+      document.querySelectorAll(".nav-icon").forEach(icon => icon.classList.remove("active"));
+      if (tab === 'feed') document.getElementById("navItemHome").classList.add("active");
+      if (tab === 'search') document.getElementById("navItemSearch").classList.add("active");
+      if (tab === 'profile') document.getElementById("navItemProfile").classList.add("active");
+    }
+
+    async function filterMediaSearch(term) {
+      const q = term.trim().toLowerCase();
+      const res = document.getElementById("searchListResults");
+      res.innerHTML = "";
+      if (!q) return;
 
       const snap = await db.collection("posts").get();
-      resBox.innerHTML = "";
       snap.forEach(doc => {
-        const p = doc.data();
-        if ((p.caption && p.caption.toLowerCase().includes(q)) || (p.authorUsername && p.authorUsername.toLowerCase().includes(q))) {
-          const row = document.createElement("div");
-          row.style.padding = "8px 0";
-          row.style.borderBottom = "1px solid #202020";
-          row.innerHTML = `<strong>@${p.authorUsername}</strong>: ${p.caption || 'Media'}`;
-          resBox.appendChild(row);
+        const post = doc.data();
+        if ((post.caption && post.caption.toLowerCase().includes(q)) || 
+            (post.authorUsername && post.authorUsername.toLowerCase().includes(q))) {
+          const item = document.createElement("div");
+          item.style.padding = "8px";
+          item.style.background = "#181818";
+          item.style.borderRadius = "6px";
+          item.innerHTML = `<strong>@${post.authorUsername}</strong>: ${post.caption || 'Media Post'}`;
+          res.appendChild(item);
         }
       });
     }
 
-    function openCreatePostModal() { document.getElementById("postModal").classList.add("active"); }
-    function openStoryUploadModal() { document.getElementById("storyModal").classList.add("active"); }
-    function openEditProfileModal() { 
-      document.getElementById("editFullNameInput").value = currentUserData.fullName || "";
-      document.getElementById("editBioInput").value = currentUserData.bio || "";
-      document.getElementById("editProfileModal").classList.add("active"); 
-    }
-    function closeModal(id) { document.getElementById(id).classList.remove("active"); }
-    function sharePostInternal(postId) { alert("Post link copy ho gaya hai!"); }
-    function openCommentPrompt(postId) {
-      const c = prompt("Comment likhein:");
-      if (c) alert("Comment add ho gaya!");
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("show");
     }
   </script>
 </body>
