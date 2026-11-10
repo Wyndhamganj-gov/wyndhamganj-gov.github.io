@@ -638,7 +638,7 @@
   <!-- COVERED LOCALITIES BAR -->
   <div class="localities-strip">
     <div class="container">
-      <b>सेवा क्षेत्र (Covered Areas):</b> <span id="txtCoveredAreas" data-editable="true">Wyndhamganj • Butbherwa • Shiv Nagar • Murisemar • Dharti Dolwa • Salayadih • Dhooma • Patel Nagar (Sonbhadra, UP)</span>
+      <b>ONE STEP </b> <span id="txtCoveredAreas" data-editable="true">FOR OUR VILLAGE</span>
     </div>
   </div>
 
@@ -646,16 +646,16 @@
   <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
   <div class="drawer-panel" id="drawerPanel">
     <div class="drawer-header">
-      <h3>Panchayat Menu</h3>
+      <h3>Menu</h3>
       <button class="drawer-close" onclick="toggleDrawer(false)">&times;</button>
     </div>
 
     <ul class="drawer-nav-list">
-      <li><a href="#about" onclick="toggleDrawer(false)"><i class="fa-solid fa-house"></i> Gaon Ke Baare Mein</a></li>
-      <li><a href="#notices" onclick="toggleDrawer(false)"><i class="fa-solid fa-bullhorn"></i> Suchna Patta</a></li>
-      <li><a href="#festival" onclick="toggleDrawer(false)"><i class="fa-solid fa-sun"></i> Festival & WhatsApp</a></li>
+      <li><a href="#about" onclick="toggleDrawer(false)"><i class="fa-solid fa-house"></i> About village</a></li>
+      <li><a href="#notices" onclick="toggleDrawer(false)"><i class="fa-solid fa-bullhorn"></i> Updates</a></li>
+      <li><a href="#festival" onclick="toggleDrawer(false)"><i class="fa-solid fa-sun"></i> Festival</a></li>
       <li><a href="#gallery" onclick="toggleDrawer(false)"><i class="fa-solid fa-images"></i> Village Media & Memories</a></li>
-      <li><a href="#dashboard" onclick="toggleDrawer(false)"><i class="fa-solid fa-chart-pie"></i> Working Progress Dashboard</a></li>
+      <li><a href="#dashboard" onclick="toggleDrawer(false)"><i class="fa-solid fa-chart-pie"></i>  Dashboard</a></li>
       <li><a href="#representatives" onclick="toggleDrawer(false)"><i class="fa-solid fa-landmark"></i> Gram Padadhikari & Host</a></li>
       <li><a href="#grievance" onclick="toggleDrawer(false)"><i class="fa-solid fa-paper-plane"></i> Grievance & Emergency Helplines</a></li>
       
@@ -688,10 +688,10 @@
     <div class="hero-overlay"></div>
     <div class="container hero-container">
       <div class="hero-text-col">
-        <div class="hero-badge"><i class="fa-solid fa-award"></i> Gram Panchayat Butbherwa (Shiv Nagar)</div>
+        <div class="hero-badge"><i class="fa-solid fa-award"></i> Gram Panchayat Butberhwa (Shiv Nagar)</div>
         <h1 class="hero-title">Wyndhamganj <span>Butbherwa</span></h1>
         <p class="hero-desc" id="txtHeroDesc" data-editable="true">
-          Official digital portal for transparent e-governance, instant redressal, community notices, and promoting the eco-tourism of Piprahwa Dam & Shiv Nagar, Sonbhadra.
+          Official digital portal for transparent e-governance.
         </p>
       </div>
 
@@ -713,9 +713,9 @@
   <section class="section-pad" id="notices">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Suchna Patta</span>
-        <h2 class="section-title">Gram Panchayat Notice Board</h2>
-        <p class="section-subtitle">Official orders, welfare announcements, and civic advisories for residents.</p>
+        <span class="section-tag">Update s</span>
+        <h2 class="section-title"> Notice Board</h2>
+        <p class="section-subtitle">Updating soon.....</p>
       </div>
 
       <div class="notices-grid">
@@ -727,14 +727,14 @@
 
         <div class="notice-item">
           <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> Tourism</span><span>Development</span></div>
-          <h3 class="notice-title" id="txtNotice2Title" data-editable="true">Piprahwa Dam Eco-Tourism Project</h3>
+          <h3 class="notice-title" id="txtNotice2Title" data-editable="true"> Best place for visit :</h3>
           <p class="notice-body" id="txtNotice2Body" data-editable="true">Cleanliness drive and reservoir conservation initiatives are underway at Piprahwa Dam for upcoming tourist seasons.</p>
         </div>
 
         <div class="notice-item">
           <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> Community</span><span>Notice</span></div>
-          <h3 class="notice-title" id="txtNotice3Title" data-editable="true">Digital Photo & Moments Portal</h3>
-          <p class="notice-body" id="txtNotice3Body" data-editable="true">Share verified village moments and heritage images through our gallery upload tool for official archiving.</p>
+          <h3 class="notice-title" id="txtNotice3Title" data-editable="true"> Photo & Moments </h3>
+          <p class="notice-body" id="txtNotice3Body" data-editable="true">Share verified village moments  images through our gallery upload tool for official archiving.</p>
         </div>
       </div>
     </div>
@@ -773,7 +773,7 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Village Media & Memories</span>
-        <h2 class="section-title">Piprahwa & WDM Gallery</h2>
+        <h2 class="section-title"> WDM Gallery</h2>
         <p class="section-subtitle">Scenic reservoir landscapes, railway station heritage, and celebrations across our Gram Panchayat.</p>
       </div>
 
@@ -796,12 +796,14 @@
         <button class="sub-chip" onclick="filterFestSub('दीपावली', this)">दीपावली</button>
         <button class="sub-chip" onclick="filterFestSub('होली', this)">होली</button>
         <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">शिवरात्रि</button>
+        <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">Other</button>
+      
       </div>
 
       <!-- Upload Form -->
       <div class="citizen-upload-card" id="citizenUploadCard">
         <h4 style="font-size:0.95rem; color:var(--accent-orange); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
-          <i class="fa-solid fa-paper-plane"></i> Share Village Photo with Telegram Alert
+          <i class="fa-solid fa-paper-plane"></i> Share Village Photos
         </h4>
         <form id="citizenPhotoUploadForm" onsubmit="handleCitizenPhotoSubmit(event)">
           <div class="upload-form-grid">
@@ -823,6 +825,8 @@
                 <option value="Festival - दीपावली">Festival - दीपावली</option>
                 <option value="Festival - होली">Festival - होली</option>
                 <option value="Festival - महाशिवरात्रि">Festival - महाशिवरात्रि</option>
+                <option value="Festival - महाशिवरात्रि">Festival - Other</option>
+              
               </select>
             </div>
             <div class="form-group-sm">
@@ -841,7 +845,7 @@
             </div>
 
             <button type="submit" id="btnSubmitPhoto" class="btn btn-primary" style="padding:7px 18px; font-size:0.82rem;">
-              <i class="fa-solid fa-cloud-arrow-up"></i> Submit & Alert Telegram
+              <i class="fa-solid fa-cloud-arrow-up"></i> Submit
             </button>
           </div>
         </form>
@@ -1006,7 +1010,7 @@
             <textarea id="citizenMessage" class="form-control" rows="4" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary" id="btnSubmitGrievance" style="width:100%; padding:12px;">
-            <i class="fa-solid fa-paper-plane"></i> Instant Submit Grievance
+            <i class="fa-solid fa-paper-plane"></i> Instant Submit
           </button>
         </form>
 
@@ -1080,8 +1084,8 @@
       
       <!-- Login Tabs: Citizen vs Admin -->
       <div class="login-mode-tabs">
-        <button class="login-tab-btn active" id="tabCitizenLogin" onclick="switchLoginMode('citizen')">Citizen Login</button>
-        <button class="login-tab-btn" id="tabAdminLogin" onclick="switchLoginMode('admin')">Admin Login 👑</button>
+        <button class="login-tab-btn active" id="tabCitizenLogin" onclick="switchLoginMode('citizen')"> Login</button>
+        <button class="login-tab-btn" id="tabAdminLogin" onclick="switchLoginMode('admin')">Admin Login</button>
       </div>
 
       <!-- Tab 1: Citizen Google Login -->
@@ -1112,12 +1116,12 @@
         </div>
         <h3 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800; text-align:center; margin-bottom: 4px;">Admin Portal Access</h3>
         <p style="font-size: 0.76rem; color: var(--text-muted); text-align:center; margin-bottom: 16px;">
-          Strict 3-Factor Verification: Google (paswanvive@gmail.com) + Mobile + Password.
+          Strict 3 Factor Verificatio.
         </p>
 
         <!-- Step 1: Google Button -->
         <button id="btnAdminGoogleLink" onclick="handleAdminGoogleAuth()" class="btn" style="width: 100%; background: #ffffff; color: #111; font-weight: 700; padding: 10px; font-size: 0.88rem; margin-bottom: 12px; border-radius: 6px;">
-          <i class="fa-brands fa-google" style="color:#ea4335;"></i> <span id="adminGoogleBtnText">Step 1: Sign in with paswanvive@gmail.com</span>
+          <i class="fa-brands fa-google" style="color:#ea4335;"></i> <span id="adminGoogleBtnText">Step 1: Admin Gmail</span>
         </button>
 
         <!-- Step 2: Mobile Number -->
@@ -1133,14 +1137,14 @@
         </div>
 
         <button onclick="verifyAndUnlockAdmin()" class="btn btn-primary" style="width:100%; padding:11px; font-weight:800;">
-          <i class="fa-solid fa-lock-open"></i> Step 2: Verify & Unlock Admin Panel
+          <i class="fa-solid fa-lock-open"></i> Step 2: Verify & Allow Access 
         </button>
       </div>
 
       <!-- User / Admin Logged In State -->
       <div id="userLoggedInState" style="display: none; padding: 10px 0;">
         <img id="userAvatarImg" src="" alt="Profile" style="width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--accent-orange); margin: 0 auto 8px; object-fit: cover; display: block;">
-        <h4 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800;" id="loggedInUserTitle">Citizen Name</h4>
+        <h4 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800;" id="loggedInUserTitle">User Name</h4>
         <p style="font-size: 0.82rem; color: var(--text-muted); margin: 2px 0 16px;" id="loggedInUserDetails">user@gmail.com</p>
         <button class="btn btn-secondary" onclick="handlePortalLogout()" style="width: 100%; color: var(--danger); border-color: var(--danger); font-weight: 700;">
           <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
@@ -1163,11 +1167,11 @@
         <div class="footer-col">
           <h4>Navigation</h4>
           <ul class="footer-links">
-            <li><a href="#about">Gaon Ke Baare Mein</a></li>
-            <li><a href="#notices">Suchna Patta</a></li>
-            <li><a href="#festival">Festival & WhatsApp</a></li>
-            <li><a href="#gallery">Village Gallery</a></li>
-            <li><a href="#dashboard">Working Dashboard</a></li>
+            <li><a href="#about">About Village</a></li>
+            <li><a href="#notices">Updates</a></li>
+            <li><a href="#festival">Festival</a></li>
+            <li><a href="#gallery"> Gallery</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
             <li><a href="#representatives">Representatives</a></li>
             <li><a href="#grievance">Grievance Cell</a></li>
           </ul>
@@ -1176,14 +1180,14 @@
         <div class="footer-col">
           <h4>Secretariat Address</h4>
           <p style="line-height:1.6; font-size:0.82rem;">
-            Gram Panchayat Secretariat, Wyndhamganj Butbherwa (Shiv Nagar),<br>
+            Gram Panchayat Secretariat, Butberhwa Wyndhamganj  (Shiv Nagar),<br>
             Block: Duddhi, District: Sonbhadra, UP - 231226
           </p>
         </div>
       </div>
 
       <div style="border-top:1px solid var(--border-color); padding-top:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:0.76rem;">
-        <div>&copy; Gram Panchayat Butbherwa. All Rights Reserved.</div>
+        <div>&copy; Gram Panchayat Butberhwa. All Rights Reserved.</div>
         <div>Hosted by The Host</div>
       </div>
     </div>
@@ -1376,14 +1380,14 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: TELEGRAM_CHAT_ID,
-          text: `👑 *ADMIN LOGGED IN & UNLOCKED LIVE EDIT*\n━━━━━━━━━━━━━━━━━━━\n📧 *Email:* paswanvive@gmail.com\n📞 *Mobile:* 7880571898\n🕒 *Time:* ${timeStr}\n🌐 *Portal:* Wyndhamganj Butbherwa`,
+          text: ` *ADMIN LOGGED IN & UNLOCKED LIVE EDIT*\n━━━━━━━━━━━━━━━━━━━\n📧 *Email:* paswanvive@gmail.com\n📞 *Mobile:* 7880571898\n🕒 *Time:* ${timeStr}\n🌐 *Portal:* Wyndhamganj Butbherwa`,
           parse_mode: 'Markdown'
         })
       }).catch(e => console.log(e));
 
       closeLoginModal();
       renderUnifiedMedia();
-      showToast("👑 Admin Mode Activated! You can now edit text and delete photos.");
+      showToast(" Admin Mode Activated! You can now edit text and delete photos.");
     }
 
     function exitAdminMode() {
@@ -1427,14 +1431,14 @@
       } catch(e){}
 
       // Telegram Broadcast
-      const msg = `✏️ *ADMIN EDITED SITE CONTENT & SAVED LIVE*\n━━━━━━━━━━━━━━━━━━━\n👤 *Admin:* Vivek Paswan (paswanvive@gmail.com)\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n🌐 *Status:* Live on Wyndhamganj Portal!`;
+      const msg = ` *ADMIN EDITED SITE CONTENT & SAVED LIVE*\n━━━━━━━━━━━━━━━━━━━\n👤 *Admin:* Vivek Paswan (paswanvive@gmail.com)\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n🌐 *Status:* Live on Wyndhamganj Portal!`;
       fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' })
       }).catch(e => console.log(e));
 
-      showToast("🎉 All changes saved and published live!");
+      showToast("All changes saved and published live!");
     }
 
     function loadPersistedSiteContent() {
