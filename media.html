@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Firebase Compat SDKs -->
+<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
@@ -19,7 +19,6 @@
 :root {
   --bg: #000000;
   --panel: #121212;
-  --panel-hover: #1c1c1c;
   --line: #262626;
   --txt: #f5f5f5;
   --muted: #8e8e8e;
@@ -29,9 +28,9 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: var(--txt); min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; }
+body { background: var(--bg); color: var(--txt); min-height: 100vh; padding-bottom: 56px; overflow-x: hidden; }
 
-/* Top Header */
+/* Header */
 header.app-header {
   position: sticky; top: 0; z-index: 50;
   background: rgba(0,0,0,0.92); backdrop-filter: blur(14px);
@@ -39,16 +38,16 @@ header.app-header {
   height: 52px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 16px;
 }
-.brand { font-size: 22px; font-weight: 800; background: var(--story-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+.brand { font-size: 22px; font-weight: 800; background: var(--story-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .head-actions { display: flex; align-items: center; gap: 18px; font-size: 1.25rem; }
 .head-actions i { cursor: pointer; }
 
-/* Main Container */
+/* Main wrap */
 .main-wrap { max-width: 600px; margin: 0 auto; }
 
 /* Stories Tray */
 .stories-tray {
-  display: flex; gap: 14px; padding: 12px 14px 14px;
+  display: flex; gap: 14px; padding: 12px 14px;
   overflow-x: auto; border-bottom: 1px solid var(--line);
   scrollbar-width: none;
 }
@@ -67,10 +66,10 @@ header.app-header {
 }
 .story-username { font-size: 0.72rem; color: var(--muted); margin-top: 4px; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* Post Card */
+/* Post Item */
 .post-item { border-bottom: 1px solid var(--line); margin-bottom: 8px; }
 .post-meta { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; }
-.post-author { display: flex; align-items: center; gap: 10px; }
+.post-author { display: flex; align-items: center; gap: 10px; cursor: pointer; }
 .post-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: #262626; }
 .post-author-name { font-weight: 600; font-size: 0.88rem; }
 .post-media { width: 100%; max-height: 520px; background: #080808; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -78,11 +77,10 @@ header.app-header {
 
 .post-actions { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 6px; font-size: 1.35rem; }
 .post-actions-left { display: flex; gap: 16px; }
-.post-actions i { cursor: pointer; transition: transform 0.15s ease; }
-.post-actions i:active { transform: scale(1.2); }
+.post-actions i { cursor: pointer; }
 .post-actions i.liked { color: var(--like); }
 .post-stats { padding: 0 14px; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
-.post-caption { padding: 0 14px; font-size: 0.88rem; line-height: 1.4; overflow-wrap: anywhere; }
+.post-caption { padding: 0 14px; font-size: 0.88rem; line-height: 1.4; }
 .post-caption strong { margin-right: 6px; }
 .post-time { padding: 4px 14px 12px; font-size: 0.72rem; color: var(--muted); text-transform: uppercase; }
 
@@ -95,10 +93,10 @@ nav.bottom-nav {
 }
 .nav-btn { color: var(--muted); cursor: pointer; }
 .nav-btn.active { color: var(--txt); }
-.nav-avatar-btn { width: 25px; height: 25px; border-radius: 50%; object-fit: cover; border: 1.5px solid transparent; }
+.nav-avatar-btn { width: 25px; height: 25px; border-radius: 50%; object-fit: cover; border: 1.5px solid transparent; cursor: pointer; }
 .nav-avatar-btn.active { border-color: var(--txt); }
 
-/* Instagram Style Profile View */
+/* Profile View */
 .profile-view { padding: 14px; }
 .profile-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .profile-img-lg { width: 78px; height: 78px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); cursor: pointer; }
@@ -111,16 +109,9 @@ nav.bottom-nav {
   flex: 1; padding: 8px; background: var(--panel); border: 1px solid var(--line);
   color: var(--txt); border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
 }
-.profile-grid-tabs { display: flex; border-top: 1px solid var(--line); margin-bottom: 2px; }
-.grid-tab-btn { flex: 1; text-align: center; padding: 10px 0; font-size: 1.15rem; color: var(--txt); border-bottom: 2px solid var(--txt); }
 .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-.grid-cell { aspect-ratio: 1; background: #161616; overflow: hidden; position: relative; }
+.grid-cell { aspect-ratio: 1; background: #161616; overflow: hidden; cursor: pointer; position: relative; }
 .grid-cell img { width: 100%; height: 100%; object-fit: cover; }
-.grid-cell-delete {
-  position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.75); color: var(--like);
-  border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
-  font-size: 12px; cursor: pointer; border: 1px solid var(--line);
-}
 
 /* Direct Messages */
 .dm-wrap { display: flex; flex-direction: column; height: calc(100vh - 115px); }
@@ -130,10 +121,10 @@ nav.bottom-nav {
 .dm-bubble.theirs { background: var(--panel); border: 1px solid var(--line); color: var(--txt); align-self: flex-start; margin-right: auto; }
 .dm-bar { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); }
 
-/* Common Modal / Dialogs */
+/* Common Modal */
 .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
 .modal-mask.show { display: flex; }
-.modal-sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; padding: 20px; }
+.modal-sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
 .modal-sheet-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-weight: 700; font-size: 1.05rem; }
 .field-group { margin-bottom: 12px; }
 .field-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
@@ -142,28 +133,57 @@ nav.bottom-nav {
 .btn-solid { width: 100%; background: var(--accent); color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.92rem; }
 .btn-google { width: 100%; background: #fff; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
 
-/* Share Modal Styling */
-.share-section-title { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
-.share-apps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; text-align: center; margin: 14px 0; }
-.share-app-icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 1.4rem; color: #fff; cursor: pointer; }
-.share-app-label { font-size: 0.72rem; color: var(--txt); }
+/* 2-Line Option Sheet Items (Image 1) */
+.option-menu-item { display: flex; align-items: center; gap: 16px; padding: 13px 4px; font-size: 0.95rem; cursor: pointer; border-bottom: 1px solid #1a1a1a; }
+.option-menu-item i { font-size: 1.2rem; width: 22px; text-align: center; }
+.option-menu-item.danger { color: var(--like); }
+.option-menu-item.danger i { color: var(--like); }
 
-/* Progress bar */
-.prog-box { display: none; margin: 10px 0; }
-.prog-track { background: #262626; border-radius: 4px; height: 6px; overflow: hidden; }
-.prog-fill { width: 0%; height: 100%; background: var(--accent); transition: width 0.2s ease; }
+/* Story Editor Screen (Image 2) */
+.story-editor-screen {
+  position: fixed; inset: 0; background: #000; z-index: 150; display: none;
+  flex-direction: column; justify-content: space-between;
+}
+.story-editor-top { display: flex; justify-content: space-between; align-items: center; padding: 16px; }
+.story-editor-tools {
+  position: absolute; right: 14px; top: 70px; display: flex; flex-direction: column; gap: 16px;
+  background: rgba(0,0,0,0.45); padding: 10px 8px; border-radius: 20px; backdrop-filter: blur(8px);
+}
+.tool-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 0.7rem; color: #fff; cursor: pointer; }
+.tool-btn i { font-size: 1.25rem; }
+.story-editor-preview { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.story-editor-preview img { width: 100%; height: 100%; object-fit: contain; }
+.story-editor-bottom { padding: 16px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
+.story-caption-entry { width: 100%; background: transparent; border: none; color: #fff; font-size: 1rem; outline: none; margin-bottom: 14px; }
+.story-post-actions { display: flex; align-items: center; justify-content: space-between; }
+.pill-btn { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px; background: #262626; color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.next-circle-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; }
 
-/* Settings menu item */
-.menu-row { display: flex; align-items: center; gap: 14px; padding: 13px 0; border-bottom: 1px solid #1a1a1a; cursor: pointer; font-size: 0.92rem; }
-.menu-row i { font-size: 1.1rem; color: var(--muted); width: 20px; }
+/* Story Fullscreen Viewer (Image 4 & 5) */
+.story-viewer-screen { position: fixed; inset: 0; background: #000; z-index: 200; display: none; flex-direction: column; }
+.story-progress-bar-wrap { display: flex; gap: 4px; padding: 10px 14px 6px; }
+.story-progress-segment { flex: 1; height: 2px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
+.story-progress-active { height: 100%; width: 0%; background: #fff; transition: width 0.1s linear; }
+.story-viewer-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 14px; }
+.story-viewer-user { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.88rem; }
+.story-viewer-user img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.story-viewer-body { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
+.story-viewer-body img { width: 100%; height: 100%; object-fit: contain; }
+.story-viewer-foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 16px; background: rgba(0,0,0,0.8); }
+.story-reply-inp { flex: 1; background: transparent; border: 1px solid #444; border-radius: 20px; padding: 8px 14px; color: #fff; font-size: 0.85rem; margin-right: 12px; outline: none; }
+.story-foot-actions { display: flex; gap: 16px; font-size: 1.25rem; align-items: center; }
 
-#toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #222; border: 1px solid var(--line); color: #fff; padding: 10px 16px; border-radius: 20px; font-size: 0.82rem; z-index: 200; display: none; }
+/* Drawer for Activity (Image 5) */
+.story-activity-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 250; display: none; align-items: flex-end; }
+.story-activity-sheet { background: var(--panel); width: 100%; max-height: 75vh; border-radius: 16px 16px 0 0; border-top: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+
+#toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #222; border: 1px solid var(--line); color: #fff; padding: 10px 16px; border-radius: 20px; font-size: 0.82rem; z-index: 300; display: none; }
 .hidden { display: none !important; }
 </style>
 </head>
 <body>
 
-  <!-- Top Header (No Back Arrow) -->
+  <!-- Top Header -->
   <header class="app-header">
     <div style="display:flex; align-items:center; gap:12px;">
       <span class="brand">WDM</span>
@@ -175,12 +195,12 @@ nav.bottom-nav {
     </div>
   </header>
 
-  <!-- Main Wrapper -->
+  <!-- Main Container -->
   <div class="main-wrap">
     
-    <!-- Stories Bar (Only visible on Home Feed) -->
+    <!-- Stories Tray -->
     <div class="stories-tray" id="storiesTray">
-      <div class="story-circle" onclick="pickStoryImage()">
+      <div class="story-circle" onclick="triggerStoryPicker()">
         <div class="story-ring add-ring">
           <img id="myStoryAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80">
           <div class="add-badge"><i class="fa-solid fa-plus"></i></div>
@@ -197,7 +217,7 @@ nav.bottom-nav {
 
     <!-- Search View -->
     <section id="searchSection" class="hidden" style="padding:14px;">
-      <input type="text" id="searchInput" class="field-input" placeholder="Search users, captions, tags..." oninput="handleSearch(this.value)">
+      <input type="text" id="searchInput" class="field-input" placeholder="Search users or captions..." oninput="handleInstantSearch(this.value)">
       <div id="searchResults" style="margin-top:14px; display:flex; flex-direction:column; gap:8px;"></div>
     </section>
 
@@ -215,7 +235,7 @@ nav.bottom-nav {
       </div>
     </section>
 
-    <!-- Activity / Notifications View -->
+    <!-- Activity Section -->
     <section id="activitySection" class="hidden" style="padding:16px;">
       <h3 style="font-size:1.1rem; margin-bottom:14px;">Activity</h3>
       <div id="activityItemsList" style="display:flex; flex-direction:column; gap:10px;"></div>
@@ -224,7 +244,7 @@ nav.bottom-nav {
     <!-- Profile View -->
     <section id="profileSection" class="hidden profile-view">
       <div class="profile-top-row">
-        <img id="profileUserAvatar" class="profile-img-lg" src="" onclick="pickAvatarImage()" title="Change Profile Photo">
+        <img id="profileUserAvatar" class="profile-img-lg" src="" onclick="pickAvatarImage()">
         <div class="profile-stats-box">
           <div><div class="profile-num" id="statPostsCount">0</div><div class="profile-lbl">posts</div></div>
           <div><div class="profile-num" id="statFollowersCount">0</div><div class="profile-lbl">followers</div></div>
@@ -238,10 +258,7 @@ nav.bottom-nav {
       </div>
       <div class="profile-actions-bar">
         <button onclick="openProfileEditModal()">Edit profile</button>
-        <button onclick="shareProfile()">Share profile</button>
-      </div>
-      <div class="profile-grid-tabs">
-        <div class="grid-tab-btn"><i class="fa-solid fa-table-cells"></i></div>
+        <button onclick="shareProfileLink()">Share profile</button>
       </div>
       <div class="profile-grid" id="profileGridList"></div>
     </section>
@@ -257,257 +274,255 @@ nav.bottom-nav {
     <img id="navProfileThumb" class="nav-avatar-btn" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50" onclick="switchNav('profile')">
   </nav>
 
-  <!-- Hidden Native File Inputs (Strictly Image Only) -->
+  <!-- Hidden Native File Pickers -->
   <input type="file" id="postImageInputHidden" accept="image/*" style="display:none;" onchange="onPostImagePicked(this)">
-  <input type="file" id="storyImageInputHidden" accept="image/*" style="display:none;" onchange="onStoryImagePicked(this)">
+  <input type="file" id="storyImageInputHidden" accept="image/*" style="display:none;" onchange="onStoryImageSelected(this)">
   <input type="file" id="avatarImageInputHidden" accept="image/*" style="display:none;" onchange="onAvatarImagePicked(this)">
 
   <!-- MODALS -->
 
-  <!-- 1. Post Preview & Caption Modal -->
-  <div class="modal-mask" id="postCreateModal">
-    <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span>New Photo Post</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('postCreateModal')"></i>
+  <!-- 1. Post Detail Modal (Large view with 2-line menu) [Image 1] -->
+  <div class="modal-mask" id="postDetailModal">
+    <div class="modal-sheet" style="max-width:500px; padding:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <i class="fa-solid fa-arrow-left" style="cursor:pointer; font-size:1.1rem;" onclick="closeModal('postDetailModal')"></i>
+        <span style="font-weight:700;">Posts</span>
+        <!-- 2-line options icon -->
+        <i class="fa-solid fa-bars" style="cursor:pointer; font-size:1.2rem;" onclick="openPostOptionMenu()"></i>
       </div>
-      <div id="postPreviewImgBox" style="width:100%; max-height:240px; background:#000; border-radius:8px; overflow:hidden; margin-bottom:12px; display:flex; align-items:center; justify-content:center;"></div>
-      <div class="field-group">
-        <label>Caption</label>
-        <textarea id="postCaptionInput" class="field-input" rows="3" placeholder="Write a caption..."></textarea>
-      </div>
-      <div class="prog-box" id="postUploadProgress">
-        <div class="prog-track"><div class="prog-fill" id="postProgressFill"></div></div>
-      </div>
-      <button class="btn-solid" id="btnSubmitPost" onclick="executePostUpload()">Share Post</button>
+      <div id="postDetailCardContent"></div>
     </div>
   </div>
 
-  <!-- 2. Instagram Style Share Sheet Modal -->
-  <div class="modal-mask" id="shareSheetModal">
-    <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span>Share Post</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('shareSheetModal')"></i>
+  <!-- 2. Post Options Menu Sheet [Image 1 Exact Replica] -->
+  <div class="modal-mask" id="postOptionMenuModal">
+    <div class="modal-sheet" style="padding:16px;">
+      <div style="width:40px; height:4px; background:#444; border-radius:2px; margin:0 auto 16px;"></div>
+      
+      <div class="option-menu-item" onclick="triggerPostAction('about')">
+        <i class="fa-solid fa-circle-info"></i>
+        <div style="flex:1;">
+          <div>About this post</div>
+          <div style="font-size:0.75rem; color:var(--muted);">Post details</div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:var(--muted);"></i>
       </div>
 
-      <!-- Quick send inside WDM chat -->
-      <div class="share-section-title">Send to Friends</div>
-      <div style="display:flex; gap:8px; margin-bottom:14px;">
-        <input type="text" id="shareTargetUser" class="field-input" placeholder="Enter recipient username (@user)...">
-        <button class="btn-solid" style="width:auto; padding:0 14px;" onclick="sendPostToFriendChat()">Send</button>
+      <div class="option-menu-item" onclick="triggerPostAction('save')">
+        <i class="fa-regular fa-bookmark"></i>
+        <span>Save</span>
       </div>
 
-      <div class="share-section-title">Share to External Apps</div>
-      <div class="share-apps-grid">
-        <div onclick="shareToApp('whatsapp')">
-          <div class="share-app-icon" style="background:#25D366;"><i class="fa-brands fa-whatsapp"></i></div>
-          <span class="share-app-label">WhatsApp</span>
-        </div>
-        <div onclick="shareToApp('telegram')">
-          <div class="share-app-icon" style="background:#0088cc;"><i class="fa-brands fa-telegram"></i></div>
-          <span class="share-app-label">Telegram</span>
-        </div>
-        <div onclick="shareToApp('facebook')">
-          <div class="share-app-icon" style="background:#1877F2;"><i class="fa-brands fa-facebook"></i></div>
-          <span class="share-app-label">Facebook</span>
-        </div>
-        <div onclick="shareToApp('gmail')">
-          <div class="share-app-icon" style="background:#EA4335;"><i class="fa-solid fa-envelope"></i></div>
-          <span class="share-app-label">Gmail</span>
-        </div>
-        <div onclick="shareToApp('sms')">
-          <div class="share-app-icon" style="background:#2ecc71;"><i class="fa-solid fa-message"></i></div>
-          <span class="share-app-label">Messages</span>
-        </div>
-        <div onclick="shareToApp('copy')">
-          <div class="share-app-icon" style="background:#333;"><i class="fa-solid fa-link"></i></div>
-          <span class="share-app-label">Copy Link</span>
-        </div>
-        <div onclick="shareToApp('more')">
-          <div class="share-app-icon" style="background:#444;"><i class="fa-solid fa-ellipsis"></i></div>
-          <span class="share-app-label">More</span>
-        </div>
+      <div class="option-menu-item" onclick="triggerPostAction('share')">
+        <i class="fa-regular fa-circle-xmark"></i>
+        <span>Stop sharing</span>
+      </div>
+
+      <div class="option-menu-item" onclick="triggerPostAction('qr')">
+        <i class="fa-solid fa-qrcode"></i>
+        <span>QR code</span>
+      </div>
+
+      <div class="option-menu-item" id="optionGridRemove" onclick="triggerPostAction('delete')">
+        <i class="fa-solid fa-ban"></i>
+        <span>Remove from main grid</span>
+      </div>
+
+      <div class="option-menu-item" onclick="triggerPostAction('tags')">
+        <i class="fa-solid fa-tag"></i>
+        <span>Tag options...</span>
+      </div>
+
+      <div class="option-menu-item" onclick="triggerPostAction('account')">
+        <i class="fa-regular fa-circle-user"></i>
+        <span>About this account</span>
+      </div>
+
+      <div class="option-menu-item danger" onclick="triggerPostAction('report')">
+        <i class="fa-regular fa-message"></i>
+        <span>Report</span>
       </div>
     </div>
   </div>
 
-    <!-- 3. Auth Gateway Modal -->
+  <!-- 3. Story Editor Screen [Image 2 Replica] -->
+  <div class="story-editor-screen" id="storyEditorScreen">
+    <div class="story-editor-top">
+      <i class="fa-solid fa-xmark" style="color:#fff; font-size:1.4rem; cursor:pointer;" onclick="closeStoryEditor()"></i>
+      <div style="color:#fff; font-size:0.85rem; font-weight:600;" id="editorMusicLabel"></div>
+    </div>
+
+    <!-- Side Tools Column -->
+    <div class="story-editor-tools">
+      <div class="tool-btn" onclick="applyStoryText()"><i class="fa-solid fa-font"></i><span>Text</span></div>
+      <div class="tool-btn" onclick="applyStorySticker()"><i class="fa-regular fa-face-smile"></i><span>Stickers</span></div>
+      <div class="tool-btn" onclick="openMusicPicker()"><i class="fa-solid fa-music"></i><span>Music</span></div>
+      <div class="tool-btn" onclick="cycleStoryFilter()"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Effects</span></div>
+      <div class="tool-btn" onclick="saveStoryLocally()"><i class="fa-solid fa-arrow-down"></i><span>Save</span></div>
+    </div>
+
+    <div class="story-editor-preview">
+      <img id="storyEditorImg" src="">
+      <div id="storyOverlayText" style="position:absolute; color:#fff; font-size:1.3rem; font-weight:700; text-shadow:0 2px 8px #000; pointer-events:none;"></div>
+    </div>
+
+    <div class="story-editor-bottom">
+      <input type="text" id="storyCaptionInput" class="story-caption-entry" placeholder="Add a caption...">
+      <div class="story-post-actions">
+        <div class="pill-btn" onclick="openStoryShareSheet()">
+          <img id="editorMiniAvatar" src="" style="width:20px; height:20px; border-radius:50%;">
+          <span>Your story</span>
+        </div>
+        <div class="pill-btn" style="background:#0e3a1f; color:#31a24c;" onclick="openStoryShareSheet()">
+          <i class="fa-solid fa-star"></i>
+          <span>Close Friends</span>
+        </div>
+        <div class="next-circle-btn" onclick="openStoryShareSheet()"><i class="fa-solid fa-chevron-right"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Story Share Sheet [Image 3 Replica] -->
+  <div class="modal-mask" id="storyShareSheetModal">
+    <div class="modal-sheet" style="padding:18px;">
+      <div style="width:40px; height:4px; background:#444; border-radius:2px; margin:0 auto 12px;"></div>
+      <div style="text-align:center; font-weight:700; font-size:1rem; margin-bottom:14px;">Share</div>
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #1f1f1f;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img id="shareSheetAvatar" src="" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Your story</div>
+            <div style="font-size:0.75rem; color:var(--muted);">Sharing options</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-circle-check" style="color:var(--accent); font-size:1.2rem;"></i>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #1f1f1f;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:#0e3a1f; color:#31a24c; display:flex; align-items:center; justify-content:center;">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <div style="font-weight:600; font-size:0.9rem;">Close Friends</div>
+        </div>
+        <i class="fa-regular fa-circle" style="color:var(--muted); font-size:1.2rem;"></i>
+      </div>
+      <button class="btn-solid" style="margin-top:20px; padding:12px;" onclick="publishStoryToFirebase()">Share</button>
+    </div>
+  </div>
+
+  <!-- 5. Story Fullscreen Viewer [Image 4 Replica] -->
+  <div class="story-viewer-screen" id="storyViewerScreen">
+    <div class="story-progress-bar-wrap">
+      <div class="story-progress-segment"><div class="story-progress-active" id="storyProgressAnim"></div></div>
+    </div>
+    <div class="story-viewer-head">
+      <div class="story-viewer-user">
+        <img id="activeStoryViewerAvatar" src="">
+        <span id="activeStoryViewerName">user</span>
+        <span style="font-size:0.75rem; color:var(--muted); font-weight:400;" id="activeStoryTimeAgo">10s</span>
+      </div>
+      <i class="fa-solid fa-xmark" style="color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeStoryViewer()"></i>
+    </div>
+    <div class="story-viewer-body">
+      <img id="activeStoryViewerImg" src="">
+    </div>
+    <div class="story-viewer-foot">
+      <input type="text" class="story-reply-inp" placeholder="Say something..." onkeypress="if(event.key==='Enter') sendStoryReply(this.value)">
+      <div class="story-foot-actions">
+        <i class="fa-regular fa-heart" style="cursor:pointer;" onclick="sendStoryReaction('❤️')"></i>
+        <!-- Activity icon -->
+        <div style="display:flex; flex-direction:column; align-items:center; font-size:0.7rem; cursor:pointer;" onclick="openStoryActivityDrawer()">
+          <i class="fa-solid fa-chart-simple" style="font-size:1.15rem;"></i>
+          <span>Activity</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Story Activity Drawer [Image 5 Replica] -->
+  <div class="story-activity-drawer" id="storyActivityDrawer">
+    <div class="story-activity-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <img id="activityThumbImg" src="" style="width:40px; height:56px; border-radius:6px; object-fit:cover;">
+          <div>
+            <div style="font-weight:700; font-size:1rem;" id="activityViewerCount">0 views</div>
+            <div style="font-size:0.75rem; color:var(--muted);">Seen by community</div>
+          </div>
+        </div>
+        <i class="fa-regular fa-trash-can" style="color:var(--like); font-size:1.3rem; cursor:pointer;" onclick="deleteActiveStory()"></i>
+      </div>
+      <input type="text" class="field-input" placeholder="Search viewers" style="margin-bottom:12px;">
+      <div id="activityViewersList" style="display:flex; flex-direction:column; gap:8px;"></div>
+      <button class="btn-solid" style="background:#262626; margin-top:14px;" onclick="closeStoryActivityDrawer()">Done</button>
+    </div>
+  </div>
+
+  <!-- 7. Auth Modal -->
   <div class="modal-mask" id="authGatewayModal">
     <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span id="authHeaderTitle">Welcome to WDM</span>
-      </div>
-
+      <div class="modal-sheet-head"><span id="authHeaderTitle">Welcome to WDM</span></div>
       <div style="display:flex; gap:8px; margin-bottom:14px;">
         <button id="btnTabRegister" class="btn-solid" style="padding:8px;" onclick="setAuthTab('register')">Create Account</button>
         <button id="btnTabLogin" class="btn-solid" style="padding:8px; background:#262626;" onclick="setAuthTab('login')">Sign In</button>
       </div>
-
-      <!-- Register Form -->
       <div id="registerFields">
-        <div class="field-group">
-          <label>Full Name *</label>
-          <input type="text" id="regFullName" class="field-input" placeholder="e.g. Alex Smith">
-        </div>
-        <div class="field-group">
-          <label>Unique User ID (letters, numbers, _) *</label>
-          <input type="text" id="regUsername" class="field-input" placeholder="e.g. alex_01">
-        </div>
-        <div class="field-group">
-          <label>Email *</label>
-          <input type="email" id="regEmail" class="field-input" placeholder="name@example.com">
-        </div>
+        <div class="field-group"><label>Full Name *</label><input type="text" id="regFullName" class="field-input" placeholder="Full Name"></div>
+        <div class="field-group"><label>Unique User ID *</label><input type="text" id="regUsername" class="field-input" placeholder="Username"></div>
+        <div class="field-group"><label>Email *</label><input type="email" id="regEmail" class="field-input" placeholder="Email address"></div>
       </div>
-
-      <!-- Login Form Unique Field -->
       <div id="loginFields" style="display:none;">
-        <div class="field-group">
-          <label>Email or User ID *</label>
-          <input type="text" id="loginIdentifier" class="field-input" placeholder="Enter your Email or User ID">
-        </div>
+        <div class="field-group"><label>Email or User ID *</label><input type="text" id="loginIdentifier" class="field-input" placeholder="Email or User ID"></div>
       </div>
-
-      <!-- Password -->
-      <div class="field-group">
-        <label>Password *</label>
-        <input type="password" id="authPassword" class="field-input" placeholder="6+ characters">
-      </div>
-
-      <!-- Recovery Links -->
+      <div class="field-group"><label>Password *</label><input type="password" id="authPassword" class="field-input" placeholder="Password (e.g. Minimum 6 characters)"></div>
       <div id="loginRecoveryLinks" style="display:none; justify-content:space-between; margin-bottom:12px; font-size:0.78rem;">
         <a href="#" style="color:var(--accent); text-decoration:none;" onclick="openForgotPassModal(); return false;">Forgot Password?</a>
-        <a href="#" style="color:var(--muted); text-decoration:none;" onclick="openForgotIdModal(); return false;">Find User ID</a>
       </div>
-
       <button class="btn-solid" id="btnSubmitAuth" onclick="submitAuth()">Continue</button>
-
       <div style="text-align:center; margin:12px 0; color:var(--muted); font-size:0.8rem;">OR</div>
-
-      <button class="btn-google" onclick="continueWithGoogle()">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
-        Continue with Google
-      </button>
+      <button class="btn-google" onclick="continueWithGoogle()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">Continue with Google</button>
     </div>
   </div>
 
-  <!-- 4. Google New User Onboarding Modal -->
-  <div class="modal-mask" id="googleOnboardModal">
-    <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span>Set Up Profile</span>
-      </div>
-      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:12px;">Choose a unique User ID to complete your registration.</p>
-      
-      <div class="field-group">
-        <label>Unique User ID (letters, numbers, _) *</label>
-        <input type="text" id="onboardUsername" class="field-input" placeholder="e.g. user_abc">
-      </div>
-      <div class="field-group">
-        <label>Short Bio</label>
-        <input type="text" id="onboardBio" class="field-input" placeholder="Tell something about yourself...">
-      </div>
-
-      <button class="btn-solid" onclick="finishGoogleOnboarding()">Save & Start</button>
-    </div>
-  </div>
-
-  <!-- 5. Forgot Password Modal -->
+  <!-- 8. Forgot Password Modal -->
   <div class="modal-mask" id="forgotPassModal">
     <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span>Reset Password</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('forgotPassModal')"></i>
-      </div>
+      <div class="modal-sheet-head"><span>Reset Password</span><i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('forgotPassModal')"></i></div>
       <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Enter your registered Gmail address. We will send a secure password reset link directly to your inbox.</p>
-      <div class="field-group">
-        <label>Your Registered Email *</label>
-        <input type="email" id="resetEmailInput" class="field-input" placeholder="your-email@gmail.com">
-      </div>
+      <div class="field-group"><label>Your Registered Email *</label><input type="email" id="resetEmailInput" class="field-input" placeholder="Registered Gmail"></div>
       <button class="btn-solid" onclick="sendPasswordResetLink()">Send Reset Link</button>
     </div>
   </div>
 
-  <!-- 6. Find User ID Modal -->
-  <div class="modal-mask" id="forgotIdModal">
-    <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span>Find Your User ID</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('forgotIdModal')"></i>
-      </div>
-      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Enter your registered Email. We will securely retrieve your username.</p>
-      <div class="field-group">
-        <label>Your Registered Email *</label>
-        <input type="email" id="findIdEmailInput" class="field-input" placeholder="your-email@gmail.com">
-      </div>
-      <div id="foundIdResult" style="margin-bottom:12px; font-size:0.9rem; color:var(--accent); font-weight:600;"></div>
-      <button class="btn-solid" onclick="lookupUserIdByEmail()">Find ID</button>
-    </div>
-  </div>
-
-  <!-- 7. Edit Profile Modal -->
+  <!-- 9. Edit Profile Modal -->
   <div class="modal-mask" id="profileEditModal">
     <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span>Edit Profile</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('profileEditModal')"></i>
-      </div>
-      <div class="field-group">
-        <label>Full Name</label>
-        <input type="text" id="editFullName" class="field-input">
-      </div>
-      <div class="field-group">
-        <label>User ID</label>
-        <input type="text" id="editUsername" class="field-input">
-      </div>
-      <div class="field-group">
-        <label>Bio</label>
-        <textarea id="editBio" class="field-input" rows="2"></textarea>
-      </div>
+      <div class="modal-sheet-head"><span>Edit Profile</span><i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('profileEditModal')"></i></div>
+      <div class="field-group"><label>Full Name</label><input type="text" id="editFullName" class="field-input"></div>
+      <div class="field-group"><label>User ID</label><input type="text" id="editUsername" class="field-input"></div>
+      <div class="field-group"><label>Bio</label><textarea id="editBio" class="field-input" rows="2"></textarea></div>
       <button class="btn-solid" onclick="saveProfileChanges()">Save Changes</button>
     </div>
   </div>
 
-  <!-- 8. Instagram Style Settings & Activity Drawer -->
-  <div class="modal-mask" id="settingsModal">
+  <!-- 10. Post Caption Modal -->
+  <div class="modal-mask" id="postCreateModal">
     <div class="modal-sheet">
-      <div class="modal-sheet-head">
-        <span>Settings and Activity</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('settingsModal')"></i>
-      </div>
-
-      <div class="menu-row" onclick="closeModal('settingsModal'); openForgotPassModal();">
-        <i class="fa-solid fa-shield-halved"></i>
-        <span>Password & Security</span>
-      </div>
-
-      <div class="menu-row" onclick="closeModal('settingsModal'); openProfileEditModal();">
-        <i class="fa-solid fa-user-pen"></i>
-        <span>Edit Profile Details</span>
-      </div>
-
-      <div class="menu-row" onclick="shareProfile(); closeModal('settingsModal');">
-        <i class="fa-solid fa-arrow-up-from-bracket"></i>
-        <span>Share Profile Link</span>
-      </div>
-
-      <div class="menu-row" onclick="toggleLanguage(); closeModal('settingsModal');">
-        <i class="fa-solid fa-language"></i>
-        <span>Language (EN / HI)</span>
-      </div>
-
-      <div class="menu-row" style="color:var(--like); border-bottom:none; margin-top:8px;" onclick="logout()">
-        <i class="fa-solid fa-right-from-bracket" style="color:var(--like);"></i>
-        <span>Log Out</span>
-      </div>
+      <div class="modal-sheet-head"><span>New Photo Post</span><i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('postCreateModal')"></i></div>
+      <div id="postPreviewImgBox" style="width:100%; max-height:240px; background:#000; border-radius:8px; overflow:hidden; margin-bottom:12px; display:flex; align-items:center; justify-content:center;"></div>
+      <div class="field-group"><label>Caption</label><textarea id="postCaptionInput" class="field-input" rows="3" placeholder="Write a caption..."></textarea></div>
+      <button class="btn-solid" id="btnSubmitPost" onclick="executePostUpload()">Share Post</button>
     </div>
   </div>
 
   <div id="toast"></div>
 
+  <!-- AUDIO ELEMENT FOR STORY MUSIC -->
+  <audio id="storyAudioPlayer" loop></audio>
+
   <!-- JAVASCRIPT ENGINE -->
   <script>
-    // --- 1. CONFIGURATION ---
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
       authDomain: "wdm-update.firebaseapp.com",
@@ -528,10 +543,20 @@ nav.bottom-nav {
     let me = null;
     let authMode = "register";
     let pendingPostFile = null;
-    let tempGoogleAuthUser = null;
-    let activeChatPairId = null;
-    let chatUnsubscribe = null;
-    let currentSharePostUrl = "";
+    let pendingStoryFile = null;
+    let activeDetailPostId = null;
+    let activeStoryData = null;
+    let storyProgressInterval = null;
+    let storyFilterIndex = 0;
+    const STORY_FILTERS = ["none", "contrast(1.2) brightness(1.1)", "grayscale(1)", "sepia(0.6)", "hue-rotate(45deg)"];
+
+    // Real Music Tracks (Instrumental & Lo-Fi)
+    const REAL_TRACKS = [
+      { name: "Sunset Lo-Fi Beats", url: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" },
+      { name: "Chill Ambient Vibes", url: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=chill-abstract-intention-12099.mp3" },
+      { name: "Acoustic Melody", url: "https://cdn.pixabay.com/download/audio/2021/09/06/audio_82c2a05051.mp3?filename=relaxed-vlog-night-street-131746.mp3" }
+    ];
+    let selectedTrackIndex = -1;
 
     function showToast(msg) {
       const t = document.getElementById("toast");
@@ -540,7 +565,7 @@ nav.bottom-nav {
       setTimeout(() => { t.style.display = "none"; }, 2800);
     }
 
-    // --- 2. AUTHENTICATION & SESSION ---
+    // --- AUTH OBSERVER ---
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const docRef = db.collection("users").doc(user.uid);
@@ -549,9 +574,20 @@ nav.bottom-nav {
           me = { uid: user.uid, ...doc.data() };
           launchApp();
         } else {
-          tempGoogleAuthUser = user;
-          closeModal("authGatewayModal");
-          document.getElementById("googleOnboardModal").classList.add("show");
+          // Google first time
+          const defaultUsername = "user_" + user.uid.slice(0, 5);
+          const userData = {
+            uid: user.uid,
+            fullName: user.displayName || "WDM Member",
+            username: defaultUsername,
+            email: user.email || "",
+            avatar: user.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120",
+            bio: "WDM Community Member",
+            createdAt: FV.serverTimestamp()
+          };
+          await docRef.set(userData);
+          me = userData;
+          launchApp();
         }
       } else {
         me = null;
@@ -561,54 +597,26 @@ nav.bottom-nav {
 
     function setAuthTab(mode) {
       authMode = mode;
-      const regBox = document.getElementById("registerFields");
-      const logBox = document.getElementById("loginFields");
-      const regBtn = document.getElementById("btnTabRegister");
-      const logBtn = document.getElementById("btnTabLogin");
-      const recoveryLinks = document.getElementById("loginRecoveryLinks");
-
-      if (mode === "register") {
-        regBox.style.display = "block";
-        logBox.style.display = "none";
-        recoveryLinks.style.display = "none";
-        regBtn.style.background = "var(--accent)";
-        logBtn.style.background = "#262626";
-      } else {
-        regBox.style.display = "none";
-        logBox.style.display = "block";
-        recoveryLinks.style.display = "flex";
-        logBtn.style.background = "var(--accent)";
-        regBtn.style.background = "#262626";
-      }
+      document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
+      document.getElementById("loginFields").style.display = mode === "login" ? "block" : "none";
+      document.getElementById("loginRecoveryLinks").style.display = mode === "login" ? "flex" : "none";
+      document.getElementById("btnTabRegister").style.background = mode === "register" ? "var(--accent)" : "#262626";
+      document.getElementById("btnTabLogin").style.background = mode === "login" ? "var(--accent)" : "#262626";
     }
 
     async function submitAuth() {
       const pass = document.getElementById("authPassword").value.trim();
-      if (!pass || pass.length < 6) {
-        showToast("Password must be at least 6 characters.");
-        return;
-      }
+      if (!pass || pass.length < 6) { showToast("Password must be at least 6 characters."); return; }
 
       if (authMode === "register") {
         const fullName = document.getElementById("regFullName").value.trim();
         const username = document.getElementById("regUsername").value.trim().toLowerCase();
         const email = document.getElementById("regEmail").value.trim();
-
-        if (!fullName || !username || !email) {
-          showToast("Please fill all required fields.");
-          return;
-        }
-
-        if (!/^[a-z0-9_]{3,20}$/.test(username)) {
-          showToast("User ID must be 3-20 characters (letters, numbers, _).");
-          return;
-        }
+        if (!fullName || !username || !email) { showToast("All fields required."); return; }
+        if (!/^[a-z0-9_]{3,20}$/.test(username)) { showToast("User ID must be 3-20 characters."); return; }
 
         const check = await db.collection("users").where("username", "==", username).get();
-        if (!check.empty) {
-          showToast("Username already exists!");
-          return;
-        }
+        if (!check.empty) { showToast("Username already exists!"); return; }
 
         try {
           const cred = await auth.createUserWithEmailAndPassword(email, pass);
@@ -617,7 +625,7 @@ nav.bottom-nav {
             fullName: fullName,
             username: username,
             email: email,
-            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120",
             bio: "WDM Community Member",
             createdAt: FV.serverTimestamp()
           };
@@ -625,83 +633,30 @@ nav.bottom-nav {
           me = userData;
           closeModal("authGatewayModal");
           launchApp();
-        } catch (e) {
-          showToast(e.message);
-        }
+        } catch (e) { showToast(e.message); }
       } else {
         const identifier = document.getElementById("loginIdentifier").value.trim().toLowerCase();
-        if (!identifier) {
-          showToast("Please enter Email or User ID.");
-          return;
-        }
-
         let targetEmail = identifier;
         if (!identifier.includes("@")) {
           const q = await db.collection("users").where("username", "==", identifier).limit(1).get();
-          if (q.empty) {
-            showToast("User ID not found!");
-            return;
-          }
+          if (q.empty) { showToast("User ID not found!"); return; }
           targetEmail = q.docs[0].data().email;
         }
-
         try {
           await auth.signInWithEmailAndPassword(targetEmail, pass);
           closeModal("authGatewayModal");
-        } catch (e) {
-          showToast("Invalid credentials.");
-        }
+        } catch (e) { showToast("Invalid credentials."); }
       }
     }
 
     async function continueWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      try {
-        await auth.signInWithPopup(provider);
-      } catch (e) {
-        if (e.code !== "auth/popup-closed-by-user") showToast(e.message);
-      }
+      try { await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); } catch (e) { showToast(e.message); }
     }
 
-    async function finishGoogleOnboarding() {
-      const username = document.getElementById("onboardUsername").value.trim().toLowerCase();
-      const bio = document.getElementById("onboardBio").value.trim() || "WDM Community Member";
-
-      if (!/^[a-z0-9_]{3,20}$/.test(username)) {
-        showToast("User ID must be 3-20 characters (letters, numbers, _).");
-        return;
-      }
-
-      const check = await db.collection("users").where("username", "==", username).get();
-      if (!check.empty) {
-        showToast("Username already exists!");
-        return;
-      }
-
-      const userData = {
-        uid: tempGoogleAuthUser.uid,
-        fullName: tempGoogleAuthUser.displayName || "Google User",
-        username: username,
-        email: tempGoogleAuthUser.email || "",
-        avatar: tempGoogleAuthUser.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
-        bio: bio,
-        createdAt: FV.serverTimestamp()
-      };
-
-      await db.collection("users").doc(tempGoogleAuthUser.uid).set(userData);
-      me = userData;
-      closeModal("googleOnboardModal");
-      launchApp();
-    }
-
-    // --- 3. PASSWORD & USER ID RECOVERY ---
     function openForgotPassModal() { document.getElementById("forgotPassModal").classList.add("show"); }
     async function sendPasswordResetLink() {
       const email = document.getElementById("resetEmailInput").value.trim();
-      if (!email || !email.includes("@")) {
-        showToast("Enter a valid email address.");
-        return;
-      }
+      if (!email || !email.includes("@")) { showToast("Enter a valid email address."); return; }
       try {
         await auth.sendPasswordResetEmail(email);
         closeModal("forgotPassModal");
@@ -709,98 +664,52 @@ nav.bottom-nav {
       } catch (e) { showToast(e.message); }
     }
 
-    function openForgotIdModal() {
-      document.getElementById("foundIdResult").innerText = "";
-      document.getElementById("forgotIdModal").classList.add("show");
-    }
-
-    async function lookupUserIdByEmail() {
-      const email = document.getElementById("findIdEmailInput").value.trim();
-      if (!email || !email.includes("@")) {
-        showToast("Enter your registered email.");
-        return;
-      }
-      try {
-        const q = await db.collection("users").where("email", "==", email).limit(1).get();
-        if (q.empty) {
-          document.getElementById("foundIdResult").innerText = "No account found with this email.";
-        } else {
-          document.getElementById("foundIdResult").innerText = "Your User ID: @" + q.docs[0].data().username;
-        }
-      } catch (e) { showToast(e.message); }
-    }
-
-    function logout() {
-      auth.signOut().then(() => location.reload());
-    }
-
-    // --- 4. APP LAUNCH ---
     function launchApp() {
-      document.getElementById("authGatewayModal").classList.remove("show");
-      document.getElementById("googleOnboardModal").classList.remove("show");
-
+      closeModal("authGatewayModal");
       document.getElementById("profileFullnameDisplay").innerText = me.fullName || "User";
       document.getElementById("profileUsernameDisplay").innerText = "@" + me.username;
       document.getElementById("profileBioDisplay").innerText = me.bio || "";
       document.getElementById("profileUserAvatar").src = me.avatar;
       document.getElementById("myStoryAvatar").src = me.avatar;
       document.getElementById("navProfileThumb").src = me.avatar;
+      document.getElementById("editorMiniAvatar").src = me.avatar;
+      document.getElementById("shareSheetAvatar").src = me.avatar;
 
       listenFeed();
       listenStories();
       loadProfileData();
     }
 
-    // --- 5. CLOUDINARY IMAGE UPLOADER ---
-    async function uploadImageToCloudinary(file, progCallback) {
-      if (!file.type.startsWith("image/")) throw new Error("Only images are allowed on WDM!");
+    // --- CLOUDINARY UPLOADER ---
+    async function uploadImageToCloudinary(file) {
+      if (!file.type.startsWith("image/")) throw new Error("Only images are supported!");
       const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
       const fd = new FormData();
       fd.append("file", file);
       fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
-      return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.upload.onprogress = (e) => {
-          if (e.lengthComputable && progCallback) {
-            progCallback(Math.round((e.loaded / e.total) * 100));
-          }
-        };
-        xhr.onload = () => {
-          if (xhr.status === 200) resolve(JSON.parse(xhr.responseText).secure_url);
-          else reject("Cloudinary upload failed: " + xhr.status);
-        };
-        xhr.onerror = () => reject("Network error during file transfer.");
-        xhr.send(fd);
-      });
+      const res = await fetch(url, { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error?.message || "Upload failed");
+      return data.secure_url;
     }
 
-    // --- 6. POST CREATION & NATIVE PICKER ---
+    // --- POST CREATION & EXPAND [Image 1] ---
     function triggerPostImagePicker() { document.getElementById("postImageInputHidden").click(); }
     function onPostImagePicked(input) {
       if (input.files && input.files[0]) {
-        const file = input.files[0];
-        if (!file.type.startsWith("image/")) { showToast("Only photos can be uploaded!"); return; }
-        pendingPostFile = file;
-        const previewBox = document.getElementById("postPreviewImgBox");
-        previewBox.innerHTML = `<img src="${URL.createObjectURL(file)}" style="max-height:240px; max-width:100%; object-fit:contain;">`;
+        pendingPostFile = input.files[0];
+        document.getElementById("postPreviewImgBox").innerHTML = `<img src="${URL.createObjectURL(pendingPostFile)}" style="max-height:240px; max-width:100%; object-fit:contain;">`;
         document.getElementById("postCreateModal").classList.add("show");
       }
     }
 
     async function executePostUpload() {
       if (!pendingPostFile) return;
-      const caption = document.getElementById("postCaptionInput").value.trim();
       const btn = document.getElementById("btnSubmitPost");
-      const progBox = document.getElementById("postUploadProgress");
-      const progFill = document.getElementById("postProgressFill");
-
       try {
         btn.disabled = true;
-        progBox.style.display = "block";
-
-        const mediaUrl = await uploadImageToCloudinary(pendingPostFile, (p) => { progFill.style.width = p + "%"; });
+        const mediaUrl = await uploadImageToCloudinary(pendingPostFile);
+        const caption = document.getElementById("postCaptionInput").value.trim();
 
         await db.collection("posts").add({
           authorId: me.uid,
@@ -817,82 +726,248 @@ nav.bottom-nav {
 
         closeModal("postCreateModal");
         pendingPostFile = null;
-        document.getElementById("postImageInputHidden").value = "";
         document.getElementById("postCaptionInput").value = "";
-        progBox.style.display = "none";
         showToast("Photo posted successfully!");
         loadProfileData();
-      } catch (e) {
-        showToast("Error: " + e.message);
-      } finally {
-        btn.disabled = false;
+      } catch (e) { showToast(e.message); } finally { btn.disabled = false; }
+    }
+
+    // Expand Post in Modal from Profile Grid
+    async function expandPostDetail(postId) {
+      activeDetailPostId = postId;
+      const doc = await db.collection("posts").doc(postId).get();
+      if (!doc.exists) return;
+      const p = doc.data();
+
+      document.getElementById("postDetailCardContent").innerHTML = `
+        <div class="post-meta" style="padding:4px 0 10px;">
+          <div class="post-author">
+            <img src="${p.authorAvatar}" class="post-avatar">
+            <div>
+              <div class="post-author-name">@${p.authorUsername}</div>
+              <div style="font-size:0.72rem; color:var(--muted);">AI content</div>
+            </div>
+          </div>
+        </div>
+        <div class="post-media" style="border-radius:8px;"><img src="${p.mediaUrl}"></div>
+        <div class="post-actions" style="padding:10px 0 6px;">
+          <div class="post-actions-left">
+            <i class="fa-regular fa-heart" onclick="togglePostLike('${postId}')"></i>
+            <i class="fa-regular fa-comment"></i>
+            <i class="fa-regular fa-paper-plane" onclick="sharePostDirect('${postId}')"></i>
+          </div>
+          <i class="fa-regular fa-bookmark"></i>
+        </div>
+        <div class="post-stats" style="padding:0;">${(p.likes || []).length} likes</div>
+        <div class="post-caption" style="padding:4px 0;"><strong>@${p.authorUsername}</strong>${p.caption || ""}</div>
+      `;
+      document.getElementById("postDetailModal").classList.add("show");
+    }
+
+    function openPostOptionMenu() {
+      document.getElementById("postOptionMenuModal").classList.add("show");
+    }
+
+    async function triggerPostAction(type) {
+      closeModal("postOptionMenuModal");
+      if (!activeDetailPostId) return;
+
+      if (type === 'delete') {
+        if (!confirm("Are you sure you want to remove this post?")) return;
+        try {
+          await db.collection("posts").doc(activeDetailPostId).delete();
+          closeModal("postDetailModal");
+          showToast("Post removed from main grid.");
+          loadProfileData();
+        } catch (e) { showToast(e.message); }
+      } else if (type === 'save') {
+        showToast("Post saved to collection.");
+      } else if (type === 'qr') {
+        showToast("QR code link generated!");
+      } else if (type === 'report') {
+        showToast("Thank you. This post has been reported for review.");
+      } else {
+        showToast("Option applied: " + type);
       }
     }
 
-    // --- 7. REPOST FEATURE ---
-    async function repostItem(postId) {
-      try {
-        const postDoc = await db.collection("posts").doc(postId).get();
-        if (!postDoc.exists) return;
-        const p = postDoc.data();
+    // --- STORY CREATION SUITE [Image 2 & 3] ---
+    function triggerStoryPicker() { document.getElementById("storyImageInputHidden").click(); }
+    function onStoryImageSelected(input) {
+      if (input.files && input.files[0]) {
+        pendingStoryFile = input.files[0];
+        document.getElementById("storyEditorImg").src = URL.createObjectURL(pendingStoryFile);
+        document.getElementById("storyEditorImg").style.filter = "none";
+        document.getElementById("storyOverlayText").innerText = "";
+        document.getElementById("storyCaptionInput").value = "";
+        document.getElementById("editorMusicLabel").innerText = "";
+        selectedTrackIndex = -1;
+        document.getElementById("storyAudioPlayer").pause();
+        document.getElementById("storyEditorScreen").style.display = "flex";
+      }
+    }
 
-        await db.collection("posts").add({
-          authorId: me.uid,
-          authorName: me.fullName,
+    function closeStoryEditor() {
+      document.getElementById("storyAudioPlayer").pause();
+      document.getElementById("storyEditorScreen").style.display = "none";
+      pendingStoryFile = null;
+    }
+
+    function applyStoryText() {
+      const text = prompt("Enter text overlay for story:");
+      if (text) document.getElementById("storyOverlayText").innerText = text;
+    }
+
+    function applyStorySticker() {
+      const stickers = ["🔥", "❤️", "✨", "📍 WDM", "☕", "🎉"];
+      const s = prompt("Choose a sticker:\n" + stickers.join("  "));
+      if (s) document.getElementById("storyOverlayText").innerText += " " + s;
+    }
+
+    function cycleStoryFilter() {
+      storyFilterIndex = (storyFilterIndex + 1) % STORY_FILTERS.length;
+      document.getElementById("storyEditorImg").style.filter = STORY_FILTERS[storyFilterIndex];
+      showToast("Filter applied!");
+    }
+
+    function openMusicPicker() {
+      const listStr = REAL_TRACKS.map((t, i) => `${i + 1}. ${t.name}`).join("\n");
+      const choice = prompt("Select Background Music:\n" + listStr);
+      const idx = parseInt(choice) - 1;
+      if (REAL_TRACKS[idx]) {
+        selectedTrackIndex = idx;
+        const player = document.getElementById("storyAudioPlayer");
+        player.src = REAL_TRACKS[idx].url;
+        player.play();
+        document.getElementById("editorMusicLabel").innerHTML = `<i class="fa-solid fa-music"></i> ${REAL_TRACKS[idx].name}`;
+        showToast("Music track added!");
+      }
+    }
+
+    function saveStoryLocally() { showToast("Story preview saved to device!"); }
+
+    function openStoryShareSheet() {
+      document.getElementById("storyShareSheetModal").classList.add("show");
+    }
+
+    async function publishStoryToFirebase() {
+      if (!pendingStoryFile) return;
+      try {
+        showToast("Sharing your story...");
+        const url = await uploadImageToCloudinary(pendingStoryFile);
+        const overlay = document.getElementById("storyOverlayText").innerText;
+        const caption = document.getElementById("storyCaptionInput").value.trim();
+        const music = selectedTrackIndex >= 0 ? REAL_TRACKS[selectedTrackIndex].name : "";
+
+        await db.collection("stories").add({
+          uid: me.uid,
           authorUsername: me.username,
-          authorAvatar: me.avatar,
-          mediaUrl: p.mediaUrl,
-          caption: `[Reposted from @${p.authorUsername}]: ${p.caption || ""}`,
-          likes: [],
-          savedBy: [],
-          commentCount: 0,
+          avatar: me.avatar,
+          mediaUrl: url,
+          overlayText: overlay,
+          caption: caption,
+          music: music,
           createdAt: FV.serverTimestamp()
         });
 
-        showToast("Post reposted to your profile!");
-        loadProfileData();
-      } catch (e) { showToast("Repost failed: " + e.message); }
+        closeModal("storyShareSheetModal");
+        closeStoryEditor();
+        showToast("Story shared for 24 hours!");
+      } catch (e) { showToast(e.message); }
     }
 
-    // --- 8. FEED LISTENER ---
+    // --- FULLSCREEN STORY VIEWER [Image 4 & 5] ---
+    function openStoryViewer(data, storyId) {
+      activeStoryData = { id: storyId, ...data };
+      document.getElementById("activeStoryViewerImg").src = data.mediaUrl;
+      document.getElementById("activeStoryViewerAvatar").src = data.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50";
+      document.getElementById("activeStoryViewerName").innerText = "@" + data.authorUsername;
+      document.getElementById("storyViewerScreen").style.display = "flex";
+
+      // Progress animation
+      const bar = document.getElementById("storyProgressAnim");
+      bar.style.width = "0%";
+      let progress = 0;
+      clearInterval(storyProgressInterval);
+      storyProgressInterval = setInterval(() => {
+        progress += 2;
+        bar.style.width = progress + "%";
+        if (progress >= 100) {
+          clearInterval(storyProgressInterval);
+          closeStoryViewer();
+        }
+      }, 100);
+    }
+
+    function closeStoryViewer() {
+      clearInterval(storyProgressInterval);
+      document.getElementById("storyViewerScreen").style.display = "none";
+      activeStoryData = null;
+    }
+
+    function sendStoryReaction(emoji) { showToast(`Sent reaction: ${emoji}`); }
+    function sendStoryReply(txt) { if (txt.trim()) { showToast(`Replied to story: ${txt}`); } }
+
+    function openStoryActivityDrawer() {
+      if (!activeStoryData) return;
+      document.getElementById("activityThumbImg").src = activeStoryData.mediaUrl;
+      document.getElementById("activityViewerCount").innerText = "1 view";
+      document.getElementById("activityViewersList").innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid #1f1f1f;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <img src="${me.avatar}" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
+            <span style="font-weight:600; font-size:0.88rem;">@${me.username}</span>
+          </div>
+          <span style="font-size:1rem;">❤️</span>
+        </div>
+      `;
+      document.getElementById("storyActivityDrawer").style.display = "flex";
+    }
+
+    function closeStoryActivityDrawer() { document.getElementById("storyActivityDrawer").style.display = "none"; }
+
+    async function deleteActiveStory() {
+      if (!activeStoryData) return;
+      if (activeStoryData.uid !== me.uid) { showToast("Only the owner can delete this story."); return; }
+      try {
+        await db.collection("stories").doc(activeStoryData.id).delete();
+        closeStoryActivityDrawer();
+        closeStoryViewer();
+        showToast("Story deleted.");
+      } catch (e) { showToast(e.message); }
+    }
+
+    // --- FEED & STORIES LISTENERS ---
     function listenFeed() {
       db.collection("posts").orderBy("createdAt", "desc").limit(50).onSnapshot(snap => {
         const feed = document.getElementById("postsFeed");
         feed.innerHTML = "";
-
-        if (snap.empty) {
-          feed.innerHTML = '<div style="text-align:center; padding:50px 20px; color:var(--muted);">No posts yet. Tap + to share your first photo!</div>';
-          return;
-        }
-
         snap.forEach(doc => {
           const p = doc.data();
           const pid = doc.id;
           const isLiked = (p.likes || []).includes(me.uid);
-          const isSaved = (p.savedBy || []).includes(me.uid);
 
           const card = document.createElement("article");
           card.className = "post-item";
           card.innerHTML = `
             <div class="post-meta">
-              <div class="post-author">
-                <img src="${p.authorAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}" class="post-avatar">
+              <div class="post-author" onclick="expandPostDetail('${pid}')">
+                <img src="${p.authorAvatar}" class="post-avatar">
                 <span class="post-author-name">@${p.authorUsername}</span>
               </div>
+              <i class="fa-solid fa-bars" style="cursor:pointer; color:var(--muted);" onclick="expandPostDetail('${pid}')"></i>
             </div>
-            <div class="post-media"><img src="${p.mediaUrl}" loading="lazy"></div>
+            <div class="post-media" onclick="expandPostDetail('${pid}')"><img src="${p.mediaUrl}" loading="lazy"></div>
             <div class="post-actions">
               <div class="post-actions-left">
                 <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" onclick="togglePostLike('${pid}')"></i>
-                <i class="fa-regular fa-comment" onclick="openCommentPrompt('${pid}')"></i>
-                <i class="fa-solid fa-repeat" title="Repost" onclick="repostItem('${pid}')"></i>
-                <i class="fa-regular fa-paper-plane" onclick="openShareSheet('${pid}', '${p.authorUsername}')"></i>
+                <i class="fa-regular fa-comment" onclick="expandPostDetail('${pid}')"></i>
+                <i class="fa-regular fa-paper-plane" onclick="sharePostDirect('${pid}')"></i>
               </div>
-              <i class="fa-${isSaved ? 'solid' : 'regular'} fa-bookmark" onclick="togglePostSave('${pid}')"></i>
+              <i class="fa-regular fa-bookmark"></i>
             </div>
-            <div class="post-stats"><span>${(p.likes || []).length} likes</span></div>
+            <div class="post-stats">${(p.likes || []).length} likes</div>
             <div class="post-caption"><strong>@${p.authorUsername}</strong>${p.caption || ""}</div>
-            <div class="post-time">${p.commentCount || 0} comments</div>
           `;
           feed.appendChild(card);
         });
@@ -909,98 +984,9 @@ nav.bottom-nav {
       });
     }
 
-    async function togglePostSave(pid) {
-      const ref = db.collection("posts").doc(pid);
-      await db.runTransaction(async t => {
-        const doc = await t.get(ref);
-        if (!doc.exists) return;
-        const savedBy = doc.data().savedBy || [];
-        t.update(ref, { savedBy: savedBy.includes(me.uid) ? FV.arrayRemove(me.uid) : FV.arrayUnion(me.uid) });
-      });
-      showToast("Saved status updated.");
-    }
-
-    async function openCommentPrompt(pid) {
-      const text = prompt("Write your comment:");
-      if (!text || !text.trim()) return;
-      try {
-        await db.collection("posts").doc(pid).collection("comments").add({
-          uid: me.uid, text: text.trim(), createdAt: FV.serverTimestamp()
-        });
-        await db.collection("posts").doc(pid).update({ commentCount: FV.increment(1) });
-        showToast("Comment added!");
-      } catch (e) { showToast("Error: " + e.message); }
-    }
-
-    // --- 9. SHARE MODAL LOGIC ---
-    function openShareSheet(postId, author) {
-      currentSharePostUrl = window.location.origin + window.location.pathname + "#post=" + postId;
-      document.getElementById("shareSheetModal").classList.add("show");
-    }
-
-    async function sendPostToFriendChat() {
-      const targetInput = document.getElementById("shareTargetUser").value.trim().replace(/^@/, "").toLowerCase();
-      if (!targetInput) { showToast("Enter recipient username."); return; }
-
-      const q = await db.collection("users").where("username", "==", targetInput).limit(1).get();
-      if (q.empty) { showToast("User not found!"); return; }
-
-      const targetUid = q.docs[0].id;
-      const pairId = makeChatId(me.uid, targetUid);
-
-      await db.collection("chats").doc(pairId).set({ members: [me.uid, targetUid], updatedAt: FV.serverTimestamp() }, { merge: true });
-      await db.collection("chats").doc(pairId).collection("messages").add({
-        senderId: me.uid,
-        text: "Shared a post: " + currentSharePostUrl,
-        createdAt: FV.serverTimestamp()
-      });
-
-      closeModal("shareSheetModal");
-      document.getElementById("shareTargetUser").value = "";
-      showToast("Post sent to @" + targetInput);
-    }
-
-    function shareToApp(platform) {
-      const shareUrl = encodeURIComponent(currentSharePostUrl);
-      const shareText = encodeURIComponent("Check out this photo on WDM!");
-
-      if (platform === 'whatsapp') {
-        window.open(`https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}`, '_blank');
-      } else if (platform === 'telegram') {
-        window.open(`https://t.me/share/url?url=${shareUrl}&text=${shareText}`, '_blank');
-      } else if (platform === 'facebook') {
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank');
-      } else if (platform === 'gmail') {
-        window.open(`mailto:?subject=${shareText}&body=${shareUrl}`);
-      } else if (platform === 'sms') {
-        window.open(`sms:?body=${shareText}%20${shareUrl}`);
-      } else if (platform === 'copy') {
-        navigator.clipboard.writeText(currentSharePostUrl);
-        showToast("Link copied to clipboard!");
-      } else if (platform === 'more') {
-        if (navigator.share) {
-          navigator.share({ title: "WDM Post", text: "Check out this photo on WDM!", url: currentSharePostUrl });
-        } else {
-          navigator.clipboard.writeText(currentSharePostUrl);
-          showToast("Link copied to clipboard!");
-        }
-      }
-      closeModal("shareSheetModal");
-    }
-
-    // --- 10. STORIES (Image Only) ---
-    function pickStoryImage() { document.getElementById("storyImageInputHidden").click(); }
-    async function onStoryImagePicked(input) {
-      if (input.files && input.files[0]) {
-        try {
-          showToast("Uploading story...");
-          const url = await uploadImageToCloudinary(input.files[0]);
-          await db.collection("stories").add({
-            uid: me.uid, authorUsername: me.username, avatar: me.avatar, mediaUrl: url, createdAt: FV.serverTimestamp()
-          });
-          showToast("Story shared for 24 hours!");
-        } catch (e) { showToast("Story error: " + e.message); }
-      }
+    function sharePostDirect(pid) {
+      navigator.clipboard.writeText(window.location.origin + window.location.pathname + "#post=" + pid);
+      showToast("Link copied to clipboard!");
     }
 
     function listenStories() {
@@ -1013,7 +999,7 @@ nav.bottom-nav {
           const bubble = document.createElement("div");
           bubble.className = "story-circle";
           bubble.innerHTML = `
-            <div class="story-ring" onclick="viewStoryDetail('${s.mediaUrl}', '${s.authorUsername}', '${sid}', '${s.uid}')">
+            <div class="story-ring" onclick='openStoryViewer(${JSON.stringify(s)}, "${sid}")'>
               <img src="${s.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}">
             </div>
             <span class="story-username">@${s.authorUsername}</span>
@@ -1023,61 +1009,61 @@ nav.bottom-nav {
       });
     }
 
-    function viewStoryDetail(url, author, sid, authorUid) {
-      const isMine = authorUid === me.uid;
-      const opt = prompt(`Story by @${author}\nType 'R' to send ❤️ reaction\nType 'D' to delete (owner only)`);
-      if (opt && opt.toUpperCase() === 'D' && isMine) {
-        db.collection("stories").doc(sid).delete();
-        showToast("Story deleted.");
-      } else if (opt && opt.toUpperCase() === 'R') {
-        showToast("Reaction sent: ❤️");
-      }
-    }
+    // --- SEARCH SYSTEM (FIXED & INSTANT) ---
+    async function handleInstantSearch(q) {
+      const query = q.trim().toLowerCase();
+      const box = document.getElementById("searchResults");
+      box.innerHTML = "";
+      if (!query) return;
 
-    // --- 11. DIRECT MESSAGING ---
-    function makeChatId(uid1, uid2) { return [uid1, uid2].sort().join("_"); }
+      const [usersSnap, postsSnap] = await Promise.all([
+        db.collection("users").limit(30).get(),
+        db.collection("posts").limit(30).get()
+      ]);
 
-    async function initiateDMChat() {
-      const targetInput = document.getElementById("targetUserChat").value.trim().replace(/^@/, "").toLowerCase();
-      if (!targetInput) return;
-      const q = await db.collection("users").where("username", "==", targetInput).limit(1).get();
-      if (q.empty) { showToast("User not found!"); return; }
+      usersSnap.forEach(d => {
+        const u = d.data();
+        if ((u.username && u.username.includes(query)) || (u.fullName && u.fullName.toLowerCase().includes(query))) {
+          const div = document.createElement("div");
+          div.style.cssText = "display:flex; align-items:center; gap:12px; padding:10px; background:var(--panel); border-radius:8px; cursor:pointer;";
+          div.innerHTML = `<img src="${u.avatar}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;"><div><div style="font-weight:700;">@${u.username}</div><div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div></div>`;
+          div.onclick = () => {
+            document.getElementById("targetUserChat").value = u.username;
+            switchNav('messages');
+            initiateDMChat();
+          };
+          box.appendChild(div);
+        }
+      });
 
-      const targetUid = q.docs[0].id;
-      if (targetUid === me.uid) { showToast("Cannot message yourself!"); return; }
-
-      activeChatPairId = makeChatId(me.uid, targetUid);
-      document.getElementById("chatActiveUserLabel").innerText = "Chatting with @" + targetInput;
-
-      await db.collection("chats").doc(activeChatPairId).set({ members: [me.uid, targetUid], updatedAt: FV.serverTimestamp() }, { merge: true });
-
-      if (chatUnsubscribe) chatUnsubscribe();
-      chatUnsubscribe = db.collection("chats").doc(activeChatPairId).collection("messages").orderBy("createdAt", "asc").limit(60).onSnapshot(snap => {
-        const box = document.getElementById("dmMessageList");
-        box.innerHTML = "";
-        snap.forEach(d => {
-          const m = d.data();
-          const el = document.createElement("div");
-          el.className = `dm-bubble ${m.senderId === me.uid ? 'mine' : 'theirs'}`;
-          el.innerText = m.text;
-          box.appendChild(el);
-        });
-        box.scrollTop = box.scrollHeight;
+      postsSnap.forEach(d => {
+        const p = d.data();
+        if (p.caption && p.caption.toLowerCase().includes(query)) {
+          const div = document.createElement("div");
+          div.style.cssText = "padding:10px; background:var(--panel); border-radius:8px; cursor:pointer; font-size:0.85rem;";
+          div.innerHTML = `<strong>@${p.authorUsername}</strong>: ${p.caption}`;
+          div.onclick = () => expandPostDetail(d.id);
+          box.appendChild(div);
+        }
       });
     }
 
-    async function sendDirectMessage() {
-      const inp = document.getElementById("dmInputMessage");
-      const text = inp.value.trim();
-      if (!text || !activeChatPairId) return;
-
-      await db.collection("chats").doc(activeChatPairId).collection("messages").add({
-        senderId: me.uid, text: text, createdAt: FV.serverTimestamp()
+    // --- PROFILE GRID ---
+    async function loadProfileData() {
+      const snap = await db.collection("posts").where("authorId", "==", me.uid).get();
+      document.getElementById("statPostsCount").innerText = snap.size;
+      const grid = document.getElementById("profileGridList");
+      grid.innerHTML = "";
+      snap.forEach(d => {
+        const p = d.data();
+        const cell = document.createElement("div");
+        cell.className = "grid-cell";
+        cell.innerHTML = `<img src="${p.mediaUrl}">`;
+        cell.onclick = () => expandPostDetail(d.id);
+        grid.appendChild(cell);
       });
-      inp.value = "";
     }
 
-    // --- 12. PROFILE & DELETE/UNREPOST ---
     function pickAvatarImage() { document.getElementById("avatarImageInputHidden").click(); }
     async function onAvatarImagePicked(input) {
       if (input.files && input.files[0]) {
@@ -1090,7 +1076,7 @@ nav.bottom-nav {
           document.getElementById("myStoryAvatar").src = url;
           document.getElementById("navProfileThumb").src = url;
           showToast("Profile photo updated!");
-        } catch (e) { showToast("Avatar error: " + e.message); }
+        } catch (e) { showToast(e.message); }
       }
     }
 
@@ -1107,7 +1093,6 @@ nav.bottom-nav {
       const bio = document.getElementById("editBio").value.trim();
 
       if (!name || !uname) { showToast("Name and User ID are required."); return; }
-
       if (uname !== me.username) {
         const check = await db.collection("users").where("username", "==", uname).get();
         if (!check.empty) { showToast("User ID already exists!"); return; }
@@ -1125,66 +1110,22 @@ nav.bottom-nav {
       showToast("Profile updated!");
     }
 
-    async function loadProfileData() {
-      const snap = await db.collection("posts").where("authorId", "==", me.uid).get();
-      document.getElementById("statPostsCount").innerText = snap.size;
-
-      const grid = document.getElementById("profileGridList");
-      grid.innerHTML = "";
-      snap.forEach(d => {
-        const p = d.data();
-        const pid = d.id;
-        const isRepost = p.caption && p.caption.startsWith("[Reposted");
-
-        const cell = document.createElement("div");
-        cell.className = "grid-cell";
-        cell.innerHTML = `
-          <img src="${p.mediaUrl}">
-          <div class="grid-cell-delete" onclick="deleteOrUnrepost('${pid}', ${isRepost})" title="${isRepost ? 'Unrepost' : 'Delete'}">
-            <i class="fa-solid fa-trash"></i>
-          </div>
-        `;
-        grid.appendChild(cell);
-      });
-    }
-
-    async function deleteOrUnrepost(pid, isRepost) {
-      const actionTitle = isRepost ? "Unrepost" : "Delete";
-      if (!confirm(`Do you want to ${actionTitle.toLowerCase()} this post?`)) return;
-
-      try {
-        await db.collection("posts").doc(pid).delete();
-        showToast(`${actionTitle} successful!`);
-        loadProfileData();
-      } catch (e) { showToast("Error: " + e.message); }
-    }
-
-    function shareProfile() {
-      const profileLink = window.location.origin + window.location.pathname + "#user=" + me.username;
-      navigator.clipboard.writeText(profileLink);
+    function shareProfileLink() {
+      navigator.clipboard.writeText(window.location.origin + window.location.pathname + "#user=" + me.username);
       showToast("Profile link copied!");
     }
 
-    function openSettingsModal() { document.getElementById("settingsModal").classList.add("show"); }
-    function toggleLanguage() {
-      const cur = localStorage.getItem("wdm_lang") || "en";
-      const next = cur === "en" ? "hi" : "en";
-      localStorage.setItem("wdm_lang", next);
-      showToast("Language changed to " + (next === "hi" ? "Hindi labels" : "English"));
-    }
+    function openSettingsModal() { openProfileEditModal(); }
 
-    // --- 13. TAB NAVIGATION ROUTER ---
+    // --- NAVIGATION TABS ROUTER ---
     function switchNav(tab) {
-      // Stories tray only visible on feed
       document.getElementById("storiesTray").classList.toggle("hidden", tab !== 'feed');
-
       document.getElementById("feedSection").classList.toggle("hidden", tab !== 'feed');
       document.getElementById("searchSection").classList.toggle("hidden", tab !== 'search');
       document.getElementById("messagesSection").classList.toggle("hidden", tab !== 'messages');
       document.getElementById("activitySection").classList.toggle("hidden", tab !== 'activity');
       document.getElementById("profileSection").classList.toggle("hidden", tab !== 'profile');
 
-      // Header controls: Show 3-line menu only on profile
       document.getElementById("headerProfileMenu").classList.toggle("hidden", tab !== 'profile');
       document.getElementById("headerHeart").classList.toggle("hidden", tab === 'profile');
       document.getElementById("headerMsg").classList.toggle("hidden", tab === 'profile');
@@ -1201,27 +1142,43 @@ nav.bottom-nav {
       }
     }
 
-    async function handleSearch(term) {
-      const q = term.trim().toLowerCase();
-      const box = document.getElementById("searchResults");
-      box.innerHTML = "";
-      if (!q) return;
+    // --- DM CHAT ---
+    function makeChatId(a, b) { return [a, b].sort().join("_"); }
+    async function initiateDMChat() {
+      const target = document.getElementById("targetUserChat").value.trim().replace(/^@/, "").toLowerCase();
+      if (!target) return;
+      const q = await db.collection("users").where("username", "==", target).limit(1).get();
+      if (q.empty) { showToast("User not found!"); return; }
+      const targetUid = q.docs[0].id;
+      const pairId = makeChatId(me.uid, targetUid);
+      document.getElementById("chatActiveUserLabel").innerText = "Chatting with @" + target;
 
-      const usersSnap = await db.collection("users").limit(30).get();
-      usersSnap.forEach(doc => {
-        const u = doc.data();
-        if (u.username?.includes(q) || u.fullName?.toLowerCase().includes(q)) {
-          const div = document.createElement("div");
-          div.style.padding = "8px 12px"; div.style.background = "var(--panel)"; div.style.borderRadius = "8px";
-          div.innerHTML = `<strong>@${u.username}</strong> (${u.fullName})`;
-          div.onclick = () => {
-            document.getElementById("targetUserChat").value = u.username;
-            switchNav('messages');
-            initiateDMChat();
-          };
-          box.appendChild(div);
-        }
+      await db.collection("chats").doc(pairId).set({ members: [me.uid, targetUid], updatedAt: FV.serverTimestamp() }, { merge: true });
+      db.collection("chats").doc(pairId).collection("messages").orderBy("createdAt", "asc").limit(60).onSnapshot(snap => {
+        const box = document.getElementById("dmMessageList");
+        box.innerHTML = "";
+        snap.forEach(d => {
+          const m = d.data();
+          const el = document.createElement("div");
+          el.className = `dm-bubble ${m.senderId === me.uid ? 'mine' : 'theirs'}`;
+          el.innerText = m.text;
+          box.appendChild(el);
+        });
+        box.scrollTop = box.scrollHeight;
       });
+    }
+
+    async function sendDirectMessage() {
+      const inp = document.getElementById("dmInputMessage");
+      const target = document.getElementById("targetUserChat").value.trim().replace(/^@/, "").toLowerCase();
+      if (!inp.value.trim() || !target) return;
+      const q = await db.collection("users").where("username", "==", target).limit(1).get();
+      if (q.empty) return;
+      const pairId = makeChatId(me.uid, q.docs[0].id);
+      await db.collection("chats").doc(pairId).collection("messages").add({
+        senderId: me.uid, text: inp.value.trim(), createdAt: FV.serverTimestamp()
+      });
+      inp.value = "";
     }
 
     function closeModal(id) { document.getElementById(id).classList.remove("show"); }
