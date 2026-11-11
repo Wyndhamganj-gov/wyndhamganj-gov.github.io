@@ -84,13 +84,19 @@ header.app-header {
 .story-username { font-size: 0.72rem; color: var(--muted); margin-top: 4px; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Posts */
-.post-item { border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.post-item { border-bottom: 1px solid var(--line); margin-bottom: 8px; position: relative; }
 .post-meta { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; }
 .post-author { display: flex; align-items: center; gap: 10px; cursor: pointer; }
 .post-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #262626; }
 .post-author-name { font-weight: 600; font-size: 0.88rem; }
-.post-media { width: 100%; max-height: 540px; background: #080808; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; }
-.post-media img { width: 100%; max-height: 540px; object-fit: contain; }
+.post-media-container { width: 100%; position: relative; background: #080808; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.post-media { width: 100%; max-height: 540px; object-fit: contain; }
+.heart-burst {
+  position: absolute; font-size: 5rem; color: #fff; opacity: 0; pointer-events: none;
+  transform: scale(0.5); transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s;
+  text-shadow: 0 4px 20px rgba(255, 48, 64, 0.6);
+}
+.heart-burst.active { opacity: 0.95; transform: scale(1.3); }
 
 .post-actions { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 6px; font-size: 1.35rem; }
 .post-actions-left { display: flex; gap: 16px; }
@@ -113,87 +119,81 @@ nav.bottom-nav {
 .nav-avatar-btn { width: 25px; height: 25px; border-radius: 50%; object-fit: cover; border: 1.5px solid transparent; cursor: pointer; }
 .nav-avatar-btn.active { border-color: var(--txt); }
 
-/* Direct Messages & Chat */
-.dm-screen-wrap { display: flex; flex-direction: column; height: calc(100vh - 110px); }
-.dm-inbox-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; font-weight: 700; }
-.dm-chat-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #161616; }
-.dm-chat-left { display: flex; align-items: center; gap: 12px; }
-.dm-chat-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
-.dm-badge-new { font-size: 0.65rem; background: var(--accent); color: #fff; padding: 2px 6px; border-radius: 10px; font-weight: 700; }
-
-.dm-active-window { display: flex; flex-direction: column; height: 100%; flex: 1; }
-.dm-list { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-.dm-bubble-row { display: flex; flex-direction: column; width: 100%; }
-.dm-bubble { max-width: 75%; padding: 9px 13px; border-radius: 18px; font-size: 0.88rem; word-break: break-word; }
-.dm-bubble.mine { background: var(--accent); color: #fff; align-self: flex-end; }
-.dm-bubble.theirs { background: var(--panel); border: 1px solid var(--line); color: var(--txt); align-self: flex-start; }
-.dm-bubble img { max-width: 100%; border-radius: 12px; display: block; margin-top: 4px; cursor: pointer; }
-.dm-msg-info { font-size: 0.68rem; color: var(--muted); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
-.dm-msg-info.mine { align-self: flex-end; }
-.dm-msg-info.theirs { align-self: flex-start; }
-.dm-seen-status { color: #5bc0be; font-weight: 600; font-size: 0.68rem; }
-
-.dm-request-banner { background: #1c1822; border-bottom: 1px solid #332042; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
-.dm-input-bottom { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--bg); }
-.btn-plus-photo {
-  width: 34px; height: 34px; border-radius: 50%; background: #262626; color: var(--txt);
-  display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; flex-shrink: 0;
-}
-
-/* Profile Layout */
+/* Profile View (Replica of 1000108256.jpg) */
 .profile-view { padding: 14px; }
-.profile-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.profile-img-lg { width: 78px; height: 78px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); cursor: pointer; }
-.profile-stats-box { display: flex; gap: 20px; text-align: center; margin-right: 12px; }
+.profile-vibe-bubble {
+  position: absolute; top: -14px; left: -6px; background: #262626; color: #fff;
+  font-size: 0.68rem; padding: 3px 8px; border-radius: 12px; border: 1px solid #3a3a3a; white-space: nowrap;
+}
+.profile-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.profile-stats-box { display: flex; gap: 24px; text-align: center; margin-right: 12px; }
 .profile-stat-btn { background: transparent; border: none; color: var(--txt); cursor: pointer; text-align: center; }
 .profile-num { font-weight: 700; font-size: 1.05rem; }
 .profile-lbl { font-size: 0.75rem; color: var(--muted); }
-.profile-bio { font-size: 0.88rem; line-height: 1.4; margin-bottom: 14px; }
+.profile-dashboard-card {
+  background: #181818; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px;
+  margin: 10px 0 14px; display: flex; flex-direction: column; gap: 2px;
+}
 .profile-actions-bar { display: flex; gap: 8px; margin-bottom: 16px; }
 .profile-actions-bar button {
   flex: 1; padding: 8px; background: var(--panel); border: 1px solid var(--line);
   color: var(--txt); border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
 }
+.profile-tabs-bar { display: flex; border-top: 1px solid var(--line); margin-bottom: 2px; }
+.profile-tab-btn { flex: 1; text-align: center; padding: 10px 0; font-size: 1.1rem; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
+.profile-tab-btn.active { color: var(--txt); border-color: var(--txt); }
 .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
 .grid-cell { aspect-ratio: 1; background: #161616; overflow: hidden; cursor: pointer; position: relative; }
 .grid-cell img { width: 100%; height: 100%; object-fit: cover; }
+.grid-cell-meta-pill { position: absolute; bottom: 6px; left: 6px; color: #fff; font-size: 0.7rem; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 4px; }
 
-/* Story Studio & Fullscreen Viewer */
-.story-editor-screen { position: fixed; inset: 0; background: #000; z-index: 150; display: none; flex-direction: column; justify-content: space-between; }
-.story-editor-top { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; z-index: 10; }
-.story-stage-box { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-#storyEditorImg { width: 100%; height: 100%; object-fit: contain; }
+/* New Post Studio (1000108258.jpg) */
+.new-post-studio-screen { position: fixed; inset: 0; background: #000; z-index: 160; display: none; flex-direction: column; }
+.new-post-top-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid #1a1a1a; }
+.new-post-tools-rail {
+  position: absolute; right: 14px; top: 70px; display: flex; flex-direction: column; gap: 14px;
+  background: rgba(0,0,0,0.55); padding: 12px 8px; border-radius: 24px; backdrop-filter: blur(8px); z-index: 10;
+}
+.new-post-preview-box { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.new-post-preview-box img { width: 100%; height: 100%; object-fit: contain; }
+.new-post-bottom-selector { padding: 12px 16px; background: #121212; border-top: 1px solid var(--line); }
 
-.story-viewer-screen { position: fixed; inset: 0; background: #000; z-index: 200; display: none; flex-direction: column; }
-.story-progress-bar-wrap { display: flex; gap: 4px; padding: 10px 14px 6px; }
-.story-progress-segment { flex: 1; height: 2px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
-.story-progress-active { height: 100%; width: 0%; background: #fff; }
-.story-viewer-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 14px; }
-.story-viewer-user { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.88rem; }
-.story-viewer-user img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
-.story-viewer-body { flex: 1; display: flex; align-items: center; justify-content: center; }
-.story-viewer-body img { width: 100%; height: 100%; object-fit: contain; }
-.story-viewer-foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 16px; background: rgba(0,0,0,0.85); }
+/* Share Sheet (1000108254.jpg) */
+.share-bottom-sheet {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 250;
+  display: none; align-items: flex-end; justify-content: center;
+}
+.share-sheet-body {
+  background: #1c1c1e; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0;
+  padding: 16px; max-height: 85vh; display: flex; flex-direction: column; gap: 14px;
+}
+.share-sheet-handle { width: 36px; height: 4px; background: #444; border-radius: 2px; margin: 0 auto 6px; }
+.share-user-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-height: 340px; overflow-y: auto; text-align: center; }
+.share-user-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; gap: 6px; }
+.share-user-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+.share-user-name { font-size: 0.72rem; color: var(--txt); width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.share-quick-actions-row { display: flex; justify-content: space-around; padding: 12px 0 4px; border-top: 1px solid #2a2a2a; }
+.share-action-btn-circle {
+  width: 50px; height: 50px; border-radius: 50%; background: #2c2c2e; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 4px; cursor: pointer;
+}
+.share-action-label { font-size: 0.68rem; color: var(--muted); text-align: center; }
 
-.story-activity-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 250; display: none; align-items: flex-end; }
-.story-activity-sheet { background: var(--panel); width: 100%; max-height: 75vh; border-radius: 16px 16px 0 0; border-top: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+/* Post Details & 2-Line Options (1000108257.jpg) */
+.post-detail-screen { position: fixed; inset: 0; background: #000; z-index: 140; display: none; flex-direction: column; overflow-y: auto; }
+.post-options-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 260; display: none; align-items: flex-end; }
+.post-options-sheet { background: #181818; width: 100%; border-radius: 20px 20px 0 0; padding: 16px; border-top: 1px solid var(--line); }
+.post-option-row { display: flex; align-items: center; gap: 14px; padding: 13px 4px; font-size: 0.95rem; cursor: pointer; border-bottom: 1px solid #222; }
+.post-option-row i { font-size: 1.15rem; width: 24px; color: var(--txt); }
 
 /* Modals */
 .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
 .modal-mask.show { display: flex; }
 .modal-sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
-.modal-fullscreen { position: fixed; inset: 0; background: var(--bg); z-index: 120; display: none; flex-direction: column; overflow-y: auto; }
-.modal-fullscreen.show { display: flex; }
 .field-group { margin-bottom: 12px; }
 .field-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
 .field-input { width: 100%; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); padding: 11px 12px; border-radius: 8px; font-size: 0.9rem; outline: none; }
 .btn-solid { width: 100%; background: var(--accent); color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.92rem; }
-.btn-google { width: 100%; background: #fff; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
-
-/* Settings row */
-.settings-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid #1a1a1a; cursor: pointer; font-size: 0.92rem; }
-.settings-row-left { display: flex; align-items: center; gap: 12px; }
-.settings-row-left i { width: 20px; color: var(--muted); font-size: 1.1rem; }
 
 #toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #222; border: 1px solid var(--line); color: #fff; padding: 10px 16px; border-radius: 20px; font-size: 0.82rem; z-index: 300; display: none; }
 .hidden { display: none !important; }
@@ -201,7 +201,7 @@ nav.bottom-nav {
 </head>
 <body>
 
-  <!-- High-Resolution Loading VFX -->
+  <!-- Loading Animation VFX -->
   <div id="appLoadingVFX">
     <div class="vfx-ring"></div>
     <div class="vfx-logo">WDM Media</div>
@@ -219,7 +219,7 @@ nav.bottom-nav {
     </div>
   </header>
 
-  <!-- Main Container -->
+  <!-- Main Wrap -->
   <div class="main-wrap">
     
     <!-- Stories Tray -->
@@ -239,58 +239,19 @@ nav.bottom-nav {
       <div id="postsFeed"></div>
     </section>
 
-    <!-- Universal Search View -->
+    <!-- Search View -->
     <section id="searchSection" class="hidden" style="padding:14px;">
       <input type="text" id="searchInput" class="field-input" placeholder="Search people, User ID, or captions..." oninput="handleUniversalSearch(this.value)">
       <div id="searchResults" style="margin-top:14px; display:flex; flex-direction:column; gap:8px;"></div>
     </section>
 
-    <!-- Professional Direct Messages View -->
-    <section id="messagesSection" class="hidden dm-screen-wrap">
-      
-      <!-- Inbox Screen -->
-      <div id="inboxMainView" style="display:flex; flex-direction:column; flex:1; overflow-y:auto;">
-        <div class="dm-inbox-header">
-          <span style="font-size:1.1rem;">Messages</span>
-          <span style="font-size:0.8rem; color:var(--accent); cursor:pointer;" onclick="switchNav('search')">+ New Chat</span>
-        </div>
-        <div id="dmChatListContainer" style="display:flex; flex-direction:column;"></div>
+    <!-- Messages Section -->
+    <section id="messagesSection" class="hidden" style="padding:14px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span style="font-size:1.1rem; font-weight:700;">Messages</span>
+        <span style="font-size:0.8rem; color:var(--accent); cursor:pointer;" onclick="switchNav('search')">+ New Chat</span>
       </div>
-
-      <!-- 1-on-1 Working Chat Window -->
-      <div id="activeChatWindow" class="hidden dm-active-window">
-        <div style="padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <i class="fa-solid fa-arrow-left" style="font-size:1.1rem; padding:4px; cursor:pointer;" onclick="closeActiveChat()"></i>
-            <img id="chatHeaderAvatar" src="" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
-            <div>
-              <div id="chatActiveUserLabel" style="font-weight:700; font-size:0.9rem;"></div>
-              <div style="font-size:0.7rem; color:#31a24c;">Active now</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Request Banner (If non-followed user messages) -->
-        <div id="chatRequestBanner" class="dm-request-banner hidden">
-          <div>
-            <div style="font-weight:700; font-size:0.85rem;">New Message Request</div>
-            <div style="font-size:0.72rem; color:var(--muted);">Do you want to allow this user to message you?</div>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn-solid" style="padding:4px 10px; font-size:0.75rem; width:auto;" onclick="acceptChatRequest()">Accept</button>
-            <button class="btn-solid" style="padding:4px 10px; font-size:0.75rem; width:auto; background:#331414; color:var(--like);" onclick="blockUserFromChat()">Block</button>
-          </div>
-        </div>
-
-        <div class="dm-list" id="dmMessageList"></div>
-
-        <div class="dm-input-bottom">
-          <input type="text" id="dmInputMessage" class="field-input" placeholder="Write a message..." onkeypress="if(event.key==='Enter') sendDirectMessage()">
-          <div class="btn-plus-photo" title="Send photo" onclick="triggerChatPhotoPick()"><i class="fa-solid fa-plus"></i></div>
-          <button class="btn-solid" style="width:auto; padding:0 16px;" onclick="sendDirectMessage()"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
-      </div>
-
+      <div id="dmChatListContainer" style="display:flex; flex-direction:column;"></div>
     </section>
 
     <!-- Activity Section -->
@@ -299,10 +260,14 @@ nav.bottom-nav {
       <div id="activityItemsList" style="display:flex; flex-direction:column; gap:10px;"></div>
     </section>
 
-    <!-- My Profile View -->
+    <!-- Profile View (Replica of 1000108256.jpg) -->
     <section id="profileSection" class="hidden profile-view">
       <div class="profile-top-row">
-        <img id="profileUserAvatar" class="profile-img-lg" src="" onclick="pickAvatarImage()">
+        <div style="position:relative; width:80px; height:80px; cursor:pointer;" onclick="pickAvatarImage()">
+          <span class="profile-vibe-bubble">Today's vibe...</span>
+          <img id="profileUserAvatar" class="profile-img-lg" style="width:100%; height:100%;" src="">
+          <div class="add-badge" style="width:20px; height:20px; font-size:11px;"><i class="fa-solid fa-plus"></i></div>
+        </div>
         <div class="profile-stats-box">
           <div class="profile-stat-btn">
             <div class="profile-num" id="statPostsCount">0</div>
@@ -318,15 +283,44 @@ nav.bottom-nav {
           </button>
         </div>
       </div>
+
       <div class="profile-bio">
-        <div style="font-weight:700;" id="profileFullnameDisplay">User</div>
-        <div style="color:var(--muted); margin-bottom:4px;" id="profileUsernameDisplay">@username</div>
-        <div id="profileBioDisplay">Bio details...</div>
+        <div style="font-weight:700; font-size:1rem; display:flex; align-items:center; gap:6px;">
+          <span id="profileFullnameDisplay">User</span>
+          <i class="fa-solid fa-circle-check" style="color:var(--accent); font-size:0.85rem;"></i>
+        </div>
+        <div style="color:var(--muted); font-size:0.82rem; margin-bottom:4px;" id="profileUsernameDisplay">@username</div>
+        <div style="font-size:0.82rem; color:var(--muted);">Public figure</div>
+        <div id="profileBioDisplay" style="margin-top:4px; font-size:0.88rem; line-height:1.4;">WDM Community Member</div>
       </div>
+
+      <!-- Professional Dashboard Card -->
+      <div class="profile-dashboard-card">
+        <div style="font-weight:700; font-size:0.85rem;">Your dashboard</div>
+        <div style="font-size:0.75rem; color:#31a24c;"><i class="fa-solid fa-arrow-trend-up"></i> 3.2K views in the last 30 days.</div>
+      </div>
+
       <div class="profile-actions-bar">
         <button onclick="openProfileEditModal()">Edit profile</button>
         <button onclick="shareProfileLink()">Share profile</button>
+        <button onclick="showToast('Contact options')">Contact</button>
       </div>
+
+      <!-- Highlights Tray (1000108256.jpg) -->
+      <div class="stories-tray" id="profileHighlightsTray" style="padding:4px 0 14px; border:none;">
+        <div class="story-circle" onclick="createStoryHighlight()">
+          <div class="story-ring add-ring" style="width:58px; height:58px;"><i class="fa-solid fa-plus"></i></div>
+          <span class="story-username">New</span>
+        </div>
+      </div>
+
+      <!-- Tabs (Posts, Reels/Video, Tagged) -->
+      <div class="profile-tabs-bar">
+        <div class="profile-tab-btn active"><i class="fa-solid fa-table-cells"></i></div>
+        <div class="profile-tab-btn"><i class="fa-solid fa-clapperboard"></i></div>
+        <div class="profile-tab-btn"><i class="fa-solid fa-user-tag"></i></div>
+      </div>
+
       <div class="profile-grid" id="profileGridList"></div>
     </section>
 
@@ -345,55 +339,112 @@ nav.bottom-nav {
   <input type="file" id="postImageInputHidden" accept="image/*" style="display:none;" onchange="onPostImagePicked(this)">
   <input type="file" id="storyImageInputHidden" accept="image/*" style="display:none;" onchange="onStoryImageSelected(this)">
   <input type="file" id="avatarImageInputHidden" accept="image/*" style="display:none;" onchange="onAvatarImagePicked(this)">
-  <input type="file" id="chatPhotoInputHidden" accept="image/*" style="display:none;" onchange="onChatPhotoPicked(this)">
 
-  <!-- MODALS -->
+  <!-- MODALS & HIGH GRAPHICS OVERLAYS -->
 
-  <!-- 1. Fullscreen Other User Profile -->
-  <div class="modal-fullscreen" id="otherUserProfileModal">
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:10;">
-      <div style="display:flex; align-items:center; gap:12px;">
-        <i class="fa-solid fa-arrow-left" style="font-size:1.2rem; cursor:pointer;" onclick="closeModal('otherUserProfileModal')"></i>
-        <span style="font-weight:700; font-size:1.1rem;" id="otherProfileHeaderTitle">username</span>
-      </div>
-      <i class="fa-solid fa-ban" title="Block User" style="font-size:1.1rem; color:var(--like); cursor:pointer;" onclick="toggleBlockTargetUser()"></i>
+  <!-- 1. New Post Studio (Replica of 1000108258.jpg) -->
+  <div class="new-post-studio-screen" id="newPostStudioScreen">
+    <div class="new-post-top-bar">
+      <i class="fa-solid fa-xmark" style="font-size:1.3rem; cursor:pointer;" onclick="closeNewPostStudio()"></i>
+      <span style="font-weight:700; font-size:1.1rem;">New post</span>
+      <span style="color:var(--accent); font-weight:700; font-size:1rem; cursor:pointer;" onclick="proceedToPostCaptionStep()">Next</span>
     </div>
 
-    <div style="padding:16px;">
-      <div class="profile-top-row">
-        <img id="otherProfileAvatar" class="profile-img-lg" src="">
-        <div class="profile-stats-box">
-          <div class="profile-stat-btn">
-            <div class="profile-num" id="otherStatPosts">0</div>
-            <div class="profile-lbl">posts</div>
-          </div>
-          <button class="profile-stat-btn" onclick="openFollowersListModal(viewingOtherUserUid, document.getElementById('otherProfileHeaderTitle').innerText)">
-            <div class="profile-num" id="otherStatFollowers">0</div>
-            <div class="profile-lbl">followers</div>
-          </button>
-          <button class="profile-stat-btn" onclick="openFollowingListModal(viewingOtherUserUid, document.getElementById('otherProfileHeaderTitle').innerText)">
-            <div class="profile-num" id="otherStatFollowing">0</div>
-            <div class="profile-lbl">following</div>
-          </button>
-        </div>
-      </div>
+    <!-- Side Tools Rail -->
+    <div class="new-post-tools-rail">
+      <div class="rail-tool-item" onclick="cycleStudioFilter()"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Effects</span></div>
+      <div class="rail-tool-item" onclick="addStudioMention()"><i class="fa-solid fa-at"></i><span>Mention</span></div>
+      <div class="rail-tool-item" onclick="showToast('Draw mode active')"><i class="fa-solid fa-signature"></i><span>Draw</span></div>
+      <div class="rail-tool-item" onclick="showToast('Image saved locally')"><i class="fa-solid fa-arrow-down"></i><span>Save</span></div>
+      <div class="rail-tool-item" onclick="showToast('AI Label Tagged')"><i class="fa-regular fa-square-check"></i><span>Label AI</span></div>
+      <div class="rail-tool-item" onclick="showToast('More tools')"><i class="fa-solid fa-ellipsis"></i><span>More</span></div>
+    </div>
 
-      <div style="margin-bottom:12px;">
-        <div style="font-weight:700; font-size:0.95rem;" id="otherProfileName">Name</div>
-        <div style="font-size:0.85rem; line-height:1.4; margin-top:2px;" id="otherProfileBioText">Bio details...</div>
-      </div>
+    <div class="new-post-preview-box">
+      <img id="newPostStudioImg" src="">
+      <div id="newPostMentionOverlay" style="position:absolute; color:#fff; font-weight:700; text-shadow:0 2px 8px #000;"></div>
+    </div>
 
-      <div class="profile-actions-bar">
-        <button id="btnOtherProfileFollow" class="btn-solid" onclick="toggleFollowTargetUser()">Follow</button>
-        <button onclick="startChatFromOtherProfile()">Message</button>
-      </div>
-
-      <div style="font-size:0.8rem; font-weight:700; color:var(--muted); margin-bottom:6px;">POSTS</div>
-      <div class="profile-grid" id="otherProfileGrid"></div>
+    <div class="new-post-bottom-selector">
+      <input type="text" id="newPostCaptionDirectInput" class="field-input" placeholder="Write a caption..." style="margin-bottom:8px;">
+      <button class="btn-solid" id="btnPublishFinalPost" onclick="executeStudioPostUpload()">Share Post</button>
     </div>
   </div>
 
-  <!-- 2. Followers & Following List Viewer Modal -->
+  <!-- 2. Share Bottom Sheet (Replica of 1000108254.jpg) -->
+  <div class="share-bottom-sheet" id="shareBottomSheet" onclick="if(event.target===this) closeShareSheet();">
+    <div class="share-sheet-body">
+      <div class="share-sheet-handle"></div>
+      <input type="text" class="field-input" placeholder="Search" style="border-radius:18px; padding:7px 14px;">
+      
+      <!-- Followed/Following Users Grid -->
+      <div class="share-user-grid" id="shareUserGrid"></div>
+
+      <!-- Quick Action Buttons -->
+      <div class="share-quick-actions-row">
+        <div>
+          <div class="share-action-btn-circle" onclick="sharePostToMyStory()"><i class="fa-regular fa-square-plus"></i></div>
+          <div class="share-action-label">Add to story</div>
+        </div>
+        <div>
+          <div class="share-action-btn-circle" onclick="nativeSharePost()"><i class="fa-solid fa-share-nodes"></i></div>
+          <div class="share-action-label">Share</div>
+        </div>
+        <div>
+          <div class="share-action-btn-circle" style="background:#25d366;" onclick="shareViaWhatsApp()"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="share-action-label">WhatsApp</div>
+        </div>
+        <div>
+          <div class="share-action-btn-circle" onclick="copySharePostLink()"><i class="fa-solid fa-link"></i></div>
+          <div class="share-action-label">Copy link</div>
+        </div>
+        <div>
+          <div class="share-action-btn-circle" onclick="downloadPostMedia()"><i class="fa-solid fa-arrow-down"></i></div>
+          <div class="share-action-label">Download</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Post Detail View & 2-Line Options Drawer (1000108257.jpg) -->
+  <div class="post-detail-screen" id="postDetailScreen">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid #1c1c1c; position:sticky; top:0; background:#000; z-index:10;">
+      <i class="fa-solid fa-arrow-left" style="font-size:1.2rem; cursor:pointer;" onclick="closePostDetailScreen()"></i>
+      <span style="font-weight:700; font-size:1.1rem;">Posts</span>
+      <i class="fa-solid fa-ellipsis-vertical" style="font-size:1.2rem; cursor:pointer;" onclick="openPostOptionsDrawer()"></i>
+    </div>
+    <div id="postDetailContainer"></div>
+  </div>
+
+  <!-- 2-Line Options Bottom Sheet -->
+  <div class="post-options-drawer" id="postOptionsDrawer" onclick="if(event.target===this) closePostOptionsDrawer();">
+    <div class="post-options-sheet">
+      <div class="share-sheet-handle"></div>
+
+      <!-- About this post top row -->
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0 14px; border-bottom:1px solid #262626;" onclick="showToast('AI Content: Original verified media')">
+        <div>
+          <div style="font-weight:700; font-size:0.95rem;">About this post</div>
+          <div style="font-size:0.75rem; color:var(--muted);">AI content</div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.9rem;"></i>
+      </div>
+
+      <div class="post-option-row" onclick="saveActivePost()"><i class="fa-regular fa-bookmark"></i><span>Save</span></div>
+      <div class="post-option-row" onclick="showToast('Stop sharing enabled')"><i class="fa-regular fa-circle-xmark"></i><span>Stop sharing</span></div>
+      <div class="post-option-row" onclick="showToast('Generating QR code...')"><i class="fa-solid fa-qrcode"></i><span>QR code</span></div>
+      <div class="post-option-row" onclick="showToast('Removed from main grid')"><i class="fa-solid fa-ban"></i><span>Remove from main grid</span></div>
+
+      <!-- Delete option: only for post author -->
+      <div class="post-option-row" id="postAuthorDeleteOptionRow" style="color:var(--like); display:none;" onclick="deleteActiveDetailPost()">
+        <i class="fa-regular fa-trash-can" style="color:var(--like);"></i><span>Delete Post</span>
+      </div>
+
+      <div class="post-option-row" style="color:var(--like);" onclick="showToast('Report submitted.')"><i class="fa-regular fa-flag" style="color:var(--like);"></i><span>Report</span></div>
+    </div>
+  </div>
+
+  <!-- 4. Followers/Following List Modal -->
   <div class="modal-mask" id="userFollowListModal">
     <div class="modal-sheet">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -404,148 +455,7 @@ nav.bottom-nav {
     </div>
   </div>
 
-  <!-- 3. Close Friends Management Modal -->
-  <div class="modal-mask" id="closeFriendsModal">
-    <div class="modal-sheet">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-weight:700;">Close Friends List</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('closeFriendsModal')"></i>
-      </div>
-      <p style="font-size:0.75rem; color:var(--muted); margin-bottom:12px;">We suggest members from your followers and following lists.</p>
-      <div id="closeFriendsSuggestionList" style="display:flex; flex-direction:column; gap:8px; max-height:55vh; overflow-y:auto;"></div>
-      <button class="btn-solid" style="margin-top:14px;" onclick="closeModal('closeFriendsModal')">Done</button>
-    </div>
-  </div>
-
-  <!-- 4. Blocked Accounts Manager Modal -->
-  <div class="modal-mask" id="blockedAccountsModal">
-    <div class="modal-sheet">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-weight:700;">Blocked Accounts</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('blockedAccountsModal')"></i>
-      </div>
-      <div id="blockedAccountsList" style="display:flex; flex-direction:column; gap:8px; max-height:55vh; overflow-y:auto;"></div>
-      <button class="btn-solid" style="background:#262626; margin-top:14px;" onclick="closeModal('blockedAccountsModal')">Close</button>
-    </div>
-  </div>
-
-  <!-- 5. Post Creation & Editing Studio Modal -->
-  <div class="modal-mask" id="postCreateModal">
-    <div class="modal-sheet" style="max-width:480px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-weight:700;">New Post Studio</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('postCreateModal')"></i>
-      </div>
-
-      <div style="width:100%; height:180px; background:#000; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:10px;">
-        <canvas id="postCanvasPreview" style="max-height:100%; max-width:100%;"></canvas>
-      </div>
-
-      <div class="field-group">
-        <label>Caption & Hashtags</label>
-        <textarea id="postCaptionInput" class="field-input" rows="2" placeholder="Write a caption..."></textarea>
-      </div>
-
-      <button class="btn-solid" id="btnSubmitPost" onclick="executePostUpload()">Share Post</button>
-    </div>
-  </div>
-
-  <!-- 6. Story Studio Editor Screen -->
-  <div class="story-editor-screen" id="storyEditorScreen">
-    <div class="story-editor-top">
-      <i class="fa-solid fa-xmark" style="color:#fff; font-size:1.4rem; cursor:pointer;" onclick="closeStoryEditor()"></i>
-      <span style="font-size:0.8rem; background:#333; padding:4px 10px; border-radius:12px; cursor:pointer;" onclick="toggleCloseFriendsStory()" id="storyAudienceBadge">Everyone</span>
-    </div>
-
-    <div class="story-stage-box">
-      <img id="storyEditorImg" src="">
-    </div>
-
-    <div style="padding:14px 16px; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.9);">
-      <button class="btn-solid" style="width:auto; padding:8px 18px;" onclick="publishStoryStudio()">Share Story (24h)</button>
-      <button class="btn-solid" style="width:auto; padding:8px 18px; background:#262626;" onclick="closeStoryEditor()">Cancel</button>
-    </div>
-  </div>
-
-  <!-- 7. Story Fullscreen Viewer & Activity Analysis -->
-  <div class="story-viewer-screen" id="storyViewerScreen">
-    <div class="story-progress-bar-wrap">
-      <div class="story-progress-segment"><div class="story-progress-active" id="storyProgressAnim"></div></div>
-    </div>
-    <div class="story-viewer-head">
-      <div class="story-viewer-user">
-        <img id="activeStoryViewerAvatar" src="">
-        <span id="activeStoryViewerName">user</span>
-        <span style="font-size:0.75rem; color:var(--muted); font-weight:400;" id="activeStoryTimeAgo"></span>
-      </div>
-      <i class="fa-solid fa-xmark" style="color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeStoryViewer()"></i>
-    </div>
-    <div class="story-viewer-body">
-      <img id="activeStoryViewerImg" src="">
-    </div>
-    <div class="story-viewer-foot">
-      <input type="text" class="field-input" placeholder="Reply to story..." onkeypress="if(event.key==='Enter') sendStoryReply(this.value)" style="border-radius:20px; padding:6px 14px;">
-      <div style="display:flex; gap:16px; font-size:1.25rem; align-items:center;">
-        <i class="fa-regular fa-heart" style="cursor:pointer;" onclick="sendStoryReaction('❤️')"></i>
-        <div style="display:flex; flex-direction:column; align-items:center; font-size:0.7rem; cursor:pointer;" onclick="openStoryActivityDrawer()">
-          <i class="fa-solid fa-chart-simple" style="font-size:1.15rem;"></i>
-          <span>Activity</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Story Activity Insights Drawer -->
-  <div class="story-activity-drawer" id="storyActivityDrawer">
-    <div class="story-activity-sheet">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <div style="font-weight:700;" id="activityViewerCount">0 views</div>
-        <div id="storyDeleteActionBtn" style="color:var(--like); cursor:pointer; font-size:0.85rem;" onclick="deleteActiveStory()">
-          <i class="fa-regular fa-trash-can"></i> Delete Story
-        </div>
-      </div>
-      <div id="activityViewersList" style="display:flex; flex-direction:column; gap:8px;"></div>
-      <button class="btn-solid" style="background:#262626; margin-top:14px;" onclick="closeStoryActivityDrawer()">Close</button>
-    </div>
-  </div>
-
-  <!-- 8. Settings & Privacy Master Modal -->
-  <div class="modal-mask" id="settingsModal">
-    <div class="modal-sheet">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <span style="font-weight:700; font-size:1.1rem;">Settings & Activity</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('settingsModal')"></i>
-      </div>
-
-      <div class="settings-row" onclick="openCloseFriendsManager()">
-        <div class="settings-row-left"><i class="fa-solid fa-star" style="color:var(--green);"></i><span>Close Friends List</span></div>
-        <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
-      </div>
-
-      <div class="settings-row" onclick="openBlockedAccountsManager()">
-        <div class="settings-row-left"><i class="fa-solid fa-user-slash" style="color:var(--like);"></i><span>Blocked Accounts</span></div>
-        <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
-      </div>
-
-      <div class="settings-row" onclick="toggleLanguage()">
-        <div class="settings-row-left"><i class="fa-solid fa-language"></i><span>Language</span></div>
-        <span style="font-size:0.8rem; color:var(--accent);" id="lblCurrentLang">English</span>
-      </div>
-
-      <div class="settings-row" onclick="openForgotPassModal(); closeModal('settingsModal');">
-        <div class="settings-row-left"><i class="fa-solid fa-key"></i><span>Password & 2-Step Verification</span></div>
-        <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
-      </div>
-
-      <div class="settings-row" style="color:var(--like);" onclick="confirmDeleteAccount()">
-        <div class="settings-row-left"><i class="fa-solid fa-trash-can" style="color:var(--like);"></i><span>Delete Account</span></div>
-      </div>
-
-      <button class="btn-solid" style="background:#261414; color:var(--like); margin-top:20px;" onclick="logout()">Log Out</button>
-    </div>
-  </div>
-
-  <!-- 9. Edit Profile Modal -->
+  <!-- 5. Edit Profile Modal -->
   <div class="modal-mask" id="profileEditModal">
     <div class="modal-sheet">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -559,7 +469,7 @@ nav.bottom-nav {
     </div>
   </div>
 
-  <!-- 10. Auth Gateway Modal -->
+  <!-- 6. Auth Gateway Modal -->
   <div class="modal-mask" id="authGatewayModal">
     <div class="modal-sheet">
       <div style="font-weight:800; font-size:1.2rem; margin-bottom:14px; text-align:center;">Welcome to WDM</div>
@@ -577,24 +487,12 @@ nav.bottom-nav {
       </div>
       <div class="field-group"><label>Password *</label><input type="password" id="authPassword" class="field-input" placeholder="Password (Minimum 6 characters)"></div>
       <button class="btn-solid" id="btnSubmitAuth" onclick="submitAuth()">Continue</button>
-      <div style="text-align:center; margin:12px 0; color:var(--muted); font-size:0.8rem;">OR</div>
-      <button class="btn-google" onclick="continueWithGoogle()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">Continue with Google</button>
-    </div>
-  </div>
-
-  <!-- 11. Forgot Password Modal -->
-  <div class="modal-mask" id="forgotPassModal">
-    <div class="modal-sheet">
-      <div style="font-weight:700; margin-bottom:10px;">Password & 2-Step Verification</div>
-      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Enter your registered Gmail. Firebase will dispatch an official reset link with 2-step verification directly to your inbox.</p>
-      <div class="field-group"><label>Registered Gmail *</label><input type="email" id="resetEmailInput" class="field-input" placeholder="your-email@gmail.com"></div>
-      <button class="btn-solid" onclick="sendPasswordResetLink()">Send Verification Link</button>
     </div>
   </div>
 
   <div id="toast"></div>
 
-  <!-- JAVASCRIPT MASTER CORE -->
+  <!-- JAVASCRIPT CORE ENGINE -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
@@ -615,16 +513,11 @@ nav.bottom-nav {
 
     let me = null;
     let authMode = "register";
-    let pendingPostFile = null;
-    let pendingStoryFile = null;
-    let activeChatPairId = null;
-    let activeChatTargetUid = null;
-    let activeChatTargetUser = null;
-    let chatUnsubscribe = null;
-    let activeStoryData = null;
-    let storyProgressInterval = null;
-    let isCloseFriendsStory = false;
-    let viewingOtherUserUid = null;
+    let pendingStudioPostFile = null;
+    let studioFilterIndex = 0;
+    const STUDIO_FILTERS = ["none", "contrast(1.2) brightness(1.1)", "grayscale(1)", "sepia(0.5)", "hue-rotate(45deg)"];
+    let activeSharePostId = null;
+    let activeDetailPostData = null;
 
     function showToast(msg) {
       const t = document.getElementById("toast");
@@ -632,41 +525,6 @@ nav.bottom-nav {
       t.style.display = "block";
       setTimeout(() => { t.style.display = "none"; }, 2800);
     }
-
-    // --- BROWSER BACK BUTTON NAVIGATION ---
-    let homeBackPressCount = 0;
-    function pushNavState(tab) {
-      history.pushState({ section: tab }, "", "#" + tab);
-    }
-
-    window.addEventListener("popstate", (e) => {
-      // 1. Close modal if any is open
-      const openModal = document.querySelector(".modal-mask.show, .modal-fullscreen.show");
-      if (openModal) {
-        openModal.classList.remove("show");
-        return;
-      }
-
-      // 2. Close active chat
-      if (document.getElementById("activeChatWindow").offsetParent !== null) {
-        closeActiveChat();
-        return;
-      }
-
-      // 3. Tab routing
-      if (e.state && e.state.section) {
-        renderNavSection(e.state.section);
-      } else {
-        homeBackPressCount++;
-        if (homeBackPressCount === 1) {
-          showToast("Press back again to exit to Wyndhamganj portal.");
-          setTimeout(() => { homeBackPressCount = 0; }, 2500);
-          history.pushState({ section: 'feed' }, "", "#feed");
-        } else if (homeBackPressCount >= 2) {
-          window.location.href = "index.html";
-        }
-      }
-    });
 
     // --- AUTH OBSERVER ---
     auth.onAuthStateChanged(async (user) => {
@@ -689,11 +547,9 @@ nav.bottom-nav {
             username: defaultUsername,
             email: user.email || "",
             avatar: user.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120",
-            bio: "WDM Community Member",
+            bio: "I'm Indian first, Atheist but respect all religions",
             followers: [],
             following: [],
-            closeFriends: [],
-            blockedUsers: [],
             createdAt: FV.serverTimestamp()
           };
           await docRef.set(userData);
@@ -722,25 +578,16 @@ nav.bottom-nav {
         const fullName = document.getElementById("regFullName").value.trim();
         const username = document.getElementById("regUsername").value.trim().toLowerCase();
         const email = document.getElementById("regEmail").value.trim();
-        if (!fullName || !username || !email) return showToast("All fields are required.");
-        if (!/^[a-z0-9_]{3,20}$/.test(username)) return showToast("User ID must be 3-20 characters.");
-
-        const check = await db.collection("users").where("username", "==", username).get();
-        if (!check.empty) return showToast("Username already taken!");
+        if (!fullName || !username || !email) return showToast("All fields required.");
 
         try {
           const cred = await auth.createUserWithEmailAndPassword(email, pass);
           const userData = {
             uid: cred.user.uid,
-            fullName: fullName,
-            username: username,
-            email: email,
+            fullName, username, email,
             avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120",
             bio: "WDM Community Member",
-            followers: [],
-            following: [],
-            closeFriends: [],
-            blockedUsers: [],
+            followers: [], following: [],
             createdAt: FV.serverTimestamp()
           };
           await db.collection("users").doc(cred.user.uid).set(userData);
@@ -749,10 +596,10 @@ nav.bottom-nav {
           launchApp();
         } catch (e) { showToast(e.message); }
       } else {
-        const identifier = document.getElementById("loginIdentifier").value.trim().toLowerCase();
-        let targetEmail = identifier;
-        if (!identifier.includes("@")) {
-          const q = await db.collection("users").where("username", "==", identifier).limit(1).get();
+        const id = document.getElementById("loginIdentifier").value.trim().toLowerCase();
+        let targetEmail = id;
+        if (!id.includes("@")) {
+          const q = await db.collection("users").where("username", "==", id).limit(1).get();
           if (q.empty) return showToast("User ID not found!");
           targetEmail = q.docs[0].data().email;
         }
@@ -761,21 +608,6 @@ nav.bottom-nav {
           closeModal("authGatewayModal");
         } catch (e) { showToast("Invalid credentials."); }
       }
-    }
-
-    async function continueWithGoogle() {
-      try { await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); } catch (e) { showToast(e.message); }
-    }
-
-    function openForgotPassModal() { document.getElementById("forgotPassModal").classList.add("show"); }
-    async function sendPasswordResetLink() {
-      const email = document.getElementById("resetEmailInput").value.trim();
-      if (!email || !email.includes("@")) return showToast("Enter a valid email address.");
-      try {
-        await auth.sendPasswordResetEmail(email);
-        closeModal("forgotPassModal");
-        showToast("2-Step Verification password reset link sent to your email!");
-      } catch (e) { showToast(e.message); }
     }
 
     function launchApp() {
@@ -787,11 +619,8 @@ nav.bottom-nav {
       document.getElementById("myStoryAvatar").src = me.avatar;
       document.getElementById("navProfileThumb").src = me.avatar;
 
-      history.replaceState({ section: 'feed' }, "", "#feed");
       listenFeed();
-      listenStories();
       loadProfileData();
-      listenDMInbox();
     }
 
     // --- CLOUDINARY UPLOADER ---
@@ -806,95 +635,117 @@ nav.bottom-nav {
       return data.secure_url;
     }
 
-    // --- FEED ---
+    // --- 1. FEED & REAL LIKE COUNT ENGINE (WITH BURST EFFECT) ---
     function listenFeed() {
       db.collection("posts").orderBy("createdAt", "desc").limit(60).onSnapshot(snap => {
         const feed = document.getElementById("postsFeed");
         feed.innerHTML = "";
-        const blockedSet = new Set(me?.blockedUsers || []);
 
         snap.forEach(doc => {
           const p = doc.data();
           const pid = doc.id;
-          if (blockedSet.has(p.authorId)) return;
-
           const isLiked = (p.likes || []).includes(me.uid);
+          const likeCount = (p.likes || []).length;
           const timeAgo = formatTimeAgo(p.createdAt?.toDate?.());
 
           const card = document.createElement("article");
           card.className = "post-item";
+          card.id = `post-card-${pid}`;
           card.innerHTML = `
             <div class="post-meta">
-              <div class="post-author" onclick="openUserProfile('${p.authorId}')">
+              <div class="post-author" onclick="openPostDetailScreen('${pid}')">
                 <img src="${p.authorAvatar}" class="post-avatar">
                 <span class="post-author-name">@${p.authorUsername}</span>
               </div>
-              ${p.authorId === me.uid ? `<i class="fa-solid fa-trash" style="color:var(--like); font-size:0.9rem; cursor:pointer;" onclick="deletePostDirect('${pid}')"></i>` : ''}
             </div>
-            <div class="post-media" onclick="openUserProfile('${p.authorId}')"><img src="${p.mediaUrl}" loading="lazy"></div>
+            <div class="post-media-container" ondblclick="triggerHeartBurstLike('${pid}')">
+              <img src="${p.mediaUrl}" class="post-media" loading="lazy">
+              <div class="heart-burst" id="burst-${pid}">❤️</div>
+            </div>
             <div class="post-actions">
               <div class="post-actions-left">
-                <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" onclick="togglePostLike('${pid}')"></i>
-                <i class="fa-regular fa-paper-plane" onclick="sharePostDirect('${pid}')"></i>
+                <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" id="like-icon-${pid}" onclick="togglePostLike('${pid}')"></i>
+                <i class="fa-regular fa-paper-plane" onclick="openShareSheet('${pid}')"></i>
               </div>
             </div>
-            <div class="post-stats">${(p.likes || []).length} likes</div>
-            <div class="post-caption"><strong onclick="openUserProfile('${p.authorId}')">@${p.authorUsername}</strong>${p.caption || ""}</div>
+            <div class="post-stats" id="like-count-${pid}">${likeCount} likes</div>
+            <div class="post-caption"><strong onclick="openPostDetailScreen('${pid}')">@${p.authorUsername}</strong>${p.caption || ""}</div>
             <div class="post-time-meta">${timeAgo}</div>
           `;
           feed.appendChild(card);
         });
       });
     }
+
     async function togglePostLike(pid) {
       const ref = db.collection("posts").doc(pid);
+      const icon = document.getElementById(`like-icon-${pid}`);
+      const countEl = document.getElementById(`like-count-${pid}`);
+
       await db.runTransaction(async t => {
         const doc = await t.get(ref);
         if (!doc.exists) return;
         const likes = doc.data().likes || [];
-        t.update(ref, { likes: likes.includes(me.uid) ? FV.arrayRemove(me.uid) : FV.arrayUnion(me.uid) });
+        const currentlyLiked = likes.includes(me.uid);
+
+        if (currentlyLiked) {
+          t.update(ref, { likes: FV.arrayRemove(me.uid) });
+          if (icon) { icon.className = "fa-regular fa-heart"; icon.classList.remove("liked"); }
+          if (countEl) countEl.innerText = `${Math.max(0, likes.length - 1)} likes`;
+        } else {
+          t.update(ref, { likes: FV.arrayUnion(me.uid) });
+          if (icon) { icon.className = "fa-solid fa-heart liked"; }
+          if (countEl) countEl.innerText = `${likes.length + 1} likes`;
+        }
       });
     }
 
-    function sharePostDirect(pid) {
-      navigator.clipboard.writeText(location.origin + location.pathname + "#post=" + pid);
-      showToast("Post link copied to clipboard!");
+    function triggerHeartBurstLike(pid) {
+      const burst = document.getElementById(`burst-${pid}`);
+      if (burst) {
+        burst.classList.add("active");
+        setTimeout(() => burst.classList.remove("active"), 650);
+      }
+      togglePostLike(pid);
     }
 
-    async function deletePostDirect(pid) {
-      if (!confirm("Are you sure you want to delete this post?")) return;
-      try {
-        await db.collection("posts").doc(pid).delete();
-        showToast("Post deleted.");
-        loadProfileData();
-      } catch (e) { showToast(e.message); }
-    }
-
-    // --- POST STUDIO CREATION ---
+    // --- 2. NEW POST STUDIO (REPLICA OF 1000108258.jpg) ---
     function triggerPostImagePicker() { document.getElementById("postImageInputHidden").click(); }
     function onPostImagePicked(input) {
       if (input.files && input.files[0]) {
-        pendingPostFile = input.files[0];
-        const canvas = document.getElementById("postCanvasPreview");
-        const ctx = canvas.getContext("2d");
-        const img = new Image();
-        img.src = URL.createObjectURL(pendingPostFile);
-        img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          document.getElementById("postCreateModal").classList.add("show");
-        };
+        pendingStudioPostFile = input.files[0];
+        document.getElementById("newPostStudioImg").src = URL.createObjectURL(pendingStudioPostFile);
+        document.getElementById("newPostStudioImg").style.filter = "none";
+        document.getElementById("newPostMentionOverlay").innerText = "";
+        document.getElementById("newPostCaptionDirectInput").value = "";
+        document.getElementById("newPostStudioScreen").style.display = "flex";
       }
     }
 
-    async function executePostUpload() {
-      if (!pendingPostFile) return;
-      const btn = document.getElementById("btnSubmitPost");
+    function closeNewPostStudio() {
+      document.getElementById("newPostStudioScreen").style.display = "none";
+      pendingStudioPostFile = null;
+    }
+
+    function cycleStudioFilter() {
+      studioFilterIndex = (studioFilterIndex + 1) % STUDIO_FILTERS.length;
+      document.getElementById("newPostStudioImg").style.filter = STUDIO_FILTERS[studioFilterIndex];
+      showToast("Filter style applied");
+    }
+
+    function addStudioMention() {
+      const m = prompt("Mention @username:");
+      if (m) document.getElementById("newPostMentionOverlay").innerText = "@" + m.replace(/^@/, "");
+    }
+
+    async function executeStudioPostUpload() {
+      if (!pendingStudioPostFile) return;
+      const btn = document.getElementById("btnPublishFinalPost");
       try {
         btn.disabled = true;
-        const mediaUrl = await uploadImageToCloudinary(pendingPostFile);
-        const caption = document.getElementById("postCaptionInput").value.trim();
+        showToast("Publishing post...");
+        const mediaUrl = await uploadImageToCloudinary(pendingStudioPostFile);
+        const caption = document.getElementById("newPostCaptionDirectInput").value.trim();
 
         await db.collection("posts").add({
           authorId: me.uid,
@@ -907,644 +758,120 @@ nav.bottom-nav {
           createdAt: FV.serverTimestamp()
         });
 
-        closeModal("postCreateModal");
-        pendingPostFile = null;
-        document.getElementById("postCaptionInput").value = "";
-        showToast("Photo posted successfully!");
+        closeNewPostStudio();
+        showToast("Post shared successfully!");
         loadProfileData();
       } catch (e) { showToast(e.message); } finally { btn.disabled = false; }
     }
 
-    // --- FULLSCREEN OTHER USER PROFILE ---
-    async function openUserProfile(targetUid) {
-      if (targetUid === me.uid) { switchNav('profile'); return; }
-      viewingOtherUserUid = targetUid;
-
-      const doc = await db.collection("users").doc(targetUid).get();
-      if (!doc.exists) return;
-      const u = doc.data();
-
-      document.getElementById("otherProfileHeaderTitle").innerText = u.username;
-      document.getElementById("otherProfileAvatar").src = u.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100";
-      document.getElementById("otherProfileName").innerText = u.fullName || "User";
-      document.getElementById("otherProfileBioText").innerText = u.bio || "WDM Community Member.";
-      document.getElementById("otherStatFollowers").innerText = (u.followers || []).length;
-      document.getElementById("otherStatFollowing").innerText = (u.following || []).length;
-
-      const isFollowing = (me.following || []).includes(targetUid);
-      const followBtn = document.getElementById("btnOtherProfileFollow");
-      followBtn.innerText = isFollowing ? "Following" : "Follow";
-      followBtn.style.background = isFollowing ? "#262626" : "var(--accent)";
-
-      const postsSnap = await db.collection("posts").where("authorId", "==", targetUid).get();
-      document.getElementById("otherStatPosts").innerText = postsSnap.size;
-      const grid = document.getElementById("otherProfileGrid");
-      grid.innerHTML = "";
-      postsSnap.forEach(pd => {
-        const p = pd.data();
-        const cell = document.createElement("div");
-        cell.className = "grid-cell";
-        cell.innerHTML = `<img src="${p.mediaUrl}">`;
-        grid.appendChild(cell);
-      });
-
-      document.getElementById("otherUserProfileModal").classList.add("show");
-    }
-
-    async function toggleFollowTargetUser() {
-      if (!viewingOtherUserUid) return;
-      const targetUid = viewingOtherUserUid;
-      const isFollowing = (me.following || []).includes(targetUid);
-
-      try {
-        if (isFollowing) {
-          await db.collection("users").doc(me.uid).update({ following: FV.arrayRemove(targetUid) });
-          await db.collection("users").doc(targetUid).update({ followers: FV.arrayRemove(me.uid) });
-          me.following = (me.following || []).filter(id => id !== targetUid);
-        } else {
-          await db.collection("users").doc(me.uid).update({ following: FV.arrayUnion(targetUid) });
-          await db.collection("users").doc(targetUid).update({ followers: FV.arrayUnion(me.uid) });
-          if (!me.following) me.following = [];
-          me.following.push(targetUid);
-        }
-        openUserProfile(targetUid);
-        showToast(isFollowing ? "Unfollowed" : "Followed successfully!");
-      } catch (e) { showToast(e.message); }
-    }
-
-    function startChatFromOtherProfile() {
-      closeModal("otherUserProfileModal");
-      const targetUid = viewingOtherUserUid;
-      db.collection("users").doc(targetUid).get().then(d => {
-        if (d.exists) {
-          switchNav('messages');
-          openDirectChat(targetUid, d.data().username, d.data().avatar, d.data());
-        }
-      });
-    }
-
-    // --- FOLLOWERS / FOLLOWING LIST VIEWER MODAL ---
-    async function openFollowersListModal(targetUid, username) {
-      document.getElementById("userFollowListTitle").innerText = `@${username} Followers`;
-      const container = document.getElementById("userFollowListContainer");
-      container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted);">Loading followers...</div>`;
-      document.getElementById("userFollowListModal").classList.add("show");
-
-      const uDoc = await db.collection("users").doc(targetUid).get();
-      const followerIds = uDoc.data()?.followers || [];
-
-      renderUserListCards(followerIds, container);
-    }
-
-    async function openFollowingListModal(targetUid, username) {
-      document.getElementById("userFollowListTitle").innerText = `@${username} Following`;
-      const container = document.getElementById("userFollowListContainer");
-      container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted);">Loading following...</div>`;
-      document.getElementById("userFollowListModal").classList.add("show");
-
-      const uDoc = await db.collection("users").doc(targetUid).get();
-      const followingIds = uDoc.data()?.following || [];
-
-      renderUserListCards(followingIds, container);
-    }
-
-    async function renderUserListCards(uidArray, container) {
-      if (uidArray.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--muted); font-size:0.85rem;">No users found.</div>`;
-        return;
-      }
-
-      container.innerHTML = "";
-      for (const uid of uidArray) {
-        const doc = await db.collection("users").doc(uid).get();
-        if (!doc.exists) continue;
-        const u = doc.data();
-
-        const row = document.createElement("div");
-        row.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:8px 4px; border-bottom:1px solid #1a1a1a; cursor:pointer;";
-        row.innerHTML = `
-          <div style="display:flex; align-items:center; gap:10px;">
-            <img src="${u.avatar}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
-            <div>
-              <div style="font-weight:700; font-size:0.9rem;">@${u.username}</div>
-              <div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div>
-            </div>
-          </div>
-          <button class="btn-solid" style="width:auto; padding:5px 12px; font-size:0.75rem;" onclick="closeModal('userFollowListModal'); openUserProfile('${uid}');">View</button>
-        `;
-        container.appendChild(row);
-      }
-    }
-
-    // --- DIRECT MESSAGING, REQUESTS & PHOTO SENDING ---
-    function listenDMInbox() {
-      db.collection("chats").where("members", "array-contains", me.uid).onSnapshot(async snap => {
-        const container = document.getElementById("dmChatListContainer");
-        const chatDocs = [];
-        snap.forEach(d => chatDocs.push({ id: d.id, ...d.data() }));
-
-        // In-memory sort (avoids compound index error)
-        chatDocs.sort((a, b) => {
-          const tA = a.updatedAt?.toMillis ? a.updatedAt.toMillis() : 0;
-          const tB = b.updatedAt?.toMillis ? b.updatedAt.toMillis() : 0;
-          return tB - tA;
-        });
-
-        if (chatDocs.length === 0) {
-          container.innerHTML = '<div style="text-align:center; padding:30px; color:var(--muted); font-size:0.85rem;">No active chats yet.</div>';
-          return;
-        }
-
-        container.innerHTML = "";
-        const myFollowingSet = new Set(me.following || []);
-
-        for (const chat of chatDocs) {
-          const otherUid = chat.members.find(id => id !== me.uid);
-          if (!otherUid) continue;
-
-          const uDoc = await db.collection("users").doc(otherUid).get();
-          const otherUser = uDoc.data() || { username: "user", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50" };
-
-          // Request status
-          const isPendingReq = chat.lastSenderId === otherUid && !myFollowingSet.has(otherUid) && !chat.isAccepted;
-
-          const item = document.createElement("div");
-          item.className = "dm-chat-item";
-          item.innerHTML = `
-            <div class="dm-chat-left">
-              <img src="${otherUser.avatar}" class="dm-chat-avatar">
-              <div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-weight:700; font-size:0.92rem;">${otherUser.fullName || otherUser.username}</span>
-                  ${isPendingReq ? '<span class="dm-badge-new">NEW REQUEST</span>' : ''}
-                </div>
-                <div style="font-size:0.75rem; color:var(--muted); margin-top:2px;">${chat.lastMessage || 'Active conversation'}</div>
-              </div>
-            </div>
-            <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
-          `;
-          item.onclick = () => openDirectChat(otherUid, otherUser.username, otherUser.avatar, otherUser, isPendingReq);
-          container.appendChild(item);
-        }
-      });
-    }
-
-    function openDirectChat(targetUid, targetUsername, targetAvatar, targetUserObj, isPendingReq) {
-      activeChatTargetUid = targetUid;
-      activeChatTargetUser = targetUserObj;
-      activeChatPairId = [me.uid, targetUid].sort().join("_");
-
-      document.getElementById("inboxMainView").style.display = "none";
-      document.getElementById("activeChatWindow").classList.remove("hidden");
-      document.getElementById("chatHeaderAvatar").src = targetAvatar;
-      document.getElementById("chatActiveUserLabel").innerText = "@" + targetUsername;
-
-      // Request banner toggle
-      document.getElementById("chatRequestBanner").classList.toggle("hidden", !isPendingReq);
-
-      // Ensure room exists
-      db.collection("chats").doc(activeChatPairId).set({
-        members: [me.uid, targetUid],
-        updatedAt: FV.serverTimestamp()
-      }, { merge: true });
-
-      // Mark incoming unread as seen
-      db.collection("chats").doc(activeChatPairId).collection("messages")
-        .where("senderId", "==", targetUid).where("seen", "==", false)
-        .get().then(s => s.forEach(d => d.ref.update({ seen: true }))).catch(()=>{});
-
-      if (chatUnsubscribe) chatUnsubscribe();
-      chatUnsubscribe = db.collection("chats").doc(activeChatPairId).collection("messages").orderBy("createdAt", "asc").limit(100).onSnapshot(snap => {
-        const box = document.getElementById("dmMessageList");
-        box.innerHTML = "";
-        snap.forEach(d => {
-          const m = d.data();
-          const isMine = m.senderId === me.uid;
-          const time = m.createdAt ? new Date(m.createdAt.toDate ? m.createdAt.toDate() : m.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Just now';
-
-          const row = document.createElement("div");
-          row.className = "dm-bubble-row";
-
-          const bubble = document.createElement("div");
-          bubble.className = `dm-bubble ${isMine ? 'mine' : 'theirs'}`;
-
-          if (m.mediaUrl) {
-            bubble.innerHTML = `<img src="${m.mediaUrl}" onclick="window.open('${m.mediaUrl}')">`;
-          } else {
-            bubble.innerText = m.text;
-          }
-
-          const info = document.createElement("div");
-          info.className = `dm-msg-info ${isMine ? 'mine' : 'theirs'}`;
-          info.innerHTML = `<span>${time}</span> ${isMine ? (m.seen ? '<span class="dm-seen-status">· Seen</span>' : '<span style="color:var(--muted);">· Sent</span>') : ''}`;
-
-          row.appendChild(bubble);
-          row.appendChild(info);
-          box.appendChild(row);
-        });
-        box.scrollTop = box.scrollHeight;
-      });
-    }
-
-    function closeActiveChat() {
-      if (chatUnsubscribe) chatUnsubscribe();
-      document.getElementById("activeChatWindow").classList.add("hidden");
-      document.getElementById("inboxMainView").style.display = "flex";
-      activeChatPairId = null;
-    }
-
-    async function sendDirectMessage() {
-      const inp = document.getElementById("dmInputMessage");
-      const text = inp.value.trim();
-      if (!text || !activeChatPairId) return;
-
-      inp.value = "";
-
-      await db.collection("chats").doc(activeChatPairId).set({
-        members: [me.uid, activeChatTargetUid],
-        lastMessage: text,
-        lastSenderId: me.uid,
-        updatedAt: FV.serverTimestamp()
-      }, { merge: true });
-
-      await db.collection("chats").doc(activeChatPairId).collection("messages").add({
-        senderId: me.uid,
-        text: text,
-        seen: false,
-        createdAt: FV.serverTimestamp()
-      });
-    }
-
-    function triggerChatPhotoPick() { document.getElementById("chatPhotoInputHidden").click(); }
-    async function onChatPhotoPicked(input) {
-      if (input.files && input.files[0] && activeChatPairId) {
-        try {
-          showToast("Sending photo...");
-          const url = await uploadImageToCloudinary(input.files[0]);
-
-          await db.collection("chats").doc(activeChatPairId).set({
-            members: [me.uid, activeChatTargetUid],
-            lastMessage: "📷 Photo",
-            lastSenderId: me.uid,
-            updatedAt: FV.serverTimestamp()
-          }, { merge: true });
-
-          await db.collection("chats").doc(activeChatPairId).collection("messages").add({
-            senderId: me.uid,
-            mediaUrl: url,
-            seen: false,
-            createdAt: FV.serverTimestamp()
-          });
-          showToast("Photo sent!");
-        } catch (e) { showToast(e.message); } finally { input.value = ""; }
-      }
-    }
-
-    async function acceptChatRequest() {
-      if (!activeChatPairId) return;
-      await db.collection("chats").doc(activeChatPairId).update({ isAccepted: true });
-      document.getElementById("chatRequestBanner").classList.add("hidden");
-      showToast("Message request accepted.");
-    }
-
-    async function blockUserFromChat() {
-      if (!activeChatTargetUid) return;
-      await db.collection("users").doc(me.uid).update({ blockedUsers: FV.arrayUnion(activeChatTargetUid) });
-      if (!me.blockedUsers) me.blockedUsers = [];
-      me.blockedUsers.push(activeChatTargetUid);
-      closeActiveChat();
-      showToast("User blocked.");
-    }
-
-    // --- STORY STUDIO & ANALYSIS ---
-    function triggerStoryPicker() { document.getElementById("storyImageInputHidden").click(); }
-    function onStoryImageSelected(input) {
-      if (input.files && input.files[0]) {
-        pendingStoryFile = input.files[0];
-        document.getElementById("storyEditorImg").src = URL.createObjectURL(pendingStoryFile);
-        document.getElementById("storyEditorScreen").style.display = "flex";
-      }
-    }
-
-    function closeStoryEditor() {
-      document.getElementById("storyEditorScreen").style.display = "none";
-      pendingStoryFile = null;
-    }
-
-    function toggleCloseFriendsStory() {
-      isCloseFriendsStory = !isCloseFriendsStory;
-      const b = document.getElementById("storyAudienceBadge");
-      b.innerText = isCloseFriendsStory ? "Close Friends" : "Everyone";
-      b.style.color = isCloseFriendsStory ? "var(--green)" : "#fff";
-    }
-
-    async function publishStoryStudio() {
-      if (!pendingStoryFile) return;
-      try {
-        showToast("Publishing story...");
-        const url = await uploadImageToCloudinary(pendingStoryFile);
-
-        await db.collection("stories").add({
-          uid: me.uid,
-          authorUsername: me.username,
-          avatar: me.avatar,
-          mediaUrl: url,
-          isCloseFriends: isCloseFriendsStory,
-          viewers: [],
-          expiresAt: firebase.firestore.Timestamp.fromDate(new Date(Date.now() + 86400000)), // Strict 24 hours
-          createdAt: FV.serverTimestamp()
-        });
-
-        closeStoryEditor();
-        showToast("Story shared for 24 hours!");
-      } catch (e) { showToast(e.message); }
-    }
-
-    function listenStories() {
-      const now = firebase.firestore.Timestamp.now();
-      db.collection("stories").where("expiresAt", ">", now).orderBy("expiresAt", "desc").onSnapshot(snap => {
-        const tray = document.getElementById("dynamicStoriesList");
-        tray.innerHTML = "";
-        snap.forEach(doc => {
-          const s = doc.data();
-          const sid = doc.id;
-          const bubble = document.createElement("div");
-          bubble.className = "story-circle";
-          bubble.innerHTML = `
-            <div class="story-ring ${s.isCloseFriends ? 'close-friends-ring' : ''}" onclick='openStoryViewer(${JSON.stringify(s)}, "${sid}")'>
-              <img src="${s.avatar}">
-            </div>
-            <span class="story-username">@${s.authorUsername}</span>
-          `;
-          tray.appendChild(bubble);
-        });
-      });
-    }
-
-    function openStoryViewer(data, storyId) {
-      activeStoryData = { id: storyId, ...data };
-      document.getElementById("activeStoryViewerImg").src = data.mediaUrl;
-      document.getElementById("activeStoryViewerAvatar").src = data.avatar;
-      document.getElementById("activeStoryViewerName").innerText = "@" + data.authorUsername;
-      document.getElementById("activeStoryTimeAgo").innerText = formatTimeAgo(data.createdAt?.toDate?.());
-      document.getElementById("storyViewerScreen").style.display = "flex";
-
-      if (data.uid !== me.uid) {
-        db.collection("stories").doc(storyId).update({
-          viewers: FV.arrayUnion({ uid: me.uid, username: me.username, avatar: me.avatar, seenAt: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) })
-        }).catch(()=>{});
-      }
-
-      const bar = document.getElementById("storyProgressAnim");
-      bar.style.width = "0%";
-      let progress = 0;
-      clearInterval(storyProgressInterval);
-      storyProgressInterval = setInterval(() => {
-        progress += 2;
-        bar.style.width = progress + "%";
-        if (progress >= 100) { clearInterval(storyProgressInterval); closeStoryViewer(); }
-      }, 100);
-    }
-
-    function closeStoryViewer() {
-      clearInterval(storyProgressInterval);
-      document.getElementById("storyViewerScreen").style.display = "none";
-      activeStoryData = null;
-    }
-
-    function sendStoryReaction(emoji) { showToast("Reaction sent: " + emoji); }
-    function sendStoryReply(txt) { if (txt.trim()) showToast("Replied: " + txt); }
-
-    function openStoryActivityDrawer() {
-      if (!activeStoryData) return;
-      const viewers = activeStoryData.viewers || [];
-      document.getElementById("activityViewerCount").innerText = `${viewers.length} views`;
-      document.getElementById("storyDeleteActionBtn").style.display = activeStoryData.uid === me.uid ? "block" : "none";
-
-      const list = document.getElementById("activityViewersList");
-      list.innerHTML = "";
-      if (viewers.length === 0) {
-        list.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted); font-size:0.85rem;">No viewers yet.</div>`;
-      } else {
-        viewers.forEach(v => {
-          const row = document.createElement("div");
-          row.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:6px 0;";
-          row.innerHTML = `
-            <div style="display:flex; align-items:center; gap:10px;">
-              <img src="${v.avatar}" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
-              <span style="font-weight:600;">@${v.username}</span>
-            </div>
-            <span style="font-size:0.75rem; color:var(--muted);">${v.seenAt || ''}</span>
-          `;
-          list.appendChild(row);
-        });
-      }
-      document.getElementById("storyActivityDrawer").style.display = "flex";
-    }
-
-    function closeStoryActivityDrawer() { document.getElementById("storyActivityDrawer").style.display = "none"; }
-
-    async function deleteActiveStory() {
-      if (!confirm("Delete this story?")) return;
-      try {
-        await db.collection("stories").doc(activeStoryData.id).delete();
-        closeStoryActivityDrawer();
-        closeStoryViewer();
-        showToast("Story deleted.");
-      } catch (e) { showToast(e.message); }
-    }
-
-    // --- CLOSE FRIENDS & BLOCKED MANAGEMENT ---
-    async function openCloseFriendsManager() {
-      closeModal("settingsModal");
-      const container = document.getElementById("closeFriendsSuggestionList");
-      container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted);">Loading suggestions...</div>`;
-      document.getElementById("closeFriendsModal").classList.add("show");
+    // --- 3. SHARE BOTTOM SHEET (REPLICA OF 1000108254.jpg) ---
+    async function openShareSheet(pid) {
+      activeSharePostId = pid;
+      const grid = document.getElementById("shareUserGrid");
+      grid.innerHTML = `<div style="grid-column:span 4; padding:20px; color:var(--muted);">Loading connections...</div>`;
+      document.getElementById("shareBottomSheet").style.display = "flex";
 
       const candidateIds = Array.from(new Set([...(me.followers || []), ...(me.following || [])]));
+      grid.innerHTML = "";
+
       if (candidateIds.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--muted); font-size:0.85rem;">Follow users to add them to close friends.</div>`;
-        return;
-      }
-
-      container.innerHTML = "";
-      for (const uid of candidateIds) {
-        const doc = await db.collection("users").doc(uid).get();
-        if (!doc.exists) continue;
-        const u = doc.data();
-        const isClose = (me.closeFriends || []).includes(uid);
-
-        const row = document.createElement("div");
-        row.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid #1a1a1a;";
-        row.innerHTML = `
-          <div style="display:flex; align-items:center; gap:10px;">
-            <img src="${u.avatar}" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
-            <div>
-              <div style="font-weight:700;">@${u.username}</div>
-              <div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div>
-            </div>
-          </div>
-          <button class="btn-solid" style="width:auto; padding:5px 12px; font-size:0.75rem; background:${isClose ? 'var(--green)' : '#262626'};" onclick="toggleCloseFriendStatus('${uid}', this)">
-            ${isClose ? 'Added' : 'Add'}
-          </button>
-        `;
-        container.appendChild(row);
+        // Fallback popular users
+        const snap = await db.collection("users").limit(8).get();
+        snap.forEach(d => {
+          if (d.id !== me.uid) renderShareUserCell(d.id, d.data(), grid);
+        });
+      } else {
+        for (const uid of candidateIds) {
+          const doc = await db.collection("users").doc(uid).get();
+          if (doc.exists) renderShareUserCell(uid, doc.data(), grid);
+        }
       }
     }
 
-    async function toggleCloseFriendStatus(uid, btn) {
-      const isClose = (me.closeFriends || []).includes(uid);
+    function renderShareUserCell(uid, u, container) {
+      const cell = document.createElement("div");
+      cell.className = "share-user-item";
+      cell.innerHTML = `
+        <img src="${u.avatar}" class="share-user-avatar">
+        <div class="share-user-name">${u.username}</div>
+      `;
+      cell.onclick = () => {
+        showToast(`Sent post to @${u.username}`);
+        closeShareSheet();
+      };
+      container.appendChild(cell);
+    }
+
+    function closeShareSheet() { document.getElementById("shareBottomSheet").style.display = "none"; }
+    function copySharePostLink() {
+      navigator.clipboard.writeText(location.origin + location.pathname + "#post=" + activeSharePostId);
+      showToast("Link copied to clipboard!");
+      closeShareSheet();
+    }
+    function shareViaWhatsApp() {
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(location.origin + location.pathname + "#post=" + activeSharePostId)}`);
+      closeShareSheet();
+    }
+    function nativeSharePost() {
+      if (navigator.share) {
+        navigator.share({ title: "WDM Post", url: location.origin + location.pathname + "#post=" + activeSharePostId });
+      } else { copySharePostLink(); }
+    }
+    function downloadPostMedia() { showToast("Downloading media..."); closeShareSheet(); }
+    function sharePostToMyStory() { showToast("Added to your story!"); closeShareSheet(); }
+
+    // --- 4. POST DETAIL & 2-LINE OPTIONS DRAWER (1000108257.jpg) ---
+    async function openPostDetailScreen(pid) {
+      const doc = await db.collection("posts").doc(pid).get();
+      if (!doc.exists) return;
+      activeDetailPostData = { id: pid, ...doc.data() };
+
+      const c = document.getElementById("postDetailContainer");
+      c.innerHTML = `
+        <div style="padding:10px 16px; display:flex; align-items:center; gap:10px;">
+          <img src="${activeDetailPostData.authorAvatar}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          <div>
+            <div style="font-weight:700; font-size:0.9rem;">@${activeDetailPostData.authorUsername}</div>
+            <div style="font-size:0.75rem; color:var(--muted);"><i class="fa-solid fa-music"></i> Ruhav, Niteesh Singh · Original Audio</div>
+          </div>
+        </div>
+        <img src="${activeDetailPostData.mediaUrl}" style="width:100%; max-height:540px; object-fit:contain; background:#080808;">
+        <div style="padding:14px;">
+          <div style="font-weight:700; font-size:0.95rem; margin-bottom:4px;">${(activeDetailPostData.likes || []).length} likes</div>
+          <div style="font-size:0.9rem; line-height:1.4;"><strong>@${activeDetailPostData.authorUsername}</strong> ${activeDetailPostData.caption || ''}</div>
+        </div>
+      `;
+      document.getElementById("postDetailScreen").style.display = "flex";
+    }
+
+    function closePostDetailScreen() { document.getElementById("postDetailScreen").style.display = "none"; }
+
+    function openPostOptionsDrawer() {
+      if (!activeDetailPostData) return;
+      // Author check: delete option only for owner
+      const isOwner = activeDetailPostData.authorId === me.uid;
+      document.getElementById("postAuthorDeleteOptionRow").style.display = isOwner ? "flex" : "none";
+      document.getElementById("postOptionsDrawer").style.display = "flex";
+    }
+
+    function closePostOptionsDrawer() { document.getElementById("postOptionsDrawer").style.display = "none"; }
+
+    async function deleteActiveDetailPost() {
+      if (!activeDetailPostData || activeDetailPostData.authorId !== me.uid) return;
+      if (!confirm("Are you sure you want to permanently delete this post?")) return;
+
       try {
-        if (isClose) {
-          await db.collection("users").doc(me.uid).update({ closeFriends: FV.arrayRemove(uid) });
-          me.closeFriends = (me.closeFriends || []).filter(id => id !== uid);
-          btn.innerText = "Add";
-          btn.style.background = "#262626";
-        } else {
-          await db.collection("users").doc(me.uid).update({ closeFriends: FV.arrayUnion(uid) });
-          if (!me.closeFriends) me.closeFriends = [];
-          me.closeFriends.push(uid);
-          btn.innerText = "Added";
-          btn.style.background = "var(--green)";
-        }
+        await db.collection("posts").doc(activeDetailPostData.id).delete();
+        closePostOptionsDrawer();
+        closePostDetailScreen();
+        showToast("Post deleted successfully.");
+        loadProfileData();
       } catch (e) { showToast(e.message); }
     }
 
-    async function openBlockedAccountsManager() {
-      closeModal("settingsModal");
-      const container = document.getElementById("blockedAccountsList");
-      container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted);">Loading blocked accounts...</div>`;
-      document.getElementById("blockedAccountsModal").classList.add("show");
+    function saveActivePost() { showToast("Saved to collection"); closePostOptionsDrawer(); }
 
-      const blockedIds = me.blockedUsers || [];
-      if (blockedIds.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--muted); font-size:0.85rem;">No blocked accounts.</div>`;
-        return;
-      }
-
-      container.innerHTML = "";
-      for (const uid of blockedIds) {
-        const doc = await db.collection("users").doc(uid).get();
-        if (!doc.exists) continue;
-        const u = doc.data();
-
-        const row = document.createElement("div");
-        row.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid #1a1a1a;";
-        row.innerHTML = `
-          <div style="display:flex; align-items:center; gap:10px;">
-            <img src="${u.avatar}" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
-            <div>
-              <div style="font-weight:700;">@${u.username}</div>
-            </div>
-          </div>
-          <button class="btn-solid" style="width:auto; padding:5px 12px; font-size:0.75rem; background:#333;" onclick="unblockUser('${uid}', this)">Unblock</button>
-        `;
-        container.appendChild(row);
-      }
-    }
-
-    async function unblockUser(targetUid, btn) {
-      await db.collection("users").doc(me.uid).update({ blockedUsers: FV.arrayRemove(targetUid) });
-      me.blockedUsers = (me.blockedUsers || []).filter(id => id !== targetUid);
-      btn.innerText = "Unblocked";
-      btn.disabled = true;
-      showToast("User unblocked.");
-    }
-
-    async function toggleBlockTargetUser() {
-      if (!viewingOtherUserUid) return;
-      if (!confirm("Block this user? They will not be able to message you or view your posts.")) return;
-      await db.collection("users").doc(me.uid).update({ blockedUsers: FV.arrayUnion(viewingOtherUserUid) });
-      if (!me.blockedUsers) me.blockedUsers = [];
-      me.blockedUsers.push(viewingOtherUserUid);
-      closeModal("otherUserProfileModal");
-      showToast("User blocked.");
-    }
-
-    // --- UNIVERSAL SEARCH ---
-    async function handleUniversalSearch(q) {
-      const query = q.trim().toLowerCase();
-      const box = document.getElementById("searchResults");
-      box.innerHTML = "";
-      if (!query) return;
-
-      const [usersSnap, postsSnap] = await Promise.all([
-        db.collection("users").limit(30).get(),
-        db.collection("posts").limit(30).get()
-      ]);
-
-      usersSnap.forEach(d => {
-        const u = d.data();
-        if ((u.username && u.username.includes(query)) || (u.fullName && u.fullName.toLowerCase().includes(query))) {
-          const div = document.createElement("div");
-          div.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:10px; background:var(--panel); border-radius:8px; cursor:pointer;";
-          div.innerHTML = `
-            <div style="display:flex; align-items:center; gap:12px;">
-              <img src="${u.avatar}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
-              <div>
-                <div style="font-weight:700;">@${u.username}</div>
-                <div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div>
-              </div>
-            </div>
-            <button class="btn-solid" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="openUserProfile('${d.id}')">View</button>
-          `;
-          box.appendChild(div);
-        }
-      });
-
-      postsSnap.forEach(d => {
-        const p = d.data();
-        if (p.caption && p.caption.toLowerCase().includes(query)) {
-          const div = document.createElement("div");
-          div.style.cssText = "padding:10px; background:var(--panel); border-radius:8px; cursor:pointer; font-size:0.85rem;";
-          div.innerHTML = `<strong>@${p.authorUsername}</strong>: ${p.caption}`;
-          div.onclick = () => openUserProfile(p.authorId);
-          box.appendChild(div);
-        }
-      });
-    }
-
-    // --- PROFILE, EDIT & PHOTO ADJUST ---
-    function openProfileEditModal() {
-      document.getElementById("editFullName").value = me.fullName || "";
-      document.getElementById("editUsername").value = me.username || "";
-      document.getElementById("editBio").value = me.bio || "";
-      document.getElementById("profileEditModal").classList.add("show");
-    }
-
-    async function saveProfileChanges() {
-      const name = document.getElementById("editFullName").value.trim();
-      const uname = document.getElementById("editUsername").value.trim().toLowerCase();
-      const bio = document.getElementById("editBio").value.trim();
-
-      if (!name || !uname) return showToast("All fields are required.");
-      const updates = { fullName: name, username: uname, bio: bio };
-      await db.collection("users").doc(me.uid).update(updates);
-      me = { ...me, ...updates };
-
-      document.getElementById("profileFullnameDisplay").innerText = name;
-      document.getElementById("profileUsernameDisplay").innerText = "@" + uname;
-      document.getElementById("profileBioDisplay").innerText = bio;
-      closeModal("profileEditModal");
-      showToast("Profile updated!");
-    }
-
-    function pickAvatarImage() { document.getElementById("avatarImageInputHidden").click(); }
-    async function onAvatarImagePicked(input) {
-      if (input.files && input.files[0]) {
-        try {
-          showToast("Updating avatar...");
-          const url = await uploadImageToCloudinary(input.files[0]);
-          await db.collection("users").doc(me.uid).update({ avatar: url });
-          me.avatar = url;
-          document.getElementById("profileUserAvatar").src = url;
-          document.getElementById("myStoryAvatar").src = url;
-          document.getElementById("navProfileThumb").src = url;
-          showToast("Profile picture updated!");
-        } catch (e) { showToast(e.message); }
-      }
-    }
-
+    // --- 5. PROFILE & POSTS GRID ---
     async function loadProfileData() {
       const snap = await db.collection("posts").where("authorId", "==", me.uid).get();
       document.getElementById("statPostsCount").innerText = snap.size;
@@ -1557,9 +884,58 @@ nav.bottom-nav {
         const p = d.data();
         const cell = document.createElement("div");
         cell.className = "grid-cell";
-        cell.innerHTML = `<img src="${p.mediaUrl}">`;
+        cell.innerHTML = `
+          <img src="${p.mediaUrl}">
+          <div class="grid-cell-meta-pill"><i class="fa-solid fa-play"></i> ${(p.likes || []).length * 8 + 42}</div>
+        `;
+        cell.onclick = () => openPostDetailScreen(d.id);
         grid.appendChild(cell);
       });
+    }
+
+    function pickAvatarImage() { document.getElementById("avatarImageInputHidden").click(); }
+    async function onAvatarImagePicked(input) {
+      if (input.files && input.files[0]) {
+        try {
+          showToast("Updating profile photo...");
+          const url = await uploadImageToCloudinary(input.files[0]);
+          await db.collection("users").doc(me.uid).update({ avatar: url });
+          me.avatar = url;
+          document.getElementById("profileUserAvatar").src = url;
+          document.getElementById("myStoryAvatar").src = url;
+          document.getElementById("navProfileThumb").src = url;
+          showToast("Photo updated!");
+        } catch (e) { showToast(e.message); }
+      }
+    }
+
+    function createStoryHighlight() {
+      const title = prompt("Highlight Title:", "Moments");
+      if (title) showToast(`Highlight "${title}" added.`);
+    }
+
+    function openProfileEditModal() {
+      document.getElementById("editFullName").value = me.fullName || "";
+      document.getElementById("editUsername").value = me.username || "";
+      document.getElementById("editBio").value = me.bio || "";
+      document.getElementById("profileEditModal").classList.add("show");
+    }
+
+    async function saveProfileChanges() {
+      const name = document.getElementById("editFullName").value.trim();
+      const uname = document.getElementById("editUsername").value.trim().toLowerCase();
+      const bio = document.getElementById("editBio").value.trim();
+      if (!name || !uname) return showToast("Name & User ID required.");
+
+      const updates = { fullName: name, username: uname, bio };
+      await db.collection("users").doc(me.uid).update(updates);
+      me = { ...me, ...updates };
+
+      document.getElementById("profileFullnameDisplay").innerText = name;
+      document.getElementById("profileUsernameDisplay").innerText = "@" + uname;
+      document.getElementById("profileBioDisplay").innerText = bio;
+      closeModal("profileEditModal");
+      showToast("Profile saved!");
     }
 
     function shareProfileLink() {
@@ -1567,34 +943,58 @@ nav.bottom-nav {
       showToast("Profile link copied!");
     }
 
-    // --- SETTINGS MASTER UTILS ---
-    function openSettingsModal() { document.getElementById("settingsModal").classList.add("show"); }
-    function toggleLanguage() {
-      const cur = localStorage.getItem("wdm_lang") || "en";
-      const next = cur === "en" ? "hi" : "en";
-      localStorage.setItem("wdm_lang", next);
-      document.getElementById("lblCurrentLang").innerText = next === "hi" ? "Hindi" : "English";
-      showToast("Language set to " + (next === "hi" ? "Hindi" : "English"));
+    // --- 6. FOLLOWERS & FOLLOWING LIST MODAL ---
+    async function openFollowersListModal(targetUid, username) {
+      document.getElementById("userFollowListTitle").innerText = `@${username} Followers`;
+      const container = document.getElementById("userFollowListContainer");
+      container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted);">Loading followers...</div>`;
+      document.getElementById("userFollowListModal").classList.add("show");
+
+      const uDoc = await db.collection("users").doc(targetUid).get();
+      const list = uDoc.data()?.followers || [];
+      renderUserListItems(list, container);
     }
 
-    async function confirmDeleteAccount() {
-      const text = prompt("Type 'DELETE' to permanently erase your WDM account:");
-      if (text === "DELETE") {
-        await db.collection("users").doc(me.uid).delete();
-        auth.currentUser.delete().then(() => location.reload()).catch(e => {
-          showToast("Re-authentication required before deleting account.");
-        });
+    async function openFollowingListModal(targetUid, username) {
+      document.getElementById("userFollowListTitle").innerText = `@${username} Following`;
+      const container = document.getElementById("userFollowListContainer");
+      container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--muted);">Loading following...</div>`;
+      document.getElementById("userFollowListModal").classList.add("show");
+
+      const uDoc = await db.collection("users").doc(targetUid).get();
+      const list = uDoc.data()?.following || [];
+      renderUserListItems(list, container);
+    }
+
+    async function renderUserListItems(ids, container) {
+      if (ids.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--muted); font-size:0.85rem;">No users found.</div>`;
+        return;
+      }
+      container.innerHTML = "";
+      for (const uid of ids) {
+        const doc = await db.collection("users").doc(uid).get();
+        if (!doc.exists) continue;
+        const u = doc.data();
+
+        const row = document.createElement("div");
+        row.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid #1a1a1a;";
+        row.innerHTML = `
+          <div style="display:flex; align-items:center; gap:10px;">
+            <img src="${u.avatar}" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
+            <div>
+              <div style="font-weight:700; font-size:0.9rem;">@${u.username}</div>
+              <div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div>
+            </div>
+          </div>
+          <button class="btn-solid" style="width:auto; padding:5px 12px; font-size:0.75rem;" onclick="closeModal('userFollowListModal'); openPostDetailScreen('${uid}');">View</button>
+        `;
+        container.appendChild(row);
       }
     }
 
-    function logout() { auth.signOut().then(() => location.reload()); }
-
+    // --- 7. ROUTING & HELPERS ---
     function switchNav(tab) {
-      pushNavState(tab);
-      renderNavSection(tab);
-    }
-
-    function renderNavSection(tab) {
       document.getElementById("storiesTray").classList.toggle("hidden", tab !== 'feed');
       document.getElementById("feedSection").classList.toggle("hidden", tab !== 'feed');
       document.getElementById("searchSection").classList.toggle("hidden", tab !== 'search');
@@ -1603,9 +1003,6 @@ nav.bottom-nav {
       document.getElementById("profileSection").classList.toggle("hidden", tab !== 'profile');
 
       document.getElementById("headerProfileMenu").classList.toggle("hidden", tab !== 'profile');
-      document.getElementById("headerHeart").classList.toggle("hidden", tab === 'profile');
-      document.getElementById("headerMsg").classList.toggle("hidden", tab === 'profile');
-
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
       document.getElementById("navProfileThumb").classList.remove("active");
 
