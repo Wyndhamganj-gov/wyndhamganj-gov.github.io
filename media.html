@@ -1,93 +1,1215 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>WDM — Connect & Share</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Firebase Compat SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
 <style>
-:root{--bg:#08090d;--panel:#11131a;--line:#252936;--txt:#f4f5f8;--muted:#9298a8;--pink:#ff477e;--blue:#668cff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px Inter,Arial,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:#252a38;color:white}button.primary{background:linear-gradient(110deg,#ff477e,#8c62ff)}button:disabled{opacity:.5}.hidden{display:none!important}
-header{height:62px;position:sticky;top:0;z-index:5;background:#0b0c12ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(16px,calc((100% - 1100px)/2))}
-.logo{font-size:25px;font-weight:800;letter-spacing:-1.5px;background:linear-gradient(90deg,#ff477e,#a27bff);color:transparent;background-clip:text}
-.wrap{max-width:1100px;margin:auto;padding:22px 16px 90px;display:grid;grid-template-columns: minmax(0,680px) 280px;gap:28px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px}.stories{display:flex;gap:14px;overflow:auto;padding:15px;margin-bottom:18px}.story{width:66px;flex:0 0 66px;text-align:center;color:var(--muted);font-size:11px;overflow:hidden}.ring{width:58px;height:58px;border-radius:50%;padding:3px;margin:auto auto 6px;background:linear-gradient(45deg,#ffb347,#ff477e,#9a60ff)}.ring img{width:100%;height:100%;object-fit:cover;border:2px solid #11131a;border-radius:50%}
-.post{margin-bottom:18px;overflow:hidden}.posthead{display:flex;align-items:center;gap:10px;padding:13px}.avatar{width:38px;height:38px;object-fit:cover;border-radius:50%;background:#292d3b}.muted{color:var(--muted)}.media{width:100%;max-height:650px;background:#050507;display:block;object-fit:contain}.postbody{padding:12px 14px}.actions{display:flex;gap:8px;margin-bottom:9px}.actions button{background:transparent;padding:5px 8px;font-size:19px}.caption{line-height:1.55;overflow-wrap:anywhere}.commentline{display:flex;gap:8px;margin-top:10px}.commentline input,.field{min-width:0;flex:1;background:#090b11;color:white;border:1px solid var(--line);padding:11px;border-radius:10px}
-.side{position:sticky;top:82px;height:max-content;padding:17px}.userrow{display:flex;gap:10px;align-items:center;margin-bottom:14px}.nav{display:flex;flex-direction:column;gap:7px;margin-top:18px}.nav button{text-align:left;background:transparent;padding:12px}.nav button.active,.nav button:hover{background:#242838}
-h3{margin:0 0 12px}.auth{max-width:420px;margin:8vh auto;padding:24px}.auth input{width:100%;margin:7px 0}.topactions{display:flex;gap:8px}.modal{position:fixed;inset:0;background:#000b;z-index:10;display:grid;place-items:center;padding:15px}.modalbox{width:min(500px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:20px}.modalbox input,.modalbox textarea{width:100%;margin:7px 0}.modalbox textarea{min-height:90px}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.listitem{padding:12px;border-bottom:1px solid var(--line)}.badge{font-size:11px;color:#ff8db0}.empty{text-align:center;padding:40px;color:var(--muted)}#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#252a38;padding:12px 18px;border-radius:12px;z-index:30;display:none}
-@media(max-width:850px){.wrap{display:block;max-width:680px}.side{display:none}header{padding:0 14px}}
-nav.mobile{display:none;position:fixed;bottom:0;left:0;right:0;background:#10121a;border-top:1px solid var(--line);z-index:6;padding:8px;justify-content:space-around}
-@media(max-width:700px){nav.mobile{display:flex}.wrap{padding-top:12px}.stories{border-radius:13px}}
+:root {
+  --bg: #000000;
+  --panel: #121212;
+  --panel-hover: #1c1c1c;
+  --line: #262626;
+  --txt: #f5f5f5;
+  --muted: #8e8e8e;
+  --accent: #0095f6;
+  --like: #ff3040;
+  --story-grad: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --panel: #f8f9fa;
+  --panel-hover: #efefef;
+  --line: #dbdbdb;
+  --txt: #1c1e21;
+  --muted: #65676b;
+  --accent: #0095f6;
+}
+
+[data-theme="oled"] {
+  --bg: #000000;
+  --panel: #0a0a0a;
+  --panel-hover: #141414;
+  --line: #1f1f1f;
+  --txt: #ffffff;
+  --muted: #737373;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg); color: var(--txt); min-height: 100vh; padding-bottom: 65px; overflow-x: hidden; }
+
+/* Header */
+header.app-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  height: 52px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+}
+[data-theme="light"] header.app-header { background: rgba(255,255,255,0.9); }
+.brand { font-size: 22px; font-weight: 800; background: var(--story-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.head-actions { display: flex; align-items: center; gap: 18px; font-size: 1.25rem; }
+.head-actions i { cursor: pointer; }
+
+/* Layout Wrap */
+.main-wrap { max-width: 600px; margin: 0 auto; padding-top: 10px; }
+
+/* Stories Tray */
+.stories-tray {
+  display: flex; gap: 14px; padding: 10px 14px 14px;
+  overflow-x: auto; border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+.stories-tray::-webkit-scrollbar { display: none; }
+.story-circle { display: flex; flex-direction: column; align-items: center; width: 66px; flex-shrink: 0; cursor: pointer; }
+.story-ring {
+  width: 62px; height: 62px; border-radius: 50%; padding: 2.5px;
+  background: var(--story-grad); display: flex; align-items: center; justify-content: center; position: relative;
+}
+.story-ring.add-ring { background: #333; }
+.story-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); }
+.add-badge {
+  position: absolute; bottom: 0; right: 0; width: 18px; height: 18px;
+  background: var(--accent); color: #fff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; border: 2px solid var(--bg);
+}
+.story-username { font-size: 0.72rem; color: var(--muted); margin-top: 4px; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Post Card */
+.post-item { border-bottom: 1px solid var(--line); margin-bottom: 10px; }
+.post-meta { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; }
+.post-author { display: flex; align-items: center; gap: 10px; }
+.post-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #262626; }
+.post-author-name { font-weight: 600; font-size: 0.88rem; }
+.post-media { width: 100%; max-height: 520px; background: #080808; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.post-media img { width: 100%; max-height: 520px; object-fit: contain; }
+
+.post-actions { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 6px; font-size: 1.35rem; }
+.post-actions-left { display: flex; gap: 16px; }
+.post-actions i { cursor: pointer; transition: transform 0.15s ease; }
+.post-actions i:active { transform: scale(1.2); }
+.post-actions i.liked { color: var(--like); }
+.post-stats { padding: 0 14px; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
+.post-caption { padding: 0 14px; font-size: 0.88rem; line-height: 1.4; overflow-wrap: anywhere; }
+.post-caption strong { margin-right: 6px; }
+.post-time { padding: 4px 14px 12px; font-size: 0.72rem; color: var(--muted); text-transform: uppercase; }
+
+/* Bottom Nav */
+nav.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 54px;
+  background: var(--bg); border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-around;
+  z-index: 50; font-size: 1.25rem;
+}
+.nav-btn { color: var(--muted); cursor: pointer; }
+.nav-btn.active { color: var(--txt); }
+.nav-avatar-btn { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid transparent; }
+.nav-avatar-btn.active { border-color: var(--txt); }
+
+/* Profile View */
+.profile-view { padding: 14px; }
+.profile-top-row { display: flex; align-items: center; gap: 20px; margin-bottom: 14px; }
+.profile-img-lg { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); cursor: pointer; }
+.profile-stats-box { display: flex; gap: 20px; text-align: center; }
+.profile-num { font-weight: 700; font-size: 1.05rem; }
+.profile-lbl { font-size: 0.75rem; color: var(--muted); }
+.profile-bio { font-size: 0.88rem; line-height: 1.4; margin-bottom: 14px; }
+.profile-actions-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+.profile-actions-bar button {
+  flex: 1; padding: 8px; background: var(--panel); border: 1px solid var(--line);
+  color: var(--txt); border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+}
+.profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.grid-cell { aspect-ratio: 1; background: #161616; overflow: hidden; cursor: pointer; }
+.grid-cell img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Direct Messages */
+.dm-wrap { display: flex; flex-direction: column; height: calc(100vh - 120px); }
+.dm-list { flex: 1; overflow-y: auto; padding: 12px; }
+.dm-bubble { max-width: 75%; padding: 9px 13px; border-radius: 18px; font-size: 0.88rem; margin-bottom: 8px; word-break: break-word; }
+.dm-bubble.mine { background: var(--accent); color: #fff; align-self: flex-end; margin-left: auto; }
+.dm-bubble.theirs { background: var(--panel); border: 1px solid var(--line); color: var(--txt); align-self: flex-start; margin-right: auto; }
+.dm-bar { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); }
+
+/* Common Modal */
+.modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
+.modal-mask.show { display: flex; }
+.modal-sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; padding: 20px; }
+.modal-sheet-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-weight: 700; font-size: 1.05rem; }
+.field-group { margin-bottom: 12px; }
+.field-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
+.field-input { width: 100%; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); padding: 11px 12px; border-radius: 8px; font-size: 0.9rem; outline: none; }
+.field-input:focus { border-color: var(--accent); }
+.btn-solid { width: 100%; background: var(--accent); color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.92rem; }
+.btn-google { width: 100%; background: #fff; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+
+/* Progress bar */
+.prog-box { display: none; margin: 10px 0; }
+.prog-track { background: #262626; border-radius: 4px; height: 6px; overflow: hidden; }
+.prog-fill { width: 0%; height: 100%; background: var(--accent); transition: width 0.2s ease; }
+
+/* Toast */
+#toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #222; border: 1px solid var(--line); color: #fff; padding: 10px 16px; border-radius: 20px; font-size: 0.82rem; z-index: 200; display: none; }
+.hidden { display: none !important; }
 </style>
 </head>
 <body>
-<header><div class="logo">WDM</div><div class="topactions"><button onclick="openCreate()">＋ Create</button><button onclick="showPage('activity')">♡</button><button onclick="showPage('messages')">✉</button></div></header>
-<section id="auth" class="auth panel">
-<h2>Welcome to WDM</h2><p class="muted">Create your account or sign in.</p>
-<div id="registerBox"><input class="field" id="fullName" placeholder="Full name"><input class="field" id="username" placeholder="Username (letters, numbers, _)"><input class="field" id="email" type="email" placeholder="Email"><input class="field" id="password" type="password" placeholder="Password (6+ characters)"><button class="primary" style="width:100%" onclick="register()">Create account</button></div>
-<div id="loginBox" class="hidden"><input class="field" id="loginEmail" type="email" placeholder="Email"><input class="field" id="loginPass" type="password" placeholder="Password"><button class="primary" style="width:100%" onclick="login()">Login</button></div>
-<p class="muted"><a href="#" onclick="toggleAuth();return false">Switch register / login</a></p><button onclick="googleLogin()" style="width:100%">Continue with Google</button>
-</section>
-<div id="app" class="hidden">
-<div class="wrap"><main>
-<div class="stories panel" id="stories"><div class="story" onclick="storyPicker.click()"><div class="ring"><img id="myAvatarStory" src="https://placehold.co/100x100?text=+" /></div>Your story +</div></div>
-<section id="feedPage"><div id="feed"></div></section>
-<section id="searchPage" class="hidden panel" style="padding:16px"><h3>Discover people & posts</h3><input id="searchInput" class="field" placeholder="Search username or caption..." oninput="searchAll(this.value)"><div id="searchResults"></div></section>
-<section id="profilePage" class="hidden panel" style="padding:18px"><div class="userrow"><img id="profileAvatar" class="avatar" style="width:75px;height:75px"><div><h3 id="profileName"></h3><div id="profileHandle" class="muted"></div><div id="profileStats" class="muted"></div></div></div><p id="profileBio"></p><div class="row"><button onclick="editProfile()">Edit profile</button><button onclick="pickAvatar()">Change photo</button></div><div id="myPosts"></div></section>
-<section id="messagesPage" class="hidden panel" style="padding:16px"><h3>Messages</h3><input id="messageUser" class="field" placeholder="Recipient username"><button onclick="openDM()">Open chat</button><div id="dmArea"></div></section>
-<section id="activityPage" class="hidden panel" style="padding:16px"><h3>Activity</h3><div id="notifications"></div></section>
-<section id="savedPage" class="hidden panel" style="padding:16px"><h3>Saved posts</h3><div id="savedPosts"></div></section>
-</main>
-<aside class="side panel"><div class="userrow"><img id="sideAvatar" class="avatar"><div><b id="sideName"></b><div class="muted" id="sideHandle"></div></div></div><div class="nav"><button onclick="showPage('feed')" class="active">⌂ Home feed</button><button onclick="showPage('search')">⌕ Discover</button><button onclick="showPage('messages')">✉ Messages</button><button onclick="showPage('activity')">♡ Activity</button><button onclick="showPage('saved')">▣ Saved</button><button onclick="showPage('profile')">◉ My profile</button><button onclick="logout()">↪ Log out</button></div><p class="muted" style="font-size:11px;margin-top:25px">WDM community · Share respectfully</p></aside>
-</div>
-<nav class="mobile"><button onclick="showPage('feed')">⌂</button><button onclick="showPage('search')">⌕</button><button onclick="openCreate()">＋</button><button onclick="showPage('messages')">✉</button><button onclick="showPage('profile')">◉</button></nav>
-</div>
-<input id="postFile" type="file" accept="image/*,video/*" hidden><input id="storyPicker" type="file" accept="image/*,video/*" hidden><input id="avatarFile" type="file" accept="image/*" hidden>
-<div id="modal" class="modal hidden"><div class="modalbox" id="modalContent"></div></div><div id="toast"></div>
-<script>
-const firebaseConfig={apiKey:"AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",authDomain:"wdm-update.firebaseapp.com",projectId:"wdm-update",storageBucket:"wdm-update.firebasestorage.app",messagingSenderId:"677435578526",appId:"1:677435578526:web:74119dc8309c4ba744838f",measurementId:"G-R4KWL05ZNR"};
-const CLOUDINARY_CLOUD_NAME="afcw94ij", CLOUDINARY_UPLOAD_PRESET="wdm_media";
-const TELEGRAM_WORKER_URL=""; // Cloudflare Worker deploy hone ke baad yahan uska URL
-firebase.initializeApp(firebaseConfig);const auth=firebase.auth(),db=firebase.firestore(),FV=firebase.firestore.FieldValue;
-let me=null,unsubs=[],activeDM=null,postFile=null;
-const $=id=>document.getElementById(id), esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toast(t){$("toast").textContent=t;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2600)}
-function toggleAuth(){$("registerBox").classList.toggle("hidden");$("loginBox").classList.toggle("hidden")}
-async function register(){try{let name=$("fullName").value.trim(),username=$("username").value.trim().toLowerCase(),email=$("email").value.trim(),pass=$("password").value;if(!name||!/^[a-z0-9_]{3,20}$/.test(username)||!email||pass.length<6)throw Error("Name, valid username, email aur 6+ character password bharo.");let exists=await db.collection("users").where("username","==",username).get();if(!exists.empty)throw Error("Username pehle se liya gaya hai.");let cred=await auth.createUserWithEmailAndPassword(email,pass);await db.collection("users").doc(cred.user.uid).set({uid:cred.user.uid,fullName:name,username,email,avatar:"https://placehold.co/120x120?text=WDM",bio:"",createdAt:FV.serverTimestamp(),followers:[],following:[]});}catch(e){toast(e.message)}}
-async function login(){try{await auth.signInWithEmailAndPassword($("loginEmail").value.trim(),$("loginPass").value)}catch(e){toast(e.message)}}
-async function googleLogin(){try{await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())}catch(e){toast(e.message)}}
-async function logout(){await auth.signOut()}
-auth.onAuthStateChanged(async user=>{unsubs.forEach(f=>f());unsubs=[];if(!user){me=null;$("auth").classList.remove("hidden");$("app").classList.add("hidden");return}let ref=db.collection("users").doc(user.uid),d=await ref.get();if(!d.exists){let base=(user.displayName||"WDM User").toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,12)||"member";let uname=base+"_"+user.uid.slice(0,5);await ref.set({uid:user.uid,fullName:user.displayName||"WDM User",username:uname,email:user.email||"",avatar:user.photoURL||"https://placehold.co/120x120",bio:"",followers:[],following:[],createdAt:FV.serverTimestamp()});d=await ref.get()}me={uid:user.uid,...d.data()};startApp()});
-function startApp(){$("auth").classList.add("hidden");$("app").classList.remove("hidden");paintUser();watchFeed();watchStories();watchNotifications();loadProfile();showPage("feed")}
-function paintUser(){["profileAvatar","sideAvatar","myAvatarStory"].forEach(id=>$(id).src=me.avatar||"https://placehold.co/100");$("profileName").textContent=me.fullName;$("profileHandle").textContent="@"+me.username;$("profileBio").textContent=me.bio||"";$("sideName").textContent=me.fullName;$("sideHandle").textContent="@"+me.username}
-function showPage(p){["feed","search","profile","messages","activity","saved"].forEach(x=>$(x+"Page").classList.toggle("hidden",x!==p));if(p==="saved")loadSaved()}
-function openCreate(){$("modalContent").innerHTML=`<h3>Create a post</h3><input id="caption" class="field" placeholder="Write a caption..."><input id="hashtags" class="field" placeholder="Hashtags (optional)"><div class="row"><button onclick="pickPost()">Choose photo/video</button><button onclick="closeModal()">Cancel</button></div><div id="uploadStatus" class="muted"></div><button class="primary" style="width:100%;margin-top:12px" onclick="publishPost()">Share post</button>`;showModal();$("postFile").onchange=e=>{postFile=e.target.files[0];$("uploadStatus").textContent=postFile?.name||""}}
-function showModal(){$("modal").classList.remove("hidden")}function closeModal(){$("modal").classList.add("hidden")}function pickPost(){$("postFile").click()}
-async function upload(file){let fd=new FormData();fd.append("file",file);fd.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);let r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,{method:"POST",body:fd});let j=await r.json();if(!r.ok)throw Error(j.error?.message||"Cloudinary upload failed");return {url:j.secure_url,type:file.type.startsWith("video/")?"video":"image"}}
-async function publishPost(){try{if(!postFile)throw Error("Pehle photo ya video select karo.");$("uploadStatus").textContent="Uploading media…";let m=await upload(postFile),caption=$("caption").value.trim(),hashtags=$("hashtags").value.trim();await db.collection("posts").add({authorId:me.uid,authorName:me.fullName,authorUsername:me.username,authorAvatar:me.avatar,mediaUrl:m.url,mediaType:m.type,caption,hashtags,likes:[],savedBy:[],commentCount:0,createdAt:FV.serverTimestamp()});closeModal();postFile=null;toast("Post shared!");notifyTelegram("New WDM post by @"+me.username)}catch(e){toast(e.message)}}
-function watchFeed(){let u=db.collection("posts").orderBy("createdAt","desc").limit(60).onSnapshot(s=>{let out="";s.forEach(doc=>{let p=doc.data(),id=doc.id,liked=(p.likes||[]).includes(me.uid),saved=(p.savedBy||[]).includes(me.uid);out+=`<article class="post panel"><div class="posthead"><img class="avatar" src="${esc(p.authorAvatar)}"><div><b>@${esc(p.authorUsername)}</b><div class="muted">${p.createdAt?.toDate?.().toLocaleString()||"Just now"}</div></div><span style="margin-left:auto" class="badge">WDM</span></div>${p.mediaType==="video"?`<video class="media" controls playsinline src="${esc(p.mediaUrl)}"></video>`:`<img class="media" loading="lazy" src="${esc(p.mediaUrl)}">`}<div class="postbody"><div class="actions"><button onclick="likePost('${id}')">${liked?"❤️":"♡"}</button><button onclick="commentPost('${id}')">◯</button><button onclick="sharePost('${id}')">↗</button><button style="margin-left:auto" onclick="savePost('${id}')">${saved?"▣":"▢"}</button></div><b>${(p.likes||[]).length} likes</b><div class="caption"><b>@${esc(p.authorUsername)}</b> ${esc(p.caption||"")} <span class="badge">${esc(p.hashtags||"")}</span></div><div class="muted" style="margin-top:7px" id="comments-${id}">${p.commentCount||0} comments</div><div class="commentline"><input id="c-${id}" placeholder="Add a comment…"><button onclick="addComment('${id}')">Post</button></div></div></article>`});$("feed").innerHTML=out||'<div class="empty panel">Abhi koi post nahi hai. Pehli post share karo!</div>'});unsubs.push(u)}
-async function likePost(id){let r=db.collection("posts").doc(id);await db.runTransaction(async t=>{let d=await t.get(r);if(!d.exists)return;let a=d.data().likes||[];t.update(r,{likes:a.includes(me.uid)?FV.arrayRemove(me.uid):FV.arrayUnion(me.uid)})})}
-async function savePost(id){await db.collection("posts").doc(id).update({savedBy:FV.arrayUnion(me.uid)});toast("Saved")}
-async function commentPost(id){$("c-"+id)?.focus()}
-async function addComment(id){let input=$("c-"+id),text=input.value.trim();if(!text)return;await db.collection("posts").doc(id).collection("comments").add({uid:me.uid,username:me.username,text,createdAt:FV.serverTimestamp()});await db.collection("posts").doc(id).update({commentCount:FV.increment(1)});input.value="";toast("Comment added")}
-async function sharePost(id){let url=location.origin+location.pathname+"?post="+id;try{await navigator.clipboard.writeText(url);toast("Post link copied")}catch{toast(url)}}
-function watchStories(){let u=db.collection("stories").where("expiresAt",">",firebase.firestore.Timestamp.now()).orderBy("expiresAt").onSnapshot(s=>{let h=`<div class="story" onclick="addStory()"><div class="ring"><img src="${esc(me.avatar)}"></div>Your story +</div>`;s.forEach(d=>{let x=d.data();h+=`<div class="story" onclick="viewStory('${d.id}')"><div class="ring"><img src="${esc(x.avatar)}"></div>${esc(x.username)}</div>`});$("stories").innerHTML=h});unsubs.push(u)}
-async function addStory(){let f=document.createElement("input");f.type="file";f.accept="image/*,video/*";f.onchange=async()=>{try{let m=await upload(f.files[0]);await db.collection("stories").add({uid:me.uid,username:me.username,avatar:me.avatar,url:m.url,type:m.type,createdAt:FV.serverTimestamp(),expiresAt:firebase.firestore.Timestamp.fromDate(new Date(Date.now()+86400000))});toast("Story added for 24 hours")}catch(e){toast(e.message)}};f.click()}
-async function viewStory(id){let d=await db.collection("stories").doc(id).get();if(!d.exists)return;let s=d.data();$("modalContent").innerHTML=`<h3>@${esc(s.username)}'s story</h3>${s.type==="video"?`<video class="media" controls src="${esc(s.url)}"></video>`:`<img class="media" src="${esc(s.url)}">`}<button onclick="closeModal()">Close</button>${s.uid===me.uid?`<button onclick="deleteStory('${id}')">Delete</button>`:""}`;showModal()}
-async function deleteStory(id){await db.collection("stories").doc(id).delete();closeModal()}
-function watchNotifications(){let u=db.collection("notifications").where("receiverId","==",me.uid).orderBy("createdAt","desc").limit(40).onSnapshot(s=>{$("notifications").innerHTML=s.empty?'<div class="empty">No activity yet.</div>':s.docs.map(d=>`<div class="listitem">${esc(d.data().text||"New activity")}</div>`).join("")});unsubs.push(u)}
-async function loadProfile(){let s=await db.collection("posts").where("authorId","==",me.uid).get();$("profileStats").textContent=`${s.size} posts · ${(me.followers||[]).length} followers · ${(me.following||[]).length} following`;$("myPosts").innerHTML=s.docs.map(d=>`<div class="listitem">${esc(d.data().caption||"Post")} · <a href="${esc(d.data().mediaUrl)}" target="_blank">Open media</a></div>`).join("")}
-function editProfile(){$("modalContent").innerHTML=`<h3>Edit profile</h3><input id="editName" class="field" value="${esc(me.fullName)}"><input id="editBio" class="field" value="${esc(me.bio||"")}" placeholder="Bio"><button class="primary" onclick="saveProfile()">Save</button><button onclick="closeModal()">Cancel</button>`;showModal()}
-async function saveProfile(){let fullName=$("editName").value.trim(),bio=$("editBio").value.trim();if(!fullName)return toast("Name required");await db.collection("users").doc(me.uid).update({fullName,bio});me.fullName=fullName;me.bio=bio;paintUser();closeModal();toast("Profile updated")}
-function pickAvatar(){$("avatarFile").click()}$("avatarFile").onchange=async e=>{try{let m=await upload(e.target.files[0]);await db.collection("users").doc(me.uid).update({avatar:m.url});me.avatar=m.url;paintUser();toast("Photo updated")}catch(x){toast(x.message)}};
-async function searchAll(q){q=q.trim().toLowerCase();if(!q){$("searchResults").innerHTML="";return}let [users,posts]=await Promise.all([db.collection("users").limit(100).get(),db.collection("posts").limit(100).get()]);let html="";users.forEach(d=>{let u=d.data();if(u.username?.includes(q)||u.fullName?.toLowerCase().includes(q))html+=`<div class="listitem"><img class="avatar" src="${esc(u.avatar)}"> <b>@${esc(u.username)}</b> <button onclick="followUser('${d.id}')">Follow</button></div>`});posts.forEach(d=>{let p=d.data();if(p.caption?.toLowerCase().includes(q)||p.hashtags?.toLowerCase().includes(q))html+=`<div class="listitem">@${esc(p.authorUsername)} — ${esc(p.caption)}</div>`});$("searchResults").innerHTML=html||'<div class="empty">No matches</div>'}
-async function followUser(uid){if(uid===me.uid)return;let target=db.collection("users").doc(uid),mine=db.collection("users").doc(me.uid);await db.runTransaction(async t=>{let a=await t.get(target),b=await t.get(mine);if(!a.exists||!b.exists)return;let followers=a.data().followers||[],following=b.data().following||[];if(following.includes(uid)){t.update(mine,{following:FV.arrayRemove(uid)});t.update(target,{followers:FV.arrayRemove(me.uid)})}else{t.update(mine,{following:FV.arrayUnion(uid)});t.update(target,{followers:FV.arrayUnion(me.uid)});t.set(db.collection("notifications").doc(),{receiverId:uid,text:"@"+me.username+" followed you",createdAt:FV.serverTimestamp()})}});toast("Follow status updated")}
-async function loadSaved(){let s=await db.collection("posts").where("savedBy","array-contains",me.uid).get();$("savedPosts").innerHTML=s.docs.map(d=>`<div class="listitem">@${esc(d.data().authorUsername)} — ${esc(d.data().caption)} <a href="${esc(d.data().mediaUrl)}" target="_blank">Open</a></div>`).join("")||'<div class="empty">No saved posts</div>'}
-function pairId(a,b){return [a,b].sort().join("_")}
-async function openDM(){let name=$("messageUser").value.trim().replace(/^@/,"").toLowerCase();if(!name)return;let s=await db.collection("users").where("username","==",name).limit(1).get();if(s.empty)return toast("User not found");let uid=s.docs[0].id;if(uid===me.uid)return toast("Choose another user");activeDM=pairId(me.uid,uid);$("dmArea").innerHTML=`<h3>Chat with @${esc(name)}</h3><div id="dmMessages"></div><div class="commentline"><input id="dmText" placeholder="Message…"><button onclick="sendDM('${uid}')">Send</button></div>`;if(window.dmUnsub)window.dmUnsub();window.dmUnsub=db.collection("chats").doc(activeDM).collection("messages").orderBy("createdAt","asc").limit(100).onSnapshot(s=>{$("dmMessages").innerHTML=s.docs.map(d=>`<div class="listitem">${d.data().senderId===me.uid?"You":esc(d.data().senderName)}: ${esc(d.data().text)}</div>`).join("")})}
-async function sendDM(uid){let v=$("dmText").value.trim();if(!v)return;let id=activeDM;await db.collection("chats").doc(id).set({members:[me.uid,uid],updatedAt:FV.serverTimestamp()},{merge:true});await db.collection("chats").doc(id).collection("messages").add({senderId:me.uid,senderName:me.username,text:v,createdAt:FV.serverTimestamp()});$("dmText").value=""}
-async function notifyTelegram(message){if(!TELEGRAM_WORKER_URL)return;try{await fetch(TELEGRAM_WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message})})}catch(e){console.warn("Telegram notification unavailable",e)}}
-</script>
-</body></html>
+
+  <!-- Top Header -->
+  <header class="app-header">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="index.html" style="color:var(--txt); font-size:1.15rem; text-decoration:none;"><i class="fa-solid fa-arrow-left"></i></a>
+      <span class="brand">WDM</span>
+    </div>
+    <div class="head-actions">
+      <i class="fa-regular fa-heart" onclick="switchNav('activity')"></i>
+      <i class="fa-brands fa-facebook-messenger" onclick="switchNav('messages')"></i>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-wrap">
+    
+    <!-- Stories Bar -->
+    <div class="stories-tray" id="storiesTray">
+      <div class="story-circle" onclick="pickStoryImage()">
+        <div class="story-ring add-ring">
+          <img id="myStoryAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80">
+          <div class="add-badge"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <span class="story-username">Your story</span>
+      </div>
+      <div id="dynamicStoriesList" style="display:flex; gap:14px;"></div>
+    </div>
+
+    <!-- Feed View -->
+    <section id="feedSection">
+      <div id="postsFeed"></div>
+    </section>
+
+    <!-- Search View -->
+    <section id="searchSection" class="hidden" style="padding:14px;">
+      <input type="text" id="searchInput" class="field-input" placeholder="Search users, captions, tags..." oninput="handleSearch(this.value)">
+      <div id="searchResults" style="margin-top:14px; display:flex; flex-direction:column; gap:8px;"></div>
+    </section>
+
+    <!-- Messages / Chat View -->
+    <section id="messagesSection" class="hidden dm-wrap">
+      <div style="padding:10px 14px; border-bottom:1px solid var(--line); display:flex; gap:8px;">
+        <input type="text" id="targetUserChat" class="field-input" placeholder="Enter recipient username (@username)...">
+        <button class="btn-solid" style="width:auto; padding:0 14px;" onclick="initiateDMChat()">Open</button>
+      </div>
+      <div id="chatActiveUserLabel" style="padding:8px 14px; font-size:0.8rem; color:var(--muted); font-weight:600;"></div>
+      <div class="dm-list" id="dmMessageList"></div>
+      <div class="dm-bar">
+        <input type="text" id="dmInputMessage" class="field-input" placeholder="Write a message...">
+        <button class="btn-solid" style="width:auto; padding:0 16px;" onclick="sendDirectMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </section>
+
+    <!-- Activity / Notifications View -->
+    <section id="activitySection" class="hidden" style="padding:16px;">
+      <h3 style="font-size:1.1rem; margin-bottom:14px;">Activity</h3>
+      <div id="activityItemsList" style="display:flex; flex-direction:column; gap:10px;"></div>
+    </section>
+
+    <!-- Profile View -->
+    <section id="profileSection" class="hidden profile-view">
+      <div class="profile-top-row">
+        <img id="profileUserAvatar" class="profile-img-lg" src="" onclick="pickAvatarImage()" title="Tap to change avatar">
+        <div class="profile-stats-box">
+          <div><div class="profile-num" id="statPostsCount">0</div><div class="profile-lbl">posts</div></div>
+          <div><div class="profile-num" id="statFollowersCount">0</div><div class="profile-lbl">followers</div></div>
+          <div><div class="profile-num" id="statFollowingCount">0</div><div class="profile-lbl">following</div></div>
+        </div>
+      </div>
+      <div class="profile-bio">
+        <div style="font-weight:700;" id="profileFullnameDisplay">User Name</div>
+        <div style="color:var(--muted); margin-bottom:4px;" id="profileUsernameDisplay">@username</div>
+        <div id="profileBioDisplay">Bio details...</div>
+      </div>
+      <div class="profile-actions-bar">
+        <button onclick="openProfileEditModal()">Edit profile</button>
+        <button onclick="shareProfile()">Share profile</button>
+        <button style="flex:0 0 42px;" onclick="openSettingsModal()"><i class="fa-solid fa-gear"></i></button>
+      </div>
+      <div class="profile-grid" id="profileGridList"></div>
+    </section>
+
+  </div>
+
+  <!-- Bottom Navigation (Reels Icon completely removed) -->
+  <nav class="bottom-nav">
+    <i class="fa-solid fa-house nav-btn active" id="tabHome" onclick="switchNav('feed')"></i>
+    <i class="fa-solid fa-magnifying-glass nav-btn" id="tabSearch" onclick="switchNav('search')"></i>
+    <i class="fa-regular fa-square-plus nav-btn" onclick="triggerPostImagePicker()"></i>
+    <i class="fa-brands fa-facebook-messenger nav-btn" id="tabMessages" onclick="switchNav('messages')"></i>
+    <img id="navProfileThumb" class="nav-avatar-btn" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50" onclick="switchNav('profile')">
+  </nav>
+
+  <!-- Hidden Native File Inputs (Strictly Image Only) -->
+  <input type="file" id="postImageInputHidden" accept="image/*" style="display:none;" onchange="onPostImagePicked(this)">
+  <input type="file" id="storyImageInputHidden" accept="image/*" style="display:none;" onchange="onStoryImagePicked(this)">
+  <input type="file" id="avatarImageInputHidden" accept="image/*" style="display:none;" onchange="onAvatarImagePicked(this)">
+
+  <!-- MODALS -->
+
+  <!-- 1. Post Preview & Caption Modal -->
+  <div class="modal-mask" id="postCreateModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <span>New Photo Post</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('postCreateModal')"></i>
+      </div>
+      <div id="postPreviewImgBox" style="width:100%; max-height:240px; background:#000; border-radius:8px; overflow:hidden; margin-bottom:12px; display:flex; align-items:center; justify-content:center;"></div>
+      <div class="field-group">
+        <label>Caption</label>
+        <textarea id="postCaptionInput" class="field-input" rows="3" placeholder="Write a caption..."></textarea>
+      </div>
+      <div class="prog-box" id="postUploadProgress">
+        <div class="prog-track"><div class="prog-fill" id="postProgressFill"></div></div>
+      </div>
+      <button class="btn-solid" id="btnSubmitPost" onclick="executePostUpload()">Share Post</button>
+    </div>
+  </div>
+
+  <!-- 2. Auth Gateway Modal -->
+  <div class="modal-mask" id="authGatewayModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <span id="authHeaderTitle">Welcome to WDM</span>
+      </div>
+
+      <div style="display:flex; gap:8px; margin-bottom:14px;">
+        <button id="btnTabRegister" class="btn-solid" style="padding:8px;" onclick="setAuthTab('register')">Create Account</button>
+        <button id="btnTabLogin" class="btn-solid" style="padding:8px; background:#262626;" onclick="setAuthTab('login')">Sign In</button>
+      </div>
+      <!-- Register Form -->
+      <div id="registerFields">
+        <div class="field-group">
+          <label>Full Name *</label>
+          <input type="text" id="regFullName" class="field-input" placeholder="e.g. Alex Smith">
+        </div>
+        <div class="field-group">
+          <label>Unique User ID (letters, numbers, _) *</label>
+          <input type="text" id="regUsername" class="field-input" placeholder="e.g. alex_01">
+        </div>
+        <div class="field-group">
+          <label>Email *</label>
+          <input type="email" id="regEmail" class="field-input" placeholder="name@example.com">
+        </div>
+      </div>
+
+      <!-- Login Form Unique Field -->
+      <div id="loginFields" style="display:none;">
+        <div class="field-group">
+          <label>Email or User ID *</label>
+          <input type="text" id="loginIdentifier" class="field-input" placeholder="Enter your Email or User ID">
+        </div>
+      </div>
+
+      <!-- Common Password -->
+      <div class="field-group">
+        <label>Password *</label>
+        <input type="password" id="authPassword" class="field-input" placeholder="6+ characters">
+      </div>
+
+      <!-- Help links for Login -->
+      <div id="loginRecoveryLinks" style="display:none; justify-content:space-between; margin-bottom:12px; font-size:0.78rem;">
+        <a href="#" style="color:var(--accent); text-decoration:none;" onclick="openForgotPassModal(); return false;">Forgot Password?</a>
+        <a href="#" style="color:var(--muted); text-decoration:none;" onclick="openForgotIdModal(); return false;">Find User ID</a>
+      </div>
+
+      <button class="btn-solid" id="btnSubmitAuth" onclick="submitAuth()">Continue</button>
+
+      <div style="text-align:center; margin:12px 0; color:var(--muted); font-size:0.8rem;">OR</div>
+
+      <button class="btn-google" onclick="continueWithGoogle()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="Google">
+        Continue with Google
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Google New User Onboarding Modal -->
+  <div class="modal-mask" id="googleOnboardModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <span>Set Up Profile</span>
+      </div>
+      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:12px;">Create a unique User ID to complete your registration.</p>
+      
+      <div class="field-group">
+        <label>Unique User ID (letters, numbers, _) *</label>
+        <input type="text" id="onboardUsername" class="field-input" placeholder="e.g. user_abc">
+      </div>
+      <div class="field-group">
+        <label>Short Bio</label>
+        <input type="text" id="onboardBio" class="field-input" placeholder="Tell something about yourself...">
+      </div>
+
+      <button class="btn-solid" onclick="finishGoogleOnboarding()">Save & Start</button>
+    </div>
+  </div>
+
+  <!-- 4. Forgot Password Modal -->
+  <div class="modal-mask" id="forgotPassModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <span>Reset Password</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('forgotPassModal')"></i>
+      </div>
+      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Enter your registered Gmail address. We will send a secure password reset link directly to your inbox.</p>
+      <div class="field-group">
+        <label>Your Registered Email *</label>
+        <input type="email" id="resetEmailInput" class="field-input" placeholder="your-email@gmail.com">
+      </div>
+      <button class="btn-solid" onclick="sendPasswordResetLink()">Send Reset Link</button>
+    </div>
+  </div>
+
+  <!-- 5. Find User ID Modal -->
+  <div class="modal-mask" id="forgotIdModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <span>Find Your User ID</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('forgotIdModal')"></i>
+      </div>
+      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Enter your registered Email. We will securely retrieve your registered username.</p>
+      <div class="field-group">
+        <label>Your Registered Email *</label>
+        <input type="email" id="findIdEmailInput" class="field-input" placeholder="your-email@gmail.com">
+      </div>
+      <div id="foundIdResult" style="margin-bottom:12px; font-size:0.9rem; color:var(--accent); font-weight:600;"></div>
+      <button class="btn-solid" onclick="lookupUserIdByEmail()">Find ID</button>
+    </div>
+  </div>
+
+  <!-- 6. Edit Profile Modal -->
+  <div class="modal-mask" id="profileEditModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <span>Edit Profile</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('profileEditModal')"></i>
+      </div>
+      <div class="field-group">
+        <label>Full Name</label>
+        <input type="text" id="editFullName" class="field-input">
+      </div>
+      <div class="field-group">
+        <label>User ID</label>
+        <input type="text" id="editUsername" class="field-input">
+      </div>
+      <div class="field-group">
+        <label>Bio</label>
+        <textarea id="editBio" class="field-input" rows="2"></textarea>
+      </div>
+      <button class="btn-solid" onclick="saveProfileChanges()">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- 7. Settings Modal -->
+  <div class="modal-mask" id="settingsModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <span>Settings</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('settingsModal')"></i>
+      </div>
+
+      <div class="field-group">
+        <label>Theme</label>
+        <select id="themeSelector" class="field-input" onchange="applyTheme(this.value)">
+          <option value="dark">Dark (Instagram Style)</option>
+          <option value="oled">Midnight Black (OLED)</option>
+          <option value="light">Light Mode</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>Language Preference</label>
+        <select id="langSelector" class="field-input" onchange="applyLanguage(this.value)">
+          <option value="en">English (Default)</option>
+          <option value="hi">Hindi (Labels)</option>
+        </select>
+      </div>
+
+      <div class="field-group" style="margin-top:16px;">
+        <label>Account Security</label>
+        <button class="btn-solid" style="background:#262626; margin-bottom:8px;" onclick="closeModal('settingsModal'); openForgotPassModal();">Send Password Reset Email</button>
+      </div>
+
+      <button class="btn-solid" style="background:var(--like); margin-top:10px;" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <!-- JAVASCRIPT CORE -->
+  <script>
+    // --- 1. CONFIGURATION ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
+      authDomain: "wdm-update.firebaseapp.com",
+      projectId: "wdm-update",
+      storageBucket: "wdm-update.firebasestorage.app",
+      messagingSenderId: "677435578526",
+      appId: "1:677435578526:web:74119dc8309c4ba744838f"
+    };
+
+    const CLOUDINARY_CLOUD_NAME = "afcw94ij";
+    const CLOUDINARY_UPLOAD_PRESET = "wdm_media";
+
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const FV = firebase.firestore.FieldValue;
+
+    let me = null;
+    let authMode = "register";
+    let pendingPostFile = null;
+    let tempGoogleAuthUser = null;
+    let activeChatPairId = null;
+    let chatUnsubscribe = null;
+
+    // Toast helper
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.style.display = "block";
+      setTimeout(() => { t.style.display = "none"; }, 2800);
+    }
+
+    // --- 2. AUTHENTICATION OBSERVER ---
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const docRef = db.collection("users").doc(user.uid);
+        const doc = await docRef.get();
+        if (doc.exists) {
+          me = { uid: user.uid, ...doc.data() };
+          launchApp();
+        } else {
+          // Google first time user: Prompt onboarding
+          tempGoogleAuthUser = user;
+          closeModal("authGatewayModal");
+          document.getElementById("googleOnboardModal").classList.add("show");
+        }
+      } else {
+        me = null;
+        document.getElementById("authGatewayModal").classList.add("show");
+      }
+    });
+
+    function setAuthTab(mode) {
+      authMode = mode;
+      const regBox = document.getElementById("registerFields");
+      const logBox = document.getElementById("loginFields");
+      const regBtn = document.getElementById("btnTabRegister");
+      const logBtn = document.getElementById("btnTabLogin");
+      const recoveryLinks = document.getElementById("loginRecoveryLinks");
+
+      if (mode === "register") {
+        regBox.style.display = "block";
+        logBox.style.display = "none";
+        recoveryLinks.style.display = "none";
+        regBtn.style.background = "var(--accent)";
+        logBtn.style.background = "#262626";
+      } else {
+        regBox.style.display = "none";
+        logBox.style.display = "block";
+        recoveryLinks.style.display = "flex";
+        logBtn.style.background = "var(--accent)";
+        regBtn.style.background = "#262626";
+      }
+    }
+
+    async function submitAuth() {
+      const pass = document.getElementById("authPassword").value.trim();
+      if (!pass || pass.length < 6) {
+        showToast("Password must be at least 6 characters.");
+        return;
+      }
+
+      if (authMode === "register") {
+        const fullName = document.getElementById("regFullName").value.trim();
+        const username = document.getElementById("regUsername").value.trim().toLowerCase();
+        const email = document.getElementById("regEmail").value.trim();
+
+        if (!fullName || !username || !email) {
+          showToast("Please fill all required fields.");
+          return;
+        }
+
+        if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+          showToast("User ID must be 3-20 characters (letters, numbers, _).");
+          return;
+        }
+
+        // Check if username already exists
+        const check = await db.collection("users").where("username", "==", username).get();
+        if (!check.empty) {
+          showToast("Username already exists!");
+          return;
+        }
+
+        try {
+          const cred = await auth.createUserWithEmailAndPassword(email, pass);
+          const userData = {
+            uid: cred.user.uid,
+            fullName: fullName,
+            username: username,
+            email: email,
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
+            bio: "WDM Community Member",
+            createdAt: FV.serverTimestamp()
+          };
+          await db.collection("users").doc(cred.user.uid).set(userData);
+          me = userData;
+          closeModal("authGatewayModal");
+          launchApp();
+        } catch (e) {
+          showToast(e.message);
+        }
+      } else {
+        const identifier = document.getElementById("loginIdentifier").value.trim().toLowerCase();
+        if (!identifier) {
+          showToast("Please enter Email or User ID.");
+          return;
+        }
+
+        let targetEmail = identifier;
+        if (!identifier.includes("@")) {
+          // Look up user by username
+          const q = await db.collection("users").where("username", "==", identifier).limit(1).get();
+          if (q.empty) {
+            showToast("User ID not found!");
+            return;
+          }
+          targetEmail = q.docs[0].data().email;
+        }
+
+        try {
+          await auth.signInWithEmailAndPassword(targetEmail, pass);
+          closeModal("authGatewayModal");
+        } catch (e) {
+          showToast("Invalid credentials.");
+        }
+      }
+    }
+    async function continueWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await auth.signInWithPopup(provider);
+      } catch (e) {
+        if (e.code !== "auth/popup-closed-by-user") showToast(e.message);
+      }
+    }
+
+    async function finishGoogleOnboarding() {
+      const username = document.getElementById("onboardUsername").value.trim().toLowerCase();
+      const bio = document.getElementById("onboardBio").value.trim() || "WDM Community Member";
+
+      if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+        showToast("User ID must be 3-20 characters (letters, numbers, _).");
+        return;
+      }
+
+      const check = await db.collection("users").where("username", "==", username).get();
+      if (!check.empty) {
+        showToast("already exists");
+        return;
+      }
+
+      const userData = {
+        uid: tempGoogleAuthUser.uid,
+        fullName: tempGoogleAuthUser.displayName || "Google User",
+        username: username,
+        email: tempGoogleAuthUser.email || "",
+        avatar: tempGoogleAuthUser.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80",
+        bio: bio,
+        createdAt: FV.serverTimestamp()
+      };
+
+      await db.collection("users").doc(tempGoogleAuthUser.uid).set(userData);
+      me = userData;
+      closeModal("googleOnboardModal");
+      launchApp();
+    }
+
+    // --- 3. RECOVERY (FORGOT PASS & USER ID) ---
+    function openForgotPassModal() {
+      document.getElementById("forgotPassModal").classList.add("show");
+    }
+
+    async function sendPasswordResetLink() {
+      const email = document.getElementById("resetEmailInput").value.trim();
+      if (!email || !email.includes("@")) {
+        showToast("Please enter a valid Gmail address.");
+        return;
+      }
+      try {
+        await auth.sendPasswordResetEmail(email);
+        closeModal("forgotPassModal");
+        showToast("Password reset link sent to your email!");
+      } catch (e) {
+        showToast(e.message);
+      }
+    }
+
+    function openForgotIdModal() {
+      document.getElementById("foundIdResult").innerText = "";
+      document.getElementById("forgotIdModal").classList.add("show");
+    }
+
+    async function lookupUserIdByEmail() {
+      const email = document.getElementById("findIdEmailInput").value.trim();
+      if (!email || !email.includes("@")) {
+        showToast("Please enter your registered email.");
+        return;
+      }
+      try {
+        const q = await db.collection("users").where("email", "==", email).limit(1).get();
+        if (q.empty) {
+          document.getElementById("foundIdResult").innerText = "No account found with this email.";
+        } else {
+          const u = q.docs[0].data();
+          document.getElementById("foundIdResult").innerText = "Your registered User ID is: @" + u.username;
+        }
+      } catch (e) {
+        showToast(e.message);
+      }
+    }
+
+    function logout() {
+      auth.signOut().then(() => location.reload());
+    }
+
+    // --- 4. APP LAUNCH & PROFILE SETUP ---
+    function launchApp() {
+      document.getElementById("authGatewayModal").classList.remove("show");
+      document.getElementById("googleOnboardModal").classList.remove("show");
+
+      document.getElementById("profileFullnameDisplay").innerText = me.fullName || "User";
+      document.getElementById("profileUsernameDisplay").innerText = "@" + me.username;
+      document.getElementById("profileBioDisplay").innerText = me.bio || "";
+      document.getElementById("profileUserAvatar").src = me.avatar;
+      document.getElementById("myStoryAvatar").src = me.avatar;
+      document.getElementById("navProfileThumb").src = me.avatar;
+
+      listenFeed();
+      listenStories();
+      loadProfileData();
+    }
+
+    // --- 5. CLOUDINARY IMAGE UPLOADER (Strictly Image Only) ---
+    async function uploadImageToCloudinary(file, progCallback) {
+      if (!file.type.startsWith("image/")) {
+        throw new Error("Only images are allowed on WDM!");
+      }
+
+      const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable && progCallback) {
+            progCallback(Math.round((e.loaded / e.total) * 100));
+          }
+        };
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            const res = JSON.parse(xhr.responseText);
+            resolve(res.secure_url);
+          } else {
+            reject("Cloudinary upload failed: " + xhr.status);
+          }
+        };
+        xhr.onerror = () => reject("Network error during image transfer.");
+        xhr.send(fd);
+      });
+    }
+
+    // --- 6. POST CREATION & NATIVE PICKER ---
+    function triggerPostImagePicker() {
+      document.getElementById("postImageInputHidden").click();
+    }
+
+    function onPostImagePicked(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        if (!file.type.startsWith("image/")) {
+          showToast("Only photo images can be uploaded!");
+          return;
+        }
+        pendingPostFile = file;
+        const previewBox = document.getElementById("postPreviewImgBox");
+        previewBox.innerHTML = `<img src="${URL.createObjectURL(file)}" style="max-height:240px; max-width:100%; object-fit:contain;">`;
+        document.getElementById("postCreateModal").classList.add("show");
+      }
+    }
+
+    async function executePostUpload() {
+      if (!pendingPostFile) return;
+      const caption = document.getElementById("postCaptionInput").value.trim();
+      const btn = document.getElementById("btnSubmitPost");
+      const progBox = document.getElementById("postUploadProgress");
+      const progFill = document.getElementById("postProgressFill");
+
+      try {
+        btn.disabled = true;
+        progBox.style.display = "block";
+
+        const mediaUrl = await uploadImageToCloudinary(pendingPostFile, (percent) => {
+          progFill.style.width = percent + "%";
+        });
+
+        // Strict alignment with Firestore rules: authorId, mediaUrl, caption
+        await db.collection("posts").add({
+          authorId: me.uid,
+          authorName: me.fullName,
+          authorUsername: me.username,
+          authorAvatar: me.avatar,
+          mediaUrl: mediaUrl,
+          caption: caption,
+          likes: [],
+          savedBy: [],
+          commentCount: 0,
+          createdAt: FV.serverTimestamp()
+        });
+
+        closeModal("postCreateModal");
+        pendingPostFile = null;
+        document.getElementById("postImageInputHidden").value = "";
+        document.getElementById("postCaptionInput").value = "";
+        progBox.style.display = "none";
+        showToast("Photo posted successfully!");
+        loadProfileData();
+      } catch (e) {
+        showToast("Error: " + e.message);
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    // --- 7. REPOST FEATURE ---
+    async function repostItem(postId) {
+      try {
+        const postDoc = await db.collection("posts").doc(postId).get();
+        if (!postDoc.exists) return;
+        const p = postDoc.data();
+
+        const repostCaption = `[Reposted from @${p.authorUsername}]: ${p.caption || ""}`;
+
+        await db.collection("posts").add({
+          authorId: me.uid,
+          authorName: me.fullName,
+          authorUsername: me.username,
+          authorAvatar: me.avatar,
+          mediaUrl: p.mediaUrl,
+          caption: repostCaption,
+          likes: [],
+          savedBy: [],
+          commentCount: 0,
+          createdAt: FV.serverTimestamp()
+        });
+
+        showToast("Post shared to your profile!");
+        loadProfileData();
+      } catch (e) {
+        showToast("Repost failed: " + e.message);
+      }
+    }
+
+    // --- 8. FEED & INTERACTIONS ---
+    function listenFeed() {
+      db.collection("posts").orderBy("createdAt", "desc").limit(50).onSnapshot(snap => {
+        const feed = document.getElementById("postsFeed");
+        feed.innerHTML = "";
+
+        if (snap.empty) {
+          feed.innerHTML = '<div style="text-align:center; padding:50px 20px; color:var(--muted);">No posts yet. Tap + to share your first photo!</div>';
+          return;
+        }
+
+        snap.forEach(doc => {
+          const p = doc.data();
+          const pid = doc.id;
+          const isLiked = (p.likes || []).includes(me.uid);
+          const isSaved = (p.savedBy || []).includes(me.uid);
+
+          const card = document.createElement("article");
+          card.className = "post-item";
+          card.innerHTML = `
+            <div class="post-meta">
+              <div class="post-author">
+                <img src="${p.authorAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}" class="post-avatar">
+                <span class="post-author-name">@${p.authorUsername}</span>
+              </div>
+            </div>
+            <div class="post-media">
+              <img src="${p.mediaUrl}" loading="lazy">
+            </div>
+            <div class="post-actions">
+              <div class="post-actions-left">
+                <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" onclick="togglePostLike('${pid}')"></i>
+                <i class="fa-regular fa-comment" onclick="openCommentPrompt('${pid}')"></i>
+                <i class="fa-solid fa-repeat" title="Repost" onclick="repostItem('${pid}')"></i>
+                <i class="fa-regular fa-paper-plane" onclick="sharePostLink('${pid}')"></i>
+              </div>
+              <i class="fa-${isSaved ? 'solid' : 'regular'} fa-bookmark" onclick="togglePostSave('${pid}')"></i>
+            </div>
+            <div class="post-stats">
+              <span>${(p.likes || []).length} likes</span>
+            </div>
+            <div class="post-caption">
+              <strong>@${p.authorUsername}</strong>${p.caption || ""}
+            </div>
+            <div class="post-time">${p.commentCount || 0} comments</div>
+          `;
+          feed.appendChild(card);
+        });
+      });
+    }
+
+    async function togglePostLike(pid) {
+      const ref = db.collection("posts").doc(pid);
+      await db.runTransaction(async t => {
+        const doc = await t.get(ref);
+        if (!doc.exists) return;
+        const likes = doc.data().likes || [];
+        if (likes.includes(me.uid)) {
+          t.update(ref, { likes: FV.arrayRemove(me.uid) });
+        } else {
+          t.update(ref, { likes: FV.arrayUnion(me.uid) });
+        }
+      });
+    }
+
+    async function togglePostSave(pid) {
+      const ref = db.collection("posts").doc(pid);
+      await db.runTransaction(async t => {
+        const doc = await t.get(ref);
+        if (!doc.exists) return;
+        const savedBy = doc.data().savedBy || [];
+        if (savedBy.includes(me.uid)) {
+          t.update(ref, { savedBy: FV.arrayRemove(me.uid) });
+        } else {
+          t.update(ref, { savedBy: FV.arrayUnion(me.uid) });
+        }
+      });
+      showToast("Saved status updated.");
+    }
+
+    async function openCommentPrompt(pid) {
+      const text = prompt("Write your comment:");
+      if (!text || !text.trim()) return;
+
+      try {
+        await db.collection("posts").doc(pid).collection("comments").add({
+          uid: me.uid,
+          text: text.trim(),
+          createdAt: FV.serverTimestamp()
+        });
+        await db.collection("posts").doc(pid).update({
+          commentCount: FV.increment(1)
+        });
+        showToast("Comment added!");
+      } catch (e) {
+        showToast("Error: " + e.message);
+      }
+    }
+
+    function sharePostLink(pid) {
+      navigator.clipboard.writeText(window.location.origin + window.location.pathname + "#post=" + pid);
+      showToast("Post link copied to clipboard!");
+    }
+    // --- 9. STORIES SYSTEM (Image Only) ---
+    function pickStoryImage() {
+      document.getElementById("storyImageInputHidden").click();
+    }
+
+    async function onStoryImagePicked(input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        try {
+          showToast("Uploading story...");
+          const url = await uploadImageToCloudinary(file);
+          await db.collection("stories").add({
+            uid: me.uid,
+            authorUsername: me.username,
+            avatar: me.avatar,
+            mediaUrl: url,
+            createdAt: FV.serverTimestamp()
+          });
+          showToast("Story shared for 24h!");
+        } catch (e) {
+          showToast("Story upload failed: " + e.message);
+        }
+      }
+    }
+
+    function listenStories() {
+      db.collection("stories").orderBy("createdAt", "desc").limit(20).onSnapshot(snap => {
+        const tray = document.getElementById("dynamicStoriesList");
+        tray.innerHTML = "";
+
+        snap.forEach(doc => {
+          const s = doc.data();
+          const sid = doc.id;
+          const bubble = document.createElement("div");
+          bubble.className = "story-circle";
+          bubble.innerHTML = `
+            <div class="story-ring" onclick="viewStoryDetail('${s.mediaUrl}', '${s.authorUsername}', '${sid}', '${s.uid}')">
+              <img src="${s.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}">
+            </div>
+            <span class="story-username">@${s.authorUsername}</span>
+          `;
+          tray.appendChild(bubble);
+        });
+      });
+    }
+
+    function viewStoryDetail(url, author, sid, authorUid) {
+      const isMine = authorUid === me.uid;
+      const opt = prompt(`Story by @${author}\nType 'R' to send ❤️ reaction\nType 'D' to delete (owner only)`);
+      if (opt && opt.toUpperCase() === 'D' && isMine) {
+        db.collection("stories").doc(sid).delete();
+        showToast("Story deleted.");
+      } else if (opt && opt.toUpperCase() === 'R') {
+        showToast("Reaction sent: ❤️");
+      }
+    }
+
+    // --- 10. DIRECT MESSAGING (DM) ---
+    function makeChatId(uid1, uid2) {
+      return [uid1, uid2].sort().join("_");
+    }
+
+    async function initiateDMChat() {
+      const targetInput = document.getElementById("targetUserChat").value.trim().replace(/^@/, "").toLowerCase();
+      if (!targetInput) return;
+
+      const q = await db.collection("users").where("username", "==", targetInput).limit(1).get();
+      if (q.empty) {
+        showToast("User not found!");
+        return;
+      }
+
+      const targetUid = q.docs[0].id;
+      if (targetUid === me.uid) {
+        showToast("Cannot message yourself!");
+        return;
+      }
+
+      activeChatPairId = makeChatId(me.uid, targetUid);
+      document.getElementById("chatActiveUserLabel").innerText = "Chatting with @" + targetInput;
+
+      // Ensure Chat Room Document Exists
+      await db.collection("chats").doc(activeChatPairId).set({
+        members: [me.uid, targetUid],
+        updatedAt: FV.serverTimestamp()
+      }, { merge: true });
+
+      if (chatUnsubscribe) chatUnsubscribe();
+      chatUnsubscribe = db.collection("chats").doc(activeChatPairId).collection("messages").orderBy("createdAt", "asc").limit(60).onSnapshot(snap => {
+        const box = document.getElementById("dmMessageList");
+        box.innerHTML = "";
+        snap.forEach(d => {
+          const m = d.data();
+          const isMine = m.senderId === me.uid;
+          const el = document.createElement("div");
+          el.className = `dm-bubble ${isMine ? 'mine' : 'theirs'}`;
+          el.innerText = m.text;
+          box.appendChild(el);
+        });
+        box.scrollTop = box.scrollHeight;
+      });
+    }
+
+    async function sendDirectMessage() {
+      const inp = document.getElementById("dmInputMessage");
+      const text = inp.value.trim();
+      if (!text || !activeChatPairId) return;
+
+      await db.collection("chats").doc(activeChatPairId).collection("messages").add({
+        senderId: me.uid,
+        text: text,
+        createdAt: FV.serverTimestamp()
+      });
+
+      inp.value = "";
+    }
+
+    // --- 11. PROFILE MANAGEMENT & EDIT ---
+    function pickAvatarImage() {
+      document.getElementById("avatarImageInputHidden").click();
+    }
+
+    async function onAvatarImagePicked(input) {
+      if (input.files && input.files[0]) {
+        try {
+          showToast("Updating avatar...");
+          const url = await uploadImageToCloudinary(input.files[0]);
+          await db.collection("users").doc(me.uid).update({ avatar: url });
+          me.avatar = url;
+          document.getElementById("profileUserAvatar").src = url;
+          document.getElementById("myStoryAvatar").src = url;
+          document.getElementById("navProfileThumb").src = url;
+          showToast("Profile photo updated!");
+        } catch (e) {
+          showToast("Avatar update failed: " + e.message);
+        }
+      }
+    }
+
+    function openProfileEditModal() {
+      document.getElementById("editFullName").value = me.fullName || "";
+      document.getElementById("editUsername").value = me.username || "";
+      document.getElementById("editBio").value = me.bio || "";
+      document.getElementById("profileEditModal").classList.add("show");
+    }
+
+    async function saveProfileChanges() {
+      const name = document.getElementById("editFullName").value.trim();
+      const uname = document.getElementById("editUsername").value.trim().toLowerCase();
+      const bio = document.getElementById("editBio").value.trim();
+
+      if (!name || !uname) {
+        showToast("Name and User ID are required.");
+        return;
+      }
+
+      if (uname !== me.username) {
+        const check = await db.collection("users").where("username", "==", uname).get();
+        if (!check.empty) {
+          showToast("User ID already exists!");
+          return;
+        }
+      }
+
+      const updates = { fullName: name, username: uname, bio: bio, avatar: me.avatar };
+      await db.collection("users").doc(me.uid).update(updates);
+      me = { ...me, ...updates };
+
+      document.getElementById("profileFullnameDisplay").innerText = name;
+      document.getElementById("profileUsernameDisplay").innerText = "@" + uname;
+      document.getElementById("profileBioDisplay").innerText = bio;
+
+      closeModal("profileEditModal");
+      showToast("Profile updated!");
+    }
+
+    async function loadProfileData() {
+      const snap = await db.collection("posts").where("authorId", "==", me.uid).get();
+      document.getElementById("statPostsCount").innerText = snap.size;
+
+      const grid = document.getElementById("profileGridList");
+      grid.innerHTML = "";
+      snap.forEach(d => {
+        const p = d.data();
+        const cell = document.createElement("div");
+        cell.className = "grid-cell";
+        cell.innerHTML = `<img src="${p.mediaUrl}">`;
+        grid.appendChild(cell);
+      });
+    }
+
+    function shareProfile() {
+      navigator.clipboard.writeText(window.location.origin + window.location.pathname + "#user=" + me.username);
+      showToast("Profile link copied!");
+    }
+
+    // --- 12. SETTINGS, THEME & LANGUAGE ---
+    function openSettingsModal() {
+      document.getElementById("settingsModal").classList.add("show");
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("wdm_theme", theme);
+    }
+
+    function applyLanguage(lang) {
+      localStorage.setItem("wdm_lang", lang);
+      if (lang === "hi") {
+        document.querySelector(".story-username").innerText = "आपकी स्टोरी";
+        document.getElementById("btnTabRegister").innerText = "खाता बनाएँ";
+        document.getElementById("btnTabLogin").innerText = "लॉगिन";
+      } else {
+        document.querySelector(".story-username").innerText = "Your story";
+        document.getElementById("btnTabRegister").innerText = "Create Account";
+        document.getElementById("btnTabLogin").innerText = "Sign In";
+      }
+    }
+
+    // Load saved preferences
+    const savedTheme = localStorage.getItem("wdm_theme") || "dark";
+    applyTheme(savedTheme);
+
+    // --- 13. NAVIGATION TAB SWITCHER ---
+    function switchNav(tab) {
+      document.getElementById("feedSection").classList.toggle("hidden", tab !== 'feed');
+      document.getElementById("searchSection").classList.toggle("hidden", tab !== 'search');
+      document.getElementById("messagesSection").classList.toggle("hidden", tab !== 'messages');
+      document.getElementById("activitySection").classList.toggle("hidden", tab !== 'activity');
+      document.getElementById("profileSection").classList.toggle("hidden", tab !== 'profile');
+
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("navProfileThumb").classList.remove("active");
+
+      if (tab === 'feed') document.getElementById("tabHome").classList.add("active");
+      if (tab === 'search') document.getElementById("tabSearch").classList.add("active");
+      if (tab === 'messages') document.getElementById("tabMessages").classList.add("active");
+      if (tab === 'profile') document.getElementById("navProfileThumb").classList.add("active");
+    }
+
+    async function handleSearch(term) {
+      const q = term.trim().toLowerCase();
+      const box = document.getElementById("searchResults");
+      box.innerHTML = "";
+      if (!q) return;
+
+      const [usersSnap, postsSnap] = await Promise.all([
+        db.collection("users").limit(40).get(),
+        db.collection("posts").limit(40).get()
+      ]);
+
+      usersSnap.forEach(doc => {
+        const u = doc.data();
+        if (u.username?.includes(q) || u.fullName?.toLowerCase().includes(q)) {
+          const div = document.createElement("div");
+          div.style.padding = "8px 12px";
+          div.style.background = "var(--panel)";
+          div.style.borderRadius = "8px";
+          div.innerHTML = `<strong>@${u.username}</strong> (${u.fullName})`;
+          div.onclick = () => {
+            document.getElementById("targetUserChat").value = u.username;
+            switchNav('messages');
+            initiateDMChat();
+          };
+          box.appendChild(div);
+        }
+      });
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("show");
+    }
+  </script>
+</body>
+</html>
