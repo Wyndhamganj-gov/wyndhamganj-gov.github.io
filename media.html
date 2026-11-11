@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>WDM — InstaClone Architecture</title>
+<title>WDM — Connect & Share</title>
 
 <!-- Fonts & Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@700&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <!-- Firebase Compat SDKs -->
@@ -19,7 +19,7 @@
 :root {
   --bg: #000000;
   --panel: #121212;
-  --panel-elevated: #1e1e1e;
+  --panel-elevated: #1a1a1a;
   --line: #262626;
   --txt: #f5f5f5;
   --muted: #8e8e8e;
@@ -30,9 +30,24 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: var(--txt); min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; }
+body { background: var(--bg); color: var(--txt); min-height: 100vh; padding-bottom: 56px; overflow-x: hidden; }
 
-/* Header */
+/* Ultra High-Resolution Loading VFX */
+#appLoadingVFX {
+  position: fixed; inset: 0; background: #050505; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+}
+.vfx-ring {
+  width: 75px; height: 75px; border-radius: 50%;
+  border: 4px solid transparent;
+  border-top-color: #ff477e; border-right-color: #8c62ff; border-bottom-color: #f09433;
+  animation: vfxSpin 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  box-shadow: 0 0 35px rgba(230, 104, 60, 0.4);
+}
+@keyframes vfxSpin { 100% { transform: rotate(360deg); } }
+.vfx-logo { font-size: 26px; font-weight: 800; background: var(--story-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* Top Header */
 header.app-header {
   position: sticky; top: 0; z-index: 50;
   background: rgba(0,0,0,0.92); backdrop-filter: blur(14px);
@@ -40,51 +55,54 @@ header.app-header {
   height: 52px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 16px;
 }
-.brand-dropdown { display: flex; align-items: center; gap: 6px; cursor: pointer; }
 .brand { font-size: 22px; font-weight: 800; background: var(--story-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
 .head-actions { display: flex; align-items: center; gap: 18px; font-size: 1.25rem; }
-.head-actions i { cursor: pointer; position: relative; }
-.badge-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--like); }
+.head-actions i { cursor: pointer; }
 
-.main-wrap { max-width: 600px; margin: 0 auto; min-height: calc(100vh - 112px); }
-
-/* Feed Selector Pill */
-.feed-filter-bar { display: flex; gap: 10px; padding: 10px 14px 4px; font-size: 0.8rem; overflow-x: auto; scrollbar-width: none; }
-.feed-filter-btn { padding: 4px 12px; border-radius: 16px; background: #1a1a1a; color: var(--muted); border: 1px solid var(--line); cursor: pointer; white-space: nowrap; }
-.feed-filter-btn.active { background: var(--txt); color: #000; font-weight: 700; border-color: var(--txt); }
+/* Layout Wrap */
+.main-wrap { max-width: 600px; margin: 0 auto; }
 
 /* Stories Tray */
-.stories-tray { display: flex; gap: 14px; padding: 10px 14px 14px; overflow-x: auto; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+.stories-tray {
+  display: flex; gap: 14px; padding: 12px 14px;
+  overflow-x: auto; border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
 .stories-tray::-webkit-scrollbar { display: none; }
 .story-circle { display: flex; flex-direction: column; align-items: center; width: 66px; flex-shrink: 0; cursor: pointer; }
-.story-ring { width: 64px; height: 64px; border-radius: 50%; padding: 2.5px; background: var(--story-grad); display: flex; align-items: center; justify-content: center; position: relative; }
+.story-ring {
+  width: 62px; height: 62px; border-radius: 50%; padding: 2.5px;
+  background: var(--story-grad); display: flex; align-items: center; justify-content: center; position: relative;
+}
 .story-ring.add-ring { background: #333; }
 .story-ring.close-friends-ring { background: var(--green); }
 .story-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); }
-.add-badge { position: absolute; bottom: 0; right: 0; width: 18px; height: 18px; background: var(--accent); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; border: 2px solid var(--bg); }
+.add-badge {
+  position: absolute; bottom: 0; right: 0; width: 18px; height: 18px;
+  background: var(--accent); color: #fff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; border: 2px solid var(--bg);
+}
 .story-username { font-size: 0.72rem; color: var(--muted); margin-top: 4px; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Posts */
-.post-item { border-bottom: 1px solid var(--line); margin-bottom: 8px; position: relative; }
+.post-item { border-bottom: 1px solid var(--line); margin-bottom: 8px; }
 .post-meta { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; }
 .post-author { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-.post-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #262626; }
+.post-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: #262626; }
 .post-author-name { font-weight: 600; font-size: 0.88rem; }
-.post-media-container { width: 100%; position: relative; background: #080808; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.post-media { width: 100%; max-height: 560px; object-fit: contain; }
-.heart-burst { position: absolute; font-size: 5rem; color: #fff; opacity: 0; pointer-events: none; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s; }
-.heart-burst.active { opacity: 0.9; transform: scale(1.3); }
+.post-media { width: 100%; max-height: 520px; background: #080808; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; }
+.post-media img { width: 100%; max-height: 520px; object-fit: contain; }
 
 .post-actions { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 6px; font-size: 1.35rem; }
 .post-actions-left { display: flex; gap: 16px; }
 .post-actions i { cursor: pointer; }
 .post-actions i.liked { color: var(--like); }
-.post-stats { padding: 0 14px; font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; }
+.post-stats { padding: 0 14px; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
 .post-caption { padding: 0 14px; font-size: 0.88rem; line-height: 1.4; word-break: break-word; }
 .post-caption strong { margin-right: 6px; cursor: pointer; }
-.post-tagged-indicator { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.7); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff; cursor: pointer; }
+.post-time-meta { font-size: 0.72rem; color: var(--muted); padding: 4px 14px 10px; text-transform: uppercase; }
 
-/* Bottom Nav */
+/* Bottom Nav (Reels Removed) */
 nav.bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0; height: 52px;
   background: var(--bg); border-top: 1px solid var(--line);
@@ -93,69 +111,76 @@ nav.bottom-nav {
 }
 .nav-btn { color: var(--muted); cursor: pointer; }
 .nav-btn.active { color: var(--txt); }
-.nav-avatar-btn { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid transparent; cursor: pointer; }
+.nav-avatar-btn { width: 25px; height: 25px; border-radius: 50%; object-fit: cover; border: 1.5px solid transparent; cursor: pointer; }
 .nav-avatar-btn.active { border-color: var(--txt); }
 
-/* Reels 9:16 Player */
-.reels-screen { height: calc(100vh - 110px); width: 100%; position: relative; background: #000; overflow: hidden; }
-.reels-video { width: 100%; height: 100%; object-fit: cover; }
-.reels-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.85) 100%); display: flex; justify-content: space-between; align-items: flex-end; padding: 20px 16px; pointer-events: none; }
-.reels-left-meta { flex: 1; pointer-events: auto; }
-.reels-right-actions { display: flex; flex-direction: column; gap: 18px; align-items: center; font-size: 1.5rem; pointer-events: auto; }
-.reels-action-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; gap: 4px; }
-.reels-scrubber-track { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.25); }
-.reels-scrubber-progress { height: 100%; width: 0%; background: #fff; }
-
-/* Direct Messages & Notes */
-.dm-wrap { display: flex; flex-direction: column; height: calc(100vh - 115px); }
-.dm-notes-tray { display: flex; gap: 16px; padding: 12px 16px; overflow-x: auto; border-bottom: 1px solid var(--line); scrollbar-width: none; }
-.dm-note-circle { display: flex; flex-direction: column; align-items: center; width: 66px; flex-shrink: 0; position: relative; cursor: pointer; }
-.dm-note-avatar { width: 62px; height: 62px; border-radius: 50%; object-fit: cover; }
-.dm-thought-bubble { position: absolute; top: -10px; background: #262626; border: 1px solid #333; color: #fff; font-size: 0.72rem; padding: 3px 8px; border-radius: 12px; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; }
-.vanish-mode-active { background: #1a0026 !important; border-color: #550080 !important; }
+/* Direct Messages & Chat (Professional UI) */
+.dm-screen-wrap { display: flex; flex-direction: column; height: calc(100vh - 110px); }
+.dm-inbox-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; font-weight: 700; }
+.dm-chat-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; cursor: pointer; }
+.dm-chat-left { display: flex; align-items: center; gap: 12px; }
+.dm-chat-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
 
 .dm-active-window { display: flex; flex-direction: column; height: 100%; flex: 1; }
-.dm-list { flex: 1; overflow-y: auto; padding: 12px; }
-.dm-bubble { max-width: 75%; padding: 9px 13px; border-radius: 18px; font-size: 0.88rem; margin-bottom: 8px; word-break: break-word; }
-.dm-bubble.mine { background: var(--accent); color: #fff; align-self: flex-end; margin-left: auto; }
-.dm-bubble.theirs { background: var(--panel); border: 1px solid var(--line); color: var(--txt); align-self: flex-start; margin-right: auto; }
-.dm-bubble img { max-width: 100%; border-radius: 12px; display: block; margin-top: 4px; }
-.dm-bubble audio { width: 220px; height: 32px; margin-top: 4px; }
+.dm-list { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.dm-bubble-row { display: flex; flex-direction: column; width: 100%; }
+.dm-bubble { max-width: 75%; padding: 9px 13px; border-radius: 18px; font-size: 0.88rem; word-break: break-word; }
+.dm-bubble.mine { background: var(--accent); color: #fff; align-self: flex-end; }
+.dm-bubble.theirs { background: var(--panel); border: 1px solid var(--line); color: var(--txt); align-self: flex-start; }
+.dm-bubble img { max-width: 100%; border-radius: 12px; display: block; margin-top: 4px; cursor: pointer; }
+.dm-msg-info { font-size: 0.68rem; color: var(--muted); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
+.dm-msg-info.mine { align-self: flex-end; }
+.dm-msg-info.theirs { align-self: flex-start; }
+.dm-seen-status { color: #5bc0be; font-weight: 600; font-size: 0.68rem; }
+
 .dm-input-bottom { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--bg); }
-
-/* Story Studio Canvas & Editor */
-.story-editor-screen { position: fixed; inset: 0; background: #000; z-index: 150; display: none; flex-direction: column; justify-content: space-between; }
-.story-editor-top { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; z-index: 10; }
-.story-tools-rail { position: absolute; right: 14px; top: 68px; display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.6); padding: 10px 8px; border-radius: 24px; backdrop-filter: blur(8px); z-index: 10; }
-.rail-tool-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.65rem; color: #fff; cursor: pointer; }
-.story-stage-box { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-#storyEditorImg { width: 100%; height: 100%; object-fit: contain; }
-#storyDrawCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
-#storyDrawCanvas.drawing-active { pointer-events: auto; cursor: crosshair; }
-
-/* Interactive Stickers Overlays */
-.story-sticker-overlay { position: absolute; z-index: 8; border-radius: 12px; padding: 12px 16px; background: rgba(255,255,255,0.92); color: #000; max-width: 80%; box-shadow: 0 4px 14px rgba(0,0,0,0.4); font-weight: 700; text-align: center; cursor: move; }
-.poll-box { display: flex; flex-direction: column; gap: 6px; width: 220px; }
-.poll-opt-btn { background: #fff; border: 1.5px solid #ddd; border-radius: 8px; padding: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
+.btn-plus-photo {
+  width: 34px; height: 34px; border-radius: 50%; background: #262626; color: var(--txt);
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer; flex-shrink: 0;
+}
 
 /* Profile View */
 .profile-view { padding: 14px; }
 .profile-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.profile-img-lg { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); cursor: pointer; }
+.profile-img-lg { width: 78px; height: 78px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); cursor: pointer; }
 .profile-stats-box { display: flex; gap: 24px; text-align: center; margin-right: 12px; }
 .profile-num { font-weight: 700; font-size: 1.05rem; }
 .profile-lbl { font-size: 0.75rem; color: var(--muted); }
-.profile-music-pill { display: inline-flex; align-items: center; gap: 6px; background: #1a1a1a; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; margin: 4px 0 8px; color: var(--accent); cursor: pointer; }
-.profile-link-tree { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
-.profile-link-item { font-size: 0.8rem; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 6px; }
-
-.profile-tabs-bar { display: flex; border-top: 1px solid var(--line); margin-bottom: 2px; }
-.profile-tab-btn { flex: 1; text-align: center; padding: 10px 0; font-size: 1.15rem; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
-.profile-tab-btn.active { color: var(--txt); border-color: var(--txt); }
+.profile-bio { font-size: 0.88rem; line-height: 1.4; margin-bottom: 14px; }
+.profile-actions-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+.profile-actions-bar button {
+  flex: 1; padding: 8px; background: var(--panel); border: 1px solid var(--line);
+  color: var(--txt); border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+}
 .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
 .grid-cell { aspect-ratio: 1; background: #161616; overflow: hidden; cursor: pointer; position: relative; }
-.grid-cell img, .grid-cell video { width: 100%; height: 100%; object-fit: cover; }
-.grid-pin-badge { position: absolute; top: 6px; right: 6px; font-size: 0.75rem; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+.grid-cell img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Story Studio Canvas & Viewer */
+.story-editor-screen { position: fixed; inset: 0; background: #000; z-index: 150; display: none; flex-direction: column; justify-content: space-between; }
+.story-editor-top { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; z-index: 10; }
+.story-tools-rail { position: absolute; right: 14px; top: 68px; display: flex; flex-direction: column; gap: 14px; background: rgba(0,0,0,0.5); padding: 12px 8px; border-radius: 24px; z-index: 10; }
+.rail-tool-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.65rem; color: #fff; cursor: pointer; }
+.story-stage-box { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+#storyEditorImg { width: 100%; height: 100%; object-fit: contain; }
+
+.story-viewer-screen { position: fixed; inset: 0; background: #000; z-index: 200; display: none; flex-direction: column; }
+.story-progress-bar-wrap { display: flex; gap: 4px; padding: 10px 14px 6px; }
+.story-progress-segment { flex: 1; height: 2px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
+.story-progress-active { height: 100%; width: 0%; background: #fff; }
+.story-viewer-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 14px; }
+.story-viewer-user { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.88rem; }
+.story-viewer-user img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.story-viewer-body { flex: 1; display: flex; align-items: center; justify-content: center; }
+.story-viewer-body img { width: 100%; height: 100%; object-fit: contain; }
+.story-viewer-foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 16px; background: rgba(0,0,0,0.85); }
+
+.story-activity-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 250; display: none; align-items: flex-end; }
+.story-activity-sheet { background: var(--panel); width: 100%; max-height: 75vh; border-radius: 16px 16px 0 0; border-top: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+
+/* Photo Adjust Modal */
+.avatar-crop-box { width: 200px; height: 200px; border-radius: 50%; overflow: hidden; border: 3px solid var(--accent); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; background: #000; position: relative; }
+.avatar-crop-box img { max-width: none; position: absolute; transition: transform 0.1s ease; }
 
 /* Modals */
 .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
@@ -165,7 +190,9 @@ nav.bottom-nav {
 .field-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
 .field-input { width: 100%; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); padding: 11px 12px; border-radius: 8px; font-size: 0.9rem; outline: none; }
 .btn-solid { width: 100%; background: var(--accent); color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.92rem; }
-.settings-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1c1c1c; cursor: pointer; }
+.btn-google { width: 100%; background: #fff; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+.filter-chip-bar { display: flex; gap: 8px; overflow-x: auto; padding: 8px 0; margin-bottom: 8px; }
+.filter-chip { padding: 4px 10px; background: #222; border-radius: 12px; font-size: 0.75rem; border: 1px solid var(--line); cursor: pointer; white-space: nowrap; }
 
 #toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #222; border: 1px solid var(--line); color: #fff; padding: 10px 16px; border-radius: 20px; font-size: 0.82rem; z-index: 300; display: none; }
 .hidden { display: none !important; }
@@ -173,15 +200,20 @@ nav.bottom-nav {
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
+  <!-- Loading Animation VFX -->
+  <div id="appLoadingVFX">
+    <div class="vfx-ring"></div>
+    <div class="vfx-logo">WDM Media</div>
+  </div>
+
+  <!-- Top Header -->
   <header class="app-header">
-    <div class="brand-dropdown" onclick="toggleFeedModesMenu()">
+    <div style="display:flex; align-items:center; gap:12px;">
       <span class="brand">WDM</span>
-      <i class="fa-solid fa-chevron-down" style="font-size:0.8rem; margin-top:2px;"></i>
     </div>
     <div class="head-actions">
       <i class="fa-regular fa-heart" id="headerHeart" onclick="switchNav('activity')"></i>
-      <i class="fa-brands fa-facebook-messenger" id="headerMsg" onclick="switchNav('messages')"><div class="badge-dot hidden" id="dmUnreadDot"></div></i>
+      <i class="fa-brands fa-facebook-messenger" id="headerMsg" onclick="switchNav('messages')"></i>
       <i class="fa-solid fa-bars hidden" id="headerProfileMenu" onclick="openSettingsModal()"></i>
     </div>
   </header>
@@ -189,13 +221,6 @@ nav.bottom-nav {
   <!-- Main Container -->
   <div class="main-wrap">
     
-    <!-- Feed Mode Filter Bar -->
-    <div class="feed-filter-bar" id="feedFilterBar">
-      <div class="feed-filter-btn active" onclick="setFeedMode('algorithm')">For You</div>
-      <div class="feed-filter-btn" onclick="setFeedMode('following')">Following</div>
-      <div class="feed-filter-btn" onclick="setFeedMode('favorites')">Favorites</div>
-    </div>
-
     <!-- Stories Tray -->
     <div class="stories-tray" id="storiesTray">
       <div class="story-circle" onclick="triggerStoryPicker()">
@@ -213,76 +238,46 @@ nav.bottom-nav {
       <div id="postsFeed"></div>
     </section>
 
-    <!-- Explore & Universal Search View -->
+    <!-- Universal Search View -->
     <section id="searchSection" class="hidden" style="padding:14px;">
-      <input type="text" id="searchInput" class="field-input" placeholder="Search accounts, audio, tags, places..." oninput="handleUniversalSearch(this.value)" style="border-radius:18px;">
+      <input type="text" id="searchInput" class="field-input" placeholder="Search people, User ID, or captions..." oninput="handleUniversalSearch(this.value)">
       <div id="searchResults" style="margin-top:14px; display:flex; flex-direction:column; gap:8px;"></div>
-      
-      <!-- Masonry Explore Grid (1x1 images and 1x2 reels) -->
-      <div style="font-size:0.85rem; font-weight:700; color:var(--muted); margin:18px 0 8px;">EXPLORE</div>
-      <div class="profile-grid" id="exploreMasonryGrid"></div>
     </section>
 
-    <!-- Reels Vertical 9:16 Feed Section -->
-    <section id="reelsSection" class="hidden reels-screen">
-      <div id="reelsPlayerContainer" style="height:100%; width:100%;"></div>
-    </section>
-
-    <!-- Direct Messages & Notes Tray Section -->
-    <section id="messagesSection" class="hidden dm-wrap">
+    <!-- Professional Direct Messages View -->
+    <section id="messagesSection" class="hidden dm-screen-wrap">
       
-      <!-- Main Inbox Screen -->
+      <!-- Inbox Screen -->
       <div id="inboxMainView" style="display:flex; flex-direction:column; flex:1; overflow-y:auto;">
-        
-        <!-- Notes Tray -->
-        <div class="dm-notes-tray">
-          <div class="dm-note-circle" onclick="promptCreateThoughtNote()">
-            <div class="dm-thought-bubble" id="myCurrentNoteBubble">Note...</div>
-            <img id="myNotesAvatar" class="dm-note-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100">
-            <span style="font-size:0.7rem; color:var(--muted); margin-top:4px;">Your note</span>
-          </div>
-          <div id="dynamicNotesContainer" style="display:flex; gap:14px;"></div>
+        <div class="dm-inbox-header">
+          <span style="font-size:1.1rem;">Messages</span>
+          <span style="font-size:0.8rem; color:var(--accent); cursor:pointer;" onclick="switchNav('search')">+ New Chat</span>
         </div>
-
-        <!-- Inbox Tabs: Primary vs Requests -->
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px 8px; font-weight:700;">
-          <div style="display:flex; gap:16px;">
-            <span style="cursor:pointer;" id="tabMessagesPrimary" onclick="toggleDMFolder('primary')">Messages</span>
-            <span style="color:var(--accent); cursor:pointer;" id="tabMessagesRequests" onclick="toggleDMFolder('requests')">Requests</span>
-          </div>
-          <span style="font-size:0.8rem; color:var(--muted);" onclick="switchNav('search')">+ New Chat</span>
-        </div>
-
-        <div id="dmChatListContainer"></div>
+        <div id="dmChatListContainer" style="display:flex; flex-direction:column;"></div>
       </div>
 
-      <!-- 1-on-1 Active Chat Window -->
+      <!-- 1-on-1 Working Chat Window -->
       <div id="activeChatWindow" class="hidden dm-active-window">
-        <div style="padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;" id="chatWindowHeader">
-          <div style="display:flex; align-items:center; gap:10px; cursor:pointer;">
-            <i class="fa-solid fa-arrow-left" style="font-size:1.1rem; padding:4px;" onclick="closeActiveChat()"></i>
+        <div style="padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <i class="fa-solid fa-arrow-left" style="font-size:1.1rem; padding:4px; cursor:pointer;" onclick="closeActiveChat()"></i>
             <img id="chatHeaderAvatar" src="" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
             <div>
               <div id="chatActiveUserLabel" style="font-weight:700; font-size:0.9rem;"></div>
-              <div style="font-size:0.7rem; color:#31a24c;" id="chatPresenceIndicator">Online</div>
+              <div style="font-size:0.7rem; color:#31a24c;">Active now</div>
             </div>
           </div>
-          <div style="display:flex; gap:16px; font-size:1.2rem;">
-            <i class="fa-solid fa-ghost" title="Toggle Vanish Mode" onclick="toggleVanishMode()" id="vanishModeToggleBtn"></i>
-            <i class="fa-solid fa-phone" onclick="showToast('Starting Audio Call via WebRTC...')"></i>
-            <i class="fa-solid fa-video" onclick="showToast('Starting Video Room...')"></i>
-          </div>
         </div>
-
         <div class="dm-list" id="dmMessageList"></div>
 
         <div class="dm-input-bottom">
-          <i class="fa-regular fa-image" style="font-size:1.35rem; color:var(--muted); cursor:pointer;" onclick="triggerChatPhotoPick()"></i>
-          <i class="fa-solid fa-microphone" style="font-size:1.35rem; color:var(--muted); cursor:pointer;" id="voiceNoteRecordBtn" onclick="toggleVoiceNoteRecord()"></i>
-          <input type="text" id="dmInputMessage" class="field-input" placeholder="Message or @silent..." onkeypress="if(event.key==='Enter') sendDirectMessage()">
-          <button class="btn-solid" style="width:auto; padding:0 18px;" onclick="sendDirectMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+          <input type="text" id="dmInputMessage" class="field-input" placeholder="Write a message..." onkeypress="if(event.key==='Enter') sendDirectMessage()">
+          <!-- (+) Icon for sending photos -->
+          <div class="btn-plus-photo" title="Send photo" onclick="triggerChatPhotoPick()"><i class="fa-solid fa-plus"></i></div>
+          <button class="btn-solid" style="width:auto; padding:0 16px;" onclick="sendDirectMessage()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
       </div>
+
     </section>
 
     <!-- Activity Section -->
@@ -301,234 +296,241 @@ nav.bottom-nav {
           <div><div class="profile-num" id="statFollowingCount">0</div><div class="profile-lbl">following</div></div>
         </div>
       </div>
-
       <div class="profile-bio">
-        <div style="display:flex; align-items:center; gap:6px;">
-          <strong id="profileFullnameDisplay">User</strong>
-          <span style="font-size:0.75rem; color:var(--muted);" id="profilePronounsDisplay">(he/him)</span>
-        </div>
-        <div style="color:var(--muted); margin-bottom:2px;" id="profileUsernameDisplay">@username</div>
-        
-        <!-- Pinned Audio Clip -->
-        <div class="profile-music-pill" onclick="toggleProfileAudio()">
-          <i class="fa-solid fa-music"></i>
-          <span id="profileMusicLabel">Midnight City (30s)</span>
-        </div>
-
-        <div id="profileBioDisplay" style="margin-bottom:8px;">150-char Bio supporting #hashtags and @mentions</div>
-        
-        <!-- Multi-Link Tree -->
-        <div class="profile-link-tree" id="profileLinkTree"></div>
+        <div style="font-weight:700;" id="profileFullnameDisplay">User</div>
+        <div style="color:var(--muted); margin-bottom:4px;" id="profileUsernameDisplay">@username</div>
+        <div id="profileBioDisplay">Bio details...</div>
       </div>
-
       <div class="profile-actions-bar">
         <button onclick="openProfileEditModal()">Edit profile</button>
         <button onclick="shareProfileLink()">Share profile</button>
       </div>
-
-      <!-- Story Highlights -->
-      <div style="font-size:0.8rem; font-weight:700; color:var(--muted); margin-bottom:6px;">STORY HIGHLIGHTS</div>
-      <div class="stories-tray" id="profileHighlightsTray">
-        <div class="story-circle" onclick="createStoryHighlight()">
-          <div class="story-ring add-ring"><i class="fa-solid fa-plus"></i></div>
-          <span class="story-username">New</span>
-        </div>
-      </div>
-
-      <!-- Tabbed Views (Grid 1:1, Reels 9:16, Tagged) -->
-      <div class="profile-tabs-bar">
-        <div class="profile-tab-btn active" id="tabProfileGrid" onclick="setProfileTab('grid')"><i class="fa-solid fa-table-cells"></i></div>
-        <div class="profile-tab-btn" id="tabProfileReels" onclick="setProfileTab('reels')"><i class="fa-solid fa-clapperboard"></i></div>
-        <div class="profile-tab-btn" id="tabProfileTagged" onclick="setProfileTab('tagged')"><i class="fa-solid fa-user-tag"></i></div>
-      </div>
-
-      <div class="profile-grid" id="profileGridContainer"></div>
+      <div class="profile-grid" id="profileGridList"></div>
     </section>
 
   </div>
 
-  <!-- Bottom Navigation -->
+  <!-- Bottom Navigation (No Reels Icon) -->
   <nav class="bottom-nav">
     <i class="fa-solid fa-house nav-btn active" id="tabHome" onclick="switchNav('feed')"></i>
     <i class="fa-solid fa-magnifying-glass nav-btn" id="tabSearch" onclick="switchNav('search')"></i>
     <i class="fa-regular fa-square-plus nav-btn" onclick="triggerPostImagePicker()"></i>
-    <i class="fa-solid fa-clapperboard nav-btn" id="tabReels" onclick="switchNav('reels')"></i>
+    <i class="fa-brands fa-facebook-messenger nav-btn" id="tabMessages" onclick="switchNav('messages')"></i>
     <img id="navProfileThumb" class="nav-avatar-btn" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50" onclick="switchNav('profile')">
   </nav>
 
   <!-- Hidden Native File Inputs -->
-  <input type="file" id="postImageInputHidden" accept="image/*,video/*" style="display:none;" onchange="onPostImagePicked(this)">
+  <input type="file" id="postImageInputHidden" accept="image/*" style="display:none;" onchange="onPostImagePicked(this)">
   <input type="file" id="storyImageInputHidden" accept="image/*" style="display:none;" onchange="onStoryImageSelected(this)">
-  <input type="file" id="avatarImageInputHidden" accept="image/*" style="display:none;" onchange="onAvatarImagePicked(this)">
+  <input type="file" id="avatarImageInputHidden" accept="image/*" style="display:none;" onchange="onAvatarImageSelected(this)">
   <input type="file" id="chatPhotoInputHidden" accept="image/*" style="display:none;" onchange="onChatPhotoPicked(this)">
 
-  <!-- MODALS & OVERLAYS -->
+  <!-- MODALS -->
 
-  <!-- 1. Post Creation & WebGL Filter Studio -->
+  <!-- 1. Post Creation & Editing Studio Modal -->
   <div class="modal-mask" id="postCreateModal">
-    <div class="modal-sheet" style="max-width:520px;">
+    <div class="modal-sheet" style="max-width:480px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-weight:700;">Create & Edit Post</span>
+        <span style="font-weight:700;">New Post Studio</span>
         <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('postCreateModal')"></i>
       </div>
 
-      <div id="postPreviewImgBox" style="width:100%; aspect-ratio:1/1; background:#000; border-radius:8px; overflow:hidden; margin-bottom:12px; display:flex; align-items:center; justify-content:center;">
-        <canvas id="postFilterCanvas" style="max-width:100%; max-height:100%;"></canvas>
+      <div style="width:100%; height:180px; background:#000; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:10px;">
+        <canvas id="postCanvasPreview" style="max-height:100%; max-width:100%;"></canvas>
       </div>
 
-      <!-- Filters & Adjustments Sliders -->
-      <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:12px;">
-        <button class="feed-filter-btn active" onclick="applyPresetFilter('normal')">Normal</button>
-        <button class="feed-filter-btn" onclick="applyPresetFilter('clarendon')">Clarendon</button>
-        <button class="feed-filter-btn" onclick="applyPresetFilter('mono')">Moon (B&W)</button>
-        <button class="feed-filter-btn" onclick="applyPresetFilter('warm')">Valencia</button>
+      <!-- Editing Filters -->
+      <div class="filter-chip-bar">
+        <span class="filter-chip" onclick="applyPostFilter('none')">Original</span>
+        <span class="filter-chip" onclick="applyPostFilter('grayscale(1)')">B&W</span>
+        <span class="filter-chip" onclick="applyPostFilter('contrast(1.25) saturate(1.2)')">Vivid</span>
+        <span class="filter-chip" onclick="applyPostFilter('sepia(0.4) saturate(1.1)')">Warm</span>
+        <span class="filter-chip" onclick="applyPostFilter('invert(0.1) hue-rotate(30deg)')">Cyber</span>
       </div>
 
       <div class="field-group">
-        <label>Caption (#hashtags and @mentions)</label>
+        <label>Caption & Hashtags</label>
         <textarea id="postCaptionInput" class="field-input" rows="2" placeholder="Write a caption..."></textarea>
       </div>
 
       <div class="field-group">
-        <label>Accessibility Alt Text</label>
-        <input type="text" id="postAltTextInput" class="field-input" placeholder="Describe photo for visually impaired">
+        <label>Tag People / Location</label>
+        <input type="text" id="postTagInput" class="field-input" placeholder="Add location or @username">
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span style="font-size:0.8rem;">Hide Like & View Counts</span>
-        <input type="checkbox" id="postHideStatsCheckbox">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <span style="font-size:0.8rem; color:var(--muted);">Schedule Post (Publish later)</span>
+        <input type="checkbox" id="postScheduleToggle">
       </div>
 
       <button class="btn-solid" id="btnSubmitPost" onclick="executePostUpload()">Share Post</button>
     </div>
   </div>
-   <!-- 2. Story Studio (Canvas Drawing, Text Fonts, & Micro-Stickers) -->
+
+  <!-- 2. Story Studio Editor Screen -->
   <div class="story-editor-screen" id="storyEditorScreen">
     <div class="story-editor-top">
       <i class="fa-solid fa-xmark" style="color:#fff; font-size:1.4rem; cursor:pointer;" onclick="closeStoryEditor()"></i>
-      <div style="display:flex; gap:12px; align-items:center;">
-        <span id="storyFontIndicator" style="font-size:0.8rem; background:#333; padding:4px 10px; border-radius:12px; cursor:pointer;" onclick="cycleStoryFont()">Classic</span>
-        <span style="font-size:0.8rem; background:#333; padding:4px 10px; border-radius:12px; cursor:pointer;" onclick="toggleCloseFriendsStory()" id="storyAudienceBadge">Everyone</span>
-      </div>
+      <span style="font-size:0.8rem; background:#333; padding:4px 10px; border-radius:12px; cursor:pointer;" onclick="toggleCloseFriendsStory()" id="storyAudienceBadge">Everyone</span>
     </div>
 
-    <!-- Right Side Tools Rail -->
     <div class="story-tools-rail">
       <div class="rail-tool-item" onclick="promptAddStoryText()"><i class="fa-solid fa-font"></i><span>Text</span></div>
-      <div class="rail-tool-item" onclick="toggleDrawCanvas()"><i class="fa-solid fa-signature"></i><span>Draw</span></div>
-      <div class="rail-tool-item" onclick="addStorySticker('poll')"><i class="fa-solid fa-square-poll-vertical"></i><span>Poll</span></div>
-      <div class="rail-tool-item" onclick="addStorySticker('question')"><i class="fa-regular fa-circle-question"></i><span>Question</span></div>
-      <div class="rail-tool-item" onclick="addStorySticker('countdown')"><i class="fa-solid fa-stopwatch"></i><span>Timer</span></div>
-      <div class="rail-tool-item" onclick="addStorySticker('addyours')"><i class="fa-solid fa-camera-rotate"></i><span>Add Yours</span></div>
       <div class="rail-tool-item" onclick="cycleStoryFilter()"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Effects</span></div>
-      <div class="rail-tool-item" onclick="saveStoryLocally()"><i class="fa-solid fa-arrow-down"></i><span>Save</span></div>
     </div>
 
-    <div class="story-stage-box" id="storyStageBox">
+    <div class="story-stage-box">
       <img id="storyEditorImg" src="">
-      <canvas id="storyDrawCanvas"></canvas>
-      <div id="storyStickerMount"></div>
+      <div id="storyOverlayText" style="position:absolute; color:#fff; font-size:1.4rem; font-weight:700; text-shadow:0 2px 8px #000; pointer-events:none;"></div>
     </div>
 
     <div style="padding:14px 16px; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.9);">
-      <button class="btn-solid" style="width:auto; padding:8px 18px;" onclick="publishStoryStudio()">Share Story</button>
+      <button class="btn-solid" style="width:auto; padding:8px 18px;" onclick="publishStoryStudio()">Share Story (24h)</button>
       <button class="btn-solid" style="width:auto; padding:8px 18px; background:#262626;" onclick="closeStoryEditor()">Cancel</button>
     </div>
   </div>
 
-  <!-- 3. Story Fullscreen Viewer -->
-  <div class="story-viewer-screen" id="storyViewerScreen" style="position:fixed; inset:0; background:#000; z-index:200; display:none; flex-direction:column;">
-    <div class="reels-scrubber-track" style="top:10px; z-index:10;"><div class="reels-scrubber-progress" id="storyProgressAnim"></div></div>
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:18px 16px 8px; z-index:10;">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <img id="activeStoryViewerAvatar" src="" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
-        <span id="activeStoryViewerName" style="font-weight:700; font-size:0.85rem;">user</span>
+  <!-- 3. Story Fullscreen Viewer & Live Analysis -->
+  <div class="story-viewer-screen" id="storyViewerScreen">
+    <div class="story-progress-bar-wrap">
+      <div class="story-progress-segment"><div class="story-progress-active" id="storyProgressAnim"></div></div>
+    </div>
+    <div class="story-viewer-head">
+      <div class="story-viewer-user">
+        <img id="activeStoryViewerAvatar" src="">
+        <span id="activeStoryViewerName">user</span>
+        <span style="font-size:0.75rem; color:var(--muted); font-weight:400;" id="activeStoryTimeAgo"></span>
       </div>
       <i class="fa-solid fa-xmark" style="color:#fff; font-size:1.2rem; cursor:pointer;" onclick="closeStoryViewer()"></i>
     </div>
-    <div style="flex:1; display:flex; align-items:center; justify-content:center; position:relative;">
-      <img id="activeStoryViewerImg" src="" style="width:100%; height:100%; object-fit:contain;">
-      <div id="storyViewerInteractiveStickers" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;"></div>
+    <div class="story-viewer-body">
+      <img id="activeStoryViewerImg" src="">
+    </div>
+    <div class="story-viewer-foot">
+      <input type="text" class="field-input" placeholder="Reply to story..." onkeypress="if(event.key==='Enter') sendStoryReply(this.value)" style="border-radius:20px; padding:6px 14px;">
+      <div style="display:flex; gap:16px; font-size:1.25rem; align-items:center;">
+        <i class="fa-regular fa-heart" style="cursor:pointer;" onclick="sendStoryReaction('❤️')"></i>
+        <div style="display:flex; flex-direction:column; align-items:center; font-size:0.7rem; cursor:pointer;" onclick="openStoryActivityDrawer()">
+          <i class="fa-solid fa-chart-simple" style="font-size:1.15rem;"></i>
+          <span>Activity</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 4. Settings & Wellbeing Modal -->
-  <div class="modal-mask" id="settingsCenterModal">
+  <!-- 4. Story Activity & Insights Drawer -->
+  <div class="story-activity-drawer" id="storyActivityDrawer">
+    <div class="story-activity-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <div style="font-weight:700;" id="activityViewerCount">0 views</div>
+        <div id="storyDeleteActionBtn" style="color:var(--like); cursor:pointer; font-size:0.85rem;" onclick="deleteActiveStory()">
+          <i class="fa-regular fa-trash-can"></i> Delete Story
+        </div>
+      </div>
+      <div id="activityViewersList" style="display:flex; flex-direction:column; gap:8px;"></div>
+      <button class="btn-solid" style="background:#262626; margin-top:14px;" onclick="closeStoryActivityDrawer()">Close</button>
+    </div>
+  </div>
+
+  <!-- 5. Profile Edit & Photo Adjuster Modal -->
+  <div class="modal-mask" id="profileEditModal">
+    <div class="modal-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <span style="font-weight:700;">Edit Profile</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('profileEditModal')"></i>
+      </div>
+
+      <div class="field-group">
+        <label>Full Name</label>
+        <input type="text" id="editFullName" class="field-input">
+      </div>
+      <div class="field-group">
+        <label>User ID (@username)</label>
+        <input type="text" id="editUsername" class="field-input">
+      </div>
+      <div class="field-group">
+        <label>Bio</label>
+        <textarea id="editBio" class="field-input" rows="2"></textarea>
+      </div>
+
+      <button class="btn-solid" onclick="saveProfileChanges()">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- 6. Profile Photo Scale/Adjust Modal -->
+  <div class="modal-mask" id="avatarAdjustModal">
+    <div class="modal-sheet" style="text-align:center;">
+      <div style="font-weight:700; margin-bottom:12px;">Adjust Profile Photo</div>
+      <div class="avatar-crop-box">
+        <img id="cropPreviewImg" src="">
+      </div>
+      <div class="field-group" style="text-align:left;">
+        <label>Scale / Zoom</label>
+        <input type="range" id="avatarScaleSlider" min="1" max="2.5" step="0.05" value="1" oninput="adjustAvatarZoom(this.value)" style="width:100%;">
+      </div>
+      <button class="btn-solid" onclick="confirmAvatarUpload()">Set as Profile Picture</button>
+    </div>
+  </div>
+
+  <!-- 7. Settings Modal (Includes Close Friends) -->
+  <div class="modal-mask" id="settingsModal">
     <div class="modal-sheet">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <span style="font-weight:700; font-size:1.1rem;">Settings & Activity</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('settingsCenterModal')"></i>
+        <span style="font-weight:700; font-size:1.1rem;">Settings</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('settingsModal')"></i>
       </div>
 
-      <div style="font-size:0.75rem; color:var(--muted); font-weight:700; margin-bottom:4px;">SECURITY & RECOVERY</div>
-      <div class="settings-row" onclick="openForgotPassModal(); closeModal('settingsCenterModal');">
-        <div><i class="fa-solid fa-key" style="margin-right:10px;"></i> Change Password</div>
-        <i class="fa-solid fa-chevron-right" style="font-size:0.75rem; color:var(--muted);"></i>
-      </div>
-      <div class="settings-row" onclick="toggle2FA()">
-        <div><i class="fa-solid fa-shield-halved" style="margin-right:10px;"></i> Two-Factor Authentication</div>
-        <span style="font-size:0.8rem; color:var(--accent);" id="lbl2FAStatus">Disabled</span>
-      </div>
-      <div class="settings-row" onclick="alert('Active Session: Chrome Mobile (Current Device)')">
-        <div><i class="fa-solid fa-desktop" style="margin-right:10px;"></i> Active Login Sessions</div>
-        <i class="fa-solid fa-chevron-right" style="font-size:0.75rem; color:var(--muted);"></i>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #1f1f1f; cursor:pointer;" onclick="manageCloseFriendsList()">
+        <div><i class="fa-solid fa-star" style="color:var(--green); margin-right:10px;"></i> Close Friends List</div>
+        <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
       </div>
 
-      <div style="font-size:0.75rem; color:var(--muted); font-weight:700; margin:16px 0 4px;">DIGITAL WELLBEING & MODERATION</div>
-      <div class="settings-row" onclick="manageHiddenWords()">
-        <div><i class="fa-solid fa-comment-slash" style="margin-right:10px;"></i> Hidden Words Dictionary</div>
-        <i class="fa-solid fa-chevron-right" style="font-size:0.75rem; color:var(--muted);"></i>
-      </div>
-      <div class="settings-row" onclick="toggleTakeABreakTimer()">
-        <div><i class="fa-solid fa-clock" style="margin-right:10px;"></i> Daily Screen Time Reminder</div>
-        <span style="font-size:0.8rem; color:var(--accent);" id="lblBreakTimer">Off</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #1f1f1f; cursor:pointer;" onclick="openForgotPassModal(); closeModal('settingsModal');">
+        <div><i class="fa-solid fa-key" style="margin-right:10px;"></i> Password & Security</div>
+        <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
       </div>
 
       <button class="btn-solid" style="background:#261414; color:var(--like); margin-top:20px;" onclick="logout()">Log Out</button>
     </div>
   </div>
 
-  <!-- 5. Edit Profile Modal -->
-  <div class="modal-mask" id="profileEditModal">
-    <div class="modal-sheet">
-      <div style="font-weight:700; margin-bottom:12px;">Edit Profile</div>
-      <div class="field-group"><label>Full Name</label><input type="text" id="editFullName" class="field-input"></div>
-      <div class="field-group"><label>User ID</label><input type="text" id="editUsername" class="field-input"></div>
-      <div class="field-group"><label>Pronouns</label><input type="text" id="editPronouns" class="field-input" placeholder="e.g. they/them"></div>
-      <div class="field-group"><label>Bio</label><textarea id="editBio" class="field-input" rows="2"></textarea></div>
-      <div class="field-group"><label>External Links (comma-separated)</label><input type="text" id="editLinks" class="field-input" placeholder="https://site.com, https://blog.com"></div>
-      <button class="btn-solid" onclick="saveProfileChanges()">Save Changes</button>
-    </div>
-  </div>
-
-  <!-- 6. Auth Gateway Modal -->
+  <!-- 8. Auth Gateway Modal -->
   <div class="modal-mask" id="authGatewayModal">
     <div class="modal-sheet">
-      <div style="font-weight:800; font-size:1.2rem; margin-bottom:14px; text-align:center;">InstaClone Architecture</div>
+      <div style="font-weight:800; font-size:1.2rem; margin-bottom:14px; text-align:center;">Welcome to WDM</div>
       <div style="display:flex; gap:8px; margin-bottom:14px;">
         <button id="btnTabRegister" class="btn-solid" style="padding:8px;" onclick="setAuthTab('register')">Create Account</button>
         <button id="btnTabLogin" class="btn-solid" style="padding:8px; background:#262626;" onclick="setAuthTab('login')">Sign In</button>
       </div>
       <div id="registerFields">
-        <div class="field-group"><label>Full Name *</label><input type="text" id="regFullName" class="field-input" placeholder="Alex Smith"></div>
-        <div class="field-group"><label>Unique User ID *</label><input type="text" id="regUsername" class="field-input" placeholder="alex_01"></div>
-        <div class="field-group"><label>Email *</label><input type="email" id="regEmail" class="field-input" placeholder="alex@gmail.com"></div>
+        <div class="field-group"><label>Full Name *</label><input type="text" id="regFullName" class="field-input" placeholder="Full Name"></div>
+        <div class="field-group"><label>Unique User ID *</label><input type="text" id="regUsername" class="field-input" placeholder="Username (3-20 characters)"></div>
+        <div class="field-group"><label>Email *</label><input type="email" id="regEmail" class="field-input" placeholder="Gmail address"></div>
       </div>
       <div id="loginFields" style="display:none;">
-        <div class="field-group"><label>Email or User ID *</label><input type="text" id="loginIdentifier" class="field-input" placeholder="alex@gmail.com"></div>
+        <div class="field-group"><label>Email or User ID *</label><input type="text" id="loginIdentifier" class="field-input" placeholder="Registered Email or User ID"></div>
       </div>
       <div class="field-group"><label>Password *</label><input type="password" id="authPassword" class="field-input" placeholder="Password (Minimum 6 characters)"></div>
       <button class="btn-solid" id="btnSubmitAuth" onclick="submitAuth()">Continue</button>
       <div style="text-align:center; margin:12px 0; color:var(--muted); font-size:0.8rem;">OR</div>
-      <button class="btn-solid" style="background:#fff; color:#000;" onclick="continueWithGoogle()"><i class="fa-brands fa-google" style="margin-right:8px;"></i> Continue with Google</button>
+      <button class="btn-google" onclick="continueWithGoogle()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">Continue with Google</button>
+    </div>
+  </div>
+
+  <!-- 9. Forgot Password Modal -->
+  <div class="modal-mask" id="forgotPassModal">
+    <div class="modal-sheet">
+      <div style="font-weight:700; margin-bottom:10px;">Reset Password</div>
+      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Enter your registered Gmail address to receive the password reset link.</p>
+      <div class="field-group"><label>Registered Gmail *</label><input type="email" id="resetEmailInput" class="field-input" placeholder="your-email@gmail.com"></div>
+      <button class="btn-solid" onclick="sendPasswordResetLink()">Send Reset Link</button>
     </div>
   </div>
 
   <div id="toast"></div>
 
-  <!-- JAVASCRIPT ARCHITECTURE ENGINE -->
+  <!-- JAVASCRIPT CORE -->
   <script>
-    // 1. Production Configs
     const firebaseConfig = {
       apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
       authDomain: "wdm-update.firebaseapp.com",
@@ -550,20 +552,14 @@ nav.bottom-nav {
     let authMode = "register";
     let pendingPostFile = null;
     let pendingStoryFile = null;
+    let pendingAvatarFile = null;
     let activeChatPairId = null;
     let activeChatTargetUid = null;
     let chatUnsubscribe = null;
-    let isVanishModeActive = false;
-    let currentFeedMode = "algorithm";
-    let voiceRecorder = null;
-    let voiceAudioChunks = [];
-
-    // Story Studio States
-    let isDrawingMode = false;
-    let isCloseFriendsOnlyStory = false;
-    const STORY_FONTS = ["Plus Jakarta Sans", "Caveat", "Courier Prime"];
-    let storyFontIndex = 0;
-    let activeStoryStickers = [];
+    let activeStoryData = null;
+    let storyProgressInterval = null;
+    let isCloseFriendsStory = false;
+    let postFilterString = "none";
 
     function showToast(msg) {
       const t = document.getElementById("toast");
@@ -571,9 +567,44 @@ nav.bottom-nav {
       t.style.display = "block";
       setTimeout(() => { t.style.display = "none"; }, 2800);
     }
+    // --- SMART BROWSER BACK BUTTON LOGIC ---
+    let homeBackPressCount = 0;
+    let navigationStack = ['feed'];
 
-    // 2. Auth State Observer
+    function pushNavState(tab) {
+      history.pushState({ section: tab }, "", "#" + tab);
+      navigationStack.push(tab);
+    }
+
+    window.addEventListener("popstate", (e) => {
+      if (document.getElementById("activeChatWindow").offsetParent !== null) {
+        closeActiveChat();
+        return;
+      }
+
+      if (e.state && e.state.section) {
+        renderNavSection(e.state.section, false);
+      } else {
+        // If user is at home feed and presses back
+        homeBackPressCount++;
+        if (homeBackPressCount === 1) {
+          showToast("Press back again to exit to Wyndhamganj Panchayat portal.");
+          setTimeout(() => { homeBackPressCount = 0; }, 2500);
+          history.pushState({ section: 'feed' }, "", "#feed");
+        } else if (homeBackPressCount >= 2) {
+          window.location.href = "index.html"; // Gram Panchayat Main Portal
+        }
+      }
+    });
+
+    // --- AUTH OBSERVER ---
     auth.onAuthStateChanged(async (user) => {
+      // Remove loading VFX
+      setTimeout(() => {
+        const vfx = document.getElementById("appLoadingVFX");
+        if (vfx) vfx.style.display = "none";
+      }, 700);
+
       if (user) {
         const docRef = db.collection("users").doc(user.uid);
         const doc = await docRef.get();
@@ -584,19 +615,14 @@ nav.bottom-nav {
           const defaultUsername = "user_" + user.uid.slice(0, 5);
           const userData = {
             uid: user.uid,
-            fullName: user.displayName || "Insta Member",
+            fullName: user.displayName || "WDM Member",
             username: defaultUsername,
             email: user.email || "",
             avatar: user.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120",
-            bio: "Building with WDM media platform",
-            pronouns: "they/them",
-            links: ["https://wyndhamganj-gov.github.io"],
-            pinnedPosts: [],
-            highlights: [],
-            hiddenWords: ["spam", "bot"],
+            bio: "WDM Community Member",
             followers: [],
             following: [],
-            twoFactor: false,
+            closeFriends: [],
             createdAt: FV.serverTimestamp()
           };
           await docRef.set(userData);
@@ -625,9 +651,13 @@ nav.bottom-nav {
         const fullName = document.getElementById("regFullName").value.trim();
         const username = document.getElementById("regUsername").value.trim().toLowerCase();
         const email = document.getElementById("regEmail").value.trim();
-        if (!fullName || !username || !email) return showToast("All fields required.");
+        if (!fullName || !username || !email) return showToast("All fields are required.");
+        if (!/^[a-z0-9_]{3,20}$/.test(username)) return showToast("User ID must be 3-20 characters.");
 
-    try {
+        const check = await db.collection("users").where("username", "==", username).get();
+        if (!check.empty) return showToast("Username already taken!");
+
+        try {
           const cred = await auth.createUserWithEmailAndPassword(email, pass);
           const userData = {
             uid: cred.user.uid,
@@ -635,15 +665,10 @@ nav.bottom-nav {
             username: username,
             email: email,
             avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120",
-            bio: "Exploring InstaClone architecture",
-            pronouns: "they/them",
-            links: [],
-            pinnedPosts: [],
-            highlights: [],
-            hiddenWords: ["spam"],
+            bio: "WDM Community Member",
             followers: [],
             following: [],
-            twoFactor: false,
+            closeFriends: [],
             createdAt: FV.serverTimestamp()
           };
           await db.collection("users").doc(cred.user.uid).set(userData);
@@ -656,7 +681,7 @@ nav.bottom-nav {
         let targetEmail = identifier;
         if (!identifier.includes("@")) {
           const q = await db.collection("users").where("username", "==", identifier).limit(1).get();
-          if (q.empty) return showToast("Username not found!");
+          if (q.empty) return showToast("User ID not found!");
           targetEmail = q.docs[0].data().email;
         }
         try {
@@ -670,28 +695,37 @@ nav.bottom-nav {
       try { await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); } catch (e) { showToast(e.message); }
     }
 
+    function openForgotPassModal() { document.getElementById("forgotPassModal").classList.add("show"); }
+    async function sendPasswordResetLink() {
+      const email = document.getElementById("resetEmailInput").value.trim();
+      if (!email || !email.includes("@")) return showToast("Enter a valid email address.");
+      try {
+        await auth.sendPasswordResetEmail(email);
+        closeModal("forgotPassModal");
+        showToast("Password reset link sent to your email!");
+      } catch (e) { showToast(e.message); }
+    }
+
     function launchApp() {
       closeModal("authGatewayModal");
       document.getElementById("profileFullnameDisplay").innerText = me.fullName || "User";
       document.getElementById("profileUsernameDisplay").innerText = "@" + me.username;
-      document.getElementById("profilePronounsDisplay").innerText = me.pronouns ? `(${me.pronouns})` : "";
       document.getElementById("profileBioDisplay").innerText = me.bio || "";
       document.getElementById("profileUserAvatar").src = me.avatar;
       document.getElementById("myStoryAvatar").src = me.avatar;
-      document.getElementById("myNotesAvatar").src = me.avatar;
       document.getElementById("navProfileThumb").src = me.avatar;
 
-      renderLinkTree();
+      history.replaceState({ section: 'feed' }, "", "#feed");
       listenFeed();
       listenStories();
-      listenNotesTray();
       loadProfileData();
       listenDMInbox();
     }
 
-    // 3. Cloudinary Upload Engine
+    // --- CLOUDINARY UPLOADER ---
     async function uploadImageToCloudinary(file) {
-      const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
+      if (!file.type.startsWith("image/")) throw new Error("Only images are allowed!");
+      const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
       const fd = new FormData();
       fd.append("file", file);
       fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
@@ -701,64 +735,37 @@ nav.bottom-nav {
       return data.secure_url;
     }
 
-    // 4. Feed & Ranking Modes
-    function setFeedMode(mode) {
-      currentFeedMode = mode;
-      document.querySelectorAll(".feed-filter-btn").forEach(b => b.classList.remove("active"));
-      event.target.classList.add("active");
-      listenFeed();
-    }
-
+    // --- FEED & REAL-TIME POSTS ---
     function listenFeed() {
       db.collection("posts").orderBy("createdAt", "desc").limit(60).onSnapshot(snap => {
         const feed = document.getElementById("postsFeed");
         feed.innerHTML = "";
 
-        let posts = [];
-        const badWords = me?.hiddenWords || [];
-
-        snap.forEach(d => {
-          const p = d.data();
-          const clean = !badWords.some(w => p.caption && p.caption.toLowerCase().includes(w.toLowerCase()));
-          if (clean) posts.push({ id: d.id, ...p });
-        });
-
-        const myFollowing = new Set(me?.following || []);
-
-        if (currentFeedMode === "following") {
-          posts = posts.filter(p => myFollowing.has(p.authorId));
-        } else if (currentFeedMode === "favorites") {
-          posts = posts.filter(p => (me?.favorites || []).includes(p.authorId));
-        }
-
-        posts.forEach(p => {
-          const pid = p.id;
+        snap.forEach(doc => {
+          const p = doc.data();
+          const pid = doc.id;
           const isLiked = (p.likes || []).includes(me.uid);
+          const timeAgo = formatTimeAgo(p.createdAt?.toDate?.());
 
           const card = document.createElement("article");
           card.className = "post-item";
           card.innerHTML = `
             <div class="post-meta">
-              <div class="post-author" onclick="viewUserProfile('${p.authorId}')">
+              <div class="post-author" onclick="viewOtherProfile('${p.authorId}')">
                 <img src="${p.authorAvatar}" class="post-avatar">
                 <span class="post-author-name">@${p.authorUsername}</span>
               </div>
-              <i class="fa-solid fa-ellipsis" onclick="showToast('Post options')"></i>
             </div>
-            <div class="post-media-container" ondblclick="triggerDoubleTapLike('${pid}')">
-              ${p.mediaType === 'video' ? `<video src="${p.mediaUrl}" class="post-media" controls playsinline></video>` : `<img src="${p.mediaUrl}" class="post-media" loading="lazy">`}
-              <div class="heart-burst" id="burst-${pid}">❤️</div>
-            </div>
+            <div class="post-media" onclick="viewOtherProfile('${p.authorId}')"><img src="${p.mediaUrl}" loading="lazy"></div>
             <div class="post-actions">
               <div class="post-actions-left">
                 <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" onclick="togglePostLike('${pid}')"></i>
-                <i class="fa-regular fa-comment" onclick="showToast('Open comments')"></i>
                 <i class="fa-regular fa-paper-plane" onclick="sharePostDirect('${pid}')"></i>
               </div>
-              <i class="fa-regular fa-bookmark" onclick="saveToCollection('${pid}')"></i>
             </div>
-            ${p.hideLikeStats ? '' : `<div class="post-stats">${(p.likes || []).length} likes</div>`}
+            <div class="post-stats">${(p.likes || []).length} likes</div>
             <div class="post-caption"><strong>@${p.authorUsername}</strong>${p.caption || ""}</div>
+            <div class="post-time-meta">${timeAgo}</div>
           `;
           feed.appendChild(card);
         });
@@ -775,30 +782,17 @@ nav.bottom-nav {
       });
     }
 
-    function triggerDoubleTapLike(pid) {
-      const burst = document.getElementById("burst-" + pid);
-      if (burst) {
-        burst.classList.add("active");
-        setTimeout(() => burst.classList.remove("active"), 600);
-      }
-      togglePostLike(pid);
-    }
-
     function sharePostDirect(pid) {
       navigator.clipboard.writeText(location.origin + location.pathname + "#post=" + pid);
-      showToast("Link copied to clipboard!");
+      showToast("Post link copied to clipboard!");
     }
 
-    function saveToCollection(pid) {
-      showToast("Saved to private collection.");
-    }
-
-    // 5. Post Canvas WebGL Filtering Pipeline
+    // --- POST STUDIO & EDITING ---
     function triggerPostImagePicker() { document.getElementById("postImageInputHidden").click(); }
     function onPostImagePicked(input) {
       if (input.files && input.files[0]) {
         pendingPostFile = input.files[0];
-        const canvas = document.getElementById("postFilterCanvas");
+        const canvas = document.getElementById("postCanvasPreview");
         const ctx = canvas.getContext("2d");
         const img = new Image();
         img.src = URL.createObjectURL(pendingPostFile);
@@ -811,17 +805,15 @@ nav.bottom-nav {
       }
     }
 
-    function applyPresetFilter(filterName) {
-      const canvas = document.getElementById("postFilterCanvas");
+    function applyPostFilter(filterStr) {
+      postFilterString = filterStr;
+      const canvas = document.getElementById("postCanvasPreview");
       const ctx = canvas.getContext("2d");
-      if (filterName === "clarendon") ctx.filter = "contrast(1.2) saturate(1.25)";
-      else if (filterName === "mono") ctx.filter = "grayscale(1) contrast(1.1)";
-      else if (filterName === "warm") ctx.filter = "sepia(0.3) saturate(1.2)";
-      else ctx.filter = "none";
-
+      ctx.filter = filterStr;
       const img = new Image();
       img.src = URL.createObjectURL(pendingPostFile);
       img.onload = () => ctx.drawImage(img, 0, 0);
+      showToast("Filter applied");
     }
 
     async function executePostUpload() {
@@ -831,8 +823,6 @@ nav.bottom-nav {
         btn.disabled = true;
         const mediaUrl = await uploadImageToCloudinary(pendingPostFile);
         const caption = document.getElementById("postCaptionInput").value.trim();
-        const altText = document.getElementById("postAltTextInput").value.trim();
-        const hideStats = document.getElementById("postHideStatsCheckbox").checked;
 
         await db.collection("posts").add({
           authorId: me.uid,
@@ -840,10 +830,7 @@ nav.bottom-nav {
           authorUsername: me.username,
           authorAvatar: me.avatar,
           mediaUrl: mediaUrl,
-          mediaType: pendingPostFile.type.startsWith("video/") ? "video" : "image",
           caption: caption,
-          altText: altText,
-          hideLikeStats: hideStats,
           likes: [],
           commentCount: 0,
           createdAt: FV.serverTimestamp()
@@ -851,40 +838,267 @@ nav.bottom-nav {
 
         closeModal("postCreateModal");
         pendingPostFile = null;
-        showToast("Post published successfully!");
+        document.getElementById("postCaptionInput").value = "";
+        showToast("Photo posted successfully!");
         loadProfileData();
       } catch (e) { showToast(e.message); } finally { btn.disabled = false; }
     }
 
-    // 6. Reels Fullscreen Engine
-    function renderReelsFeed() {
-      const container = document.getElementById("reelsPlayerContainer");
-      container.innerHTML = `
-        <div style="height:100%; width:100%; position:relative;">
-          <video class="reels-video" src="https://cdn.pixabay.com/video/2020/05/25/40149-425251877_tiny.mp4" autoplay loop muted playsinline></video>
-          <div class="reels-scrim">
-            <div class="reels-left-meta">
-              <strong>@${me.username}</strong>
-              <p style="font-size:0.8rem; margin:4px 0;">Exploring architectural micro-features in modern Reels engine</p>
-              <div style="font-size:0.75rem;"><i class="fa-solid fa-music"></i> Original Audio</div>
-            </div>
-            <div class="reels-right-actions">
-              <div class="reels-action-item"><i class="fa-regular fa-heart"></i><span>12.4K</span></div>
-              <div class="reels-action-item"><i class="fa-regular fa-comment"></i><span>412</span></div>
-              <div class="reels-action-item"><i class="fa-regular fa-paper-plane"></i></div>
-            </div>
-          </div>
-          <div class="reels-scrubber-track"><div class="reels-scrubber-progress" style="width:65%;"></div></div>
-        </div>
-      `;
+    // --- 24-HOUR STORY STUDIO & ANALYSIS ---
+    function triggerStoryPicker() { document.getElementById("storyImageInputHidden").click(); }
+    function onStoryImageSelected(input) {
+      if (input.files && input.files[0]) {
+        pendingStoryFile = input.files[0];
+        document.getElementById("storyEditorImg").src = URL.createObjectURL(pendingStoryFile);
+        document.getElementById("storyOverlayText").innerText = "";
+        document.getElementById("storyEditorScreen").style.display = "flex";
+      }
     }
 
-    // 7. Direct Messaging, Vanish Sessions & Audio Memos
-    function toggleVanishMode() {
-      isVanishModeActive = !isVanishModeActive;
-      const win = document.getElementById("activeChatWindow");
-      win.classList.toggle("vanish-mode-active", isVanishModeActive);
-      showToast(isVanishModeActive ? "Vanish Mode ON (Messages wipe on exit)" : "Vanish Mode OFF");
+    function closeStoryEditor() {
+      document.getElementById("storyEditorScreen").style.display = "none";
+      pendingStoryFile = null;
+    }
+
+    function promptAddStoryText() {
+      const t = prompt("Add text overlay:");
+      if (t) document.getElementById("storyOverlayText").innerText = t;
+    }
+
+    function cycleStoryFilter() {
+      const f = document.getElementById("storyEditorImg");
+      f.style.filter = f.style.filter === "none" ? "contrast(1.25) saturate(1.2)" : "none";
+      showToast("Effect toggled");
+    }
+
+    function toggleCloseFriendsStory() {
+      isCloseFriendsStory = !isCloseFriendsStory;
+      const badge = document.getElementById("storyAudienceBadge");
+      badge.innerText = isCloseFriendsStory ? "Close Friends" : "Everyone";
+      badge.style.color = isCloseFriendsStory ? "var(--green)" : "#fff";
+    }
+
+    async function publishStoryStudio() {
+      if (!pendingStoryFile) return;
+      try {
+        showToast("Sharing your story...");
+        const url = await uploadImageToCloudinary(pendingStoryFile);
+        const overlay = document.getElementById("storyOverlayText").innerText;
+
+        await db.collection("stories").add({
+          uid: me.uid,
+          authorUsername: me.username,
+          avatar: me.avatar,
+          mediaUrl: url,
+          overlayText: overlay,
+          isCloseFriends: isCloseFriendsStory,
+          viewers: [],
+          expiresAt: firebase.firestore.Timestamp.fromDate(new Date(Date.now() + 86400000)), // Strict 24h
+          createdAt: FV.serverTimestamp()
+        });
+
+        closeStoryEditor();
+        showToast("Story shared for 24 hours!");
+      } catch (e) { showToast(e.message); }
+    }
+
+    function listenStories() {
+      const now = firebase.firestore.Timestamp.now();
+      db.collection("stories").where("expiresAt", ">", now).orderBy("expiresAt", "desc").onSnapshot(snap => {
+        const tray = document.getElementById("dynamicStoriesList");
+        tray.innerHTML = "";
+        snap.forEach(doc => {
+          const s = doc.data();
+          const sid = doc.id;
+          const bubble = document.createElement("div");
+          bubble.className = "story-circle";
+          bubble.innerHTML = `
+            <div class="story-ring ${s.isCloseFriends ? 'close-friends-ring' : ''}" onclick='openStoryViewer(${JSON.stringify(s)}, "${sid}")'>
+              <img src="${s.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}">
+            </div>
+            <span class="story-username">@${s.authorUsername}</span>
+          `;
+          tray.appendChild(bubble);
+        });
+      });
+    }
+
+    function openStoryViewer(data, storyId) {
+      activeStoryData = { id: storyId, ...data };
+      document.getElementById("activeStoryViewerImg").src = data.mediaUrl;
+      document.getElementById("activeStoryViewerAvatar").src = data.avatar;
+      document.getElementById("activeStoryViewerName").innerText = "@" + data.authorUsername;
+      document.getElementById("activeStoryTimeAgo").innerText = formatTimeAgo(data.createdAt?.toDate?.());
+      document.getElementById("storyViewerScreen").style.display = "flex";
+
+      // Seen record
+      if (data.uid !== me.uid) {
+        db.collection("stories").doc(storyId).update({
+          viewers: FV.arrayUnion({ uid: me.uid, username: me.username, avatar: me.avatar, seenAt: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) })
+        }).catch(e => console.warn(e));
+      }
+
+      const bar = document.getElementById("storyProgressAnim");
+      bar.style.width = "0%";
+      let progress = 0;
+      clearInterval(storyProgressInterval);
+      storyProgressInterval = setInterval(() => {
+        progress += 2;
+        bar.style.width = progress + "%";
+        if (progress >= 100) { clearInterval(storyProgressInterval); closeStoryViewer(); }
+      }, 100);
+    }
+
+    function closeStoryViewer() {
+      clearInterval(storyProgressInterval);
+      document.getElementById("storyViewerScreen").style.display = "none";
+      activeStoryData = null;
+    }
+
+    function sendStoryReaction(emoji) { showToast("Reaction sent: " + emoji); }
+    function sendStoryReply(txt) { if (txt.trim()) showToast("Replied: " + txt); }
+
+    function openStoryActivityDrawer() {
+      if (!activeStoryData) return;
+      const viewers = activeStoryData.viewers || [];
+      document.getElementById("activityViewerCount").innerText = `${viewers.length} views`;
+      document.getElementById("storyDeleteActionBtn").style.display = activeStoryData.uid === me.uid ? "block" : "none";
+
+      const list = document.getElementById("activityViewersList");
+      list.innerHTML = "";
+      if (viewers.length === 0) {
+        list.innerHTML = '<div style="color:var(--muted); font-size:0.85rem; padding:10px 0;">No viewers yet.</div>';
+      } else {
+        viewers.forEach(v => {
+          const row = document.createElement("div");
+          row.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:6px 0;";
+          row.innerHTML = `
+            <div style="display:flex; align-items:center; gap:10px;">
+              <img src="${v.avatar}" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
+              <span style="font-weight:600;">@${v.username}</span>
+            </div>
+            <span style="font-size:0.75rem; color:var(--muted);">${v.seenAt || ''}</span>
+          `;
+          list.appendChild(row);
+        });
+      }
+      document.getElementById("storyActivityDrawer").style.display = "flex";
+    }
+
+    function closeStoryActivityDrawer() { document.getElementById("storyActivityDrawer").style.display = "none"; }
+
+    async function deleteActiveStory() {
+      if (!confirm("Are you sure you want to delete this story?")) return;
+      try {
+        await db.collection("stories").doc(activeStoryData.id).delete();
+        closeStoryActivityDrawer();
+        closeStoryViewer();
+        showToast("Story deleted.");
+      } catch (e) { showToast(e.message); }
+    }
+
+    // --- PROFESSIONAL DIRECT MESSAGING (PERSISTENT & PHOTO SENDING) ---
+    function listenDMInbox() {
+      db.collection("chats").where("members", "array-contains", me.uid).orderBy("updatedAt", "desc").onSnapshot(async snap => {
+        const container = document.getElementById("dmChatListContainer");
+        container.innerHTML = "";
+        for (const doc of snap.docs) {
+          const c = doc.data();
+          const otherUid = c.members.find(id => id !== me.uid);
+          if (!otherUid) continue;
+
+          const uDoc = await db.collection("users").doc(otherUid).get();
+          const u = uDoc.data() || { username: "User", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50" };
+
+          const item = document.createElement("div");
+          item.className = "dm-chat-item";
+          item.innerHTML = `
+            <div class="dm-chat-left">
+              <img src="${u.avatar}" class="dm-chat-avatar">
+              <div>
+                <div style="font-weight:700; font-size:0.92rem;">${u.fullName || u.username}</div>
+                <div style="font-size:0.75rem; color:var(--muted);">${c.lastMessage || 'Active chat'}</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
+          `;
+          item.onclick = () => openDirectChat(otherUid, u.username, u.avatar);
+          container.appendChild(item);
+        }
+      });
+    }
+
+    function openDirectChat(targetUid, targetUsername, targetAvatar) {
+      activeChatTargetUid = targetUid;
+      activeChatPairId = [me.uid, targetUid].sort().join("_");
+
+      document.getElementById("inboxMainView").style.display = "none";
+      document.getElementById("activeChatWindow").classList.remove("hidden");
+      document.getElementById("chatHeaderAvatar").src = targetAvatar;
+      document.getElementById("chatActiveUserLabel").innerText = "@" + targetUsername;
+
+      // Mark messages as seen when opening
+      db.collection("chats").doc(activeChatPairId).update({ [`seenBy_${me.uid}`]: true }).catch(()=>{});
+
+      if (chatUnsubscribe) chatUnsubscribe();
+      chatUnsubscribe = db.collection("chats").doc(activeChatPairId).collection("messages").orderBy("createdAt", "asc").limit(100).onSnapshot(snap => {
+        const box = document.getElementById("dmMessageList");
+        box.innerHTML = "";
+        snap.forEach(d => {
+          const m = d.data();
+          const isMine = m.senderId === me.uid;
+          const time = m.createdAt ? new Date(m.createdAt.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Just now';
+
+          const row = document.createElement("div");
+          row.className = "dm-bubble-row";
+
+          const bubble = document.createElement("div");
+          bubble.className = `dm-bubble ${isMine ? 'mine' : 'theirs'}`;
+
+          if (m.mediaUrl) {
+            bubble.innerHTML = `<img src="${m.mediaUrl}" onclick="window.open('${m.mediaUrl}')">`;
+          } else {
+            bubble.innerText = m.text;
+          }
+
+          const info = document.createElement("div");
+          info.className = `dm-msg-info ${isMine ? 'mine' : 'theirs'}`;
+          info.innerHTML = `<span>${time}</span> ${isMine && m.seen ? '<span class="dm-seen-status">· Seen</span>' : ''}`;
+
+          row.appendChild(bubble);
+          row.appendChild(info);
+          box.appendChild(row);
+        });
+        box.scrollTop = box.scrollHeight;
+      });
+    }
+
+    function closeActiveChat() {
+      if (chatUnsubscribe) chatUnsubscribe();
+      document.getElementById("activeChatWindow").classList.add("hidden");
+      document.getElementById("inboxMainView").style.display = "flex";
+      activeChatPairId = null;
+    }
+
+    async function sendDirectMessage() {
+      const inp = document.getElementById("dmInputMessage");
+      const text = inp.value.trim();
+      if (!text || !activeChatPairId) return;
+
+      await db.collection("chats").doc(activeChatPairId).collection("messages").add({
+        senderId: me.uid,
+        text: text,
+        seen: false,
+        createdAt: FV.serverTimestamp()
+      });
+
+      await db.collection("chats").doc(activeChatPairId).set({
+        members: [me.uid, activeChatTargetUid],
+        lastMessage: text,
+        updatedAt: FV.serverTimestamp()
+      }, { merge: true });
+
+      inp.value = "";
     }
 
     function triggerChatPhotoPick() { document.getElementById("chatPhotoInputHidden").click(); }
@@ -896,338 +1110,135 @@ nav.bottom-nav {
           await db.collection("chats").doc(activeChatPairId).collection("messages").add({
             senderId: me.uid,
             mediaUrl: url,
-            isVanish: isVanishModeActive,
+            seen: false,
             createdAt: FV.serverTimestamp()
           });
-          showToast("Photo delivered!");
+          await db.collection("chats").doc(activeChatPairId).set({
+            members: [me.uid, activeChatTargetUid],
+            lastMessage: "📷 Photo",
+            updatedAt: FV.serverTimestamp()
+          }, { merge: true });
+          showToast("Photo sent!");
         } catch (e) { showToast(e.message); }
       }
     }
 
-    async function toggleVoiceNoteRecord() {
-      const btn = document.getElementById("voiceNoteRecordBtn");
-      if (!voiceRecorder || voiceRecorder.state === "inactive") {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        voiceRecorder = new MediaRecorder(stream);
-        voiceAudioChunks = [];
-        voiceRecorder.ondataavailable = (e) => voiceAudioChunks.push(e.data);
-        voiceRecorder.onstop = async () => {
-          const audioBlob = new Blob(voiceAudioChunks, { type: "audio/webm" });
-          const url = await uploadImageToCloudinary(audioBlob);
-          db.collection("chats").doc(activeChatPairId).collection("messages").add({
-            senderId: me.uid,
-            audioUrl: url,
-            createdAt: FV.serverTimestamp()
-          });
-          showToast("Voice memo sent!");
-        };
-        voiceRecorder.start();
-        btn.style.color = "var(--like)";
-        showToast("Recording voice note...");
-      } else {
-        voiceRecorder.stop();
-        btn.style.color = "var(--muted)";
-      }
-    }
+    // --- UNIVERSAL SEARCH (NAME, USERNAME, CAPTION/BIO) ---
+    async function handleUniversalSearch(q) {
+      const query = q.trim().toLowerCase();
+      const box = document.getElementById("searchResults");
+      box.innerHTML = "";
+      if (!query) return;
 
-    async function sendDirectMessage() {
-      const inp = document.getElementById("dmInputMessage");
-      const text = inp.value.trim();
-      if (!text || !activeChatPairId) return;
+      const [usersSnap, postsSnap] = await Promise.all([
+        db.collection("users").limit(30).get(),
+        db.collection("posts").limit(30).get()
+      ]);
 
-      const isSilent = text.startsWith("@silent");
-      const cleanText = isSilent ? text.replace("@silent", "").trim() : text;
-
-      await db.collection("chats").doc(activeChatPairId).collection("messages").add({
-        senderId: me.uid,
-        text: cleanText,
-        isSilent: isSilent,
-        isVanish: isVanishModeActive,
-        createdAt: FV.serverTimestamp()
-      });
-
-      await db.collection("chats").doc(activeChatPairId).update({
-        updatedAt: FV.serverTimestamp(),
-        lastMessage: cleanText
-      });
-
-      inp.value = "";
-    }
-
-   function listenDMInbox() {
-      db.collection("chats").where("members", "array-contains", me.uid).orderBy("updatedAt", "desc").onSnapshot(async snap => {
-        const container = document.getElementById("dmChatListContainer");
-        container.innerHTML = "";
-        for (const doc of snap.docs) {
-          const c = doc.data();
-          const otherUid = c.members.find(id => id !== me.uid);
-          const uDoc = await db.collection("users").doc(otherUid).get();
-          const u = uDoc.data() || { username: "user", avatar: "https://placehold.co/100" };
-
-          const item = document.createElement("div");
-          item.style.cssText = "display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer;";
-          item.innerHTML = `
-            <img src="${u.avatar}" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
-            <div>
-              <div style="font-weight:700;">@${u.username}</div>
-              <div style="font-size:0.75rem; color:var(--muted);">${c.lastMessage || 'Active chat'}</div>
+      usersSnap.forEach(d => {
+        const u = d.data();
+        if ((u.username && u.username.includes(query)) || (u.fullName && u.fullName.toLowerCase().includes(query))) {
+          const div = document.createElement("div");
+          div.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:10px; background:var(--panel); border-radius:8px; cursor:pointer;";
+          div.innerHTML = `
+            <div style="display:flex; align-items:center; gap:12px;">
+              <img src="${u.avatar}" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
+              <div>
+                <div style="font-weight:700;">@${u.username}</div>
+                <div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div>
+              </div>
             </div>
+            <button class="btn-solid" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="openDirectChat('${d.id}', '${u.username}', '${u.avatar}'); switchNav('messages');">Message</button>
           `;
-          item.onclick = () => openDirectChat(otherUid, u.username, u.avatar);
-          container.appendChild(item);
+          box.appendChild(div);
+        }
+      });
+
+      postsSnap.forEach(d => {
+        const p = d.data();
+        if (p.caption && p.caption.toLowerCase().includes(query)) {
+          const div = document.createElement("div");
+          div.style.cssText = "padding:10px; background:var(--panel); border-radius:8px; cursor:pointer; font-size:0.85rem;";
+          div.innerHTML = `<strong>@${p.authorUsername}</strong>: ${p.caption}`;
+          box.appendChild(div);
         }
       });
     }
 
-    function openDirectChat(targetUid, username, avatar) {
-      activeChatTargetUid = targetUid;
-      activeChatPairId = [me.uid, targetUid].sort().join("_");
-
-      document.getElementById("inboxMainView").style.display = "none";
-      document.getElementById("activeChatWindow").classList.remove("hidden");
-      document.getElementById("chatHeaderAvatar").src = avatar;
-      document.getElementById("chatActiveUserLabel").innerText = "@" + username;
-
-      if (chatUnsubscribe) chatUnsubscribe();
-      chatUnsubscribe = db.collection("chats").doc(activeChatPairId).collection("messages").orderBy("createdAt", "asc").limit(80).onSnapshot(snap => {
-        const box = document.getElementById("dmMessageList");
-        box.innerHTML = "";
-        snap.forEach(d => {
-          const m = d.data();
-          const isMine = m.senderId === me.uid;
-          const bubble = document.createElement("div");
-          bubble.className = `dm-bubble ${isMine ? 'mine' : 'theirs'}`;
-          if (m.mediaUrl) bubble.innerHTML = `<img src="${m.mediaUrl}">`;
-          else if (m.audioUrl) bubble.innerHTML = `<audio src="${m.audioUrl}" controls></audio>`;
-          else bubble.innerText = m.text;
-          box.appendChild(bubble);
-        });
-        box.scrollTop = box.scrollHeight;
-      });
-    }
-
-    function closeActiveChat() {
-      if (isVanishModeActive && activeChatPairId) {
-        db.collection("chats").doc(activeChatPairId).collection("messages").where("isVanish", "==", true).get().then(s => {
-          s.forEach(doc => doc.ref.delete());
-        });
-      }
-      document.getElementById("activeChatWindow").classList.add("hidden");
-      document.getElementById("inboxMainView").style.display = "flex";
-      activeChatPairId = null;
-    }
-
-    // 8. Story Studio with Canvas Drawing & Stickers
-    function triggerStoryPicker() { document.getElementById("storyImageInputHidden").click(); }
-    function onStoryImageSelected(input) {
-      if (input.files && input.files[0]) {
-        pendingStoryFile = input.files[0];
-        document.getElementById("storyEditorImg").src = URL.createObjectURL(pendingStoryFile);
-        document.getElementById("storyStickerMount").innerHTML = "";
-        activeStoryStickers = [];
-        initStoryCanvas();
-        document.getElementById("storyEditorScreen").style.display = "flex";
-      }
-    }
-
-    function closeStoryEditor() {
-      document.getElementById("storyEditorScreen").style.display = "none";
-      pendingStoryFile = null;
-    }
-
-    function initStoryCanvas() {
-      const canvas = document.getElementById("storyDrawCanvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 4;
-      ctx.lineCap = "round";
-
-      let drawing = false;
-      canvas.onmousedown = () => drawing = true;
-      canvas.onmouseup = () => { drawing = false; ctx.beginPath(); };
-      canvas.onmousemove = (e) => {
-        if (!drawing || !isDrawingMode) return;
-        const rect = canvas.getBoundingClientRect();
-        ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-        ctx.stroke();
-      };
-    }
-
-    function toggleDrawCanvas() {
-      isDrawingMode = !isDrawingMode;
-      document.getElementById("storyDrawCanvas").classList.toggle("drawing-active", isDrawingMode);
-      showToast(isDrawingMode ? "Draw brush enabled" : "Draw brush disabled");
-    }
-
-    function promptAddStoryText() {
-      const text = prompt("Text for story:");
-      if (!text) return;
-      const font = STORY_FONTS[storyFontIndex];
-      const div = document.createElement("div");
-      div.className = "story-sticker-overlay";
-      div.style.fontFamily = font;
-      div.innerText = text;
-      document.getElementById("storyStickerMount").appendChild(div);
-      activeStoryStickers.push({ type: "text", content: text });
-    }
-
-    function addStorySticker(type) {
-      const mount = document.getElementById("storyStickerMount");
-      if (type === 'poll') {
-        const q = prompt("Poll question:", "Yes or No?");
-        if (!q) return;
-        const div = document.createElement("div");
-        div.className = "story-sticker-overlay poll-box";
-        div.innerHTML = `<div>${q}</div><button class="poll-opt-btn">Yes</button><button class="poll-opt-btn">No</button>`;
-        mount.appendChild(div);
-        activeStoryStickers.push({ type: "poll", question: q });
-      } else if (type === 'countdown') {
-        const title = prompt("Countdown title:", "Event launch");
-        if (!title) return;
-        const div = document.createElement("div");
-        div.className = "story-sticker-overlay";
-        div.innerHTML = `<div>${title}</div><div style="font-size:1.1rem;">24:00:00</div>`;
-        mount.appendChild(div);
-      }
-    }
-
-    function cycleStoryFont() {
-      storyFontIndex = (storyFontIndex + 1) % STORY_FONTS.length;
-      document.getElementById("storyFontIndicator").innerText = STORY_FONTS[storyFontIndex];
-    }
-
-    function toggleCloseFriendsStory() {
-      isCloseFriendsOnlyStory = !isCloseFriendsOnlyStory;
-      document.getElementById("storyAudienceBadge").innerText = isCloseFriendsOnlyStory ? "Close Friends" : "Everyone";
-      document.getElementById("storyAudienceBadge").style.color = isCloseFriendsOnlyStory ? "var(--green)" : "#fff";
-    }
-
-    function cycleStoryFilter() { showToast("Applied aesthetic color filter"); }
-    function saveStoryLocally() { showToast("Story snapshot saved to gallery."); }
-
-    async function publishStoryStudio() {
-      if (!pendingStoryFile) return;
-      try {
-        showToast("Publishing story...");
-        const url = await uploadImageToCloudinary(pendingStoryFile);
-        await db.collection("stories").add({
-          uid: me.uid,
-          authorUsername: me.username,
-          avatar: me.avatar,
-          mediaUrl: url,
-          isCloseFriends: isCloseFriendsOnlyStory,
-          stickers: activeStoryStickers,
-          viewers: [],
-          createdAt: FV.serverTimestamp()
-        });
-        closeStoryEditor();
-        showToast("Story live for 24 hours!");
-      } catch (e) { showToast(e.message); }
-    }
-
-    function listenStories() {
-      db.collection("stories").orderBy("createdAt", "desc").limit(20).onSnapshot(snap => {
-        const tray = document.getElementById("dynamicStoriesList");
-        tray.innerHTML = "";
-        snap.forEach(doc => {
-          const s = doc.data();
-          const bubble = document.createElement("div");
-          bubble.className = "story-circle";
-          bubble.innerHTML = `
-            <div class="story-ring ${s.isCloseFriends ? 'close-friends-ring' : ''}" onclick='openStoryViewer(${JSON.stringify(s)})'>
-              <img src="${s.avatar}">
-            </div>
-            <span class="story-username">@${s.authorUsername}</span>
-          `;
-          tray.appendChild(bubble);
-        });
-      });
-    }
-
-    function openStoryViewer(data) {
-      document.getElementById("activeStoryViewerImg").src = data.mediaUrl;
-      document.getElementById("activeStoryViewerAvatar").src = data.avatar;
-      document.getElementById("activeStoryViewerName").innerText = "@" + data.authorUsername;
-      document.getElementById("storyViewerScreen").style.display = "flex";
-      document.getElementById("storyProgressAnim").style.width = "100%";
-    }
-
-    function closeStoryViewer() { document.getElementById("storyViewerScreen").style.display = "none"; }
-
-    // 9. Notes Tray & Profile Management
-    function promptCreateThoughtNote() {
-      const note = prompt("Share a thought (up to 60 characters):");
-      if (note) {
-        document.getElementById("myCurrentNoteBubble").innerText = note.slice(0, 20);
-        showToast("Note updated for 24h!");
-      }
-    }
-
-    function listenNotesTray() {
-      document.getElementById("dynamicNotesContainer").innerHTML = `
-        <div class="dm-note-circle">
-          <div class="dm-thought-bubble">Coding WDM ✨</div>
-          <img class="dm-note-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100">
-          <span style="font-size:0.7rem; color:var(--muted); margin-top:4px;">dev_lead</span>
-        </div>
-      `;
-    }
-
-    function renderLinkTree() {
-      const container = document.getElementById("profileLinkTree");
-      container.innerHTML = (me?.links || []).map(l => `<a href="${l}" target="_blank" class="profile-link-item"><i class="fa-solid fa-link"></i> ${l}</a>`).join("");
-    }
-
+    // --- EDIT PROFILE & PHOTO ADJUSTER ---
     function openProfileEditModal() {
       document.getElementById("editFullName").value = me.fullName || "";
       document.getElementById("editUsername").value = me.username || "";
-      document.getElementById("editPronouns").value = me.pronouns || "";
       document.getElementById("editBio").value = me.bio || "";
-      document.getElementById("editLinks").value = (me.links || []).join(", ");
       document.getElementById("profileEditModal").classList.add("show");
     }
 
     async function saveProfileChanges() {
       const name = document.getElementById("editFullName").value.trim();
       const uname = document.getElementById("editUsername").value.trim().toLowerCase();
-      const pronouns = document.getElementById("editPronouns").value.trim();
       const bio = document.getElementById("editBio").value.trim();
-      const links = document.getElementById("editLinks").value.split(",").map(l => l.trim()).filter(Boolean);
 
-      const updates = { fullName: name, username: uname, pronouns, bio, links };
+      if (!name || !uname) return showToast("Name and User ID are required.");
+      const updates = { fullName: name, username: uname, bio: bio };
       await db.collection("users").doc(me.uid).update(updates);
       me = { ...me, ...updates };
 
       document.getElementById("profileFullnameDisplay").innerText = name;
       document.getElementById("profileUsernameDisplay").innerText = "@" + uname;
-      document.getElementById("profilePronounsDisplay").innerText = pronouns ? `(${pronouns})` : "";
       document.getElementById("profileBioDisplay").innerText = bio;
-      renderLinkTree();
 
       closeModal("profileEditModal");
       showToast("Profile updated!");
     }
 
     function pickAvatarImage() { document.getElementById("avatarImageInputHidden").click(); }
-    async function onAvatarImagePicked(input) {
+    function onAvatarImageSelected(input) {
       if (input.files && input.files[0]) {
-        try {
-          showToast("Updating photo...");
-          const url = await uploadImageToCloudinary(input.files[0]);
-          await db.collection("users").doc(me.uid).update({ avatar: url });
-          me.avatar = url;
-          document.getElementById("profileUserAvatar").src = url;
-          document.getElementById("navProfileThumb").src = url;
-          showToast("Profile photo updated!");
-        } catch (e) { showToast(e.message); }
+        pendingAvatarFile = input.files[0];
+        document.getElementById("cropPreviewImg").src = URL.createObjectURL(pendingAvatarFile);
+        document.getElementById("avatarAdjustModal").classList.add("show");
       }
     }
 
-    function createStoryHighlight() {
-      const title = prompt("Highlight Title:", "Moments");
-      if (title) showToast(`Highlight "${title}" created.`);
+    function adjustAvatarZoom(scale) {
+      document.getElementById("cropPreviewImg").style.transform = `scale(${scale})`;
+    }
+
+    async function confirmAvatarUpload() {
+      if (!pendingAvatarFile) return;
+      try {
+        showToast("Uploading adjusted photo...");
+        const url = await uploadImageToCloudinary(pendingAvatarFile);
+        await db.collection("users").doc(me.uid).update({ avatar: url });
+        me.avatar = url;
+        document.getElementById("profileUserAvatar").src = url;
+        document.getElementById("myStoryAvatar").src = url;
+        document.getElementById("navProfileThumb").src = url;
+        closeModal("avatarAdjustModal");
+        showToast("Profile photo updated!");
+      } catch (e) { showToast(e.message); }
+    }
+      // --- CLOSE FRIENDS LIST SETUP ---
+    function manageCloseFriendsList() {
+      const f = prompt("Enter User IDs for Close Friends list (comma-separated):", (me.closeFriends || []).join(", "));
+      if (f !== null) {
+        const arr = f.split(",").map(s => s.trim().replace(/^@/, "")).filter(Boolean);
+        db.collection("users").doc(me.uid).update({ closeFriends: arr });
+        me.closeFriends = arr;
+        showToast("Close Friends list saved!");
+      }
+    }
+
+    // --- HELPER ROUTER & UTILITIES ---
+    function formatTimeAgo(date) {
+      if (!date) return "Just now";
+      const seconds = Math.floor((new Date() - date) / 1000);
+      if (seconds < 60) return `${seconds}s`;
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes}m`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h`;
+      return `${Math.floor(hours / 24)}d`;
     }
 
     async function loadProfileData() {
@@ -1236,7 +1247,7 @@ nav.bottom-nav {
       document.getElementById("statFollowersCount").innerText = (me.followers || []).length;
       document.getElementById("statFollowingCount").innerText = (me.following || []).length;
 
-      const grid = document.getElementById("profileGridContainer");
+      const grid = document.getElementById("profileGridList");
       grid.innerHTML = "";
       snap.forEach(d => {
         const p = d.data();
@@ -1247,79 +1258,41 @@ nav.bottom-nav {
       });
     }
 
-    function setProfileTab(tab) {
-      document.querySelectorAll(".profile-tab-btn").forEach(b => b.classList.remove("active"));
-      if (tab === 'grid') document.getElementById("tabProfileGrid").classList.add("active");
-      if (tab === 'reels') document.getElementById("tabProfileReels").classList.add("active");
-      if (tab === 'tagged') document.getElementById("tabProfileTagged").classList.add("active");
-    }
-
-    // 10. Universal Search & Navigation
-    async function handleUniversalSearch(q) {
-      const box = document.getElementById("searchResults");
-      box.innerHTML = "";
-      if (!q.trim()) return;
-
-      const snap = await db.collection("users").limit(15).get();
-      snap.forEach(d => {
-        const u = d.data();
-        if (u.username?.includes(q.toLowerCase())) {
-          const div = document.createElement("div");
-          div.style.cssText = "display:flex; align-items:center; gap:12px; padding:8px; background:var(--panel); border-radius:8px;";
-          div.innerHTML = `<img src="${u.avatar}" style="width:36px; height:36px; border-radius:50%;"><div><strong>@${u.username}</strong><div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div></div>`;
-          div.onclick = () => {
-            switchNav('messages');
-            openDirectChat(d.id, u.username, u.avatar);
-          };
-          box.appendChild(div);
-        }
-      });
-    }
-
     function switchNav(tab) {
-      document.getElementById("feedSection").classList.toggle("hidden", tab !== 'feed');
-      document.getElementById("feedFilterBar").classList.toggle("hidden", tab !== 'feed');
+      pushNavState(tab);
+      renderNavSection(tab, true);
+    }
+
+    function renderNavSection(tab, updateActive) {
       document.getElementById("storiesTray").classList.toggle("hidden", tab !== 'feed');
+      document.getElementById("feedSection").classList.toggle("hidden", tab !== 'feed');
       document.getElementById("searchSection").classList.toggle("hidden", tab !== 'search');
-      document.getElementById("reelsSection").classList.toggle("hidden", tab !== 'reels');
       document.getElementById("messagesSection").classList.toggle("hidden", tab !== 'messages');
       document.getElementById("activitySection").classList.toggle("hidden", tab !== 'activity');
       document.getElementById("profileSection").classList.toggle("hidden", tab !== 'profile');
 
       document.getElementById("headerProfileMenu").classList.toggle("hidden", tab !== 'profile');
+      document.getElementById("headerHeart").classList.toggle("hidden", tab === 'profile');
+      document.getElementById("headerMsg").classList.toggle("hidden", tab === 'profile');
+
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
       document.getElementById("navProfileThumb").classList.remove("active");
 
       if (tab === 'feed') document.getElementById("tabHome").classList.add("active");
       if (tab === 'search') document.getElementById("tabSearch").classList.add("active");
-      if (tab === 'reels') { document.getElementById("tabReels").classList.add("active"); renderReelsFeed(); }
-      if (tab === 'profile') { document.getElementById("navProfileThumb").classList.add("active"); loadProfileData(); }
-    }
-
-    function openSettingsModal() { document.getElementById("settingsCenterModal").classList.add("show"); }
-    function toggle2FA() {
-      me.twoFactor = !me.twoFactor;
-      document.getElementById("lbl2FAStatus").innerText = me.twoFactor ? "Enabled" : "Disabled";
-      showToast("2FA Status: " + (me.twoFactor ? "Enabled" : "Disabled"));
-    }
-    function manageHiddenWords() {
-      const words = prompt("Enter custom banned words separated by comma:", (me.hiddenWords || []).join(", "));
-      if (words) {
-        me.hiddenWords = words.split(",").map(w => w.trim());
-        db.collection("users").doc(me.uid).update({ hiddenWords: me.hiddenWords });
-        showToast("Banned keywords filter updated!");
+      if (tab === 'messages') document.getElementById("tabMessages").classList.add("active");
+      if (tab === 'profile') {
+        document.getElementById("navProfileThumb").classList.add("active");
+        loadProfileData();
       }
     }
-    function toggleTakeABreakTimer() {
-      const timer = document.getElementById("lblBreakTimer");
-      timer.innerText = timer.innerText === "Off" ? "Every 30 Mins" : "Off";
-      showToast("Screen time alert: " + timer.innerText);
-    }
+
     function shareProfileLink() {
       navigator.clipboard.writeText(location.origin + location.pathname + "#user=" + me.username);
       showToast("Profile link copied!");
     }
-    function toggleProfileAudio() { showToast("Playing pinned 30s profile track..."); }
+
+    function openSettingsModal() { document.getElementById("settingsModal").classList.add("show"); }
     function logout() { auth.signOut().then(() => location.reload()); }
     function closeModal(id) { document.getElementById(id).classList.remove("show"); }
   </script>
