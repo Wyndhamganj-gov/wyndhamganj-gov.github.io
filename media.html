@@ -19,18 +19,20 @@
 :root {
   --bg: #000000;
   --panel: #121212;
+  --panel-elevated: #1a1a1a;
   --line: #262626;
   --txt: #f5f5f5;
   --muted: #8e8e8e;
   --accent: #0095f6;
   --like: #ff3040;
+  --blue-dot: #0095f6;
   --story-grad: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
 body { background: var(--bg); color: var(--txt); min-height: 100vh; padding-bottom: 56px; overflow-x: hidden; }
 
-/* Header */
+/* Top Header */
 header.app-header {
   position: sticky; top: 0; z-index: 50;
   background: rgba(0,0,0,0.92); backdrop-filter: blur(14px);
@@ -42,10 +44,10 @@ header.app-header {
 .head-actions { display: flex; align-items: center; gap: 18px; font-size: 1.25rem; }
 .head-actions i { cursor: pointer; }
 
-/* Main wrap */
+/* Layout Wrap */
 .main-wrap { max-width: 600px; margin: 0 auto; }
 
-/* Stories Tray */
+/* Stories Bar */
 .stories-tray {
   display: flex; gap: 14px; padding: 12px 14px;
   overflow-x: auto; border-bottom: 1px solid var(--line);
@@ -108,51 +110,67 @@ nav.bottom-nav {
   flex: 1; padding: 8px; background: var(--panel); border: 1px solid var(--line);
   color: var(--txt); border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
 }
-.profile-actions-bar button.btn-follow { background: var(--accent); color: #fff; border: none; }
-.profile-actions-bar button.btn-following { background: #262626; color: var(--txt); }
 .profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
 .grid-cell { aspect-ratio: 1; background: #161616; overflow: hidden; cursor: pointer; position: relative; }
 .grid-cell img { width: 100%; height: 100%; object-fit: cover; }
+.grid-pin-badge { position: absolute; top: 6px; right: 6px; font-size: 0.75rem; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
 
-/* Direct Messages & Inbox */
-.dm-wrap { display: flex; flex-direction: column; height: calc(100vh - 115px); }
-.dm-search-bar { padding: 10px 14px; border-bottom: 1px solid var(--line); }
-.dm-inbox-list { flex: 1; overflow-y: auto; padding: 10px 14px; display: flex; flex-direction: column; gap: 8px; }
-.inbox-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; background: var(--panel); border-radius: 10px; cursor: pointer; }
-.inbox-item-left { display: flex; align-items: center; gap: 12px; }
-.inbox-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
-.dm-active-window { display: flex; flex-direction: column; flex: 1; height: 100%; }
+/* Highlights Bar */
+.highlights-tray { display: flex; gap: 14px; padding: 6px 0 16px; overflow-x: auto; scrollbar-width: none; }
+.highlights-tray::-webkit-scrollbar { display: none; }
+.highlight-item { display: flex; flex-direction: column; align-items: center; width: 62px; flex-shrink: 0; cursor: pointer; }
+.highlight-ring { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--line); padding: 2px; }
+.highlight-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.highlight-title { font-size: 0.72rem; color: var(--txt); margin-top: 4px; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Direct Messages & Notes Layout (Screenshot 1) */
+.dm-screen-wrap { display: flex; flex-direction: column; height: calc(100vh - 110px); }
+.dm-header-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; font-weight: 700; font-size: 1.15rem; }
+.dm-notes-bar { display: flex; gap: 16px; padding: 10px 16px; overflow-x: auto; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+.note-avatar-box { width: 64px; height: 64px; border-radius: 50%; position: relative; }
+.note-avatar-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.note-bubble-float {
+  position: absolute; top: -10px; left: -4px; background: #262626; color: #fff;
+  font-size: 0.7rem; padding: 3px 8px; border-radius: 12px; white-space: nowrap; border: 1px solid #333;
+}
+.dm-tabs-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px 8px; font-weight: 700; }
+.dm-tab-requests-link { color: var(--accent); font-size: 0.9rem; cursor: pointer; }
+
+.dm-chat-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; cursor: pointer; }
+.dm-chat-left { display: flex; align-items: center; gap: 12px; }
+.dm-chat-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.blue-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-dot); }
+
+/* 1-on-1 Chat Window */
+.dm-active-window { display: flex; flex-direction: column; height: 100%; flex: 1; }
 .dm-list { flex: 1; overflow-y: auto; padding: 12px; }
 .dm-bubble { max-width: 75%; padding: 9px 13px; border-radius: 18px; font-size: 0.88rem; margin-bottom: 8px; word-break: break-word; }
 .dm-bubble.mine { background: var(--accent); color: #fff; align-self: flex-end; margin-left: auto; }
 .dm-bubble.theirs { background: var(--panel); border: 1px solid var(--line); color: var(--txt); align-self: flex-start; margin-right: auto; }
-.dm-input-bottom { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--bg); }
+.dm-bubble img { max-width: 100%; border-radius: 12px; display: block; margin-top: 4px; cursor: pointer; }
+.dm-input-bottom { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--bg); }
 
-/* Common Modals */
-.modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
-.modal-mask.show { display: flex; }
-.modal-sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
-.modal-sheet-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-weight: 700; font-size: 1.05rem; }
-.field-group { margin-bottom: 12px; }
-.field-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
-.field-input { width: 100%; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); padding: 11px 12px; border-radius: 8px; font-size: 0.9rem; outline: none; }
-.field-input:focus { border-color: var(--accent); }
-.btn-solid { width: 100%; background: var(--accent); color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.92rem; }
-.btn-google { width: 100%; background: #fff; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
-
-  /* Story Screens */
+/* Story Editor Screen (Screenshot 2) */
 .story-editor-screen { position: fixed; inset: 0; background: #000; z-index: 150; display: none; flex-direction: column; justify-content: space-between; }
-.story-editor-top { display: flex; justify-content: space-between; align-items: center; padding: 16px; }
-.story-editor-tools { position: absolute; right: 14px; top: 70px; display: flex; flex-direction: column; gap: 14px; background: rgba(0,0,0,0.5); padding: 10px 8px; border-radius: 20px; }
-.tool-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 0.7rem; color: #fff; cursor: pointer; }
-.tool-btn i { font-size: 1.25rem; }
-.story-editor-preview { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.story-editor-top { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; }
+.audio-suggested-pill {
+  display: flex; align-items: center; gap: 8px; background: rgba(30,30,30,0.85);
+  border: 1px solid #444; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; color: #fff;
+}
+.story-tools-rail {
+  position: absolute; right: 14px; top: 70px; display: flex; flex-direction: column; gap: 14px;
+  background: rgba(0,0,0,0.5); padding: 12px 8px; border-radius: 24px; backdrop-filter: blur(8px);
+}
+.rail-tool-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 0.68rem; color: #fff; cursor: pointer; }
+.rail-tool-item i { font-size: 1.25rem; }
+.story-editor-preview { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .story-editor-preview img { width: 100%; height: 100%; object-fit: contain; }
 .story-editor-bottom { padding: 16px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
 .story-post-actions { display: flex; align-items: center; justify-content: space-between; }
 .pill-btn { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px; background: #262626; color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+.next-circle-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; }
 
-/* Story Fullscreen Viewer */
+/* Fullscreen Viewer */
 .story-viewer-screen { position: fixed; inset: 0; background: #000; z-index: 200; display: none; flex-direction: column; }
 .story-progress-bar-wrap { display: flex; gap: 4px; padding: 10px 14px 6px; }
 .story-progress-segment { flex: 1; height: 2px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
@@ -165,6 +183,18 @@ nav.bottom-nav {
 .story-viewer-foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px 16px; background: rgba(0,0,0,0.85); }
 .story-activity-drawer { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 250; display: none; align-items: flex-end; }
 .story-activity-sheet { background: var(--panel); width: 100%; max-height: 75vh; border-radius: 16px 16px 0 0; border-top: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+
+/* Modals */
+.modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
+.modal-mask.show { display: flex; }
+.modal-sheet { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
+.modal-fullscreen { position: fixed; inset: 0; background: var(--bg); z-index: 120; display: none; flex-direction: column; overflow-y: auto; }
+.modal-fullscreen.show { display: flex; }
+.field-group { margin-bottom: 12px; }
+.field-group label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
+.field-input { width: 100%; background: #1c1c1c; border: 1px solid var(--line); color: var(--txt); padding: 11px 12px; border-radius: 8px; font-size: 0.9rem; outline: none; }
+.btn-solid { width: 100%; background: var(--accent); color: #fff; border: none; padding: 11px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.92rem; }
+.btn-google { width: 100%; background: #fff; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
 
 #toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #222; border: 1px solid var(--line); color: #fff; padding: 10px 16px; border-radius: 20px; font-size: 0.82rem; z-index: 300; display: none; }
 .hidden { display: none !important; }
@@ -206,26 +236,68 @@ nav.bottom-nav {
 
     <!-- Search View -->
     <section id="searchSection" class="hidden" style="padding:14px;">
-      <input type="text" id="searchInput" class="field-input" placeholder="Search people by name or username..." oninput="handleInstantSearch(this.value)">
+      <input type="text" id="searchInput" class="field-input" placeholder="Search people by username..." oninput="handleInstantSearch(this.value)">
       <div id="searchResults" style="margin-top:14px; display:flex; flex-direction:column; gap:8px;"></div>
     </section>
 
-    <!-- Direct Messages View -->
-    <section id="messagesSection" class="hidden dm-wrap">
-      <!-- Search bar inside messages -->
-      <div class="dm-search-bar">
-        <input type="text" id="chatSearchInput" class="field-input" placeholder="Search direct messages..." oninput="filterChatDirectory(this.value)">
-      </div>
+    <!-- Direct Messages View (Screenshot 1 Layout) -->
+    <section id="messagesSection" class="hidden dm-screen-wrap">
+      
+      <!-- Inbox Screen -->
+      <div id="inboxMainView" style="display:flex; flex-direction:column; flex:1; overflow-y:auto;">
+        <div class="dm-header-top">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span id="dmHeaderUsername">Username</span>
+            <i class="fa-solid fa-chevron-down" style="font-size:0.8rem;"></i>
+          </div>
+          <i class="fa-regular fa-pen-to-square" style="cursor:pointer;" onclick="switchNav('search')"></i>
+        </div>
 
-      <!-- Conversations History / Inbox -->
-      <div id="inboxView" style="display:flex; flex-direction:column; flex:1; overflow-y:auto;">
-        <div style="padding:10px 14px 4px; font-size:0.8rem; color:var(--muted); font-weight:600;">MESSAGES</div>
-        <div class="dm-inbox-list" id="dmInboxContainer">
-          <div style="text-align:center; padding:40px 10px; color:var(--muted);">No conversations yet. Tap search or a user profile to start chatting!</div>
+        <div style="padding:0 16px 10px;">
+          <input type="text" class="field-input" placeholder="Search direct messages..." oninput="filterChatDirectory(this.value)" style="border-radius:18px; padding:8px 14px;">
+        </div>
+
+        <!-- Notes Bar -->
+        <div class="dm-notes-bar">
+          <div style="display:flex; flex-direction:column; align-items:center; width:64px; flex-shrink:0; cursor:pointer;" onclick="promptCreateNote()">
+            <div class="note-avatar-box">
+              <span class="note-bubble-float" id="myNoteLabel">Note...</span>
+              <img id="myNoteAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100">
+            </div>
+            <span style="font-size:0.72rem; color:var(--muted); margin-top:4px;">Your note</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; align-items:center; width:64px; flex-shrink:0;">
+            <div class="note-avatar-box" style="background:#1a2332; display:flex; align-items:center; justify-content:center;">
+              <i class="fa-solid fa-earth-americas" style="font-size:1.8rem; color:#4a90e2;"></i>
+            </div>
+            <span style="font-size:0.72rem; color:var(--muted); margin-top:4px;">Map</span>
+          </div>
+        </div>
+
+        <!-- Messages & Requests Navigation Tabs -->
+        <div class="dm-tabs-row">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span>Messages</span>
+            <i class="fa-solid fa-volume-high" style="font-size:0.85rem; color:var(--muted);"></i>
+          </div>
+          <span class="dm-tab-requests-link" id="dmRequestsTabBtn" onclick="toggleDMRequestsView(true)">Requests</span>
+        </div>
+
+        <!-- Primary Messages List -->
+        <div id="dmPrimaryChatList"></div>
+
+        <!-- Requests Messages List (Hidden by default) -->
+        <div id="dmRequestsChatList" class="hidden">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 16px; background:#181818;">
+            <span style="font-size:0.85rem; font-weight:700;">Message Requests</span>
+            <span style="color:var(--accent); font-size:0.8rem; cursor:pointer;" onclick="toggleDMRequestsView(false)">Back to Messages</span>
+          </div>
+          <div id="dmRequestsContainer"></div>
         </div>
       </div>
 
-      <!-- Active 1-on-1 Chat Window -->
+      <!-- 1-on-1 Active Chat Window -->
       <div id="activeChatWindow" class="hidden dm-active-window">
         <div style="padding:8px 14px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;">
           <div style="display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="viewCurrentChatUserProfile()">
@@ -239,12 +311,15 @@ nav.bottom-nav {
         </div>
         <div class="dm-list" id="dmMessageList"></div>
         <div class="dm-input-bottom">
-          <input type="text" id="dmInputMessage" class="field-input" placeholder="Write a message..." onkeypress="if(event.key==='Enter') sendDirectMessage()">
+          <i class="fa-regular fa-image" style="font-size:1.35rem; color:var(--muted); cursor:pointer;" onclick="triggerChatPhotoPick()"></i>
+          <input type="text" id="dmInputMessage" class="field-input" placeholder="Message..." onkeypress="if(event.key==='Enter') sendDirectMessage()">
           <button class="btn-solid" style="width:auto; padding:0 18px;" onclick="sendDirectMessage()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
       </div>
+
     </section>
-      <!-- Activity Section -->
+
+    <!-- Activity Section -->
     <section id="activitySection" class="hidden" style="padding:16px;">
       <h3 style="font-size:1.1rem; margin-bottom:14px;">Activity</h3>
       <div id="activityItemsList" style="display:flex; flex-direction:column; gap:10px;"></div>
@@ -287,19 +362,26 @@ nav.bottom-nav {
   <input type="file" id="postImageInputHidden" accept="image/*" style="display:none;" onchange="onPostImagePicked(this)">
   <input type="file" id="storyImageInputHidden" accept="image/*" style="display:none;" onchange="onStoryImageSelected(this)">
   <input type="file" id="avatarImageInputHidden" accept="image/*" style="display:none;" onchange="onAvatarImagePicked(this)">
+  <input type="file" id="chatPhotoInputHidden" accept="image/*" style="display:none;" onchange="onChatPhotoPicked(this)">
 
   <!-- MODALS -->
 
-  <!-- 1. Public User Profile Modal (When clicking on any other user) -->
-  <div class="modal-mask" id="otherUserProfileModal">
-    <div class="modal-sheet" style="padding:16px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <span style="font-weight:700; font-size:1rem;" id="otherProfileHeaderTitle">@user</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:1.2rem;" onclick="closeModal('otherUserProfileModal')"></i>
+  <!-- Fullscreen Other User Profile (Screenshot 3 Replica) -->
+  <div class="modal-fullscreen" id="otherUserProfileModal">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:10;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <i class="fa-solid fa-arrow-left" style="font-size:1.2rem; cursor:pointer;" onclick="closeModal('otherUserProfileModal')"></i>
+        <span style="font-weight:700; font-size:1.1rem;" id="otherProfileHeaderTitle">username</span>
+        <i class="fa-solid fa-circle-check" style="color:var(--accent); font-size:0.9rem;"></i>
       </div>
+      <i class="fa-solid fa-ellipsis-vertical" style="font-size:1.2rem; cursor:pointer;" onclick="showToast('Profile options')"></i>
+    </div>
 
+    <div style="padding:16px;">
       <div class="profile-top-row">
-        <img id="otherProfileAvatar" class="profile-img-lg" src="">
+        <div style="position:relative; width:84px; height:84px; border-radius:50%; padding:3px; background:var(--story-grad);">
+          <img id="otherProfileAvatar" style="width:100%; height:100%; border-radius:50%; object-fit:cover; border:2px solid #000;" src="">
+        </div>
         <div class="profile-stats-box">
           <div><div class="profile-num" id="otherStatPosts">0</div><div class="profile-lbl">posts</div></div>
           <div><div class="profile-num" id="otherStatFollowers">0</div><div class="profile-lbl">followers</div></div>
@@ -307,61 +389,88 @@ nav.bottom-nav {
         </div>
       </div>
 
-      <div class="profile-bio">
-        <div style="font-weight:700;" id="otherProfileName">Name</div>
-        <div style="color:var(--muted); margin-bottom:4px;" id="otherProfileHandle">@username</div>
-        <div id="otherProfileBioText">Bio details...</div>
+      <div style="margin-bottom:8px;">
+        <div style="font-weight:700; font-size:0.95rem;" id="otherProfileName">Name</div>
+        <div style="font-size:0.75rem; color:#ff4458; margin:2px 0 6px;" id="otherFollowsYouBadge"><i class="fa-solid fa-user-xmark"></i> Does not follow you</div>
+        <div style="font-size:0.85rem; line-height:1.4;" id="otherProfileBioText">Bio details...</div>
+        <div style="font-size:0.85rem; color:var(--accent); margin-top:4px;" id="otherProfileLinkText"><i class="fa-solid fa-link"></i> https://wdm.portal</div>
       </div>
 
-      <div class="profile-actions-bar">
-        <button id="btnOtherProfileFollow" class="btn-follow" onclick="toggleFollowTargetUser()">Follow</button>
+      <div class="profile-actions-bar" style="margin-top:14px;">
+        <button id="btnOtherProfileFollow" class="btn-solid" onclick="toggleFollowTargetUser()">Follow</button>
         <button onclick="startChatFromOtherProfile()">Message</button>
+        <button onclick="showToast('Contact options')">Contact</button>
       </div>
 
-      <div style="font-size:0.8rem; color:var(--muted); font-weight:700; margin-bottom:6px;">POSTS</div>
+      <button style="width:100%; padding:7px; background:var(--panel); border:1px solid var(--line); color:var(--txt); border-radius:8px; font-weight:600; font-size:0.82rem; margin-bottom:14px;" onclick="showToast('More profile options')">More profile options</button>
+
+      <!-- Highlights -->
+      <div class="highlights-tray">
+        <div class="highlight-item">
+          <div class="highlight-ring"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=100"></div>
+          <span class="highlight-title">Highlights 1</span>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-ring"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=100"></div>
+          <span class="highlight-title">Moments</span>
+        </div>
+      </div>
+
+      <!-- Post Grid -->
+      <div style="display:flex; border-top:1px solid var(--line); margin-bottom:2px;">
+        <div style="flex:1; text-align:center; padding:10px 0; border-bottom:2px solid #fff;"><i class="fa-solid fa-table-cells"></i></div>
+      </div>
       <div class="profile-grid" id="otherProfileGrid"></div>
     </div>
   </div>
 
-  <!-- 2. Post Detail View Modal -->
-  <div class="modal-mask" id="postDetailModal">
-    <div class="modal-sheet" style="max-width:500px; padding:12px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <i class="fa-solid fa-arrow-left" style="cursor:pointer; font-size:1.1rem;" onclick="closeModal('postDetailModal')"></i>
-        <span style="font-weight:700;">Post</span>
-        <i class="fa-solid fa-trash" id="postOwnerDeleteBtn" style="cursor:pointer; color:var(--like); display:none;" onclick="deleteDetailPost()"></i>
-      </div>
-      <div id="postDetailCardContent"></div>
-    </div>
-  </div>
-
-  <!-- 3. Story Editor Screen -->
+  <!-- Story Editor Screen (Screenshot 2 Replica) -->
   <div class="story-editor-screen" id="storyEditorScreen">
     <div class="story-editor-top">
-      <i class="fa-solid fa-xmark" style="color:#fff; font-size:1.4rem; cursor:pointer;" onclick="closeStoryEditor()"></i>
-      <div style="color:#fff; font-size:0.85rem; font-weight:600;" id="editorMusicLabel"></div>
+      <i class="fa-solid fa-arrow-left" style="color:#fff; font-size:1.3rem; cursor:pointer;" onclick="closeStoryEditor()"></i>
+      <div class="audio-suggested-pill" id="suggestedAudioPill">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=50" style="width:18px; height:18px; border-radius:50%;">
+        <span id="suggestedSongLabel">Trending Audio</span>
+        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="removeStoryAudio()"></i>
+      </div>
     </div>
-    <div class="story-editor-tools">
-      <div class="tool-btn" onclick="applyStoryText()"><i class="fa-solid fa-font"></i><span>Text</span></div>
-      <div class="tool-btn" onclick="openMusicPicker()"><i class="fa-solid fa-music"></i><span>Music</span></div>
-      <div class="tool-btn" onclick="cycleStoryFilter()"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Effects</span></div>
+
+    <!-- Vertical Side Tools Rail (Exact Screenshot 2 Tools) -->
+    <div class="story-tools-rail">
+      <div class="rail-tool-item" onclick="applyStoryText()"><i class="fa-solid fa-font"></i><span>Text</span></div>
+      <div class="rail-tool-item" onclick="applyStorySticker()"><i class="fa-regular fa-face-smile"></i><span>Stickers</span></div>
+      <div class="rail-tool-item" onclick="openMusicPicker()"><i class="fa-solid fa-music"></i><span>Music</span></div>
+      <div class="rail-tool-item" onclick="cycleStoryFilter()"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Restyle</span></div>
+      <div class="rail-tool-item" onclick="cycleStoryFilter()"><i class="fa-solid fa-certificate"></i><span>Effects</span></div>
+      <div class="rail-tool-item" onclick="applyStoryMention()"><i class="fa-solid fa-at"></i><span>Mention</span></div>
+      <div class="rail-tool-item" onclick="showToast('Draw mode')"><i class="fa-solid fa-signature"></i><span>Draw</span></div>
+      <div class="rail-tool-item" onclick="saveStoryLocally()"><i class="fa-solid fa-arrow-down"></i><span>Save</span></div>
+      <div class="rail-tool-item" onclick="showToast('AI Label applied')"><i class="fa-regular fa-square-check"></i><span>Label AI</span></div>
+      <div class="rail-tool-item" onclick="showToast('More options')"><i class="fa-solid fa-ellipsis"></i><span>More</span></div>
     </div>
+
     <div class="story-editor-preview">
       <img id="storyEditorImg" src="">
       <div id="storyOverlayText" style="position:absolute; color:#fff; font-size:1.3rem; font-weight:700; text-shadow:0 2px 8px #000; pointer-events:none;"></div>
     </div>
+
     <div class="story-editor-bottom">
-      <input type="text" id="storyCaptionInput" class="field-input" placeholder="Add a caption..." style="margin-bottom:12px;">
+      <input type="text" id="storyCaptionInput" class="field-input" placeholder="Add a caption..." style="margin-bottom:14px; background:transparent; border:none; border-bottom:1px solid #444; border-radius:0;">
       <div class="story-post-actions">
-        <div class="pill-btn" onclick="publishStoryToFirebase()">
+        <div class="pill-btn" onclick="publishStoryToFirebase(false)">
           <img id="editorMiniAvatar" src="" style="width:20px; height:20px; border-radius:50%;">
-          <span>Share to Story</span>
+          <span>Your story</span>
         </div>
+        <div class="pill-btn" style="background:#0e3a1f; color:#31a24c;" onclick="publishStoryToFirebase(true)">
+          <i class="fa-solid fa-star"></i>
+          <span>Close Friends</span>
+        </div>
+        <div class="next-circle-btn" onclick="publishStoryToFirebase(false)"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
     </div>
   </div>
 
-  <!-- 4. Story Fullscreen Viewer -->
+  <!-- Story Fullscreen Viewer -->
   <div class="story-viewer-screen" id="storyViewerScreen">
     <div class="story-progress-bar-wrap">
       <div class="story-progress-segment"><div class="story-progress-active" id="storyProgressAnim"></div></div>
@@ -389,7 +498,7 @@ nav.bottom-nav {
     </div>
   </div>
 
-  <!-- 5. Story Activity Drawer -->
+  <!-- Story Activity Drawer -->
   <div class="story-activity-drawer" id="storyActivityDrawer">
     <div class="story-activity-sheet">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
@@ -406,7 +515,8 @@ nav.bottom-nav {
       <button class="btn-solid" style="background:#262626; margin-top:14px;" onclick="closeStoryActivityDrawer()">Close</button>
     </div>
   </div>
-  <!-- 6. Auth Modal -->
+
+  <!-- Auth Modal -->
   <div class="modal-mask" id="authGatewayModal">
     <div class="modal-sheet">
       <div class="modal-sheet-head"><span id="authHeaderTitle">Welcome to WDM</span></div>
@@ -422,7 +532,7 @@ nav.bottom-nav {
       <div id="loginFields" style="display:none;">
         <div class="field-group"><label>Email or User ID *</label><input type="text" id="loginIdentifier" class="field-input" placeholder="Registered Email or User ID"></div>
       </div>
-      <div class="field-group"><label>Password *</label><input type="password" id="authPassword" class="field-input" placeholder="Password (Minimum 6 characters)"></div>
+      <div class="field-group"><label>Password *</label><input type="password" id="authPassword" class="field-input" placeholder="Password (e.g. Minimum 6 characters)"></div>
       <div id="loginRecoveryLinks" style="display:none; justify-content:space-between; margin-bottom:12px; font-size:0.78rem;">
         <a href="#" style="color:var(--accent); text-decoration:none;" onclick="openForgotPassModal(); return false;">Forgot Password?</a>
       </div>
@@ -432,18 +542,7 @@ nav.bottom-nav {
     </div>
   </div>
 
-  <!-- 7. Edit Profile Modal -->
-  <div class="modal-mask" id="profileEditModal">
-    <div class="modal-sheet">
-      <div class="modal-sheet-head"><span>Edit Profile</span><i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('profileEditModal')"></i></div>
-      <div class="field-group"><label>Full Name</label><input type="text" id="editFullName" class="field-input"></div>
-      <div class="field-group"><label>User ID</label><input type="text" id="editUsername" class="field-input"></div>
-      <div class="field-group"><label>Bio</label><textarea id="editBio" class="field-input" rows="2"></textarea></div>
-      <button class="btn-solid" onclick="saveProfileChanges()">Save Changes</button>
-    </div>
-  </div>
-
-  <!-- 8. Post Create Modal -->
+  <!-- Post Create Modal -->
   <div class="modal-mask" id="postCreateModal">
     <div class="modal-sheet">
       <div class="modal-sheet-head"><span>New Photo Post</span><i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('postCreateModal')"></i></div>
@@ -453,13 +552,24 @@ nav.bottom-nav {
     </div>
   </div>
 
-  <!-- 9. Forgot Password Modal -->
+  <!-- Forgot Password Modal -->
   <div class="modal-mask" id="forgotPassModal">
     <div class="modal-sheet">
       <div class="modal-sheet-head"><span>Reset Password</span><i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('forgotPassModal')"></i></div>
       <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Enter your registered Gmail address to receive the password reset link.</p>
       <div class="field-group"><label>Registered Gmail *</label><input type="email" id="resetEmailInput" class="field-input" placeholder="your-email@gmail.com"></div>
       <button class="btn-solid" onclick="sendPasswordResetLink()">Send Reset Link</button>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal-mask" id="profileEditModal">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head"><span>Edit Profile</span><i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('profileEditModal')"></i></div>
+      <div class="field-group"><label>Full Name</label><input type="text" id="editFullName" class="field-input"></div>
+      <div class="field-group"><label>User ID</label><input type="text" id="editUsername" class="field-input"></div>
+      <div class="field-group"><label>Bio</label><textarea id="editBio" class="field-input" rows="2"></textarea></div>
+      <button class="btn-solid" onclick="saveProfileChanges()">Save Changes</button>
     </div>
   </div>
 
@@ -489,16 +599,14 @@ nav.bottom-nav {
     let authMode = "register";
     let pendingPostFile = null;
     let pendingStoryFile = null;
-    let activeDetailPostId = null;
     let activeStoryData = null;
     let storyProgressInterval = null;
     let storyFilterIndex = 0;
-    const STORY_FILTERS = ["none", "contrast(1.2) brightness(1.1)", "grayscale(1)", "sepia(0.6)"];
+    const STORY_FILTERS = ["none", "contrast(1.2) brightness(1.1)", "grayscale(1)", "sepia(0.6)", "hue-rotate(45deg)"];
 
-    // DM & Profile Navigation State
+    // DM & Profile State
     let activeChatPairId = null;
     let activeChatTargetUid = null;
-    let activeChatTargetUsername = "";
     let chatUnsubscribe = null;
     let viewingOtherUserUid = null;
 
@@ -616,8 +724,10 @@ nav.bottom-nav {
       document.getElementById("profileFullnameDisplay").innerText = me.fullName || "User";
       document.getElementById("profileUsernameDisplay").innerText = "@" + me.username;
       document.getElementById("profileBioDisplay").innerText = me.bio || "";
+      document.getElementById("dmHeaderUsername").innerText = me.username;
       document.getElementById("profileUserAvatar").src = me.avatar;
       document.getElementById("myStoryAvatar").src = me.avatar;
+      document.getElementById("myNoteAvatar").src = me.avatar;
       document.getElementById("navProfileThumb").src = me.avatar;
       document.getElementById("editorMiniAvatar").src = me.avatar;
 
@@ -627,7 +737,7 @@ nav.bottom-nav {
       listenDMInbox();
     }
 
-       // --- CLOUDINARY UPLOADER ---
+    // --- CLOUDINARY UPLOADER ---
     async function uploadImageToCloudinary(file) {
       if (!file.type.startsWith("image/")) throw new Error("Only images are allowed!");
       const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
@@ -640,7 +750,7 @@ nav.bottom-nav {
       return data.secure_url;
     }
 
-    // --- FEED WITH ALGORITHM (Following & Followers First) ---
+    // --- FEED (Followers/Following Priority) ---
     function listenFeed() {
       db.collection("posts").orderBy("createdAt", "desc").limit(60).onSnapshot(snap => {
         const feed = document.getElementById("postsFeed");
@@ -652,7 +762,6 @@ nav.bottom-nav {
         const myFollowingSet = new Set(me.following || []);
         const myFollowersSet = new Set(me.followers || []);
 
-        // Sort: Followed/Followers users prioritized at top
         allPosts.sort((a, b) => {
           const aPriority = (myFollowingSet.has(a.authorId) || myFollowersSet.has(a.authorId)) ? 1 : 0;
           const bPriority = (myFollowingSet.has(b.authorId) || myFollowersSet.has(b.authorId)) ? 1 : 0;
@@ -678,11 +787,10 @@ nav.bottom-nav {
                 <span class="post-author-name">@${p.authorUsername}</span>
               </div>
             </div>
-            <div class="post-media" onclick="expandPostDetail('${pid}')"><img src="${p.mediaUrl}" loading="lazy"></div>
+            <div class="post-media" onclick="openUserProfile('${p.authorId}')"><img src="${p.mediaUrl}" loading="lazy"></div>
             <div class="post-actions">
               <div class="post-actions-left">
                 <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart ${isLiked ? 'liked' : ''}" onclick="togglePostLike('${pid}')"></i>
-                <i class="fa-regular fa-comment" onclick="expandPostDetail('${pid}')"></i>
                 <i class="fa-regular fa-paper-plane" onclick="sharePostDirect('${pid}')"></i>
               </div>
             </div>
@@ -724,7 +832,7 @@ nav.bottom-nav {
           div.style.cssText = "display:flex; align-items:center; justify-content:space-between; padding:10px; background:var(--panel); border-radius:8px; cursor:pointer;";
           div.innerHTML = `
             <div style="display:flex; align-items:center; gap:12px;">
-              <img src="${u.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
+              <img src="${u.avatar}" style="width:38px; height:38px; border-radius:50%; object-fit:cover;">
               <div>
                 <div style="font-weight:700;">@${u.username}</div>
                 <div style="font-size:0.75rem; color:var(--muted);">${u.fullName}</div>
@@ -738,40 +846,49 @@ nav.bottom-nav {
       });
     }
 
-    // --- PUBLIC USER PROFILE VIEW ---
+    // --- OTHER USER FULLSCREEN PROFILE (Screenshot 3) ---
     async function openUserProfile(targetUid) {
       if (targetUid === me.uid) { switchNav('profile'); return; }
       viewingOtherUserUid = targetUid;
 
       const doc = await db.collection("users").doc(targetUid).get();
-      if (!doc.exists) { showToast("User profile not found."); return; }
+      if (!doc.exists) return;
       const u = doc.data();
 
-      document.getElementById("otherProfileHeaderTitle").innerText = "@" + u.username;
+      document.getElementById("otherProfileHeaderTitle").innerText = u.username;
       document.getElementById("otherProfileAvatar").src = u.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100";
       document.getElementById("otherProfileName").innerText = u.fullName || "User";
-      document.getElementById("otherProfileHandle").innerText = "@" + u.username;
-      document.getElementById("otherProfileBioText").innerText = u.bio || "";
+      document.getElementById("otherProfileBioText").innerText = u.bio || "Member of WDM community.";
       document.getElementById("otherStatFollowers").innerText = (u.followers || []).length;
       document.getElementById("otherStatFollowing").innerText = (u.following || []).length;
+
+      // Status indicator
+      const followsMe = (u.following || []).includes(me.uid);
+      document.getElementById("otherFollowsYouBadge").innerHTML = followsMe
+        ? `<span style="color:#31a24c;"><i class="fa-solid fa-user-check"></i> Follows you</span>`
+        : `<span style="color:#ff4458;"><i class="fa-solid fa-user-xmark"></i> Does not follow you</span>`;
 
       // Follow / Following button state
       const isFollowing = (me.following || []).includes(targetUid);
       const followBtn = document.getElementById("btnOtherProfileFollow");
       followBtn.innerText = isFollowing ? "Following" : "Follow";
-      followBtn.className = isFollowing ? "btn-following" : "btn-follow";
+      followBtn.style.background = isFollowing ? "#262626" : "var(--accent)";
 
       // Load target user's posts
       const postsSnap = await db.collection("posts").where("authorId", "==", targetUid).get();
       document.getElementById("otherStatPosts").innerText = postsSnap.size;
       const grid = document.getElementById("otherProfileGrid");
       grid.innerHTML = "";
+      let index = 0;
       postsSnap.forEach(pd => {
         const p = pd.data();
         const cell = document.createElement("div");
         cell.className = "grid-cell";
-        cell.innerHTML = `<img src="${p.mediaUrl}">`;
-        cell.onclick = () => expandPostDetail(pd.id);
+        cell.innerHTML = `
+          <img src="${p.mediaUrl}">
+          ${index === 0 ? '<div class="grid-pin-badge"><i class="fa-solid fa-thumbtack"></i></div>' : ''}
+        `;
+        index++;
         grid.appendChild(cell);
       });
 
@@ -794,24 +911,21 @@ nav.bottom-nav {
           if (!me.following) me.following = [];
           me.following.push(targetUid);
 
-          // Send notification
           db.collection("notifications").add({
             receiverId: targetUid,
             text: `@${me.username} started following you.`,
             createdAt: FV.serverTimestamp()
           });
         }
-
-        // Refresh UI
         openUserProfile(targetUid);
         showToast(isFollowing ? "Unfollowed" : "Followed successfully!");
-      } catch (e) { showToast("Follow error: " + e.message); }
+      } catch (e) { showToast(e.message); }
     }
 
     function startChatFromOtherProfile() {
       closeModal("otherUserProfileModal");
       const targetUid = viewingOtherUserUid;
-      const doc = db.collection("users").doc(targetUid).get().then(d => {
+      db.collection("users").doc(targetUid).get().then(d => {
         if (d.exists) {
           switchNav('messages');
           openDirectChat(targetUid, d.data().username, d.data().avatar);
@@ -819,18 +933,34 @@ nav.bottom-nav {
       });
     }
 
-    // --- 1-ON-1 MESSAGING & INBOX CHAT HISTORY ---
+    // --- DIRECT MESSAGES, REQUESTS & INBOX (Screenshot 1) ---
     function makeChatId(a, b) { return [a, b].sort().join("_"); }
+
+    function promptCreateNote() {
+      const note = prompt("Share a thought (up to 30 characters):");
+      if (note) {
+        document.getElementById("myNoteLabel").innerText = note.slice(0, 20);
+        showToast("Note updated!");
+      }
+    }
+
+    function toggleDMRequestsView(showRequests) {
+      document.getElementById("dmPrimaryChatList").classList.toggle("hidden", showRequests);
+      document.getElementById("dmRequestsChatList").classList.toggle("hidden", !showRequests);
+    }
 
     function listenDMInbox() {
       db.collection("chats").where("members", "array-contains", me.uid).orderBy("updatedAt", "desc").onSnapshot(async snap => {
-        const container = document.getElementById("dmInboxContainer");
-        if (snap.empty) {
-          container.innerHTML = '<div style="text-align:center; padding:40px 10px; color:var(--muted);">No conversations yet. Tap search or a user profile to start chatting!</div>';
-          return;
-        }
+        const primaryBox = document.getElementById("dmPrimaryChatList");
+        const requestsBox = document.getElementById("dmRequestsContainer");
+        const requestsTabBtn = document.getElementById("dmRequestsTabBtn");
 
-        container.innerHTML = "";
+        primaryBox.innerHTML = "";
+        requestsBox.innerHTML = "";
+
+        let requestsCount = 0;
+        const myFollowingSet = new Set(me.following || []);
+
         for (const doc of snap.docs) {
           const chat = doc.data();
           const otherUid = chat.members.find(id => id !== me.uid);
@@ -839,35 +969,48 @@ nav.bottom-nav {
           const uDoc = await db.collection("users").doc(otherUid).get();
           const otherUser = uDoc.exists ? uDoc.data() : { username: "User", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50" };
 
+          // Message Request logic: If other user initiated and I don't follow them back
+          const isRequest = chat.lastSenderId === otherUid && !myFollowingSet.has(otherUid) && !chat.isAccepted;
+
           const item = document.createElement("div");
-          item.className = "inbox-item";
+          item.className = "dm-chat-item";
           item.innerHTML = `
-            <div class="inbox-item-left">
-              <img src="${otherUser.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}" class="inbox-avatar">
+            <div class="dm-chat-left">
+              <img src="${otherUser.avatar}" class="dm-chat-avatar">
               <div>
-                <div style="font-weight:700; font-size:0.9rem;">@${otherUser.username}</div>
-                <div style="font-size:0.75rem; color:var(--muted);">${chat.lastMessage || 'Active conversation'}</div>
+                <div style="font-weight:700; font-size:0.92rem;">${otherUser.fullName || otherUser.username}</div>
+                <div style="font-size:0.75rem; color:var(--muted);">${chat.lastMessage || 'Active chat'}</div>
               </div>
             </div>
-            <i class="fa-solid fa-chevron-right" style="color:var(--muted); font-size:0.8rem;"></i>
+            <div class="blue-status-dot"></div>
           `;
-          item.onclick = () => openDirectChat(otherUid, otherUser.username, otherUser.avatar);
-          container.appendChild(item);
+          item.onclick = () => openDirectChat(otherUid, otherUser.username, otherUser.avatar, isRequest);
+
+          if (isRequest) {
+            requestsCount++;
+            requestsBox.appendChild(item);
+          } else {
+            primaryBox.appendChild(item);
+          }
+        }
+
+        requestsTabBtn.innerText = requestsCount > 0 ? `Requests (${requestsCount})` : "Requests";
+        if (primaryBox.innerHTML === "") {
+          primaryBox.innerHTML = '<div style="text-align:center; padding:30px; color:var(--muted); font-size:0.85rem;">No active chats. Use search or profile to start conversation!</div>';
         }
       });
     }
 
-    function openDirectChat(targetUid, targetUsername, targetAvatar) {
+    function openDirectChat(targetUid, targetUsername, targetAvatar, isPendingRequest) {
       activeChatTargetUid = targetUid;
-      activeChatTargetUsername = targetUsername;
       activeChatPairId = makeChatId(me.uid, targetUid);
 
-      document.getElementById("inboxView").style.display = "none";
+      document.getElementById("inboxMainView").style.display = "none";
       document.getElementById("activeChatWindow").classList.remove("hidden");
-      document.getElementById("chatHeaderAvatar").src = targetAvatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50";
-      document.getElementById("chatActiveUserLabel").innerText = "@" + targetUsername;
+      document.getElementById("chatHeaderAvatar").src = targetAvatar;
+      document.getElementById("chatActiveUserLabel").innerText = targetUsername;
 
-      // Ensure Chat Room document exists
+      // Ensure room exists
       db.collection("chats").doc(activeChatPairId).set({
         members: [me.uid, targetUid],
         updatedAt: FV.serverTimestamp()
@@ -879,9 +1022,16 @@ nav.bottom-nav {
         box.innerHTML = "";
         snap.forEach(d => {
           const m = d.data();
+          const isMine = m.senderId === me.uid;
           const el = document.createElement("div");
-          el.className = `dm-bubble ${m.senderId === me.uid ? 'mine' : 'theirs'}`;
-          el.innerText = m.text;
+          el.className = `dm-bubble ${isMine ? 'mine' : 'theirs'}`;
+
+          if (m.text && m.text.startsWith("[IMG]:")) {
+            const imgUrl = m.text.replace("[IMG]:", "");
+            el.innerHTML = `<img src="${imgUrl}" onclick="window.open('${imgUrl}')">`;
+          } else {
+            el.innerText = m.text;
+          }
           box.appendChild(el);
         });
         box.scrollTop = box.scrollHeight;
@@ -891,7 +1041,7 @@ nav.bottom-nav {
     function closeActiveChat() {
       if (chatUnsubscribe) chatUnsubscribe();
       document.getElementById("activeChatWindow").classList.add("hidden");
-      document.getElementById("inboxView").style.display = "flex";
+      document.getElementById("inboxMainView").style.display = "flex";
       activeChatPairId = null;
     }
 
@@ -919,18 +1069,46 @@ nav.bottom-nav {
       inp.value = "";
     }
 
-    async function filterChatDirectory(term) {
-      if (!term.trim()) { listenDMInbox(); return; }
+    // Chat Image Attachment
+    function triggerChatPhotoPick() { document.getElementById("chatPhotoInputHidden").click(); }
+    async function onChatPhotoPicked(input) {
+      if (input.files && input.files[0] && activeChatPairId) {
+        try {
+          showToast("Sending photo...");
+          const url = await uploadImageToCloudinary(input.files[0]);
+          await db.collection("chats").doc(activeChatPairId).collection("messages").add({
+            senderId: me.uid,
+            text: "[IMG]:" + url,
+            createdAt: FV.serverTimestamp()
+          });
+          await db.collection("chats").doc(activeChatPairId).update({
+            updatedAt: FV.serverTimestamp(),
+            lastMessage: "Shared a photo",
+            lastSenderId: me.uid
+          });
+          showToast("Photo sent!");
+        } catch (e) { showToast(e.message); }
+      }
+    }
+
+    function filterChatDirectory(term) {
+      if (!term.trim()) return;
       handleInstantSearch(term);
       switchNav('search');
     }
 
-    // --- STORIES & ACTIVITY VIEWS ---
+    // --- STORY CREATION & EDITOR (Screenshot 2) ---
     function triggerStoryPicker() { document.getElementById("storyImageInputHidden").click(); }
     function onStoryImageSelected(input) {
       if (input.files && input.files[0]) {
         pendingStoryFile = input.files[0];
         document.getElementById("storyEditorImg").src = URL.createObjectURL(pendingStoryFile);
+        document.getElementById("storyEditorImg").style.filter = "none";
+        document.getElementById("storyOverlayText").innerText = "";
+        document.getElementById("storyCaptionInput").value = "";
+        document.getElementById("storyAudioPlayer").pause();
+        document.getElementById("suggestedSongLabel").innerText = "Trending Audio";
+        document.getElementById("suggestedAudioPill").style.display = "flex";
         document.getElementById("storyEditorScreen").style.display = "flex";
       }
     }
@@ -941,25 +1119,48 @@ nav.bottom-nav {
       pendingStoryFile = null;
     }
 
+    function removeStoryAudio() {
+      document.getElementById("storyAudioPlayer").pause();
+      document.getElementById("suggestedAudioPill").style.display = "none";
+      showToast("Audio removed");
+    }
+
     function applyStoryText() {
       const t = prompt("Enter text overlay:");
       if (t) document.getElementById("storyOverlayText").innerText = t;
     }
 
+    function applyStorySticker() {
+      const s = prompt("Choose sticker (🔥, ❤️, ✨, 📍 WDM, 👑):", "🔥");
+      if (s) document.getElementById("storyOverlayText").innerText += " " + s;
+    }
+
+    function applyStoryMention() {
+      const u = prompt("Enter username to mention (@username):");
+      if (u) document.getElementById("storyOverlayText").innerText += " @" + u.replace(/^@/, "");
+    }
+
     function cycleStoryFilter() {
       storyFilterIndex = (storyFilterIndex + 1) % STORY_FILTERS.length;
       document.getElementById("storyEditorImg").style.filter = STORY_FILTERS[storyFilterIndex];
+      showToast("Filter style applied!");
     }
 
     function openMusicPicker() {
-      showToast("Music track attached!");
-      document.getElementById("editorMusicLabel").innerHTML = `<i class="fa-solid fa-music"></i> Trending Beats`;
+      const song = prompt("Enter song / audio title:", "Chill Acoustic Vibes");
+      if (song) {
+        document.getElementById("suggestedSongLabel").innerText = song;
+        document.getElementById("suggestedAudioPill").style.display = "flex";
+        showToast("Audio attached!");
+      }
     }
 
-    async function publishStoryToFirebase() {
+    function saveStoryLocally() { showToast("Story preview saved to device!"); }
+
+    async function publishStoryToFirebase(isCloseFriends) {
       if (!pendingStoryFile) return;
       try {
-        showToast("Sharing story...");
+        showToast("Sharing your story...");
         const url = await uploadImageToCloudinary(pendingStoryFile);
         const overlay = document.getElementById("storyOverlayText").innerText;
         const caption = document.getElementById("storyCaptionInput").value.trim();
@@ -971,12 +1172,13 @@ nav.bottom-nav {
           mediaUrl: url,
           overlayText: overlay,
           caption: caption,
+          isCloseFriends: Boolean(isCloseFriends),
           viewers: [],
           createdAt: FV.serverTimestamp()
         });
 
         closeStoryEditor();
-        showToast("Story shared for 24 hours!");
+        showToast("Story shared successfully!");
       } catch (e) { showToast(e.message); }
     }
 
@@ -990,7 +1192,7 @@ nav.bottom-nav {
           const bubble = document.createElement("div");
           bubble.className = "story-circle";
           bubble.innerHTML = `
-            <div class="story-ring" onclick='openStoryViewer(${JSON.stringify(s)}, "${sid}")'>
+            <div class="story-ring ${s.isCloseFriends ? 'close-ring' : ''}" onclick='openStoryViewer(${JSON.stringify(s)}, "${sid}")'>
               <img src="${s.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50'}">
             </div>
             <span class="story-username">@${s.authorUsername}</span>
@@ -1007,7 +1209,6 @@ nav.bottom-nav {
       document.getElementById("activeStoryViewerName").innerText = "@" + data.authorUsername;
       document.getElementById("storyViewerScreen").style.display = "flex";
 
-      // Record viewer if viewing someone else's story
       if (data.uid !== me.uid) {
         const alreadyViewed = (data.viewers || []).some(v => v.uid === me.uid);
         if (!alreadyViewed) {
@@ -1078,7 +1279,7 @@ nav.bottom-nav {
       } catch (e) { showToast(e.message); }
     }
 
-    // --- POST DETAILS & DELETE ---
+    // --- POST CREATION ---
     function triggerPostImagePicker() { document.getElementById("postImageInputHidden").click(); }
     function onPostImagePicked(input) {
       if (input.files && input.files[0]) {
@@ -1117,45 +1318,7 @@ nav.bottom-nav {
       } catch (e) { showToast(e.message); } finally { btn.disabled = false; }
     }
 
-    async function expandPostDetail(postId) {
-      activeDetailPostId = postId;
-      const doc = await db.collection("posts").doc(postId).get();
-      if (!doc.exists) return;
-      const p = doc.data();
-
-      document.getElementById("postOwnerDeleteBtn").style.display = p.authorId === me.uid ? "block" : "none";
-      document.getElementById("postDetailCardContent").innerHTML = `
-        <div class="post-meta" style="padding:4px 0 10px;">
-          <div class="post-author" onclick="openUserProfile('${p.authorId}')">
-            <img src="${p.authorAvatar}" class="post-avatar">
-            <span class="post-author-name">@${p.authorUsername}</span>
-          </div>
-        </div>
-        <div class="post-media" style="border-radius:8px;"><img src="${p.mediaUrl}"></div>
-        <div class="post-actions" style="padding:10px 0 6px;">
-          <div class="post-actions-left">
-            <i class="fa-${(p.likes || []).includes(me.uid) ? 'solid' : 'regular'} fa-heart ${(p.likes || []).includes(me.uid) ? 'liked' : ''}" onclick="togglePostLike('${postId}')"></i>
-            <i class="fa-regular fa-paper-plane" onclick="sharePostDirect('${postId}')"></i>
-          </div>
-        </div>
-        <div class="post-stats" style="padding:0;">${(p.likes || []).length} likes</div>
-        <div class="post-caption" style="padding:4px 0;"><strong>@${p.authorUsername}</strong>${p.caption || ""}</div>
-      `;
-      document.getElementById("postDetailModal").classList.add("show");
-    }
-
-    async function deleteDetailPost() {
-      if (!activeDetailPostId) return;
-      if (!confirm("Are you sure you want to delete this post?")) return;
-      try {
-        await db.collection("posts").doc(activeDetailPostId).delete();
-        closeModal("postDetailModal");
-        showToast("Post deleted.");
-        loadProfileData();
-      } catch (e) { showToast(e.message); }
-    }
-
-      // --- PROFILE & SETTINGS ---
+    // --- PROFILE & SETTINGS ---
     async function loadProfileData() {
       const snap = await db.collection("posts").where("authorId", "==", me.uid).get();
       document.getElementById("statPostsCount").innerText = snap.size;
@@ -1169,7 +1332,6 @@ nav.bottom-nav {
         const cell = document.createElement("div");
         cell.className = "grid-cell";
         cell.innerHTML = `<img src="${p.mediaUrl}">`;
-        cell.onclick = () => expandPostDetail(d.id);
         grid.appendChild(cell);
       });
     }
@@ -1184,6 +1346,7 @@ nav.bottom-nav {
           me.avatar = url;
           document.getElementById("profileUserAvatar").src = url;
           document.getElementById("myStoryAvatar").src = url;
+          document.getElementById("myNoteAvatar").src = url;
           document.getElementById("navProfileThumb").src = url;
           showToast("Profile photo updated!");
         } catch (e) { showToast(e.message); }
@@ -1205,7 +1368,7 @@ nav.bottom-nav {
       if (!name || !uname) { showToast("Name and User ID are required."); return; }
       if (uname !== me.username) {
         const check = await db.collection("users").where("username", "==", uname).get();
-        if (!check.empty) { showToast("Username already exists!"); return; }
+        if (!check.empty) { showToast("User ID already exists!"); return; }
       }
 
       const updates = { fullName: name, username: uname, bio: bio, avatar: me.avatar };
@@ -1228,7 +1391,7 @@ nav.bottom-nav {
     function openSettingsModal() { openProfileEditModal(); }
     function logout() { auth.signOut().then(() => location.reload()); }
 
-    // --- NAVIGATION TABS ---
+    // --- NAVIGATION ROUTER ---
     function switchNav(tab) {
       document.getElementById("storiesTray").classList.toggle("hidden", tab !== 'feed');
       document.getElementById("feedSection").classList.toggle("hidden", tab !== 'feed');
