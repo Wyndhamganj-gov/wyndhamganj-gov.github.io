@@ -16,7 +16,7 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Wyndhamganj Butbherwa",
-    "alternateName": ["Wyndhamganj Portal", "WDM"],
+    "alternateName": ["Wyndhamganj Portal", "WDM" , "Wyndhamganj" , "Apna WDM" , "Vindhamganj"],
     "url": "https://wyndhamganj-gov.github.io/",
     "logo": "https://wyndhamganj-gov.github.io/logo.jpg"
   }
@@ -46,8 +46,8 @@
 
   <!-- Targeted Local SEO Meta Tags -->
   <meta name="title" content="Wyndhamganj - Digital Portal">
-  <meta name="description" content="Wyndhamganj,windhamganj,viyndhamganj,vyndhamganj,vindamganj Butbherwa,Butberhwaa, Shiv Nagar, Murisemar, Dharti Dolwa, Salayadih, Dhooma, and Patel Nagar, Sonbhadra UP. E-services, nagar unari, wndhamganj portal.">
-  <meta name="keywords" content="Wyndhamganj, wyndamganj, butberhwa, butbherwa, murisemar, sonbhadra, dharti dolwa, salayadih, dhooma, patel nagar, shiv nagar wyndhamganj, piprahwa dam, duddhi sonbhadra, gram panchayat butbherwa">
+  <meta name="description" content="Wyndhamganj,windhamganj,viyndhamganj,apna wdm,Apna WDM, Apna Windhamganj, vyndhamganj,vindamganj Butbherwa,Butberhwaa, Shiv Nagar, Murisemar, Dharti Dolwa, Salayadih, Dhooma, and Patel Nagar, Sonbhadra UP. E-services, nagar unari, wndhamganj portal.">
+  <meta name="keywords" content="Wyndhamganj,Apna WDM,APNA WYNDHAMGANJ,apna windhamganj, wyndamganj, butberhwa, butbherwa, murisemar, sonbhadra, dharti dolwa, salayadih, dhooma, patel nagar, shiv nagar wyndhamganj, piprahwa dam, duddhi sonbhadra, gram panchayat butbherwa">
   <meta name="robots" content="index, follow">
   <meta name="author" content="The Host - Vivek Kumar">
 
@@ -427,6 +427,67 @@
       color: var(--text-primary); font-size: 0.82rem; outline: none;
     }
 
+    /* APNA WDM DOWNLOAD BOX */
+.apna-download-box {
+    max-width: 450px;
+    margin: 35px auto;
+    padding: 30px 25px;
+    text-align: center;
+    background: linear-gradient(145deg, #151d35, #0b1020);
+    border: 1px solid rgba(120, 100, 255, 0.35);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    transition: all 0.35s ease;
+}
+
+.apna-download-box:hover {
+    transform: translateY(-6px);
+    border-color: #806aff;
+    box-shadow: 0 15px 40px rgba(105,85,255,0.2);
+}
+
+.apna-download-box .download-icon {
+    font-size: 38px;
+    color: #927cff;
+    margin-bottom: 15px;
+}
+
+.apna-download-box h3 {
+    font-size: 23px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.apna-download-box p {
+    color: #aab5ca;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+.apna-download-btn {
+    display: inline-block;
+    padding: 13px 35px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #7055ff, #398cff);
+    color: #fff !important;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.apna-download-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 25px #7055ff66;
+}
+
+.apna-download-box .download-footer {
+    color: #71809b;
+    font-size: 11px;
+    margin-top: 18px;
+}
+
     /* SECTION: WORKING DASHBOARD */
     .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
     .metric-card {
@@ -787,7 +848,33 @@
       </div>
     </div>
   </section>
+  
+<!-- APNA WDM APK DOWNLOAD -->
 
+<div class="apna-download-box">
+
+    <div class="download-icon">
+        <i class="fa-brands fa-android"></i>
+    </div>
+
+    <h3>Download APNA WDM APK</h3>
+
+    <p>
+        Get the official APNA WDM application.
+        Download and enjoy all features.
+    </p>
+
+    <a href="YOUR_APK_DOWNLOAD_LINK"
+       class="apna-download-btn">
+        <i class="fa-solid fa-download"></i>
+        &nbsp; Download
+    </a>
+
+    <div class="download-footer">
+        Official APNA WDM Application
+    </div>
+
+</div>
   <!-- SECTION: VILLAGE MEDIA GALLERY -->
   <section class="section-pad" id="gallery">
     <div class="container">
