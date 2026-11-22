@@ -1,1260 +1,783 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
 
-<meta name="theme-color" content="#0b172a">
+<title>APNA WDM - Download App</title>
 
-<meta name="description" content="Download APNA WDM - Wyndhamganj Digital Community Application. Connect, Explore and Stay Updated.">
-
-<title>Download APNA WDM | Official Application</title>
-
-<!-- FONT AWESOME -->
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<!-- GOOGLE FONT -->
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+<meta name="description" content="Download APNA WDM Android App. Connect with your community, explore services, creators, chat and local marketplace.">
 
 <style>
-
-/* =========================================
-   APNA WDM DOWNLOAD WEBSITE
-   COMPLETE CSS
-========================================= */
-
-:root {
-    --bg: #0b172a;
-    --card: #14243d;
-    --card2: #172b47;
-    --cyan: #35b8ec;
-    --cyan-light: #8bdcff;
-    --white: #ffffff;
-    --muted: #a9bdd4;
-    --border: #9bc6e7;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+:root {
+    --primary: #1769e0;
+    --primary-dark: #0d4fb4;
+    --text: #172033;
+    --muted: #687386;
+    --bg: #f6f8fc;
+    --white: #ffffff;
+    --border: #e7ebf2;
 }
 
 body {
+    font-family: Arial, Helvetica, sans-serif;
     background: var(--bg);
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
+    color: var(--text);
+    line-height: 1.6;
 }
 
-a {
-    text-decoration: none;
-}
+/* HEADER */
 
-button {
-    font-family: inherit;
-}
-
-/* =========================================
-   NAVBAR
-========================================= */
-
-.wdm-navbar {
+header {
     width: 100%;
-    padding: 16px 6%;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.navbar {
+    max-width: 1100px;
+    margin: auto;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #0e1c32;
-    border-bottom: 1px solid #ffffff15;
-    position: relative;
-    z-index: 10;
 }
 
-.wdm-brand {
+.brand {
     display: flex;
     align-items: center;
-    gap: 12px;
-}
-
-.wdm-brand-logo {
-    width: 47px;
-    height: 47px;
-    background: linear-gradient(145deg,#dff8ff,#91d8ff);
-    border: 2px solid white;
-    border-radius: 13px;
-    color: #123454;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 17px;
-    font-weight: 900;
-}
-
-.wdm-brand-text h2 {
-    font-size: 20px;
+    gap: 11px;
+    font-size: 21px;
     font-weight: 800;
     letter-spacing: -0.5px;
 }
 
-.wdm-brand-text p {
+.brand-icon {
+    width: 43px;
+    height: 43px;
+    background: linear-gradient(135deg, #1769e0, #49a1ff);
+    color: white;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    font-weight: 900;
+    box-shadow: 0 5px 14px rgba(23,105,224,0.2);
+}
+
+.nav-label {
+    font-size: 13px;
     color: var(--muted);
-    font-size: 11px;
-    margin-top: 4px;
+    font-weight: 600;
 }
 
-.wdm-nav-badge {
-    font-size: 11px;
-    color: #62e6a6;
-    border: 1px solid #62e6a655;
-    background: #62e6a610;
-    padding: 8px 13px;
-    border-radius: 30px;
-}
+/* MAIN */
 
-/* =========================================
-   MAIN CONTAINER
-========================================= */
-
-.wdm-main {
-    width: 100%;
-    max-width: 1100px;
+.container {
+    max-width: 1000px;
+    padding: 30px 20px 60px;
     margin: auto;
-    padding: 45px 25px 60px;
 }
 
-/* =========================================
-   HERO SECTION
-========================================= */
+/* APP HERO */
 
-.wdm-hero {
-    text-align: center;
-    padding: 25px 10px 35px;
-}
-
-.wdm-hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 17px;
-    border-radius: 30px;
-    background: #35b8ec12;
-    border: 1px solid #35b8ec55;
-    color: var(--cyan-light);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-}
-
-.wdm-hero h1 {
-    font-size: clamp(35px,6vw,60px);
-    font-weight: 800;
-    margin-top: 23px;
-    letter-spacing: -2px;
-    line-height: 1.15;
-}
-
-.wdm-hero h1 span {
-    background: linear-gradient(90deg,#35b8ec,#9cceff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-.wdm-hero-description {
-    max-width: 600px;
-    margin: 17px auto 0;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.9;
-}
-
-/* =========================================
-   APP INFORMATION CARD
-========================================= */
-
-.wdm-app-card {
-    background: linear-gradient(145deg,#172b47,#122139);
+.app-card {
+    background: white;
     border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 30px;
+    border-radius: 22px;
+    padding: 32px;
     display: flex;
     align-items: center;
     gap: 25px;
-    box-shadow: 0 15px 45px #0002;
+    box-shadow: 0 8px 35px rgba(30,50,90,0.045);
 }
 
-.wdm-app-icon {
-    width: 105px;
-    height: 105px;
+.app-icon {
+    width: 112px;
+    height: 112px;
     flex-shrink: 0;
-    border-radius: 23px;
-    background: linear-gradient(145deg,#e9fbff,#9bdcff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #153a60;
-    font-size: 28px;
+    border-radius: 27px;
+    background: linear-gradient(135deg, #1769e0, #55a5ff);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 37px;
     font-weight: 900;
-    border: 3px solid #ffffff;
-    box-shadow: 0 8px 25px #0003;
+    box-shadow: 0 10px 25px rgba(23,105,224,0.2);
 }
 
-.wdm-app-info {
+.app-info {
     flex: 1;
-    min-width: 0;
 }
 
-.wdm-app-info h2 {
-    font-size: 30px;
-    font-weight: 800;
-    margin-bottom: 9px;
+.app-info h1 {
+    font-size: 34px;
+    line-height: 1.2;
+    margin-bottom: 7px;
+    letter-spacing: -1px;
 }
 
-.wdm-app-info > p {
-    color: #b1c4d9;
+.developer {
+    color: var(--primary);
+    font-weight: 700;
     font-size: 14px;
-    line-height: 1.8;
 }
 
-.wdm-app-meta {
+.app-tagline {
+    color: var(--muted);
+    margin-top: 9px;
+    font-size: 14px;
+}
+
+.app-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 19px;
-    margin-top: 18px;
+    margin-top: 17px;
 }
 
-.wdm-app-meta span {
+.meta-item {
     font-size: 12px;
-    color: #c4d7e9;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-}
-
-.wdm-app-meta i {
-    color: var(--cyan);
-}
-
-/* =========================================
-   APP DESCRIPTION
-========================================= */
-
-.wdm-about {
-    margin-top: 35px;
-}
-
-.wdm-section-title {
-    font-size: 23px;
-    font-weight: 750;
-    margin-bottom: 12px;
-}
-
-.wdm-about p {
     color: var(--muted);
-    font-size: 14px;
-    line-height: 2;
 }
 
-/* =========================================
-   DOWNLOAD AREA
-========================================= */
+.meta-item strong {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+}
 
-.wdm-download-card {
-    margin-top: 30px;
-    background: var(--card);
-    border: 1px solid #ffffff18;
-    border-radius: 20px;
+/* DOWNLOAD */
+
+.download-area {
+    margin-top: 25px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
     padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
 }
 
-.wdm-download-top {
-    display: flex;
-    justify-content: space-between;
+.download-text h2 {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.download-text p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.download-btn {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--primary);
+    color: white;
+    padding: 15px 27px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: 0.25s;
+    box-shadow: 0 7px 18px rgba(23,105,224,0.2);
+}
+
+.download-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.download-btn svg {
+    width: 19px;
+    height: 19px;
+}
+
+/* SECTION */
+
+.section {
+    margin-top: 42px;
+}
+
+.section-heading {
     margin-bottom: 18px;
 }
 
-.wdm-download-top h3 {
-    font-size: 18px;
+.section-heading h2 {
+    font-size: 23px;
+    letter-spacing: -0.5px;
 }
 
-.wdm-download-top span {
-    font-size: 11px;
-    color: #65e5a6;
-    background: #65e5a615;
-    padding: 7px 12px;
+.section-heading p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+/* SCREENSHOTS */
+
+.gallery {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 5px 2px 18px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: #c5d1e2 transparent;
+}
+
+.gallery::-webkit-scrollbar {
+    height: 6px;
+}
+
+.gallery::-webkit-scrollbar-thumb {
+    background: #c5d1e2;
     border-radius: 20px;
 }
 
-.wdm-download-btn {
-    display: flex;
+.screenshot {
+    flex: 0 0 220px;
+    scroll-snap-align: start;
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.screenshot:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(20,40,80,0.12);
+}
+
+.screenshot img {
     width: 100%;
-    min-height: 60px;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    border-radius: 13px;
-    background: var(--cyan);
-    color: #061b2e;
-    font-size: 17px;
-    font-weight: 800;
-    transition: .3s;
-    box-shadow: 0 7px 22px #35b8ec22;
+    display: block;
+    aspect-ratio: 9 / 16;
+    object-fit: contain;
+    background: #edf1f7;
 }
 
-.wdm-download-btn:hover {
-    background: #80d9ff;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px #35b8ec44;
-}
-
-.wdm-download-btn i {
-    font-size: 19px;
-}
-
-.wdm-download-note {
-    text-align: center;
-    color: #8fa7c0;
-    font-size: 12px;
-    margin-top: 14px;
-}
-
-/* =========================================
-   FEATURES
-========================================= */
-
-.wdm-features {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 15px;
-    margin-top: 35px;
-}
-
-.wdm-feature {
-    background: var(--card);
-    border: 1px solid #ffffff18;
-    border-radius: 15px;
-    padding: 21px 12px;
-    text-align: center;
-    transition: .3s;
-}
-
-.wdm-feature:hover {
-    border-color: var(--cyan);
-    transform: translateY(-4px);
-}
-
-.wdm-feature i {
-    font-size: 23px;
-    color: var(--cyan);
-    margin-bottom: 13px;
-}
-
-.wdm-feature h4 {
+.caption {
+    padding: 12px;
     font-size: 13px;
-    font-weight: 650;
-    margin-bottom: 6px;
+    font-weight: 700;
+    text-align: center;
 }
 
-.wdm-feature p {
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.6;
-}
+/* FEATURES */
 
-/* =========================================
-   SCREENSHOT GALLERY
-========================================= */
-
-.wdm-gallery {
-    margin-top: 55px;
-}
-
-.wdm-gallery-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    margin-bottom: 22px;
 }
 
-.wdm-gallery-header h2 {
-    font-size: 27px;
+.feature {
+    background: white;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+.feature-icon {
+    font-size: 25px;
     margin-bottom: 8px;
 }
 
-.wdm-gallery-header p {
+.feature h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.feature p {
     color: var(--muted);
-    font-size: 13px;
-    line-height: 1.7;
+    font-size: 12px;
 }
 
-.wdm-gallery-count {
-    color: var(--cyan-light);
-    background: #35b8ec15;
-    border: 1px solid #35b8ec55;
-    padding: 8px 13px;
-    border-radius: 20px;
-    font-size: 11px;
-    white-space: nowrap;
-}
+/* INSTALL */
 
-.wdm-gallery-list {
-    display: flex;
-    gap: 19px;
-    overflow-x: auto;
-    padding: 5px 2px 20px;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--cyan) var(--card);
-}
-
-.wdm-gallery-item {
-    flex: 0 0 225px;
-    min-width: 0;
-    background: var(--card);
+.install-box {
+    background: white;
     border: 1px solid var(--border);
-    border-radius: 19px;
-    padding: 8px;
-    scroll-snap-align: start;
-    transition: .3s;
-    cursor: pointer;
+    padding: 24px;
+    border-radius: 17px;
 }
 
-.wdm-gallery-item:hover {
-    border-color: var(--cyan);
-    transform: translateY(-5px);
+.install-box h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
 }
 
-.wdm-gallery-item img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 717 / 1600;
-    object-fit: cover;
-    object-position: top;
-    background: #071426;
-    border-radius: 12px;
+.install-box ol {
+    padding-left: 20px;
+    color: #536075;
+    font-size: 14px;
 }
 
-.wdm-gallery-item h4 {
-    font-size: 13px;
+.install-box li {
+    margin: 8px 0;
+}
+
+/* FOOTER */
+
+footer {
     text-align: center;
-    padding: 14px 5px 9px;
-    color: #e0edfa;
-    font-weight: 650;
+    padding: 25px 15px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    background: white;
 }
 
-/* =========================================
-   LIGHTBOX / FULLSCREEN IMAGE
-========================================= */
+footer strong {
+    color: var(--text);
+}
 
-.wdm-lightbox {
+/* FULLSCREEN IMAGE */
+
+.lightbox {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(2,8,18,.96);
-    z-index: 99999;
+    background: rgba(5,12,25,0.94);
+    z-index: 100;
     align-items: center;
     justify-content: center;
-    padding: 25px;
+    padding: 20px;
 }
 
-.wdm-lightbox.active {
+.lightbox.active {
     display: flex;
 }
 
-.wdm-lightbox img {
-    max-width: 100%;
+.lightbox img {
+    max-width: 95%;
     max-height: 88vh;
     object-fit: contain;
     border-radius: 10px;
 }
 
-.wdm-lightbox-close {
+.close-btn {
     position: absolute;
-    top: 18px;
+    top: 17px;
     right: 22px;
-    background: #1b304b;
-    border: 1px solid #ffffff40;
-    color: white;
-    width: 43px;
-    height: 43px;
+    background: white;
+    color: #111;
+    border: none;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
-    font-size: 22px;
+    font-size: 26px;
     cursor: pointer;
 }
 
-/* =========================================
-   FOOTER
-========================================= */
+/* RESPONSIVE */
 
-.wdm-footer {
-    margin-top: 55px;
-    border-top: 1px solid #ffffff18;
-    padding: 25px 10px;
-    text-align: center;
-}
+@media (max-width: 650px) {
 
-.wdm-footer h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-
-.wdm-footer p {
-    font-size: 12px;
-    color: #91a6bf;
-    line-height: 1.8;
-}
-
-.wdm-footer strong {
-    color: var(--cyan);
-}
-
-/* =========================================
-   ANIMATIONS
-========================================= */
-
-.wdm-animate {
-    animation: wdmFadeUp .8s ease both;
-}
-
-@keyframes wdmFadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    .navbar {
+        padding: 11px 16px;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media(max-width:850px) {
-
-    .wdm-main {
-        padding: 35px 20px 50px;
+    .brand {
+        font-size: 18px;
     }
 
-    .wdm-features {
-        grid-template-columns: repeat(2,1fr);
+    .brand-icon {
+        width: 39px;
+        height: 39px;
     }
 
-}
-
-/* =========================================
-   MOBILE DESIGN
-========================================= */
-
-@media(max-width:600px) {
-
-    .wdm-navbar {
-        padding: 13px 16px;
-    }
-
-    .wdm-brand-logo {
-        width: 43px;
-        height: 43px;
-        font-size: 15px;
-    }
-
-    .wdm-brand-text h2 {
-        font-size: 17px;
-    }
-
-    .wdm-brand-text p {
-        font-size: 10px;
-    }
-
-    .wdm-nav-badge {
-        font-size: 9px;
-        padding: 7px 9px;
-    }
-
-    .wdm-main {
-        padding: 27px 15px 40px;
-    }
-
-    .wdm-hero {
-        padding: 20px 2px 28px;
-    }
-
-    .wdm-hero h1 {
-        font-size: 37px;
-        letter-spacing: -1.5px;
-    }
-
-    .wdm-hero-description {
-        font-size: 13px;
-        line-height: 1.8;
-        padding: 0 5px;
-    }
-
-    .wdm-app-card {
-        padding: 19px 15px;
-        gap: 14px;
-        border-radius: 18px;
-    }
-
-    .wdm-app-icon {
-        width: 68px;
-        height: 68px;
-        border-radius: 16px;
-        font-size: 19px;
-    }
-
-    .wdm-app-info h2 {
-        font-size: 21px;
-        margin-bottom: 6px;
-    }
-
-    .wdm-app-info > p {
+    .nav-label {
         font-size: 11px;
-        line-height: 1.6;
     }
 
-    .wdm-app-meta {
-        gap: 9px 12px;
-        margin-top: 10px;
+    .container {
+        padding: 20px 14px 40px;
     }
 
-    .wdm-app-meta span {
-        font-size: 10px;
+    .app-card {
+        padding: 21px 17px;
+        gap: 15px;
+        border-radius: 18px;
+        align-items: flex-start;
     }
 
-    .wdm-about {
-        margin-top: 27px;
+    .app-icon {
+        width: 76px;
+        height: 76px;
+        border-radius: 19px;
+        font-size: 27px;
     }
 
-    .wdm-section-title {
-        font-size: 21px;
+    .app-info h1 {
+        font-size: 25px;
     }
 
-    .wdm-about p {
-        font-size: 13px;
-        line-height: 1.9;
-    }
-
-    .wdm-download-card {
-        margin-top: 24px;
-        padding: 19px 15px;
-        border-radius: 17px;
-    }
-
-    .wdm-download-top h3 {
-        font-size: 16px;
-    }
-
-    .wdm-download-btn {
-        min-height: 56px;
-        font-size: 15px;
-    }
-
-    .wdm-features {
-        gap: 11px;
-        margin-top: 25px;
-    }
-
-    .wdm-feature {
-        padding: 18px 7px;
-    }
-
-    .wdm-feature h4 {
+    .app-tagline {
         font-size: 12px;
     }
 
-    .wdm-feature p {
+    .app-meta {
+        gap: 10px 15px;
+        margin-top: 12px;
+    }
+
+    .meta-item {
         font-size: 10px;
     }
 
-    .wdm-gallery {
-        margin-top: 38px;
-    }
-
-    .wdm-gallery-header {
-        align-items: center;
-    }
-
-    .wdm-gallery-header h2 {
-        font-size: 23px;
-    }
-
-    .wdm-gallery-header p {
+    .meta-item strong {
         font-size: 12px;
     }
 
-    .wdm-gallery-count {
-        font-size: 10px;
-        padding: 7px 9px;
+    .download-area {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        gap: 17px;
     }
 
-    .wdm-gallery-list {
-        gap: 13px;
-        margin-right: -15px;
-        padding-right: 15px;
+    .download-btn {
+        width: 100%;
+        padding: 15px;
     }
 
-    .wdm-gallery-item {
-        flex: 0 0 78%;
-        max-width: 290px;
-        border-radius: 17px;
-        padding: 7px;
+    .section {
+        margin-top: 32px;
     }
 
-    .wdm-gallery-item h4 {
-        font-size: 13px;
+    .section-heading h2 {
+        font-size: 20px;
     }
 
-    .wdm-footer {
-        margin-top: 35px;
+    .screenshot {
+        flex-basis: 175px;
     }
 
-}
-
-/* SMALL MOBILE */
-
-@media(max-width:360px) {
-
-    .wdm-app-card {
+    .features {
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
-        padding: 15px 11px;
     }
 
-    .wdm-app-icon {
-        width: 57px;
-        height: 57px;
-        font-size: 16px;
+    .feature {
+        padding: 15px;
     }
 
-    .wdm-app-info h2 {
-        font-size: 19px;
+    .feature h3 {
+        font-size: 13px;
     }
 
-    .wdm-hero h1 {
-        font-size: 32px;
+    .feature p {
+        font-size: 11px;
     }
-
 }
 
+@media (max-width: 370px) {
+    .app-card {
+        flex-direction: column;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
-
 </head>
-
 
 <body>
 
-<!-- =========================================
-     NAVBAR
-========================================= -->
+<!-- HEADER -->
 
-<header class="wdm-navbar">
-
-    <div class="wdm-brand">
-
-        <div class="wdm-brand-logo">
-            WDM
+<header>
+    <div class="navbar">
+        <div class="brand">
+            <div class="brand-icon">A</div>
+            APNA WDM
         </div>
-
-        <div class="wdm-brand-text">
-
-            <h2>APNA WDM</h2>
-
-            <p>Wyndhamganj Digital Community</p>
-
-        </div>
-
+        <div class="nav-label">Official App Download</div>
     </div>
-
-    <div class="wdm-nav-badge">
-        <i class="fa-solid fa-circle-check"></i>
-        Official App
-    </div>
-
 </header>
 
+<main class="container">
 
-<!-- =========================================
-     MAIN WEBSITE
-========================================= -->
+    <!-- APP DETAILS -->
 
-<main class="wdm-main">
+    <section class="app-card">
 
+        <div class="app-icon">A</div>
 
-    <!-- HERO -->
+        <div class="app-info">
+            <h1>APNA WDM</h1>
 
-    <section class="wdm-hero wdm-animate">
+            <div class="developer">APNA WDM Community</div>
 
-        <div class="wdm-hero-tag">
+            <p class="app-tagline">
+                Your Community. Your People. Your Platform.
+            </p>
 
-            <i class="fa-solid fa-mobile-screen-button"></i>
+            <div class="app-meta">
 
-            OFFICIAL APPLICATION
+                <div class="meta-item">
+                    <strong>1.2.0</strong>
+                    Version
+                </div>
 
+                <div class="meta-item">
+                    <strong>Android</strong>
+                    Platform
+                </div>
+
+                <div class="meta-item">
+                    <strong>APK</strong>
+                    File Type
+                </div>
+
+                <div class="meta-item">
+                    <strong>Free</strong>
+                    Download
+                </div>
+
+            </div>
         </div>
-
-        <h1>
-            Welcome to <span>APNA WDM</span>
-        </h1>
-
-        <p class="wdm-hero-description">
-
-            Your Wyndhamganj, One Digital Platform.
-
-            Stay connected with your community,
-            discover local services and explore
-            everything happening around you.
-
-        </p>
 
     </section>
 
+    <!-- DOWNLOAD BUTTON -->
 
-    <!-- APP CARD -->
+    <section class="download-area">
 
-    <section class="wdm-app-card wdm-animate">
-
-        <div class="wdm-app-icon">
-            WDM
+        <div class="download-text">
+            <h2>Download APNA WDM</h2>
+            <p>Get the latest Android APK version 1.2.0.</p>
         </div>
 
-        <div class="wdm-app-info">
+        <a
+            class="download-btn"
+            href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.2.0/ApnaWDMv1.2.0.apk"
+            download
+        >
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <path d="m7 10 5 5 5-5"/>
+                <path d="M12 15V3"/>
+            </svg>
 
-            <h2>Apna WDM</h2>
+            Download APK
+        </a>
 
-            <p>
-                Your local community, news,
-                services and marketplace — all in one app.
-            </p>
+    </section>
 
-            <div class="wdm-app-meta">
+    <!-- SCREENSHOTS -->
 
-                <span>
-                    <i class="fa-brands fa-android"></i>
-                    Android
-                </span>
+    <section class="section">
 
-                <span>
-                    <i class="fa-solid fa-code-branch"></i>
-                    Version 1.2.0
-                </span>
+        <div class="section-heading">
+            <h2>App Screenshots</h2>
+            <p>Explore the APNA WDM application.</p>
+        </div>
 
-                <span>
-                    <i class="fa-solid fa-file-arrow-down"></i>
-                    APK
-                </span>
+        <div class="gallery">
 
+            <div class="screenshot" onclick="openImage(this)">
+                <img src="./apna-wdm-home.jpg.jpeg"
+                     alt="APNA WDM Home Screen">
+                <div class="caption">Home</div>
+            </div>
+
+            <div class="screenshot" onclick="openImage(this)">
+                <img src="./apna-wdm-chat.jpg.jpeg"
+                     alt="APNA WDM Community Chat">
+                <div class="caption">Community Chat</div>
+            </div>
+
+            <div class="screenshot" onclick="openImage(this)">
+                <img src="./apna-wdm-creators.jpg.jpeg"
+                     alt="APNA WDM Creators">
+                <div class="caption">Creators</div>
+            </div>
+
+            <div class="screenshot" onclick="openImage(this)">
+                <img src="./apna-wdm-market.jpg.jpeg"
+                     alt="APNA WDM Market">
+                <div class="caption">Local Market</div>
+            </div>
+
+            <div class="screenshot" onclick="openImage(this)">
+                <img src="./apna-wdm-services.jpg.jpeg"
+                     alt="APNA WDM Services">
+                <div class="caption">Services</div>
             </div>
 
         </div>
 
-    </section>
-
-
-    <!-- ABOUT APP -->
-
-    <section class="wdm-about">
-
-        <h3 class="wdm-section-title">
-            About this app
-        </h3>
-
-        <p>
-
-            Apna WDM is a digital platform created
-            for Wyndhamganj and its surrounding villages.
-
-            Explore community chat, local news,
-            buy and sell marketplace, village services,
-            events, creators, weather, emergency
-            contacts and much more.
-
-            Everything connected in one place.
-
+        <p style="font-size:12px;color:#7a8495;margin-top:5px;">
+            Tip: Swipe left or right to explore screenshots. Tap any image to enlarge.
         </p>
 
     </section>
-
-
-    <!-- DOWNLOAD SECTION -->
-
-    <section class="wdm-download-card">
-
-        <div class="wdm-download-top">
-
-            <h3>Download APNA WDM APK</h3>
-
-            <span>
-                <i class="fa-solid fa-circle-check"></i>
-                Official
-            </span>
-
-        </div>
-
-
-        <a
-          class="wdm-download-btn"
-          href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.2.0/ApnaWDMv1.2.0.apk"
-          download="ApnaWDMv1.2.0.apk">
-
-            <i class="fa-solid fa-download"></i>
-
-            Download APNA WDM
-
-        </a>
-
-
-        <div class="wdm-download-note">
-
-            Version 1.2.0 · Android APK
-
-        </div>
-
-    </section>
-
 
     <!-- FEATURES -->
 
-    <section class="wdm-features">
+    <section class="section">
 
-        <div class="wdm-feature">
-
-            <i class="fa-solid fa-comments"></i>
-
-            <h4>Community Chat</h4>
-
-            <p>Connect with your community.</p>
-
+        <div class="section-heading">
+            <h2>What You Can Explore</h2>
+            <p>Discover different sections of APNA WDM.</p>
         </div>
 
+        <div class="features">
 
-        <div class="wdm-feature">
-
-            <i class="fa-solid fa-store"></i>
-
-            <h4>Buy & Sell</h4>
-
-            <p>Explore the local marketplace.</p>
-
-        </div>
-
-
-        <div class="wdm-feature">
-
-            <i class="fa-solid fa-newspaper"></i>
-
-            <h4>Village News</h4>
-
-            <p>Stay updated with local news.</p>
-
-        </div>
-
-
-        <div class="wdm-feature">
-
-            <i class="fa-solid fa-users"></i>
-
-            <h4>Top Creators</h4>
-
-            <p>Discover local creators.</p>
-
-        </div>
-
-    </section>
-
-
-    <!-- SCREENSHOT GALLERY -->
-
-    <section class="wdm-gallery">
-
-        <div class="wdm-gallery-header">
-
-            <div>
-
-                <h2>App Screenshots</h2>
-
-                <p>
-                    Explore the APNA WDM application.
-                    Swipe to see more.
-                </p>
-
+            <div class="feature">
+                <div class="feature-icon">🏠</div>
+                <h3>Community Home</h3>
+                <p>Explore your community from one place.</p>
             </div>
 
-            <div class="wdm-gallery-count">
-                5 Screens
+            <div class="feature">
+                <div class="feature-icon">💬</div>
+                <h3>Community Chat</h3>
+                <p>Connect and communicate with people.</p>
             </div>
 
-        </div>
-
-
-        <div class="wdm-gallery-list">
-
-
-            <!-- CHAT -->
-
-            <div class="wdm-gallery-item"
-                 data-image="images/apna-wdm-chat.jpg.jpeg">
-
-                <img
-                    src="images/apna-wdm-chat.jpg.jpeg"
-                    alt="APNA WDM Community Chat"
-                    loading="lazy">
-
-                <h4>Community Chat</h4>
-
+            <div class="feature">
+                <div class="feature-icon">🎬</div>
+                <h3>Creators</h3>
+                <p>Discover content and local creators.</p>
             </div>
 
-
-            <!-- MARKET -->
-
-            <div class="wdm-gallery-item"
-                 data-image="images/apna-wdm-market.jpg.jpeg">
-
-                <img
-                    src="images/apna-wdm-market.jpg.jpeg"
-                    alt="APNA WDM Buy and Sell Market"
-                    loading="lazy">
-
-                <h4>Buy & Sell Market</h4>
-
+            <div class="feature">
+                <div class="feature-icon">🛍️</div>
+                <h3>Local Market</h3>
+                <p>Explore local buying and selling.</p>
             </div>
 
-
-            <!-- HOME -->
-
-            <div class="wdm-gallery-item"
-                 data-image="images/apna-wdm-home.jpg.jpeg">
-
-                <img
-                    src="images/apna-wdm-home.jpg.jpeg"
-                    alt="APNA WDM Home Dashboard"
-                    loading="lazy">
-
-                <h4>Home Dashboard</h4>
-
+            <div class="feature">
+                <div class="feature-icon">🛠️</div>
+                <h3>Services</h3>
+                <p>Explore available community services.</p>
             </div>
 
-
-            <!-- SERVICES -->
-
-            <div class="wdm-gallery-item"
-                 data-image="images/apna-wdm-services.jpg.jpeg">
-
-                <img
-                    src="images/apna-wdm-services.jpg.jpeg"
-                    alt="APNA WDM Village Services"
-                    loading="lazy">
-
-                <h4>Village Services</h4>
-
+            <div class="feature">
+                <div class="feature-icon">🌐</div>
+                <h3>One Platform</h3>
+                <p>Stay connected with your community.</p>
             </div>
-
-
-            <!-- CREATORS -->
-
-            <div class="wdm-gallery-item"
-                 data-image="images/apna-wdm-creators.jpg.jpeg">
-
-                <img
-                    src="images/apna-wdm-creators.jpg.jpeg"
-                    alt="APNA WDM Top Creators"
-                    loading="lazy">
-
-                <h4>Top Creators</h4>
-
-            </div>
-
 
         </div>
 
     </section>
 
+    <!-- INSTALLATION GUIDE -->
 
-    <!-- FOOTER -->
+    <section class="section">
 
-    <footer class="wdm-footer">
+        <div class="install-box">
 
-        <h3>APNA WDM</h3>
+            <h2>How to Install?</h2>
 
-        <p>
-            Made for Wyndhamganj.
+            <ol>
+                <li>Tap on the Download APK button.</li>
+                <li>Wait for the APK file to download.</li>
+                <li>Open the downloaded APK file.</li>
+                <li>Follow the Android installation instructions.</li>
+                <li>Open APNA WDM and explore the app.</li>
+            </ol>
 
-            <br>
+            <p style="font-size:12px;color:#7a8495;margin-top:14px;">
+                Android may ask you to review its installation settings
+                before installing an app downloaded outside the Play Store.
+            </p>
 
-            Connecting people, villages and opportunities.
+        </div>
 
-        </p>
-
-        <p style="margin-top:12px">
-
-            © 2026 <strong>APNA WDM</strong>.
-            All Rights Reserved.
-
-        </p>
-
-    </footer>
-
+    </section>
 
 </main>
 
+<!-- FOOTER -->
 
-<!-- =========================================
-     IMAGE FULLSCREEN PREVIEW
-========================================= -->
+<footer>
+    <strong>APNA WDM</strong>
+    <p>Your Community. Your People. Your Platform.</p>
+    <p style="margin-top:7px;">© 2026 APNA WDM. All Rights Reserved.</p>
+</footer>
 
-<div class="wdm-lightbox" id="wdmLightbox">
+<!-- IMAGE FULLSCREEN -->
 
-    <button
-        class="wdm-lightbox-close"
-        id="wdmLightboxClose"
-        aria-label="Close image preview">
+<div class="lightbox" id="lightbox" onclick="closeImage()">
 
-        <i class="fa-solid fa-xmark"></i>
+    <button class="close-btn"
+            onclick="closeImage()"
+            aria-label="Close image">×</button>
 
-    </button>
-
-    <img
-        src=""
-        id="wdmLightboxImage"
-        alt="APNA WDM Screenshot Preview">
+    <img id="lightboxImage" src="" alt="Screenshot Preview">
 
 </div>
 
-
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
-
 <script>
 
-/* =========================================
-   SCREENSHOT FULLSCREEN PREVIEW
-========================================= */
+/* OPEN FULLSCREEN IMAGE */
 
-const wdmGalleryItems =
-document.querySelectorAll('.wdm-gallery-item');
+function openImage(element) {
 
-const wdmLightbox =
-document.getElementById('wdmLightbox');
+    const image = element.querySelector("img");
 
-const wdmLightboxImage =
-document.getElementById('wdmLightboxImage');
+    document.getElementById("lightboxImage").src = image.src;
 
-const wdmLightboxClose =
-document.getElementById('wdmLightboxClose');
+    document.getElementById("lightbox").classList.add("active");
 
-
-/* OPEN IMAGE */
-
-wdmGalleryItems.forEach(function(item) {
-
-    item.addEventListener('click', function() {
-
-        const imagePath = item.dataset.image;
-
-        wdmLightboxImage.src = imagePath;
-
-        wdmLightbox.classList.add('active');
-
-        document.body.style.overflow = 'hidden';
-
-    });
-
-});
-
-
-/* CLOSE IMAGE */
-
-function closeWdmLightbox() {
-
-    wdmLightbox.classList.remove('active');
-
-    wdmLightboxImage.src = '';
-
-    document.body.style.overflow = '';
-
+    document.body.style.overflow = "hidden";
 }
 
+/* CLOSE FULLSCREEN IMAGE */
 
-wdmLightboxClose.addEventListener(
-    'click',
-    closeWdmLightbox
-);
+function closeImage() {
 
+    document.getElementById("lightbox").classList.remove("active");
 
-/* CLOSE ON BACKGROUND CLICK */
+    document.getElementById("lightboxImage").src = "";
 
-wdmLightbox.addEventListener('click', function(event) {
+    document.body.style.overflow = "auto";
+}
 
-    if (event.target === wdmLightbox) {
+/* CLOSE WITH ESCAPE KEY */
 
-        closeWdmLightbox();
+document.addEventListener("keydown", function(event) {
 
+    if (event.key === "Escape") {
+        closeImage();
     }
 
 });
 
+/* PREVENT IMAGE CLICK FROM CLOSING LIGHTBOX */
 
-/* ESCAPE KEY */
-
-document.addEventListener('keydown', function(event) {
-
-    if (event.key === 'Escape') {
-
-        closeWdmLightbox();
-
-    }
-
+document.getElementById("lightboxImage").addEventListener("click", function(event) {
+    event.stopPropagation();
 });
-
-
-/* =========================================
-   IMAGE ERROR HANDLING
-========================================= */
-
-document.querySelectorAll('.wdm-gallery-item img')
-.forEach(function(img) {
-
-    img.addEventListener('error', function() {
-
-        img.alt = 'Screenshot could not be loaded';
-
-        img.style.background = '#172b47';
-
-    });
-
-});
-
-
-/* =========================================
-   END JAVASCRIPT
-========================================= */
 
 </script>
 
-
 </body>
-
 </html>
