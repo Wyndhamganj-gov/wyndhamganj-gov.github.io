@@ -230,58 +230,6 @@ header {
     margin-top: 4px;
 }
 
-/* SCREENSHOTS */
-
-.gallery {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    padding: 5px 2px 18px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    scrollbar-color: #c5d1e2 transparent;
-}
-
-.gallery::-webkit-scrollbar {
-    height: 6px;
-}
-
-.gallery::-webkit-scrollbar-thumb {
-    background: #c5d1e2;
-    border-radius: 20px;
-}
-
-.screenshot {
-    flex: 0 0 220px;
-    scroll-snap-align: start;
-    border-radius: 16px;
-    overflow: hidden;
-    background: white;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: 0.25s;
-}
-
-.screenshot:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(20,40,80,0.12);
-}
-
-.screenshot img {
-    width: 100%;
-    display: block;
-    aspect-ratio: 9 / 16;
-    object-fit: contain;
-    background: #edf1f7;
-}
-
-.caption {
-    padding: 12px;
-    font-size: 13px;
-    font-weight: 700;
-    text-align: center;
-}
-
 /* FEATURES */
 
 .features {
@@ -349,44 +297,6 @@ footer {
 
 footer strong {
     color: var(--text);
-}
-
-/* FULLSCREEN IMAGE */
-
-.lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(5,12,25,0.94);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.lightbox.active {
-    display: flex;
-}
-
-.lightbox img {
-    max-width: 95%;
-    max-height: 88vh;
-    object-fit: contain;
-    border-radius: 10px;
-}
-
-.close-btn {
-    position: absolute;
-    top: 17px;
-    right: 22px;
-    background: white;
-    color: #111;
-    border: none;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    font-size: 26px;
-    cursor: pointer;
 }
 
 /* RESPONSIVE */
@@ -469,10 +379,6 @@ footer strong {
         font-size: 20px;
     }
 
-    .screenshot {
-        flex-basis: 175px;
-    }
-
     .features {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
@@ -500,6 +406,7 @@ footer strong {
         grid-template-columns: 1fr;
     }
 }
+
 </style>
 </head>
 
@@ -509,11 +416,16 @@ footer strong {
 
 <header>
     <div class="navbar">
+
         <div class="brand">
             <div class="brand-icon">A</div>
             APNA WDM
         </div>
-        <div class="nav-label">Official App Download</div>
+
+        <div class="nav-label">
+            Official App Download
+        </div>
+
     </div>
 </header>
 
@@ -526,9 +438,12 @@ footer strong {
         <div class="app-icon">A</div>
 
         <div class="app-info">
+
             <h1>APNA WDM</h1>
 
-            <div class="developer">APNA WDM Community</div>
+            <div class="developer">
+                APNA WDM Community
+            </div>
 
             <p class="app-tagline">
                 Your Community. Your People. Your Platform.
@@ -557,6 +472,7 @@ footer strong {
                 </div>
 
             </div>
+
         </div>
 
     </section>
@@ -566,8 +482,13 @@ footer strong {
     <section class="download-area">
 
         <div class="download-text">
+
             <h2>Download APNA WDM</h2>
-            <p>Get the latest Android APK version 1.2.0.</p>
+
+            <p>
+                Get the latest Android APK version 1.2.0.
+            </p>
+
         </div>
 
         <a
@@ -575,65 +496,20 @@ footer strong {
             href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.2.0/ApnaWDMv1.2.0.apk"
             download
         >
+
             <svg viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round">
+
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <path d="m7 10 5 5 5-5"/>
                 <path d="M12 15V3"/>
+
             </svg>
 
             Download APK
+
         </a>
-
-    </section>
-
-    <!-- SCREENSHOTS -->
-
-    <section class="section">
-
-        <div class="section-heading">
-            <h2>App Screenshots</h2>
-            <p>Explore the APNA WDM application.</p>
-        </div>
-
-        <div class="gallery">
-
-            <div class="screenshot" onclick="openImage(this)">
-                <img src="./apna-wdm-home.jpg.jpeg"
-                     alt="APNA WDM Home Screen">
-                <div class="caption">Home</div>
-            </div>
-
-            <div class="screenshot" onclick="openImage(this)">
-                <img src="./apna-wdm-chat.jpg.jpeg"
-                     alt="APNA WDM Community Chat">
-                <div class="caption">Community Chat</div>
-            </div>
-
-            <div class="screenshot" onclick="openImage(this)">
-                <img src="./apna-wdm-creators.jpg.jpeg"
-                     alt="APNA WDM Creators">
-                <div class="caption">Creators</div>
-            </div>
-
-            <div class="screenshot" onclick="openImage(this)">
-                <img src="./apna-wdm-market.jpg.jpeg"
-                     alt="APNA WDM Market">
-                <div class="caption">Local Market</div>
-            </div>
-
-            <div class="screenshot" onclick="openImage(this)">
-                <img src="./apna-wdm-services.jpg.jpeg"
-                     alt="APNA WDM Services">
-                <div class="caption">Services</div>
-            </div>
-
-        </div>
-
-        <p style="font-size:12px;color:#7a8495;margin-top:5px;">
-            Tip: Swipe left or right to explore screenshots. Tap any image to enlarge.
-        </p>
 
     </section>
 
@@ -642,8 +518,13 @@ footer strong {
     <section class="section">
 
         <div class="section-heading">
+
             <h2>What You Can Explore</h2>
-            <p>Discover different sections of APNA WDM.</p>
+
+            <p>
+                Discover different sections of APNA WDM.
+            </p>
+
         </div>
 
         <div class="features">
@@ -718,66 +599,18 @@ footer strong {
 <!-- FOOTER -->
 
 <footer>
+
     <strong>APNA WDM</strong>
-    <p>Your Community. Your People. Your Platform.</p>
-    <p style="margin-top:7px;">© 2026 APNA WDM. All Rights Reserved.</p>
+
+    <p>
+        Your Community. Your People. Your Platform.
+    </p>
+
+    <p style="margin-top:7px;">
+        © 2026 APNA WDM. All Rights Reserved.
+    </p>
+
 </footer>
-
-<!-- IMAGE FULLSCREEN -->
-
-<div class="lightbox" id="lightbox" onclick="closeImage()">
-
-    <button class="close-btn"
-            onclick="closeImage()"
-            aria-label="Close image">×</button>
-
-    <img id="lightboxImage" src="" alt="Screenshot Preview">
-
-</div>
-
-<script>
-
-/* OPEN FULLSCREEN IMAGE */
-
-function openImage(element) {
-
-    const image = element.querySelector("img");
-
-    document.getElementById("lightboxImage").src = image.src;
-
-    document.getElementById("lightbox").classList.add("active");
-
-    document.body.style.overflow = "hidden";
-}
-
-/* CLOSE FULLSCREEN IMAGE */
-
-function closeImage() {
-
-    document.getElementById("lightbox").classList.remove("active");
-
-    document.getElementById("lightboxImage").src = "";
-
-    document.body.style.overflow = "auto";
-}
-
-/* CLOSE WITH ESCAPE KEY */
-
-document.addEventListener("keydown", function(event) {
-
-    if (event.key === "Escape") {
-        closeImage();
-    }
-
-});
-
-/* PREVENT IMAGE CLICK FROM CLOSING LIGHTBOX */
-
-document.getElementById("lightboxImage").addEventListener("click", function(event) {
-    event.stopPropagation();
-});
-
-</script>
 
 </body>
 </html>
