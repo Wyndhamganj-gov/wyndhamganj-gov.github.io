@@ -1,267 +1,442 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome to Apna WDM</title>
-
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* =================================
+   APNA WDM APP DOWNLOAD SECTION
+================================= */
+
+.apna-app-section {
+    padding: 45px 15px;
+    background: transparent;
+    color: #ffffff;
+    font-family: inherit;
 }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    color: white;
-    background:
-      radial-gradient(circle at 15% 20%, #29205e 0, transparent 35%),
-      radial-gradient(circle at 85% 80%, #102f4e 0, transparent 35%),
-      #070b16;
-    overflow-x: hidden;
+.apna-app-container {
+    max-width: 1050px;
+    margin: auto;
 }
 
-.bg-glow {
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: #684cff;
-    filter: blur(130px);
-    opacity: .22;
-    top: 15%;
-    left: 10%;
-    pointer-events: none;
+/* APP MAIN CARD */
+
+.apna-app-card {
+    background: #14233c;
+    border: 1px solid #9ac8e8;
+    border-radius: 22px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
 }
 
-nav {
+.apna-app-logo {
+    width: 85px;
     height: 85px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 8%;
-    border-bottom: 1px solid #ffffff12;
-    backdrop-filter: blur(15px);
-}
-
-.logo {
-    font-size: 25px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.logo span {
-    color: #8c78ff;
-}
-
-.status {
-    color: #75e6a2;
-    font-size: 12px;
-    border: 1px solid #75e6a255;
-    padding: 8px 15px;
-    border-radius: 30px;
-}
-
-main {
-    min-height: calc(100vh - 145px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 55px 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.tag {
-    background: #7563ff20;
-    color: #ad9fff;
-    padding: 10px 20px;
-    border: 1px solid #7563ff55;
-    border-radius: 30px;
-    font-size: 12px;
-    letter-spacing: 2px;
-    animation: fadeUp 1s ease;
-}
-
-h1 {
-    font-size: clamp(38px, 7vw, 75px);
-    text-align: center;
-    margin-top: 25px;
-    font-weight: 800;
-    animation: fadeUp 1.2s ease;
-}
-
-h1 span {
-    background: linear-gradient(90deg,#8d79ff,#52c8ff);
-    -webkit-background-clip: text;
-    color: transparent;
-}
-
-.subtitle {
-    color: #9ba9c0;
-    text-align: center;
-    max-width: 550px;
-    line-height: 1.8;
-    margin-top: 18px;
-    font-size: 15px;
-    animation: fadeUp 1.4s ease;
-}
-
-.download-card {
-    width: 100%;
-    max-width: 420px;
-    margin-top: 45px;
-    padding: 35px;
-    background: linear-gradient(145deg,#ffffff12,#ffffff05);
-    border: 1px solid #ffffff20;
-    border-radius: 25px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 20px 80px #0008;
-    animation: fadeUp 1.5s ease;
-    transition: .3s;
-}
-
-.download-card:hover {
-    transform: translateY(-7px);
-    border-color: #8271ff;
-}
-
-.app-icon {
-    width: 75px;
-    height: 75px;
-    background: linear-gradient(135deg,#7965ff,#35baff);
-    display: grid;
-    place-items: center;
+    flex-shrink: 0;
     border-radius: 20px;
-    font-size: 35px;
-    box-shadow: 0 10px 35px #7563ff55;
-    margin-bottom: 25px;
+    background: linear-gradient(145deg,#dff7ff,#9ddcff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #102c4c;
+    font-size: 27px;
+    font-weight: 900;
+    border: 3px solid #ffffff;
+    box-shadow: 0 5px 18px #0003;
 }
 
-.download-card h2 {
-    font-size: 26px;
-    margin-bottom: 10px;
+.apna-app-info {
+    flex: 1;
 }
 
-.download-card p {
-    color: #9ba9c0;
+.apna-app-info h2 {
+    font-size: 27px;
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-weight: 750;
+}
+
+.apna-app-info p {
+    color: #aebfd3;
     font-size: 14px;
     line-height: 1.7;
+    margin: 0;
 }
 
-.download-btn {
+.apna-app-meta {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    margin-top: 28px;
-    padding: 17px;
-    background: linear-gradient(90deg,#715cff,#398eff);
-    color: white;
-    border-radius: 13px;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    transition: .3s;
-    box-shadow: 0 8px 25px #6655ff44;
-}
-
-.download-btn:hover {
-    transform: scale(1.04);
-    box-shadow: 0 10px 35px #6655ff88;
-}
-
-.note {
-    text-align: center;
-    margin-top: 20px;
-    color: #8190a9;
-    font-size: 11px;
-}
-
-footer {
-    text-align: center;
-    padding: 22px;
-    color: #66738a;
-    border-top: 1px solid #ffffff12;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 15px;
+    color: #b9cde0;
     font-size: 12px;
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.apna-app-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
+
+/* DOWNLOAD BUTTON */
+
+.apna-download-area {
+    margin-top: 22px;
+}
+
+.apna-download-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 55px;
+    background: #35b8ec;
+    color: #061a2e !important;
+    text-decoration: none !important;
+    border-radius: 13px;
+    font-size: 17px;
+    font-weight: 750;
+    transition: 0.25s ease;
+    box-shadow: 0 5px 18px #35b8ec25;
+}
+
+.apna-download-button:hover {
+    background: #69d0ff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px #35b8ec40;
+}
+
+.apna-download-note {
+    text-align: center;
+    font-size: 12px;
+    color: #91a7c1;
+    margin-top: 12px;
+}
+
+/* SCREENSHOT HEADING */
+
+.apna-screenshot-heading {
+    margin-top: 38px;
+    margin-bottom: 18px;
+}
+
+.apna-screenshot-heading h3 {
+    font-size: 23px;
+    color: #ffffff;
+    margin: 0 0 7px;
+}
+
+.apna-screenshot-heading p {
+    color: #91a7c1;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* SCREENSHOT SCROLL */
+
+.apna-screenshot-list {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 5px 2px 18px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #35b8ec #14233c;
+}
+
+.apna-screenshot-item {
+    flex: 0 0 205px;
+    scroll-snap-align: start;
+    background: #14233c;
+    border: 1px solid #8eb9db;
+    border-radius: 17px;
+    padding: 7px;
+    overflow: hidden;
+    transition: 0.25s;
+}
+
+.apna-screenshot-item:hover {
+    transform: translateY(-4px);
+    border-color: #35b8ec;
+}
+
+.apna-screenshot-item a {
+    display: block;
+    text-decoration: none;
+}
+
+.apna-screenshot-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 717 / 1600;
+    object-fit: cover;
+    border-radius: 11px;
+    background: #0a1528;
+}
+
+.apna-screenshot-caption {
+    text-align: center;
+    padding: 11px 4px 7px;
+    color: #c5d9ed;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* FOOTER */
+
+.apna-app-footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 18px;
+    border-top: 1px solid #ffffff18;
+    color: #8299b4;
+    font-size: 12px;
+}
+
+/* MOBILE RESPONSIVE */
 
 @media(max-width:600px) {
-    nav { padding: 0 6%; }
-    .download-card { padding: 27px; }
-    main { padding: 45px 18px; }
+
+    .apna-app-section {
+        padding: 30px 12px;
+    }
+
+    .apna-app-card {
+        padding: 19px;
+        gap: 14px;
+        border-radius: 17px;
+    }
+
+    .apna-app-logo {
+        width: 65px;
+        height: 65px;
+        border-radius: 15px;
+        font-size: 21px;
+    }
+
+    .apna-app-info h2 {
+        font-size: 21px;
+    }
+
+    .apna-app-info p {
+        font-size: 12px;
+    }
+
+    .apna-app-meta {
+        gap: 10px;
+        font-size: 11px;
+    }
+
+    .apna-screenshot-item {
+        flex-basis: 185px;
+    }
+
+    .apna-screenshot-heading h3 {
+        font-size: 21px;
+    }
 }
 </style>
-</head>
 
-<body>
 
-<div class="bg-glow"></div>
+<!-- =================================
+     APNA WDM APP DOWNLOAD SECTION
+================================= -->
 
-<nav>
-    <div class="logo">APNA <span>WDM.</span></div>
-    <div class="status">● OFFICIAL WEBSITE</div>
-</nav>
+<section class="apna-app-section" id="apna-wdm-download">
 
-<main>
+<div class="apna-app-container">
 
-    <div class="tag">Dowload Now</div>
+    <!-- APP DETAILS -->
 
-    <h1>Apna WDM <span>APK.</span></h1>
+    <div class="apna-app-card">
 
-    <p class="subtitle">
-        Welcome to Apna WDM. Download our application
-        and explore a better digital experience.
-        Everything you need, all in one place.
-    </p>
+        <div class="apna-app-logo">
+            WDM
+        </div>
 
-    <div class="download-card">
+        <div class="apna-app-info">
 
-        <div class="app-icon">↓</div>
+            <h2>APNA WDM</h2>
 
-        <h2>Download Apk</h2>
+            <p>
+                Your Wyndhamganj, One Digital Platform.
+                Connect, Explore and Stay Updated.
+            </p>
 
-        <p>
-            Get the latest version of Apna WDM.
-            Click below to download your application.
-        </p>
+            <div class="apna-app-meta">
 
-        <!-- CHANGE YOUR DOWNLOAD LINK HERE -->
+                <span>
+                    <i class="fa-brands fa-android"></i>
+                    Android
+                </span>
 
-        <a href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.1.0/ApnaWDM.apk"
-           class="download-btn"
-           download>
-           ↓ &nbsp; DOWNLOAD NOW
-        </a>
+                <span>
+                    <i class="fa-solid fa-code-branch"></i>
+                    Version 1.2.0
+                </span>
 
-        <div class="note">
-            Secure Download • Easy Installation
+                <span>
+                    <i class="fa-solid fa-file-arrow-down"></i>
+                    APK
+                </span>
+
+            </div>
+
         </div>
 
     </div>
 
-</main>
 
-<footer>
-    © 2026 Apna WDM. All Rights Reserved.
-</footer>
+    <!-- DOWNLOAD BUTTON -->
 
-</body>
-</html>
+    <div class="apna-download-area">
+
+        <a
+          href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.2.0/ApnaWDMv1.2.0.apk"
+          class="apna-download-button"
+          download="ApnaWDMv1.2.0.apk">
+
+            <i class="fa-solid fa-download"></i>
+            Download APNA WDM APK
+
+        </a>
+
+        <div class="apna-download-note">
+            Official Application • Version 1.2.0
+        </div>
+
+    </div>
+
+
+    <!-- APP SCREENSHOTS -->
+
+    <div class="apna-screenshot-heading">
+
+        <h3>App Screenshots</h3>
+
+        <p>
+            Take a look inside the APNA WDM application.
+            Swipe to explore all screens.
+        </p>
+
+    </div>
+
+
+    <div class="apna-screenshot-list">
+
+        <!-- SCREENSHOT 1: CHAT -->
+
+        <div class="apna-screenshot-item">
+
+            <a href="images/apna-wdm-chat.jpg" target="_blank">
+
+                <img
+                  src="images/apna-wdm-chat.jpg"
+                  alt="APNA WDM Community Chat"
+                  loading="lazy">
+
+            </a>
+
+            <div class="apna-screenshot-caption">
+                Community Chat
+            </div>
+
+        </div>
+
+
+        <!-- SCREENSHOT 2: MARKET -->
+
+        <div class="apna-screenshot-item">
+
+            <a href="images/apna-wdm-market.jpg" target="_blank">
+
+                <img
+                  src="images/apna-wdm-market.jpg"
+                  alt="APNA WDM Buy and Sell Market"
+                  loading="lazy">
+
+            </a>
+
+            <div class="apna-screenshot-caption">
+                Buy & Sell Market
+            </div>
+
+        </div>
+
+
+        <!-- SCREENSHOT 3: HOME -->
+
+        <div class="apna-screenshot-item">
+
+            <a href="images/apna-wdm-home.jpg" target="_blank">
+
+                <img
+                  src="images/apna-wdm-home.jpg"
+                  alt="APNA WDM Home Screen"
+                  loading="lazy">
+
+            </a>
+
+            <div class="apna-screenshot-caption">
+                Home Dashboard
+            </div>
+
+        </div>
+
+
+        <!-- SCREENSHOT 4: SERVICES -->
+
+        <div class="apna-screenshot-item">
+
+            <a href="images/apna-wdm-services.jpg" target="_blank">
+
+                <img
+                  src="images/apna-wdm-services.jpg"
+                  alt="APNA WDM Village Services"
+                  loading="lazy">
+
+            </a>
+
+            <div class="apna-screenshot-caption">
+                Village Services
+            </div>
+
+        </div>
+
+
+        <!-- SCREENSHOT 5: CREATORS -->
+
+        <div class="apna-screenshot-item">
+
+            <a href="images/apna-wdm-creators.jpg" target="_blank">
+
+                <img
+                  src="images/apna-wdm-creators.jpg"
+                  alt="APNA WDM Creator Leaderboard"
+                  loading="lazy">
+
+            </a>
+
+            <div class="apna-screenshot-caption">
+                Top Creators
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="apna-app-footer">
+
+        APNA WDM • Made for Wyndhamganj
+
+    </div>
+
+</div>
+
+</section>
