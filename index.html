@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-font="md">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wyndhamganj Butberhwa - Digital Portal</title>
+    <!-- Google Search Favicon / Site Icon -->
+    <link rel="icon" type="image/jpeg" href="wdmlogo.jpg">
+  <link rel="shortcut icon" href="wdmlogo.jpg">
+  <link rel="apple-touch-icon" href="wdmlogo.jpg">
+  
+
+  <!-- Google Search Site Name & Logo Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Apna WDM",
+    "alternateName": ["Wyndhamganj Butbherwa", "Wyndhamganj Portal", "WDM", "Wyndhamganj", "Vindhamganj"],
+    "url": "https://wyndhamganj-gov.github.io/",
+    "logo": "https://wyndhamganj-gov.github.io/wdmlogo.jpg"
+  }
+  </script>
+
+
+  <link rel="canonical" href="https://wyndhamganj-gov.github.io/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="google-site-verification" content="sAMV3SdxwZgB8pL_-dedxzFUNvOlNWIZR3WPC7Znua0" />
+
+  <!-- Targeted Local SEO Meta Tags -->
+  <meta name="title" content="Wyndhamganj - Digital Portal">
+  <meta name="description" content="Apna WDM: Wyndhamganj aur Butbherwa ki local jaankari, community updates, photos, public services aur zaroori links ke liye digital portal.">
+  <meta name="keywords" content="Wyndhamganj,Apna WDM,APNA WYNDHAMGANJ,apna windhamganj, wyndamganj, butberhwa, butbherwa, murisemar, sonbhadra, dharti dolwa, salayadih, dhooma, patel nagar, shiv nagar wyndhamganj, piprahwa dam, duddhi sonbhadra, gram panchayat butbherwa">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="The Host - Vivek Kumar">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wyndhamganj-gov.github.io/">
+  <meta property="og:title" content="Wyndhamganj - Official Digital Portal">
+  <meta property="og:description" content="Official Portal of  Wyndhamganj Butbherwa (Shiv Nagar).">
+  <meta property="og:image" content="https://wyndhamganj-gov.github.io/IMG_20250929_062521.jpg">
+
+  <!-- Local Government Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "GovernmentOrganization",
+    "name": "Gram Panchayat Wyndhamganj Butbherwa",
+    "url": "https://wyndhamganj-gov.github.io/",
+    "areaServed": [
+      "Wyndhamganj",
+      "Butbherwa",
+      "Shiv Nagar",
+      "Murisemar",
+      "Dharti Dolwa",
+      "Salayadih",
+      "Dhooma",
+      "Patel Nagar"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Wyndhamganj, Butbherwa",
+      "addressRegion": "Uttar Pradesh",
+      "postalCode": "231226",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Firebase v8 Compatibility SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <style>
+    :root {
+      --bg-body: #070e14;
+      --bg-surface: #0d1b26;
+      --bg-surface-elevated: #132737;
+      --border-color: rgba(45, 212, 191, 0.22);
+      --border-gold: rgba(245, 158, 11, 0.4);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --primary: #14b8a6;
+      --primary-hover: #0d9488;
+      --accent-orange: #f97316;
+      --accent-gold: #f59e0b;
+      --danger: #ef4444;
+      --success: #10b981;
+      --input-bg: rgba(7, 14, 20, 0.92);
+      --topbar-bg: #04080c;
+      --navbar-bg: #091219;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+      --modal-overlay: rgba(0, 0, 0, 0.88);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html[data-theme="light"] {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --border-color: #cbd5e1;
+      --border-gold: #d97706;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --primary: #0d9488;
+      --primary-hover: #0f766e;
+      --accent-orange: #ea580c;
+      --accent-gold: #b45309;
+      --danger: #dc2626;
+      --success: #059669;
+      --input-bg: #ffffff;
+      --topbar-bg: #e2e8f0;
+      --navbar-bg: #ffffff;
+      --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+      --modal-overlay: rgba(15, 23, 42, 0.65);
+    }
+
+    [data-font="sm"] { font-size: 14px; }
+    [data-font="md"] { font-size: 16px; }
+    [data-font="lg"] { font-size: 18px; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 18px; }
+    .section-pad { padding: 48px 0; }
+    .section-header { text-align: center; margin-bottom: 28px; }
+
+    .section-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.2px; color: var(--primary); background: rgba(20, 184, 166, 0.12);
+      border: 1px solid var(--border-color); padding: 3px 12px; border-radius: 50px; margin-bottom: 8px;
+    }
+
+    .section-title { font-size: 1.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .section-subtitle { color: var(--text-muted); font-size: 0.88rem; max-width: 650px; margin: 0 auto; }
+
+    /* Top Bar */
+    .ultra-top-bar {
+      background: var(--topbar-bg); border-bottom: 1px solid var(--border-color);
+      font-size: 0.76rem; padding: 6px 0; transition: var(--transition);
+    }
+    .ultra-top-wrapper { display: flex; justify-content: space-between; align-items: center; }
+    .top-meta-item { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-weight: 600; }
+    .top-meta-item i { color: var(--primary); }
+
+    /* ADMIN LIVE CONTROL BAR (APPEARS WHEN ADMIN LOGGED IN) */
+    .admin-live-bar {
+      display: none; position: sticky; top: 0; z-index: 2500;
+      background: #7c2d12; color: #fff; padding: 10px 18px;
+      border-bottom: 2px solid var(--accent-orange); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .admin-live-bar.active { display: flex; justify-content: space-between; align-items: center; }
+    .btn-admin-save {
+      background: var(--success); color: #fff; border: none; font-weight: 800;
+      padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.84rem;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-admin-logout {
+      background: #000; color: #fff; border: 1px solid #444; font-weight: 700;
+      padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; margin-left: 8px;
+    }
+
+    /* Editable Outline for Admin Mode */
+    body.admin-mode-on [data-editable="true"] {
+      outline: 2px dashed var(--accent-orange) !important;
+      outline-offset: 3px;
+      cursor: text;
+    }
+
+    /* NAVBAR */
+    .gamer-navbar {
+      background: var(--navbar-bg); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky; top: 0; z-index: 1000; padding: 12px 0; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    .gamer-nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+
+    /* Left Group */
+    .gamer-left { display: flex; align-items: center; gap: 16px; }
+    .gamer-menu-btn {
+      background: none; border: none; color: #ffffff; font-size: 1.55rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px;
+    }
+    html[data-theme="light"] .gamer-menu-btn { color: #0f172a; }
+
+    .gamer-logo {
+      display: flex; align-items: center; text-decoration: none; font-size: 1.55rem;
+      font-weight: 900; letter-spacing: 0.5px; line-height: 1;
+    }
+    .gamer-logo .part-one { color: #ffffff; }
+    html[data-theme="light"] .gamer-logo .part-one { color: #0f172a; }
+    .gamer-logo .part-two { color: var(--accent-orange); font-weight: 800; }
+
+    /* Right Group: WM Button & Profile Icon */
+    .gamer-right { display: flex; align-items: center; gap: 14px; }
+    .btn-db-badge {
+      background: #ffffff; color: #050d14; font-size: 0.82rem; font-weight: 900;
+      letter-spacing: 0.5px; padding: 4px 12px; border-radius: 6px; border: none;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2); transition: var(--transition);
+      text-decoration: none;
+    }
+    .btn-db-badge:hover { background: var(--accent-orange); color: #ffffff; transform: translateY(-1px); }
+
+    .btn-circle-user {
+      width: 36px; height: 36px; border-radius: 50%; background: #ffffff; color: #050d14;
+      border: none; display: grid; place-items: center; font-size: 1.15rem; cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); position: relative;
+    }
+    .btn-circle-user.logged-in::after {
+      content: ''; position: absolute; bottom: 1px; right: 1px; width: 10px; height: 10px;
+      background: var(--success); border: 2px solid var(--navbar-bg); border-radius: 50%;
+    }
+    .btn-circle-user.admin-in::after {
+      content: ''; position: absolute; bottom: 1px; right: 1px; width: 10px; height: 10px;
+      background: var(--accent-orange); border: 2px solid #000; border-radius: 50%;
+    }
+
+    /* Covered Localities */
+    .localities-strip {
+      background: var(--bg-surface); border-bottom: 1px solid var(--border-color);
+      padding: 9px 0; text-align: center; font-size: 0.8rem; color: var(--text-secondary);
+    }
+    .localities-strip b { color: var(--accent-orange); }
+
+    /* LEFT-SIDE DRAWER MENU */
+    .drawer-overlay {
+      position: fixed; inset: 0; background: var(--modal-overlay);
+      backdrop-filter: blur(5px); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+    }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+    .drawer-panel {
+      position: fixed; top: 0; left: 0; bottom: 0; right: auto;
+      width: 320px; max-width: 85%; background: var(--bg-surface);
+      border-right: 1px solid var(--border-color); border-left: none;
+      z-index: 2001; padding: 24px; display: flex; flex-direction: column;
+      transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 5px 0 30px rgba(0, 0, 0, 0.6);
+    }
+    .drawer-panel.active { transform: translateX(0); }
+    .drawer-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid var(--border-color); margin-bottom: 18px;
+    }
+    .drawer-header h3 { font-size: 1.05rem; color: var(--text-primary); font-weight: 800; }
+    .drawer-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+    .drawer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+    .drawer-nav-list a, .drawer-nav-list button {
+      color: var(--text-primary); text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius-sm);
+      transition: var(--transition); background: none; border: none; width: 100%; text-align: left; cursor: pointer;
+    }
+    .drawer-nav-list i { color: var(--primary); width: 22px; }
+    .drawer-nav-list a:hover, .drawer-nav-list button:hover { background: var(--bg-surface-elevated); color: var(--primary); }
+
+    .drawer-controls-box { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--border-color); }
+    .control-label { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
+    .controls-row { display: flex; gap: 8px; margin-bottom: 12px; }
+    .ctrl-btn {
+      flex: 1; padding: 7px; background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
+      color: var(--text-primary); border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; text-align: center;
+    }
+    .ctrl-btn.active, .ctrl-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* SECTION: HERO / ABOUT */
+    .hero {
+      position: relative; padding: 44px 0 40px;
+      background: url('IMG_20250929_062521.jpg') center/cover no-repeat var(--bg-body);
+      border-bottom: 1px solid var(--border-color); overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(7, 14, 20, 0.95) 0%, rgba(7, 14, 20, 0.86) 60%, rgba(13, 27, 38, 0.96) 100%);
+      z-index: 1;
+    }
+    html[data-theme="light"] .hero-overlay {
+      background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.88) 60%, rgba(255, 255, 255, 0.96) 100%);
+    }
+    .hero-container {
+      position: relative; z-index: 3; display: grid; grid-template-columns: 1.25fr 0.75fr;
+      gap: 26px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px; background: rgba(249, 115, 22, 0.12);
+      border: 1px solid var(--border-gold); color: var(--accent-orange); padding: 4px 12px;
+      border-radius: 50px; font-size: 0.74rem; font-weight: 800; margin-bottom: 8px;
+    }
+    .hero-title { font-size: 2.2rem; font-weight: 900; line-height: 1.2; margin-bottom: 8px; color: var(--text-primary); }
+    .hero-title span { color: var(--accent-orange); }
+    .hero-desc { color: var(--text-secondary); font-size: 0.9rem; max-width: 540px; line-height: 1.6; }
+
+    .hero-info-card {
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); padding: 18px; box-shadow: var(--card-shadow);
+    }
+    .hero-info-card h4 { font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+    .hero-info-list { list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.82rem; color: var(--text-secondary); }
+    .hero-info-list li { display: flex; align-items: flex-start; gap: 8px; }
+    .hero-info-list i { color: var(--primary); margin-top: 3px; }
+
+    /* SECTION: SUCHNA PATTA */
+    .notices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
+    .notice-item {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary); border-radius: var(--radius-sm);
+      padding: 16px; box-shadow: var(--card-shadow); transition: var(--transition);
+    }
+    .notice-meta { font-size: 0.74rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 700; }
+    .notice-title { font-size: 0.95rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .notice-body { font-size: 0.82rem; color: var(--text-secondary); }
+
+    /* SECTION: FESTIVAL & WHATSAPP BANNER */
+    .festival-box {
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg); padding: 26px 20px; text-align: center;
+      box-shadow: var(--card-shadow); margin-bottom: 24px;
+    }
+    .festival-diyas { font-size: 1.8rem; margin-bottom: 8px; }
+    .festival-heading { font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+    .festival-msg { font-size: 0.9rem; color: var(--text-secondary); max-width: 720px; margin: 0 auto 12px; line-height: 1.6; }
+
+    .wa-community-banner {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), var(--bg-surface));
+      border: 1px solid rgba(37, 211, 102, 0.4); border-radius: var(--radius-lg);
+      padding: 34px 20px; text-align: center; box-shadow: var(--card-shadow);
+    }
+    .wa-community-banner i.fa-whatsapp { font-size: 2.8rem; color: #25D366; margin-bottom: 10px; display: inline-block; }
+    .wa-banner-title { font-size: 1.45rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .wa-banner-desc { font-size: 0.88rem; color: var(--text-secondary); max-width: 640px; margin: 0 auto 18px; }
+    .btn-whatsapp-join {
+      background: #25D366; color: #02150a; font-size: 1rem; font-weight: 800;
+      padding: 12px 28px; border-radius: 50px; text-decoration: none; display: inline-flex;
+      align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+    }
+
+     /* SECTION: UNIFIED GALLERY */
+    .media-main-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .media-tab-btn {
+      padding: 9px 22px; border-radius: 50px; background: var(--bg-surface);
+      border: 1px solid var(--border-color); color: var(--text-secondary);
+      font-size: 0.85rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+    }
+    .media-tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .sub-filter-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+    .sub-chip {
+      background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
+      color: var(--text-secondary); padding: 5px 14px; border-radius: 50px;
+      font-size: 0.76rem; font-weight: 700; cursor: pointer;
+    }
+    .sub-chip.active, .sub-chip:hover { background: var(--accent-orange); color: #fff; border-color: var(--accent-orange); }
+
+    .unified-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+    .unified-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); overflow: hidden; position: relative;
+      cursor: pointer; aspect-ratio: 4/3; box-shadow: var(--card-shadow);
+    }
+    .unified-card img { width: 100%; height: 100%; object-fit: cover; }
+    .card-badge-top {
+      position: absolute; top: 10px; left: 10px; background: rgba(7, 14, 20, 0.85);
+      color: var(--accent-gold); border: 1px solid var(--border-gold);
+      padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+    }
+    .card-caption-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px;
+      background: linear-gradient(to top, rgba(7, 14, 20, 0.95), transparent);
+      font-size: 0.82rem; font-weight: 600; color: #fff; display: flex; justify-content: space-between; align-items: center;
+    }
+    .btn-admin-del-photo {
+      display: none; position: absolute; top: 10px; right: 10px; background: var(--danger);
+      color: #fff; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.74rem; font-weight: 800;
+      cursor: pointer; z-index: 10;
+    }
+    body.admin-mode-on .btn-admin-del-photo { display: block; }
+
+    /* Citizen Upload Form */
+    .citizen-upload-card {
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); padding: 22px; max-width: 650px; margin: 0 auto 28px; display: none;
+    }
+    .citizen-upload-card.active { display: block; }
+    .upload-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .form-group-sm label { display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 5px; color: var(--text-primary); }
+    .form-control-sm {
+      width: 100%; padding: 9px 12px; background: var(--input-bg);
+      border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+      color: var(--text-primary); font-size: 0.82rem; outline: none;
+    }
+
+    /* APNA WDM DOWNLOAD BOX */
+.apna-download-box {
+    max-width: 450px;
+    margin: 35px auto;
+    padding: 30px 25px;
+    text-align: center;
+    background: linear-gradient(145deg, #151d35, #0b1020);
+    border: 1px solid rgba(120, 100, 255, 0.35);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    transition: all 0.35s ease;
+}
+
+.apna-download-box:hover {
+    transform: translateY(-6px);
+    border-color: #806aff;
+    box-shadow: 0 15px 40px rgba(105,85,255,0.2);
+}
+
+.apna-download-box .download-icon {
+    font-size: 38px;
+    color: #927cff;
+    margin-bottom: 15px;
+}
+
+.apna-download-box h3 {
+    font-size: 23px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.apna-download-box p {
+    color: #aab5ca;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+.apna-download-btn {
+    display: inline-block;
+    padding: 13px 35px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #7055ff, #398cff);
+    color: #fff !important;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.apna-download-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 25px #7055ff66;
+}
+
+.apna-download-box .download-footer {
+    color: #71809b;
+    font-size: 11px;
+    margin-top: 18px;
+}
+
+    /* SECTION: WORKING DASHBOARD */
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+    .metric-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 22px 18px; text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+    .metric-icon {
+      width: 52px; height: 52px; border-radius: 50%; background: rgba(20, 184, 166, 0.12);
+      color: var(--primary); display: grid; place-items: center; font-size: 1.4rem; margin: 0 auto 12px;
+    }
+    .metric-number { font-size: 2rem; font-weight: 800; color: var(--text-primary); line-height: 1; margin-bottom: 4px; }
+    .metric-label { font-size: 0.84rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 4px; }
+    .metric-desc { font-size: 0.76rem; color: var(--text-muted); }
+
+    /* SECTION: REPRESENTATIVES & THE HOST */
+    .rep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 24px; }
+    .rep-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 20px 16px; text-align: center;
+      box-shadow: var(--card-shadow);
+    }
+    .rep-avatar {
+      width: 56px; height: 56px; border-radius: 50%; background: rgba(20, 184, 166, 0.12);
+      border: 2px solid var(--primary); display: grid; place-items: center; font-size: 1.35rem; color: var(--primary);
+      margin: 0 auto 10px;
+    }
+    .rep-name { font-size: 1.05rem; font-weight: 800; color: var(--text-primary); }
+    .rep-role { font-size: 0.8rem; color: var(--accent-gold); font-weight: 700; margin-bottom: 4px; }
+    .rep-desc { font-size: 0.8rem; color: var(--text-secondary); }
+
+    .host-section {
+      background: var(--bg-surface); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; gap: 22px; box-shadow: var(--card-shadow);
+    }
+    .host-img-wrap {
+      width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--accent-gold);
+      overflow: hidden; flex-shrink: 0; box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
+    }
+    .host-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .host-content h3 { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 4px; font-weight: 800; }
+    .host-badge { display: inline-block; font-size: 0.72rem; color: var(--accent-gold); font-weight: 800; margin-bottom: 6px; }
+    .host-content p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.5; }
+
+    /* SECTION: HELPLINES & GRIEVANCE CELL */
+    .helpline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .helpline-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+      padding: 14px; display: flex; align-items: center; gap: 12px; text-decoration: none; box-shadow: var(--card-shadow);
+    }
+    .helpline-icon { width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0; }
+    .icon-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+    .icon-blue { background: rgba(56, 189, 248, 0.15); color: #0284c7; }
+    .icon-yellow { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); }
+    .icon-teal { background: rgba(20, 184, 166, 0.15); color: var(--primary); }
+    .helpline-info h4 { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 1px; }
+    .helpline-info span { display: block; font-size: 0.72rem; color: var(--text-muted); }
+    .helpline-info b { font-size: 0.82rem; color: var(--primary); }
+
+    .portal-form-wrapper {
+      max-width: 680px; margin: 0 auto; background: var(--bg-surface);
+      border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+      padding: 26px 20px; box-shadow: var(--card-shadow);
+    }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+    .form-control {
+      width: 100%; padding: 10px 14px; background: var(--input-bg);
+      border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+      color: var(--text-primary); font-family: inherit; font-size: 0.86rem; outline: none;
+    }
+    .form-control:focus { border-color: var(--primary); }
+
+    .receipt-card {
+      display: none; text-align: center; padding: 22px 16px; border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md); background: rgba(245, 158, 11, 0.06);
+    }
+    .receipt-token {
+      font-size: 1.5rem; font-weight: 800; color: var(--accent-gold); letter-spacing: 2px;
+      margin: 12px 0; padding: 8px 16px; background: var(--bg-surface-elevated);
+      border: 1px dashed var(--accent-gold); border-radius: var(--radius-sm); display: inline-block;
+    }
+    .tracker-box { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-color); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.86rem; font-weight: 700;
+      text-decoration: none; cursor: pointer; border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--bg-surface-elevated); color: var(--text-primary); border-color: var(--border-color); }
+
+    /* LOGIN MODAL (CITIZEN + ADMIN AUTH) */
+    .login-modal {
+      display: none; position: fixed; inset: 0; background: var(--modal-overlay);
+      backdrop-filter: blur(8px); z-index: 3500; align-items: center; justify-content: center; padding: 18px;
+    }
+    .login-modal.active { display: flex; }
+    .login-card {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); width: 100%; max-width: 420px;
+      padding: 26px; position: relative; box-shadow: var(--card-shadow); text-align: center;
+    }
+    .login-close { position: absolute; top: 16px; right: 18px; font-size: 1.4rem; background: none; border: none; color: var(--text-muted); cursor: pointer; }
+
+    .login-mode-tabs {
+      display: flex; gap: 8px; margin-bottom: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
+    }
+    .login-tab-btn {
+      flex: 1; background: none; border: none; padding: 8px; font-size: 0.88rem; font-weight: 800;
+      color: var(--text-muted); cursor: pointer; border-radius: 6px;
+    }
+    .login-tab-btn.active { background: var(--bg-surface-elevated); color: var(--accent-orange); }
+
+    /* GAMES DRAWER MODAL */
+    .games-drawer-overlay {
+      display: none; position: fixed; inset: 0; background: var(--modal-overlay);
+      backdrop-filter: blur(8px); z-index: 4000; align-items: center; justify-content: center; padding: 16px;
+    }
+    .games-drawer-overlay.active { display: flex; }
+    .games-drawer-content {
+      background: var(--bg-surface); border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg); width: 100%; max-width: 820px;
+      max-height: 90vh; overflow-y: auto; padding: 22px; position: relative; box-shadow: var(--card-shadow);
+    }
+    .games-top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 14px; border-bottom: 1px solid var(--border-color); margin-bottom: 18px;
+    }
+    .btn-exit-games {
+      background: var(--danger); color: #fff; border: none; font-size: 0.84rem;
+      font-weight: 800; padding: 6px 14px; border-radius: var(--radius-sm); cursor: pointer;
+    }
+    .sport-card {
+      background: var(--bg-surface-elevated); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 18px; margin-bottom: 16px; text-align: left;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--topbar-bg); border-top: 1px solid var(--border-color);
+      padding: 40px 0 20px; color: var(--text-muted); font-size: 0.82rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 26px; margin-bottom: 24px; }
+    .footer-col h4 { color: var(--text-primary); font-size: 0.94rem; margin-bottom: 12px; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 8px; }
+    .footer-links a { color: var(--text-secondary); text-decoration: none; }
+
+    /* Toast */
+    .toast-notification {
+      position: fixed; bottom: 24px; right: 24px; background: var(--bg-surface);
+      border: 1px solid var(--primary); border-radius: var(--radius-sm); padding: 12px 18px;
+      color: var(--text-primary); display: flex; align-items: center; gap: 10px; z-index: 6000;
+      box-shadow: var(--card-shadow); transform: translateY(100px); opacity: 0; transition: all 0.3s ease;
+    }
+    .toast-notification.active { transform: translateY(0); opacity: 1; }
+
+    @media (max-width: 820px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .host-section { flex-direction: column; text-align: center; }
+      .upload-form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- FLOATING ADMIN LIVE CONTROLLER (APPEARS WHEN ADMIN LOGS IN) -->
+  <div class="admin-live-bar" id="adminLiveBar">
+    <div style="font-size:0.86rem; font-weight:800; display:flex; align-items:center; gap:8px;">
+      <i class="fa-solid fa-crown" style="color:#fbbf24;"></i>
+      <span>ADMIN MODE ACTIVE: You can edit texts directly or delete photos</span>
+    </div>
+    <div>
+      <button class="btn-admin-save" onclick="saveAdminLiveChanges()">
+        <i class="fa-solid fa-cloud-arrow-up"></i> 💾 Save Changes Live
+      </button>
+      <button class="btn-admin-logout" onclick="exitAdminMode()">Exit Admin</button>
+    </div>
+  </div>
+
+  <!-- TOP BAR: LIVE CLOCK & WYNDHAMGANJ REAL TEMPERATURE -->
+  <div class="ultra-top-bar">
+    <div class="container ultra-top-wrapper">
+      <div class="top-meta-item">
+        <i class="fa-solid fa-clock"></i> <span id="portalLiveClock">--:--</span>
+      </div>
+      <div class="top-meta-item">
+        <i class="fa-solid fa-cloud-sun"></i> Wyndhamganj: <b id="portalLiveWeather">--°C</b>
+      </div>
+      <div class="top-meta-item" style="display:none; @media(min-width:600px){display:inline-flex;}">
+        <i class="fa-solid fa-location-dot"></i> Sonbhadra, UP
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR: LEFT ☰ | WYNDHAMGANJ | [ WM ] | 👤 -->
+  <header class="gamer-navbar">
+    <div class="container gamer-nav-wrapper">
+      <!-- Left: ☰ Menu & Logo -->
+      <div class="gamer-left">
+        <button class="gamer-menu-btn" onclick="toggleDrawer(true)" aria-label="Open Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="#about" class="gamer-logo">
+          <span class="part-one">WYNDHAM</span><span class="part-two">GANJ</span>
+        </a>
+      </div>
+
+      <!-- Right: [ WM ] Button & Circle User Icon -->
+      <div class="gamer-right">
+        <!-- WM Button: Replaced DB button, opens WDM Media page -->
+        <a href="media.html" class="btn-db-badge" title="Open WDM Media Feed">
+          WM
+        </a>
+
+        <!-- Circle User Icon -->
+        <button class="btn-circle-user" id="navCircleUserBtn" onclick="openLoginModal()" title="Citizen / Admin Login">
+          <i class="fa-solid fa-user"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- COVERED LOCALITIES BAR -->
+  <div class="localities-strip">
+    <div class="container">
+      <b>ONE STEP </b> <span id="txtCoveredAreas" data-editable="true">FOR OUR VILLAGE</span>
+    </div>
+  </div>
+
+  <!-- LEFT-SIDE DRAWER MENU (OPENS FROM LEFT) -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
+  <div class="drawer-panel" id="drawerPanel">
+    <div class="drawer-header">
+      <h3>Menu</h3>
+      <button class="drawer-close" onclick="toggleDrawer(false)">&times;</button>
+    </div>
+
+    <ul class="drawer-nav-list">
+      <li><a href="#about" onclick="toggleDrawer(false)"><i class="fa-solid fa-house"></i> About village</a></li>
+      <li><a href="#notices" onclick="toggleDrawer(false)"><i class="fa-solid fa-bullhorn"></i> Updates</a></li>
+      <li><a href="#festival" onclick="toggleDrawer(false)"><i class="fa-solid fa-sun"></i> Festival</a></li>
+      <li><a href="#gallery" onclick="toggleDrawer(false)"><i class="fa-solid fa-images"></i> Village Media & Memories</a></li>
+      <li><a href="#dashboard" onclick="toggleDrawer(false)"><i class="fa-solid fa-chart-pie"></i>  Dashboard</a></li>
+      <li><a href="#representatives" onclick="toggleDrawer(false)"><i class="fa-solid fa-landmark"></i> Gram Padadhikari & Host</a></li>
+      <li><a href="#grievance" onclick="toggleDrawer(false)"><i class="fa-solid fa-paper-plane"></i> Grievance & Emergency Helplines</a></li>
+      
+      <!-- Games & Sports Arena -->
+      <li style="border-top:1px solid var(--border-color); padding-top:6px; margin-top:4px;">
+        <button onclick="openGamesArenaDrawer(); toggleDrawer(false);" style="color:var(--accent-orange); font-weight:800;">
+          <i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> 🎮 Sports & Games Arena
+        </button>
+      </li>
+    </ul>
+
+    <!-- Controls -->
+    <div class="drawer-controls-box">
+      <div class="control-label">Text Size:</div>
+      <div class="controls-row">
+        <button class="ctrl-btn" onclick="setFontSize('sm')">A-</button>
+        <button class="ctrl-btn active" onclick="setFontSize('md')">A</button>
+        <button class="ctrl-btn" onclick="setFontSize('lg')">A+</button>
+      </div>
+
+      <div class="control-label">Theme Mode:</div>
+      <button class="ctrl-btn" onclick="togglePortalTheme()" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+        <i class="fa-solid fa-circle-half-stroke"></i> <span id="themeToggleText">Switch Light / Dark</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SECTION: GAON KE BAARE MEIN (HERO / ABOUT) -->
+  <section class="hero" id="about">
+    <div class="hero-overlay"></div>
+    <div class="container hero-container">
+      <div class="hero-text-col">
+        <div class="hero-badge"><i class="fa-solid fa-award"></i> Gram Panchayat Butberhwa (Shiv Nagar)</div>
+        <h1 class="hero-title">Wyndhamganj <span>Butbherwa</span></h1>
+        <p class="hero-desc" id="txtHeroDesc" data-editable="true">
+          Official digital portal for transparent e-governance.
+        </p>
+      </div>
+
+      <div class="hero-widget-col">
+        <div class="hero-info-card">
+          <h4><i class="fa-solid fa-landmark-flag"></i> Gram Panchayat Overview</h4>
+          <ul class="hero-info-list">
+            <li><i class="fa-solid fa-check-circle"></i> <span><b>Block:</b> Duddhi | <b>District:</b> Sonbhadra, UP</span></li>
+            <li><i class="fa-solid fa-water"></i> <span><b>Eco Tourism:</b> Piprahwa Dam Reservoir & Landscape</span></li>
+            <li><i class="fa-solid fa-train"></i> <span><b>Heritage:</b> Wyndhamganj Railway Station Hub</span></li>
+            <li><i class="fa-solid fa-shield-halved"></i> <span><b>Portal:</b> 24x7 Digital Grievance Cell & Updates</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <!-- SECTION: SUCHNA PATTA (NOTICE BOARD) -->
+  <section class="section-pad" id="notices">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Updates</span>
+        <h2 class="section-title"> Notice Board</h2>
+        <p class="section-subtitle">Updating soon.....</p>
+      </div>
+
+      <div class="notices-grid">
+        <div class="notice-item">
+          <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> E-Service</span><span>Active</span></div>
+          <h3 class="notice-title" id="txtNotice1Title" data-editable="true">Instant E-Grievance Cell Online</h3>
+          <p class="notice-body" id="txtNotice1Body" data-editable="true">Citizens can now register water, sanitation, road, and street light complaints directly. Token numbers provide live tracking.</p>
+        </div>
+
+        <div class="notice-item">
+          <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> Tourism</span><span>Devlopment</span></div>
+          <h3 class="notice-title" id="txtNotice2Title" data-editable="true"> Best place for visit :</h3>
+          <p class="notice-body" id="txtNotice2Body" data-editable="true">Rural areas : Bugberhwa , Dharti Dollwa , Murisemar, ....../ Best Suggestion : Piprahawa Bandh</p>
+        </div>
+
+        <div class="notice-item">
+          <div class="notice-meta"><span><i class="fa-solid fa-tag"></i> Community</span><span>Notice</span></div>
+          <h3 class="notice-title" id="txtNotice3Title" data-editable="true"> Photo & Moments </h3>
+          <p class="notice-body" id="txtNotice3Body" data-editable="true">Share village moments  images through our gallery upload tool for official archiving.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: FESTIVAL GREETINGS & WHATSAPP GROUP -->
+  <section class="section-pad" id="festival" style="background: var(--bg-surface-elevated);">
+    <div class="container">
+      <div class="festival-box">
+        <div class="festival-diyas">🌞 🪔 🌞</div>
+        <div class="hero-badge"><i class="fa-solid fa-star"></i> आस्था, पवित्रता और सूर्य देव की उपासना 🌅</div>
+        <h2 class="festival-heading" id="txtFestTitle" data-editable="true">छठ पूजा महापर्व की हार्दिक शुभकामनाएँ 🌞</h2>
+        <p class="festival-msg" id="txtFestMsg" data-editable="true">
+          छठ पूजा केवल एक पर्व नहीं, बल्कि आस्था, पवित्रता, प्रकृति और सूर्य देव के प्रति कृतज्ञता का प्रतीक है। यह पर्व हमें सिखाता है कि सच्ची श्रद्धा, धैर्य और विश्वास से जीवन में सकारात्मकता आती है। 🙏🌅 (Shiv Nagar Butbherwa)
+        </p>
+        <div style="font-size:0.82rem; color:var(--accent-gold); font-weight:700;">
+          — AAP SABHI KA CHATH POOOJAN KI HARDIK SUBHKAMNAYE..
+        </div>
+      </div>
+
+      <div class="wa-community-banner">
+        <i class="fa-brands fa-whatsapp"></i>
+        <h3 class="wa-banner-title">Wyndhamganj Butbehwa Official WhatsApp Community</h3>
+        <p class="wa-banner-desc">
+          Stay connected with daily village notices, government welfare announcements, emergency broadcasts, and sports fixtures directly on WhatsApp.
+        </p>
+        <a href="https://chat.whatsapp.com/CeyuuvTdSAf3873UJLJIjb?s=cl&p=a&mlu=4&ilr=4&iam=2" target="_blank" class="btn-whatsapp-join">
+          <i class="fa-brands fa-whatsapp"></i> Join Official WhatsApp Group <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+<!-- APNA WDM APK DOWNLOAD -->
+
+<div class="apna-download-box">
+
+    <div class="download-icon">
+        <i class="fa-brands fa-android"></i>
+    </div>
+
+    <h3>Download APNA WDM APK</h3>
+
+    <p>
+        Get the official APNA WDM application.
+        Download and enjoy all features. Version - v1.4.0
+    </p>
+
+    <a href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.4.0/ApnaWDMv1.4.0.apk"
+       class="apna-download-btn">
+        <i class="fa-solid fa-download"></i>
+        &nbsp; Download
+    </a>
+
+    <div class="download-footer">
+        Official APNA WDM Application
+    </div>
+
+</div>
+  <!-- SECTION: VILLAGE MEDIA GALLERY -->
+  <section class="section-pad" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Village Media & Memories</span>
+        <h2 class="section-title"> WDM Gallery</h2>
+        <p class="section-subtitle">You can also login and you can save your DATA.</p>
+      </div>
+
+      <div class="media-main-tabs">
+        <button class="media-tab-btn active" onclick="switchMediaSection('wdm', this)"><i class="fa-solid fa-landmark"></i> WDM</button>
+        <button class="media-tab-btn" onclick="switchMediaSection('festival', this)"><i class="fa-solid fa-sun"></i> Festival</button>
+        <button class="media-tab-btn" onclick="switchMediaSection('upload', this)"><i class="fa-solid fa-cloud-arrow-up"></i> Upload</button>
+      </div>
+
+      <div class="sub-filter-row" id="wdmSubFilters">
+        <button class="sub-chip active" onclick="filterWdmSub('all', this)">All WDM</button>
+        <button class="sub-chip" onclick="filterWdmSub('nature', this)">Nature & Dam</button>
+        <button class="sub-chip" onclick="filterWdmSub('railway', this)">Railway Station</button>
+        <button class="sub-chip" onclick="filterWdmSub('village', this)">Village Infra</button>
+      </div>
+
+      <div class="sub-filter-row" id="festivalSubFilters" style="display:none;">
+        <button class="sub-chip active" onclick="filterFestSub('all', this)">All Festivals</button>
+        <button class="sub-chip" onclick="filterFestSub('छठ पूजा', this)">छठ पूजा</button>
+        <button class="sub-chip" onclick="filterFestSub('दीपावली', this)">दीपावली</button>
+        <button class="sub-chip" onclick="filterFestSub('होली', this)">होली</button>
+        <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">शिवरात्रि</button>
+        <button class="sub-chip" onclick="filterFestSub('महाशिवरात्रि', this)">Other</button>
+      
+      </div>
+
+      <!-- Upload Form -->
+      <div class="citizen-upload-card" id="citizenUploadCard">
+        <h4 style="font-size:0.95rem; color:var(--accent-orange); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-paper-plane"></i> Share Village Photos
+        </h4>
+        <form id="citizenPhotoUploadForm" onsubmit="handleCitizenPhotoSubmit(event)">
+          <div class="upload-form-grid">
+            <div class="form-group-sm">
+              <label>Your Full Name *</label>
+              <input type="text" id="uploadSenderName" class="form-control-sm" required>
+            </div>
+            <div class="form-group-sm">
+              <label>Mobile Number *</label>
+              <input type="tel" id="uploadSenderPhone" class="form-control-sm" required maxlength="10">
+            </div>
+            <div class="form-group-sm">
+              <label>Category *</label>
+              <select id="uploadPhotoCategory" class="form-control-sm" required>
+                <option value="WDM - Nature">WDM - Nature & Dam</option>
+                <option value="WDM - Railway">WDM - Railway Heritage</option>
+                <option value="WDM - Village">WDM - Village Life</option>
+                <option value="Festival - छठ पूजा">Festival - छठ पूजा</option>
+                <option value="Festival - दीपावली">Festival - दीपावली</option>
+                <option value="Festival - होली">Festival - होली</option>
+                <option value="Festival - महाशिवरात्रि">Festival - महाशिवरात्रि</option>
+                <option value="Festival - महाशिवरात्रि">Festival - Other</option>
+              
+              </select>
+            </div>
+            <div class="form-group-sm">
+              <label>Photo Title / Caption *</label>
+              <input type="text" id="uploadPhotoTitle" class="form-control-sm" required>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div>
+              <label for="citizenFileInput" class="sub-chip" style="cursor:pointer; background:var(--primary); color:#fff; border-color:var(--primary);">
+                <i class="fa-solid fa-image"></i> Choose File
+              </label>
+              <input type="file" id="citizenFileInput" accept="image/*" required style="display:none;" onchange="updateSelectedFileName(this)">
+              <span id="selectedFileNameDisplay" style="font-size:0.75rem; color:var(--text-muted); margin-left:8px;">No file chosen</span>
+            </div>
+
+            <button type="submit" id="btnSubmitPhoto" class="btn btn-primary" style="padding:7px 18px; font-size:0.82rem;">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Submit
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="unified-grid" id="unifiedMediaGrid"></div>
+
+      <div id="mediaMoreBox" style="display:none; text-align:center; margin-top:22px;">
+        <button class="btn btn-secondary" id="btnToggleMedia" onclick="toggleMediaExpansion()">
+          <i class="fa-solid fa-images"></i> <span id="mediaMoreText">View More Photos</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: WORKING PROGRESS DASHBOARD -->
+  <section class="section-pad" id="dashboard" style="background: var(--bg-surface-elevated);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Civic Infrastructure</span>
+        <h2 class="section-title">Working Progress Dashboard</h2>
+        <p class="section-subtitle">Real-time indicators tracking municipal development, e-governance, and sanitation across Butbherwa wards.</p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-hand-holding-droplet"></i></div>
+          <div class="metric-number">80%</div>
+          <div class="metric-label">HAR GHAR NAL</div>
+          <div class="metric-desc">Clean piped drinking water connected across Shiv Nagar & Butbherwa households.</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-lightbulb"></i></div>
+          <div class="metric-number">+0</div>
+          <div class="metric-label">Solar Street Lights</div>
+          <div class="metric-desc">Installed at public squares, and kschhi routes for night safety.</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="metric-number">50%</div>
+          <div class="metric-label">Grievance Redressal</div>
+          <div class="metric-desc">Direct complaints processed & solved 50% via THE HOST..... AND 50% BY THE GOV.</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fa-solid fa-recycle"></i></div>
+          <div class="metric-number">0% Awareness</div>
+          <div class="metric-label">Wards Swachhata Drive</div>
+          <div class="metric-desc">Door-to-door sanitation & plastic cleanup around Piprahwa Dam catchment area.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: GRAM PADADHIKARI & THE HOST -->
+  <section class="section-pad" id="representatives">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Administration & Leadership</span>
+        <h2 class="section-title">Gram Panchayat Representatives</h2>
+        <p class="section-subtitle">Serving the residents of Wyndhamganj Butberhwa and Shiv Nagar with integrity.</p>
+      </div>
+
+      <div class="rep-grid">
+        <div class="rep-card">
+          <div class="rep-avatar"><i class="fa-solid fa-user-tie"></i></div>
+          <h3 class="rep-name">Gram Pradhan</h3>
+          <div class="rep-role" id="txtRepPradhanName" data-editable="true">Tara Devi</div>
+          <p class="rep-desc" id="txtRepPradhanPhone" data-editable="true">Contact: 9452696410</p>
+        </div>
+
+        <div class="rep-card">
+          <div class="rep-avatar"><i class="fa-solid fa-landmark"></i></div>
+          <h3 class="rep-name">Panchayat Secretary (VDO)</h3>
+          <div class="rep-role" id="txtRepVdoName" data-editable="true">Sunil Kumar</div>
+          <p class="rep-desc" id="txtRepVdoPhone" data-editable="true">Contact: 7376714512</p>
+        </div>
+
+        <div class="rep-card">
+          <div class="rep-avatar"><i class="fa-solid fa-users-gear"></i></div>
+          <h3 class="rep-name">Ward Members & Mitra</h3>
+          <div class="rep-role" id="txtRepMitraName" data-editable="true">Munna Paswan</div>
+          <p class="rep-desc" id="txtRepMitraPhone" data-editable="true">Contact: 9793192139</p>
+        </div>
+      </div>
+
+      <!-- The Host Card -->
+      <div class="host-section">
+        <div class="host-img-wrap">
+          <img src="942fe674faf2ef24f01fc8b726c5222a.jpg" alt="The Host" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg';">
+        </div>
+        <div class="host-content">
+          <span class="host-badge"><i class="fa-solid fa-laptop-code"></i> Portal Host & Technical Lead</span>
+          <h3 id="txtHostTitle" data-editable="true">Digital Gram Initiative — The Host</h3>
+          <p id="txtHostDesc" data-editable="true">
+            This portal is developed and maintained to bring transparent e-services, grievance tracking, and local tourism promotion to Gram Panchayat Wyndhamganj Butbherwa.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: EMERGENCY HELPLINES & GRIEVANCE CELL -->
+  <section class="section-pad" id="grievance" style="background: var(--bg-surface-elevated);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Public Redressal & Help</span>
+        <h2 class="section-title">Emergency Helplines & Grievance Cell</h2>
+        <p class="section-subtitle">Submit complaints directly to Panchayat administration or dial emergency numbers.</p>
+      </div>
+
+      <div class="helpline-grid">
+        <a href="tel:112" class="helpline-card">
+          <div class="helpline-icon icon-red"><i class="fa-solid fa-shield-virus"></i></div>
+          <div class="helpline-info"><h4>Police Emergency</h4><span>UP Police Quick Dial</span><b>112</b></div>
+        </a>
+        <a href="tel:108" class="helpline-card">
+          <div class="helpline-icon icon-blue"><i class="fa-solid fa-truck-medical"></i></div>
+          <div class="helpline-info"><h4>Ambulance</h4><span>Medical Emergency</span><b>108 / 102</b></div>
+        </a>
+        <a href="tel:1912" class="helpline-card">
+          <div class="helpline-icon icon-yellow"><i class="fa-solid fa-bolt"></i></div>
+          <div class="helpline-info"><h4>Power Dept</h4><span>Electricity Disruption</span><b>1912</b></div>
+        </a>
+        <a href="tel:1090" class="helpline-card">
+          <div class="helpline-icon icon-teal"><i class="fa-solid fa-hand-holding-heart"></i></div>
+          <div class="helpline-info"><h4>Women Safety</h4><span>24x7 Helpline</span><b>1090</b></div>
+        </a>
+      </div>
+
+      <div class="portal-form-wrapper">
+        <form id="grievanceForm" onsubmit="handleFormSubmission(event)">
+          <div class="form-group">
+            <label>Applicant Full Name *</label>
+            <input type="text" id="citizenName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>10-Digit Mobile Number *</label>
+            <input type="tel" id="userPhoneInput" class="form-control" required maxlength="10">
+          </div>
+          <div class="form-group">
+            <label>Ward / Locality *</label>
+            <input type="text" id="citizenAddress" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Issue Category *</label>
+            <select id="issueCategory" class="form-control" required>
+              <option value="">-- Select Category --</option>
+              <option value="Drinking Water & Handpump Maintenance">Drinking Water & Handpump Maintenance</option>
+              <option value="Electricity & Street Lighting">Electricity & Street Lighting</option>
+              <option value="Roads, Drainage & Sanitation">Roads, Drainage & Sanitation</option>
+              <option value="PDS Ration Supply">PDS Ration Supply</option>
+              <option value="PM Awas Yojana">PM Awas Yojana</option>
+              <option value="Piprahwa Dam Tourism & Ecology">Piprahwa Dam Tourism & Ecology</option>
+              <option value="General Grievance / Suggestion">General Grievance / Suggestion</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Issue Details *</label>
+            <textarea id="citizenMessage" class="form-control" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="btnSubmitGrievance" style="width:100%; padding:12px;">
+            <i class="fa-solid fa-paper-plane"></i> Instant Submit
+          </button>
+        </form>
+
+        <div class="receipt-card" id="submissionReceipt">
+          <div style="font-size:2.4rem; color:var(--success); margin-bottom:6px;"><i class="fa-solid fa-circle-check"></i></div>
+          <h3 style="color:var(--text-primary); font-size:1.2rem;">Grievance Registered Successfully</h3>
+          <p style="color:var(--text-muted); font-size:0.84rem;">Your application token has been broadcasted to the secretariat.</p>
+          <div class="receipt-token" id="receiptTokenBadge">WDM-2026-XXXX</div>
+          <div style="margin-top:14px;">
+            <button class="btn btn-secondary" onclick="resetSubmissionWorkflow()">Submit Another Complaint</button>
+          </div>
+        </div>
+
+        <div class="tracker-box">
+          <h4 style="font-size:0.92rem; margin-bottom:6px;">Track Existing Grievance</h4>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="trackTokenInput" class="form-control" style="text-transform:uppercase;">
+            <button class="btn btn-secondary" onclick="trackComplaintStatus()">Track</button>
+          </div>
+          <div id="statusResultBox" style="margin-top:10px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAMES ARENA MODAL (WITH TOP EXIT BUTTON) -->
+  <div class="games-drawer-overlay" id="gamesDrawerOverlay" onclick="closeGamesDrawer(event)">
+    <div class="games-drawer-content" onclick="event.stopPropagation()">
+      <div class="games-top-bar">
+        <div>
+          <h3 style="font-size:1.15rem; color:var(--text-primary); font-weight:800; display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> Panchayat Games & Sports Arena
+          </h3>
+          <span style="font-size:0.76rem; color:var(--text-muted);">Local tournaments, live match details & achievements</span>
+        </div>
+        <button class="btn-exit-games" onclick="closeGamesDrawer()"><i class="fa-solid fa-xmark"></i> Exit</button>
+      </div>
+
+      <div class="sub-filter-row" style="margin-bottom:16px;">
+        <button class="sub-chip active" onclick="filterGamesModal('all', this)">All Games</button>
+        <button class="sub-chip" onclick="filterGamesModal('cricket', this)">Cricket League</button>
+        <button class="sub-chip" onclick="filterGamesModal('volleyball', this)">Volleyball Cup</button>
+      </div>
+
+      <div id="modalGamesList">
+        <div class="sport-card" data-gametype="cricket">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span class="sub-chip" style="background:rgba(249,115,22,0.2); color:#fb923c;">Cricket Match Live</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">Piprahwa Dam Ground</span>
+          </div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);" id="txtCricketMatchTitle" data-editable="true">Wyndhamganj Premier League</h4>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;" id="txtCricketScore" data-editable="true">Shiv Nagar XI: 142/6 (16.0 ov) vs Butbherwa Warriors (Target: 143 Runs)</p>
+        </div>
+
+        <div class="sport-card" data-gametype="volleyball">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span class="sub-chip" style="background:rgba(56,189,248,0.2); color:#0284c7;">Volleyball Trophy</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">High School Court</span>
+          </div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text-primary);" id="txtVolleyTitle" data-editable="true">Gram Panchayat Volleyball Championship</h4>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin:6px 0;" id="txtVolleyScore" data-editable="true">Ward 03 Spikers vs Duddhi Block Club (Sets: 2 - 1)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CITIZEN & ADMIN LOGIN POPUP MODAL -->
+  <div class="login-modal" id="citizenLoginModal" onclick="closeLoginModal(event)">
+    <div class="login-card" onclick="event.stopPropagation()">
+      <button class="login-close" onclick="closeLoginModal()">&times;</button>
+      
+      <!-- Login Tabs: Citizen vs Admin -->
+      <div class="login-mode-tabs">
+        <button class="login-tab-btn active" id="tabCitizenLogin" onclick="switchLoginMode('citizen')"> Login</button>
+        <button class="login-tab-btn" id="tabAdminLogin" onclick="switchLoginMode('admin')">Admin Login</button>
+      </div>
+
+      <!-- Tab 1: Citizen Google Login -->
+      <div id="loginFormState">
+        <div style="font-size: 2.2rem; color: var(--accent-orange); margin-bottom: 8px;">
+          <i class="fa-solid fa-circle-user"></i>
+        </div>
+        <h3 style="font-size: 1.2rem; color: var(--text-primary); font-weight: 800; margin-bottom: 4px;">Citizen Login</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); max-width: 300px; margin: 0 auto 20px;">
+          One-tap secure Google login for complaints and verified notices.
+        </p>
+
+        <button onclick="handleGoogleSignIn()" class="btn" style="width: 100%; background: #ffffff; color: #1f2937; border: 1px solid #d1d5db; font-weight: 700; padding: 12px; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(0,0,0,0.12); display: inline-flex; align-items: center; justify-content: center; gap: 12px; border-radius: var(--radius-sm);">
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Continue with Google
+        </button>
+      </div>
+
+      <!-- Tab 2: Secure Admin Login (paswanvive@gmail.com + 7880571898 + Vivek@7880) -->
+      <div id="adminLoginFormState" style="display:none; text-align:left;">
+        <div style="text-align:center; font-size: 2rem; color: var(--accent-gold); margin-bottom: 6px;">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800; text-align:center; margin-bottom: 4px;">Admin Portal Access</h3>
+        <p style="font-size: 0.76rem; color: var(--text-muted); text-align:center; margin-bottom: 16px;">
+          Strict 3 Factor Verificatio.
+        </p>
+
+        <!-- Step 1: Google Button -->
+        <button id="btnAdminGoogleLink" onclick="handleAdminGoogleAuth()" class="btn" style="width: 100%; background: #ffffff; color: #111; font-weight: 700; padding: 10px; font-size: 0.88rem; margin-bottom: 12px; border-radius: 6px;">
+          <i class="fa-brands fa-google" style="color:#ea4335;"></i> <span id="adminGoogleBtnText">Step 1: Admin Gmail</span>
+        </button>
+
+        <!-- Step 2: Mobile Number -->
+        <div class="form-group" style="margin-bottom:10px;">
+          <label style="font-size:0.78rem; font-weight:700;">Admin Mobile Number *</label>
+          <input type="tel" id="adminPhoneInput" class="form-control" maxlength="10">
+        </div>
+
+        <!-- Step 3: Password -->
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="font-size:0.78rem; font-weight:700;">Admin Password *</label>
+          <input type="password" id="adminPasswordInput" class="form-control">
+        </div>
+
+        <button onclick="verifyAndUnlockAdmin()" class="btn btn-primary" style="width:100%; padding:11px; font-weight:800;">
+          <i class="fa-solid fa-lock-open"></i> Step 2: Verify & Allow Access 
+        </button>
+      </div>
+
+      <!-- User / Admin Logged In State -->
+      <div id="userLoggedInState" style="display: none; padding: 10px 0;">
+        <img id="userAvatarImg" src="" alt="Profile" style="width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--accent-orange); margin: 0 auto 8px; object-fit: cover; display: block;">
+        <h4 style="font-size: 1.15rem; color: var(--text-primary); font-weight: 800;" id="loggedInUserTitle">User Name</h4>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 2px 0 16px;" id="loggedInUserDetails">user@gmail.com</p>
+        <button class="btn btn-secondary" onclick="handlePortalLogout()" style="width: 100%; color: var(--danger); border-color: var(--danger); font-weight: 700;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="gamer-logo" style="margin-bottom:10px;">
+            <span class="part-one">WYNDHAM</span><span class="part-two">GANJ</span>
+          </div>
+          <p style="line-height:1.6; font-size:0.82rem;">Serving citizens of Wyndhamganj, Butbherwa, Shiv Nagar, Murisemar, Dharti Dolwa, Salayadih, Dhooma, and Patel Nagar with transparent e-services.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#about">About Village</a></li>
+            <li><a href="#notices">Updates</a></li>
+            <li><a href="#festival">Festival</a></li>
+            <li><a href="#gallery"> Gallery</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#representatives">Representatives</a></li>
+            <li><a href="#grievance">Grievance Cell</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Secretariat Address</h4>
+          <p style="line-height:1.6; font-size:0.82rem;">
+            Gram Panchayat Secretariat, Butberhwa Wyndhamganj  (Shiv Nagar),<br>
+            Block: Duddhi, District: Sonbhadra, UP - 231226
+          </p>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border-color); padding-top:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:0.76rem;">
+        <div>&copy; Gram Panchayat Butberhwa. All Rights Reserved.</div>
+        <div>Hosted by The Host</div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-notification" id="toastNotification">
+    <i class="fa-solid fa-bell" style="color:var(--primary);"></i>
+    <span id="toastMsg">Notification</span>
+  </div>
+
+             <!-- JAVASCRIPT ENGINE -->
+  <script>
+    /* 1. DUAL THEME ENGINE */
+    function applySavedTheme() {
+      const savedTheme = localStorage.getItem('wdm_portal_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeButtonText(savedTheme);
+    }
+    function togglePortalTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('wdm_portal_theme', next);
+      updateThemeButtonText(next);
+      showToast(next === 'light' ? "☀️ Light Mode Active" : "🌙 Dark Mode Active");
+    }
+    function updateThemeButtonText(theme) {
+      const el = document.getElementById('themeToggleText');
+      if (el) el.textContent = theme === 'light' ? "Switch to Dark Mode" : "Switch to Light Mode";
+    }
+    applySavedTheme();
+
+    /* 2. REAL WYNDHAMGANJ WEATHER & CLOCK */
+    function updateClock() {
+      const el = document.getElementById('portalLiveClock');
+      if (el) {
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function fetchRealWyndhamganjWeather() {
+      const weatherEl = document.getElementById('portalLiveWeather');
+      if (!weatherEl) return;
+      // Latitude 24.25, Longitude 83.42 (Wyndhamganj, Sonbhadra)
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=24.25&longitude=83.42&current_weather=true')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.current_weather && typeof data.current_weather.temperature !== 'undefined') {
+            weatherEl.textContent = Math.round(data.current_weather.temperature) + '°C';
+          } else {
+            weatherEl.textContent = '27°C';
+          }
+        })
+        .catch(() => { weatherEl.textContent = '27°C'; });
+    }
+    fetchRealWyndhamganjWeather();
+
+    /* 3. FIREBASE CONFIG */
+    const firebaseConfig = {
+      apiKey: "AIzaSyD8ojVhoikbnCRAQ4WrDEkJfdMONeXcuFc",
+      authDomain: "wdm-update.firebaseapp.com",
+      projectId: "wdm-update",
+      storageBucket: "wdm-update.firebasestorage.app",
+      messagingSenderId: "677435578526",
+      appId: "1:677435578526:web:74119dc8309c4ba744838f",
+      measurementId: "G-R4KWL05ZNR"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const TELEGRAM_BOT_TOKEN = "9148416175:AAGHyUUgdsBU3-2dWdrlajV4fLB5g_keVXU";
+    const TELEGRAM_CHAT_ID = "6032430283";
+
+    let currentUserProfile = null;
+    let adminGoogleUser = null;
+    let isAdminActive = false;
+
+    /* 4. LEFT DRAWER NAVIGATION */
+    function toggleDrawer(open) {
+      const overlay = document.getElementById('drawerOverlay');
+      const panel = document.getElementById('drawerPanel');
+      if (open) {
+        overlay.classList.add('active');
+        panel.classList.add('active');
+      } else {
+        overlay.classList.remove('active');
+        panel.classList.remove('active');
+      }
+    }
+    function setFontSize(size) {
+      document.documentElement.setAttribute('data-font', size);
+      document.querySelectorAll('.ctrl-btn').forEach(b => {
+        if (['a-', 'a', 'a+'].includes(b.textContent.trim().toLowerCase())) b.classList.remove('active');
+      });
+      const active = Array.from(document.querySelectorAll('.ctrl-btn')).find(b => b.textContent.trim().toLowerCase() === (size === 'sm' ? 'a-' : size === 'md' ? 'a' : 'a+'));
+      if (active) active.classList.add('active');
+    }
+
+    /* 5. LOGIN MODAL & ADMIN AUTHENTICATION */
+    function openLoginModal() {
+      document.getElementById('citizenLoginModal').classList.add('active');
+    }
+    function closeLoginModal(e) {
+      if (!e || e.target.id === 'citizenLoginModal' || e.target.className === 'login-close') {
+        document.getElementById('citizenLoginModal').classList.remove('active');
+      }
+    }
+
+    function switchLoginMode(mode) {
+      const citTab = document.getElementById('tabCitizenLogin');
+      const admTab = document.getElementById('tabAdminLogin');
+      const citForm = document.getElementById('loginFormState');
+      const admForm = document.getElementById('adminLoginFormState');
+
+      if (mode === 'admin') {
+        citTab.classList.remove('active');
+        admTab.classList.add('active');
+        citForm.style.display = 'none';
+        admForm.style.display = 'block';
+      } else {
+        admTab.classList.remove('active');
+        citTab.classList.add('active');
+        admForm.style.display = 'none';
+        citForm.style.display = 'block';
+      }
+    }
+
+    // Citizen Google Sign-In
+    function handleGoogleSignIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then((res) => {
+        currentUserProfile = res.user;
+        showToast("Welcome " + (res.user.displayName || "Citizen"));
+        closeLoginModal();
+      }).catch(err => alert("Google Login Error: " + err.message));
+    }
+
+    // Admin Step 1: Google Auth strictly checking paswanvive@gmail.com
+    function handleAdminGoogleAuth() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then((res) => {
+        if (res.user.email.toLowerCase() === 'paswanvive@gmail.com') {
+          adminGoogleUser = res.user;
+          document.getElementById('adminGoogleBtnText').textContent = "✓ Verified Google: paswanvive@gmail.com";
+          document.getElementById('btnAdminGoogleLink').style.background = "#dcfce7";
+          showToast("✓ Admin Gmail verified! Now enter Mobile & Password.");
+        } else {
+          alert("Unauthorized! Admin panel is strictly for paswanvive@gmail.com. You signed in as: " + res.user.email);
+          auth.signOut();
+          adminGoogleUser = null;
+        }
+      }).catch(err => alert("Google Auth error: " + err.message));
+    }
+
+    // Admin Step 2: Verify Mobile (7880571898) & Password (Vivek@7880)
+    function verifyAndUnlockAdmin() {
+      if (!adminGoogleUser || adminGoogleUser.email.toLowerCase() !== 'paswanvive@gmail.com') {
+        alert("Step 1 incomplete: Please sign in with Google using paswanvive@gmail.com first!");
+        return;
+      }
+      const phone = document.getElementById('adminPhoneInput').value.trim();
+      const pass = document.getElementById('adminPasswordInput').value.trim();
+
+      if (phone === '7880571898' && pass === 'Vivek@7880') {
+        enableAdminMode();
+      } else {
+        alert("Invalid Mobile Number or Password!");
+      }
+    }
+
+    function enableAdminMode() {
+      isAdminActive = true;
+      document.body.classList.add('admin-mode-on');
+      document.getElementById('adminLiveBar').classList.add('active');
+      document.getElementById('navCircleUserBtn').classList.add('admin-in');
+
+      // Make all marked elements editable
+      document.querySelectorAll('[data-editable="true"]').forEach(el => {
+        el.setAttribute('contenteditable', 'true');
+      });
+
+      // Telegram Admin Login Alert
+      const timeStr = new Date().toLocaleString('en-IN');
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: ` *ADMIN LOGGED IN & UNLOCKED LIVE EDIT*\n━━━━━━━━━━━━━━━━━━━\n📧 *Email:* paswanvive@gmail.com\n📞 *Mobile:* 7880571898\n🕒 *Time:* ${timeStr}\n🌐 *Portal:* Wyndhamganj Butbherwa`,
+          parse_mode: 'Markdown'
+        })
+      }).catch(e => console.log(e));
+
+      closeLoginModal();
+      renderUnifiedMedia();
+      showToast(" Admin Mode Activated! You can now edit text and delete photos.");
+    }
+
+    function exitAdminMode() {
+      isAdminActive = false;
+      document.body.classList.remove('admin-mode-on');
+      document.getElementById('adminLiveBar').classList.remove('active');
+      document.getElementById('navCircleUserBtn').classList.remove('admin-in');
+      document.querySelectorAll('[data-editable="true"]').forEach(el => {
+        el.removeAttribute('contenteditable');
+      });
+      renderUnifiedMedia();
+      showToast("Admin Mode closed.");
+    }
+
+    function handlePortalLogout() {
+      auth.signOut().then(() => {
+        exitAdminMode();
+        showToast("Logged out successfully.");
+        closeLoginModal();
+      });
+    }
+
+    /* 6. ADMIN LIVE SAVE (PERSISTENCE & TELEGRAM ALERT) */
+    function saveAdminLiveChanges() {
+      const siteContent = {};
+      document.querySelectorAll('[data-editable="true"]').forEach(el => {
+        if (el.id) {
+          siteContent[el.id] = el.innerHTML;
+        }
+      });
+
+      localStorage.setItem('wdm_live_custom_content', JSON.stringify(siteContent));
+
+      // Attempt sync to Firestore
+      try {
+        db.collection("site_settings").doc("content").set({
+          ...siteContent,
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedBy: "paswanvive@gmail.com"
+        }, { merge: true });
+      } catch(e){}
+
+      // Telegram Broadcast
+      const msg = ` *ADMIN EDITED SITE CONTENT & SAVED LIVE*\n━━━━━━━━━━━━━━━━━━━\n👤 *Admin:* Vivek Paswan (paswanvive@gmail.com)\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n🌐 *Status:* Live on Wyndhamganj Portal!`;
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' })
+      }).catch(e => console.log(e));
+
+      showToast("All changes saved and published live!");
+    }
+
+    function loadPersistedSiteContent() {
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem('wdm_live_custom_content') || '{}'); } catch(e){}
+      for (const [id, html] of Object.entries(saved)) {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      }
+    }
+
+        /* 7. GALLERY & ADMIN PHOTO DELETE */
+    let currentMainSection = 'wdm';
+    let currentSubFilter = 'all';
+    let isMediaExpanded = false;
+
+    const defaultMediaItems = [
+      { id: "p1", src: "IMG_20250929_062521.jpg", mainCategory: "wdm", subCategory: "nature", title: "Piprahwa Dam Reservoir & Landscape", badge: "WDM Nature" },
+      { id: "p2", src: "IMG_20250930_164330 (1).jpg", mainCategory: "wdm", subCategory: "railway", title: "Wyndhamganj Railway Tracks Route", badge: "Railway Line" },
+      { id: "p3", src: "IMG_20261101_105032.jpg", mainCategory: "wdm", subCategory: "railway", title: "Wyndhamganj Railway Station Complex", badge: "Railway Station" },
+      { id: "p4", src: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80", mainCategory: "wdm", subCategory: "village", title: "Gram Panchayat Secretariat (Shiv Nagar)", badge: "Village Infra" },
+      { id: "p5", src: "IMG_20250929_062521.jpg", mainCategory: "festival", subCategory: "छठ पूजा", title: "Piprahwa Dam Ghat - Surya Arghya", badge: "छठ पूजा" },
+      { id: "p6", src: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80", mainCategory: "festival", subCategory: "दीपावली", title: "Shiv Nagar Secretariat Deepotsav", badge: "दीपावली" }
+    ];
+
+    function getAllGalleryPhotos() {
+      let custom = [];
+      try { custom = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]'); } catch(e){}
+      return [...custom, ...defaultMediaItems];
+    }
+
+    function renderUnifiedMedia() {
+      const container = document.getElementById('unifiedMediaGrid');
+      const moreBox = document.getElementById('mediaMoreBox');
+      const moreBtnText = document.getElementById('mediaMoreText');
+      if (!container) return;
+
+      const all = getAllGalleryPhotos();
+      let filtered = all.filter(item => item.mainCategory === currentMainSection);
+      if (currentSubFilter !== 'all') filtered = filtered.filter(item => item.subCategory === currentSubFilter);
+
+      if (filtered.length > 4) {
+        if (moreBox) moreBox.style.display = 'block';
+        if (moreBtnText) moreBtnText.textContent = isMediaExpanded ? "Show Less Photos" : `View More Photos (${filtered.length - 4} more)`;
+      } else {
+        if (moreBox) moreBox.style.display = 'none';
+      }
+
+      const displayList = isMediaExpanded ? filtered : filtered.slice(0, 4);
+      container.innerHTML = '';
+
+      if (displayList.length === 0) {
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:25px; color:var(--text-muted);">No photos found.</div>`;
+        return;
+      }
+
+      displayList.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'unified-card';
+        card.innerHTML = `
+          <button class="btn-admin-del-photo" onclick="deleteGalleryPhoto('${item.id}', '${item.title.replace(/'/g, "\\'")}', event)">
+            <i class="fa-solid fa-trash"></i> Delete
+          </button>
+          <img src="${item.src}" alt="${item.title}" onerror="this.onerror=null; this.src='IMG_20250929_062521.jpg'">
+          <span class="card-badge-top">${item.badge}</span>
+          <div class="card-caption-bottom">
+            <span>${item.title}</span>
+            <i class="fa-solid fa-expand" style="font-size:0.75rem;"></i>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function deleteGalleryPhoto(photoId, title, e) {
+      if (e) e.stopPropagation();
+      if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+
+      let stored = [];
+      try { stored = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]'); } catch(e){}
+      stored = stored.filter(p => p.id !== photoId);
+      localStorage.setItem('wdm_unified_media', JSON.stringify(stored));
+
+      // Alert Telegram
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: `🗑️ *PHOTO DELETED BY ADMIN*\n━━━━━━━━━━━━━━━━━━━\n🏷️ *Title:* ${title}\n🆔 *Photo ID:* ${photoId}\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}`,
+          parse_mode: 'Markdown'
+        })
+      }).catch(e => console.log(e));
+
+      renderUnifiedMedia();
+      showToast("Photo deleted successfully!");
+    }
+
+    function switchMediaSection(section, btn) {
+      document.querySelectorAll('.media-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const wdmFilters = document.getElementById('wdmSubFilters');
+      const festFilters = document.getElementById('festivalSubFilters');
+      const uploadCard = document.getElementById('citizenUploadCard');
+      const mediaGrid = document.getElementById('unifiedMediaGrid');
+      const moreBox = document.getElementById('mediaMoreBox');
+
+      currentMainSection = section;
+      currentSubFilter = 'all';
+      isMediaExpanded = false;
+
+      if (section === 'upload') {
+        wdmFilters.style.display = 'none'; festFilters.style.display = 'none';
+        uploadCard.classList.add('active'); mediaGrid.style.display = 'none'; moreBox.style.display = 'none';
+      } else {
+        uploadCard.classList.remove('active'); mediaGrid.style.display = 'grid';
+        if (section === 'wdm') {
+          wdmFilters.style.display = 'flex'; festFilters.style.display = 'none';
+          document.querySelectorAll('#wdmSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
+          document.querySelector('#wdmSubFilters .sub-chip').classList.add('active');
+        } else {
+          wdmFilters.style.display = 'none'; festFilters.style.display = 'flex';
+          document.querySelectorAll('#festivalSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
+          document.querySelector('#festivalSubFilters .sub-chip').classList.add('active');
+        }
+        renderUnifiedMedia();
+      }
+    }
+    function filterWdmSub(sub, btn) {
+      currentSubFilter = sub;
+      document.querySelectorAll('#wdmSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      renderUnifiedMedia();
+    }
+    function filterFestSub(sub, btn) {
+      currentSubFilter = sub;
+      document.querySelectorAll('#festivalSubFilters .sub-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      renderUnifiedMedia();
+    }
+    function toggleMediaExpansion() {
+      isMediaExpanded = !isMediaExpanded;
+      renderUnifiedMedia();
+    }
+    function updateSelectedFileName(input) {
+      document.getElementById('selectedFileNameDisplay').textContent = (input.files && input.files[0]) ? input.files[0].name : "No file chosen";
+    }
+
+    // Auto Compress Image
+    function compressImageFile(file, maxWidth, maxHeight, quality, callback) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function(event) {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = function() {
+          let width = img.width, height = img.height;
+          if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
+          if (height > maxHeight) { width = Math.round((width * maxHeight) / height); height = maxHeight; }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          callback(canvas.toDataURL('image/jpeg', quality));
+        };
+      };
+    }
+
+    function handleCitizenPhotoSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('uploadSenderName').value.trim();
+      const phone = document.getElementById('uploadSenderPhone').value.trim();
+      const cat = document.getElementById('uploadPhotoCategory').value;
+      const title = document.getElementById('uploadPhotoTitle').value.trim();
+      const fileInput = document.getElementById('citizenFileInput');
+
+      if (!/^[6-9]\d{9}$/.test(phone)) { alert("Enter 10-digit mobile number!"); return; }
+      if (!fileInput.files || !fileInput.files[0]) { alert("Please select an image!"); return; }
+
+      const submitBtn = document.getElementById('btnSubmitPhoto');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+      compressImageFile(fileInput.files[0], 900, 900, 0.72, function(compressedBase64) {
+        const isFestival = cat.startsWith("Festival");
+        const mainCat = isFestival ? "festival" : "wdm";
+        let subCat = "nature";
+        if (cat.includes("Railway")) subCat = "railway";
+        else if (cat.includes("Village")) subCat = "village";
+        else if (cat.includes("छठ")) subCat = "छठ पूजा";
+        else if (cat.includes("दीपावली")) subCat = "दीपावली";
+        else if (cat.includes("होली")) subCat = "होली";
+        else if (cat.includes("शिवरात्रि")) subCat = "महाशिवरात्रि";
+
+        const newPhotoItem = {
+          id: 'photo_' + Date.now(),
+          src: compressedBase64,
+          mainCategory: mainCat,
+          subCategory: subCat,
+          title: title,
+          badge: isFestival ? subCat : "Resident Upload"
+        };
+
+        try {
+          let existing = JSON.parse(localStorage.getItem('wdm_unified_media') || '[]');
+          existing.unshift(newPhotoItem);
+          localStorage.setItem('wdm_unified_media', JSON.stringify(existing));
+        } catch(err){}
+
+        // Telegram Notification
+        const telegramCaption = `📸 *NEW PHOTO UPLOAD*\n━━━━━━━━━━━━━━━━━━━\n👤 *Sender:* ${name}\n📞 *Phone:* +91 ${phone}\n📂 *Category:* ${cat}\n🏷️ *Title:* ${title}\n🕒 *Time:* ${new Date().toLocaleString('en-IN')}\n🌐 *Portal:* Wyndhamganj Butbherwa`;
+        fetch(compressedBase64).then(res => res.blob()).then(blob => {
+          const formData = new FormData();
+          formData.append('chat_id', TELEGRAM_CHAT_ID);
+          formData.append('photo', blob, 'upload.jpg');
+          formData.append('caption', telegramCaption);
+          formData.append('parse_mode', 'Markdown');
+          return fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+        }).catch(e => console.log(e)).finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Submit & Alert Telegram';
+          document.getElementById('citizenPhotoUploadForm').reset();
+          document.getElementById('selectedFileNameDisplay').textContent = "No file chosen";
+          showToast("Photo uploaded successfully!");
+          const targetBtn = document.querySelector(`.media-tab-btn[onclick*="${mainCat}"]`);
+          if (targetBtn) targetBtn.click();
+        });
+      });
+    }
+
+    /* 8. GRIEVANCE FORM & TELEGRAM DISPATCH */
+    function handleFormSubmission(e) {
+      e.preventDefault();
+      const phone = document.getElementById('userPhoneInput').value.trim();
+      if (!/^[6-9]\d{9}$/.test(phone)) { alert("Enter valid 10-digit number!"); return; }
+
+      const submitBtn = document.getElementById('btnSubmitGrievance');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+
+      const applicantName = document.getElementById('citizenName').value.trim();
+      const applicantAddress = document.getElementById('citizenAddress').value.trim();
+      const category = document.getElementById('issueCategory').value;
+      const description = document.getElementById('citizenMessage').value.trim();
+      const tokenNumber = 'WDM-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+      const currentTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+      const finalizeSuccess = () => {
+        document.getElementById('grievanceForm').style.display = 'none';
+        document.getElementById('receiptTokenBadge').textContent = tokenNumber;
+        document.getElementById('submissionReceipt').style.display = 'block';
+        showToast("🚀 Grievance registered! Token: " + tokenNumber);
+      };
+
+      // Telegram Dispatch
+      const alertMsg = `🚨 *NEW GRIEVANCE REGISTERED*\n━━━━━━━━━━━━━━━━━━━\n🎫 *Token:* \`${tokenNumber}\`\n👤 *Applicant:* ${applicantName}\n📞 *Phone:* +91 ${phone}\n📍 *Locality:* ${applicantAddress}\n📂 *Category:* ${category}\n🕒 *Time:* ${currentTime}\n\n📝 *Details:*\n${description}\n━━━━━━━━━━━━━━━━━━━\n🌐 *Portal:* Wyndhamganj Butbherwa`;
+      fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: alertMsg, parse_mode: 'Markdown' })
+      }).catch(e => console.log(e));
+
+      // Firestore with 4-second race
+      const firestorePromise = db.collection("complaints").add({
+        token: tokenNumber, name: applicantName, phone: "+91" + phone, address: applicantAddress,
+        category: category, description: description, status: "Pending Review",
+        adminRemark: "Received via Instant Portal", submittedAt: currentTime,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      Promise.race([firestorePromise, new Promise(res => setTimeout(res, 4000))])
+        .then(() => finalizeSuccess())
+        .catch(() => finalizeSuccess());
+    }
+
+    function resetSubmissionWorkflow() {
+      document.getElementById('submissionReceipt').style.display = 'none';
+      document.getElementById('grievanceForm').style.display = 'block';
+      document.getElementById('grievanceForm').reset();
+      const submitBtn = document.getElementById('btnSubmitGrievance');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Instant Submit Grievance';
+    }
+
+    function trackComplaintStatus() {
+      const token = document.getElementById('trackTokenInput').value.trim().toUpperCase();
+      const output = document.getElementById('statusResultBox');
+      if (!token) { output.innerHTML = '<span style="color:var(--danger);">Enter token!</span>'; return; }
+      output.innerHTML = '<span style="color:var(--primary);"><i class="fa-solid fa-spinner fa-spin"></i> Checking...</span>';
+
+      db.collection("complaints").where("token", "==", token).get().then(snap => {
+        if (snap.empty) {
+          output.innerHTML = `<span style="color:var(--danger);">No record found for token "${token}".</span>`;
+        } else {
+          snap.forEach(doc => {
+            const data = doc.data();
+            output.innerHTML = `
+              <div style="background:var(--bg-surface-elevated); border:1px solid var(--accent-gold); border-radius:var(--radius-sm); padding:10px; margin-top:6px;">
+                <div style="color:var(--accent-gold); font-weight:800;">Status: ${data.status}</div>
+                <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">Category: ${data.category} | Remark: ${data.adminRemark || 'Under review'}</div>
+              </div>
+            `;
+          });
+        }
+      }).catch(e => { output.innerHTML = `<span style="color:var(--danger);">${e.message}</span>`; });
+    }
+
+     /* 9. GAMES DRAWER */
+    function openGamesArenaDrawer() { document.getElementById('gamesDrawerOverlay').classList.add('active'); }
+    function closeGamesDrawer(e) {
+      if (!e || e.target.id === 'gamesDrawerOverlay' || (e.currentTarget && e.currentTarget.className === 'btn-exit-games')) {
+        document.getElementById('gamesDrawerOverlay').classList.remove('active');
+      }
+    }
+    function filterGamesModal(type, btn) {
+      document.querySelectorAll('#gamesDrawerOverlay .sub-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#modalGamesList .sport-card').forEach(card => {
+        card.style.display = (type === 'all' || card.getAttribute('data-gametype') === type) ? 'block' : 'none';
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = toast.querySelector('span');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 3500);
+    }
+
+    /* INITIALIZATION */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPersistedSiteContent();
+      renderUnifiedMedia();
+    });
+  </script>
+</body>
+</html>
