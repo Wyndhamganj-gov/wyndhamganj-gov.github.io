@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apna WDM | Wyndhamganj Community, News, Chat & Rides</title>
+  <meta name="description" content="Apna WDM connects Wyndhamganj and nearby villages with local news, community chat, creators, and convenient local ride booking.">
+  <meta name="keywords" content="Apna WDM, Apna Wyndhamganj, Wyndhamganj, Vindhamganj, Windhamganj, Butbherwa, Butberhwa, Sonbhadra, local news, local rides, WDM app">
+  <meta name="author" content="Vivek Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wyndhamganj-gov.github.io/">
+  <meta name="google-site-verification" content="sAMV3SdxwZgB8pL_-dedxzFUNvOlNWIZR3WPC7Znua0">
+  <meta name="theme-color" content="#101b2b">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wyndhamganj-gov.github.io/">
+  <meta property="og:title" content="Apna WDM | Your Local Community App">
+  <meta property="og:description" content="Local news, community conversations, creators and rides — all connected through Apna WDM.">
+  <meta property="og:image" content="https://wyndhamganj-gov.github.io/wdmlogo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apna WDM | Your Local Community App">
+  <meta name="twitter:description" content="Connect with Wyndhamganj and nearby villages.">
+  <meta name="twitter:image" content="https://wyndhamganj-gov.github.io/wdmlogo.jpg">
+  <link rel="icon" type="image/jpeg" href="wdmlogo.jpg">
+  <link rel="apple-touch-icon" href="wdmlogo.jpg">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Apna WDM",
+    "applicationCategory":"SocialNetworkingApplication",
+    "operatingSystem":"Android",
+    "description":"A hyperlocal community and utility app for Wyndhamganj and nearby villages, featuring local updates, messaging, creators and ride booking.",
+    "url":"https://wyndhamganj-gov.github.io/",
+    "image":"https://wyndhamganj-gov.github.io/wdmlogo.jpg",
+    "author":{"@type":"Person","name":"Vivek Kumar"},
+    "downloadUrl":"https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.5.0/ApnaWDMv1.5.0.apk"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"Apna WDM",
+    "alternateName":["Apna Wyndhamganj","WDM","Wyndhamganj","Vindhamganj"],
+    "url":"https://wyndhamganj-gov.github.io/"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#081321;--panel:#101f31;--panel2:#14263a;--text:#f4f7fb;--muted:#a9b8ca;--line:rgba(255,255,255,.1);--brand:#72e0bd;--brand2:#91b7ff;--gold:#ffd27a;--max:1160px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{font-family:"DM Sans",sans-serif;background:radial-gradient(circle at 80% 0%,#193452 0,transparent 34%),var(--bg);color:var(--text);line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button,input,textarea,select{font:inherit}
+    .wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
+    .topline{height:4px;background:linear-gradient(90deg,var(--brand),var(--brand2),var(--gold))}
+    header{position:sticky;top:0;z-index:50;background:rgba(8,19,33,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:11px;font-family:Manrope,sans-serif;font-size:1.22rem;font-weight:800;letter-spacing:-.5px}
+    .brand img{width:43px;height:43px;border-radius:13px;object-fit:cover}
+    .brand span{color:var(--brand)}
+    .navlinks{display:flex;align-items:center;gap:23px;color:#c5d0dd;font-size:.9rem}
+    .navlinks a:hover{color:var(--brand)}
+    .nav-download,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:12px;padding:12px 19px;font-weight:800;background:var(--brand);color:#082019;transition:.2s;cursor:pointer}
+    .nav-download:hover,.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+    .menu{display:none;background:transparent;border:1px solid var(--line);color:white;padding:9px 12px;border-radius:10px}
+    .hero{padding:78px 0 70px;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:55px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--brand);font-size:.78rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;background:rgba(114,224,189,.09);border:1px solid rgba(114,224,189,.2);padding:8px 12px;border-radius:99px}
+    h1,h2,h3{font-family:Manrope,sans-serif;line-height:1.15;letter-spacing:-1.2px}
+    h1{font-size:clamp(2.65rem,5.5vw,4.7rem);margin:22px 0}
+    h1 em{font-style:normal;color:var(--brand)}
+    .hero-copy{font-size:1.08rem;color:var(--muted);max-width:610px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin:30px 0 25px}
+    .btn.secondary{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .small-note{font-size:.82rem;color:#8fa1b5}
+    .hero-art{position:relative;min-height:470px;display:grid;place-items:center}
+    .glow{position:absolute;width:350px;height:350px;border-radius:50%;background:rgba(114,224,189,.16);filter:blur(65px)}
+    .phone{position:relative;width:min(275px,75%);padding:10px;border:1px solid rgba(255,255,255,.22);border-radius:34px;background:#050b13;box-shadow:0 35px 90px rgba(0,0,0,.5);transform:rotate(3deg)}
+    .phone img{width:100%;height:500px;object-fit:cover;object-position:top;border-radius:25px}
+    .float-tag{position:absolute;background:#172b40;border:1px solid var(--line);padding:13px 16px;border-radius:15px;box-shadow:0 15px 35px #0005;font-weight:700}
+    .float-tag.one{left:0;top:22%}.float-tag.two{right:0;bottom:19%}
+    .section{padding:82px 0}
+    .section.alt{background:rgba(255,255,255,.025);border-block:1px solid var(--line)}
+    .section-head{text-align:center;max-width:720px;margin:0 auto 42px}
+    .section-head h2{font-size:clamp(2rem,4vw,3rem);margin:14px 0}
+    .section-head p{color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:linear-gradient(145deg,rgba(24,46,68,.95),rgba(14,29,46,.95));border:1px solid var(--line);border-radius:20px;padding:25px}
+    .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(114,224,189,.12);color:var(--brand);font-size:1.35rem;margin-bottom:18px}
+    .card h3{font-size:1.15rem;margin-bottom:9px;letter-spacing:-.3px}
+    .card p{color:var(--muted);font-size:.94rem}
+    .screens{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .screen{background:var(--panel);padding:12px;border:1px solid var(--line);border-radius:18px}
+    .screen img{width:100%;height:390px;object-fit:contain;background:#07101b;border-radius:12px}
+    .screen p{padding:12px 5px 3px;font-weight:700;text-align:center}
+    .ride-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+    .ride-list{display:grid;gap:13px;margin-top:22px}
+    .ride-item{display:flex;gap:12px;align-items:flex-start;color:#d7e1ec}
+    .tick{color:var(--brand);font-weight:900}
+    .ride-visual{background:linear-gradient(145deg,#1a3850,#102238);border:1px solid var(--line);padding:25px;border-radius:24px}
+    .ride-visual img{width:100%;max-height:460px;object-fit:contain;border-radius:14px}
+    .notice{border:1px solid rgba(255,210,122,.25);background:rgba(255,210,122,.07);color:#e8d6b2;border-radius:14px;padding:15px 17px;font-size:.9rem;margin-top:18px}
+    .faq{max-width:850px;margin:auto;display:grid;gap:12px}
+    details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px 20px}
+    summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:18px}
+    summary:after{content:"+";color:var(--brand);font-size:1.3rem}
+    details[open] summary:after{content:"−"}
+    details p{color:var(--muted);padding-top:13px}
+    .support-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .form-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:25px}
+    .form-card h3{font-size:1.35rem;margin-bottom:8px}
+    .form-card>p{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+    .field{margin-bottom:13px}
+    .field label{display:block;font-size:.84rem;color:#d9e3ed;margin-bottom:6px;font-weight:700}
+    .field input,.field select,.field textarea{width:100%;background:#091726;color:white;border:1px solid var(--line);border-radius:10px;padding:12px 13px;outline:none}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand)}
+    .field textarea{min-height:110px;resize:vertical}
+    .form-card .btn{width:100%}
+    .form-hint{font-size:.78rem;color:#8fa1b5;margin-top:12px}
+    .legal{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .legal .card{padding:25px}
+    .legal h3{margin-bottom:14px}
+    .legal h4{margin:15px 0 5px;color:#e9f1f8;font-size:.94rem}
+    .legal p,.legal li{color:var(--muted);font-size:.87rem}
+    .legal ul{padding-left:19px}
+    footer{padding:36px 0;background:#050d17;border-top:1px solid var(--line)}
+    .footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+    .footer-links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.88rem}
+    .copyright{color:#8192a5;font-size:.82rem;margin-top:18px}
+    .email-link{color:var(--brand);font-weight:800}
+    @media(max-width:900px){.navlinks{gap:13px;font-size:.82rem}.hero-grid{gap:25px}.cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){
+      .wrap{width:min(100% - 28px,var(--max))}.nav{height:66px}.menu{display:block}.nav-download{display:none}
+      .navlinks{display:none;position:absolute;top:66px;left:0;right:0;background:#0b1929;padding:18px 22px 22px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}
+      .navlinks.open{display:flex}.hero{padding:55px 0 40px}.hero-grid,.ride-grid,.support-grid,.legal{grid-template-columns:1fr}
+      .hero-art{min-height:410px}.phone img{height:420px}.float-tag.one{left:2%}.float-tag.two{right:2%}
+      .section{padding:62px 0}.cards{grid-template-columns:1fr}.screens{grid-template-columns:1fr 1fr}.screen img{height:280px}
+      .section-head{margin-bottom:30px}.hero-copy{font-size:1rem}
+    }
+    @media(max-width:430px){.screens{grid-template-columns:1fr}.screen img{height:360px}.hero-actions .btn{width:100%}.float-tag{font-size:.78rem;padding:10px 12px}}
+  </style>
+</head>
+<body>
+<div class="topline"></div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home"><img src="wdmlogo.jpg" alt="Apna WDM app logo"><div>Apna <span>WDM</span></div></a>
+    <button class="menu" id="menuBtn" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="navlinks" id="navLinks">
+      <a href="#features">Features</a><a href="#screenshots">App Preview</a><a href="#rides">Rides</a><a href="#faq">FAQs</a><a href="#support">Support</a><a href="#legal">Policies</a>
+    </nav>
+    <a class="nav-download" href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.5.0/ApnaWDMv1.5.0.apk">↓ Download App</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">● Made for our local community</div>
+      <h1>Your town.<br>Your people.<br><em>One app.</em></h1>
+      <p class="hero-copy">Apna WDM brings Wyndhamganj and nearby villages closer. Stay updated with local news, connect with people, discover local creators and book everyday rides — all in one place.</p>
+      <div class="hero-actions">
+        <a class="btn" href="https://github.com/Wyndhamganj-gov/wyndhamganj-gov.github.io/releases/download/v1.5.0/ApnaWDMv1.5.0.apk">⬇ Download Apna WDM</a>
+        <a class="btn secondary" href="#features">Explore features ↘</a>
+      </div>
+      <p class="small-note">Android app · Wyndhamganj, Sonbhadra · PIN 231226</p>
+    </div>
+    <div class="hero-art">
+      <div class="glow"></div>
+      <div class="float-tag one">📍 Local community</div>
+      <div class="phone"><img src="wdmhome.jpg" alt="Apna WDM home screen preview"></div>
+      <div class="float-tag two">🚲 Local ride booking</div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="features">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">What you can do</div><h2>One app, many local connections.</h2><p>Useful everyday features designed around the needs of Wyndhamganj and surrounding villages.</p></div>
+    <div class="cards">
+      <article class="card"><div class="ico">📰</div><h3>Local News & Community Feed</h3><p>Keep up with local updates, useful information and posts shared by the community.</p></article>
+      <article class="card"><div class="ico">💬</div><h3>Direct & Group Messaging</h3><p>Talk one-to-one or join community conversations. First-time messages can arrive in Message Requests, and you can block or unblock users.</p></article>
+      <article class="card"><div class="ico">🎥</div><h3>Wyndhamganj Creators</h3><p>Discover local YouTube and Instagram creators and find their public creator profiles in one place.</p></article>
+      <article class="card"><div class="ico">🛵</div><h3>Book a Local Ride</h3><p>Request a Bike, E-Bike, Toto/E-Rickshaw or Car for personal or shared travel.</p></article>
+      <article class="card"><div class="ico">🤝</div><h3>Become a WDM Rider</h3><p>Local riders can submit their details and vehicle information for review and approval.</p></article>
+      <article class="card"><div class="ico">🔔</div><h3>Community Notifications</h3><p>Stay informed about relevant activity and updates available inside the app.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="screenshots">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">Inside the app</div><h2>A quick look at Apna WDM.</h2><p>Explore the app interface and the tools that bring the local community together.</p></div>
+    <div class="screens">
+      <div class="screen"><img src="wdmhome.jpg" alt="Apna WDM home screen"><p>Home & Community</p></div>
+      <div class="screen"><img src="wdmnews.jpg" alt="Apna WDM local news feed"><p>News & Feed</p></div>
+      <div class="screen"><img src="wdmchat.jpg" alt="Apna WDM messaging screen"><p>Chat & Messages</p></div>
+      <div class="screen"><img src="Screenshot_20261127_083025.jpg" alt="Apna WDM Book a Ride screen"><p>Book a Ride</p></div>
+      <div class="screen"><img src="Screenshot_20261127_083048.jpg" alt="Become a WDM Rider screen"><p>Become a Rider</p></div>
+      <div class="screen"><img src="wdmcreators.jpg" alt="Apna WDM Creators directory"><p>Local Creators</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="rides">
+  <div class="wrap ride-grid">
+    <div>
+      <div class="eyebrow">Move around locally</div>
+      <h2 style="font-size:clamp(2rem,4vw,3rem);margin:17px 0">Local rides, connected simply.</h2>
+      <p style="color:var(--muted)">Apna WDM helps passengers connect with approved local riders for everyday journeys around the area.</p>
+      <div class="ride-list">
+        <div class="ride-item"><span class="tick">✓</span><span>Choose Bike, E-Bike, Toto/E-Rickshaw or Car.</span></div>
+        <div class="ride-item"><span class="tick">✓</span><span>Select Personal or Sharing travel where available.</span></div>
+        <div class="ride-item"><span class="tick">✓</span><span>Nearby approved riders can receive your ride request.</span></div>
+        <div class="ride-item"><span class="tick">✓</span><span>Pay the rider directly by cash or UPI. Apna WDM states that it charges no platform commission.</span></div>
+      </div>
+      <div class="notice">For your safety, confirm the correct vehicle and rider before starting. Share your Ride OTP only after the correct rider has arrived and you are boarding.</div>
+    </div>
+    <div class="ride-visual"><img src="Screenshot_20261127_083025.jpg" alt="Book a Ride in Apna WDM"></div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">Need to know?</div><h2>Frequently asked questions</h2><p>Quick answers about using Apna WDM.</p></div>
+    <div class="faq">
+      <details><summary>1. What is Apna WDM?</summary><p>Apna WDM is a community app for Wyndhamganj and nearby villages, bringing together local news, chat, creators and ride booking.</p></details>
+      <details><summary>2. Is Apna WDM free to use?</summary><p>The app is free to use for news, chat and creator features. For a ride, the fare is paid directly to the rider.</p></details>
+      <details><summary>3. How do I book a ride?</summary><p>Open Book a Ride, allow location access when needed, enter pickup and destination, choose Personal or Sharing and select a vehicle type — Bike, E-Bike, Toto/E-Rickshaw or Car. Confirm the request so nearby approved riders can receive it.</p></details>
+      <details><summary>4. What is the permanent 4-digit Ride OTP?</summary><p>Your Ride screen displays a unique 4-digit code for ride verification. Share it only when the correct rider has arrived at your pickup point and you are boarding.</p></details>
+      <details><summary>5. How do I pay for a ride?</summary><p>Payment is made directly to the rider using cash or UPI/QR, as agreed with the rider. There is no platform commission according to the app's stated ride model.</p></details>
+      <details><summary>6. How can I become a WDM Rider?</summary><p>Open Become WDM Rider and submit your name, mobile number, email, vehicle type, vehicle number, address, profile details and requested vehicle photos. Rider applications are subject to admin approval.</p></details>
+      <details><summary>7. What are Message Requests and Blocking?</summary><p>A first-time message may appear in Message Requests. You can accept or ignore it. You can also block or unblock users through the app's available controls.</p></details>
+      <details><summary>8. How can I get listed as a local creator?</summary><p>Use the creator submission option inside the app and provide your public YouTube or Instagram profile details.</p></details>
+      <details><summary>9. How can I contact support?</summary><p>Email <a class="email-link" href="mailto:thehostwost@gmail.com">thehostwost@gmail.com</a> or use the official @apna_wdm handle inside the app.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="support">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">We're here to help</div><h2>Help & complaints</h2><p>Send a support request or report an issue related to Apna WDM.</p></div>
+    <div class="support-grid">
+      <form class="form-card" id="helpForm">
+        <h3>💬 Help & Support</h3><p>Ask a question or tell us what you need help with.</p>
+        <div class="field"><label for="helpName">Your name</label><input id="helpName" name="name" required maxlength="80" placeholder="Enter your name"></div>
+        <div class="field"><label for="helpEmail">Your email</label><input id="helpEmail" name="email" type="email" required placeholder="you@example.com"></div>
+        <div class="field"><label for="helpTopic">Help topic</label><select id="helpTopic" name="topic"><option>App / Account</option><option>News & Community</option><option>Chat & Messages</option><option>Ride Booking</option><option>Rider Registration</option><option>Other</option></select></div>
+        <div class="field"><label for="helpMessage">How can we help?</label><textarea id="helpMessage" name="message" required maxlength="3000" placeholder="Describe your question..."></textarea></div>
+        <button class="btn" type="submit">Send Help Request ↗</button>
+        <p class="form-hint">Your email app will open with your message addressed to support.</p>
+      </form>
+      <form class="form-card" id="complaintForm">
+        <h3>🛡️ Submit a Complaint</h3><p>Report a problem, inappropriate content or a ride-related concern.</p>
+        <div class="field"><label for="complaintName">Your name</label><input id="complaintName" name="name" required maxlength="80" placeholder="Enter your name"></div>
+        <div class="field"><label for="complaintEmail">Your email</label><input id="complaintEmail" name="email" type="email" required placeholder="you@example.com"></div>
+        <div class="field"><label for="complaintType">Complaint category</label><select id="complaintType" name="category"><option>Account or Login</option><option>Chat or User Behaviour</option><option>Community Post or Content</option><option>Ride or Rider Issue</option><option>Privacy or Safety</option><option>Other</option></select></div>
+        <div class="field"><label for="complaintMessage">Complaint details</label><textarea id="complaintMessage" name="message" required maxlength="3000" placeholder="Explain what happened. Do not include passwords or OTPs."></textarea></div>
+        <button class="btn" type="submit">Send Complaint ↗</button>
+        <p class="form-hint">Your email app will open with your complaint addressed to support. Do not share passwords or Ride OTPs.</p>
+      </form>
+    </div>
+    <p style="text-align:center;color:var(--muted);margin-top:22px">Email support: <a class="email-link" href="mailto:thehostwost@gmail.com">thehostwost@gmail.com</a></p>
+  </div>
+</section>
+
+<section class="section" id="legal">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">Transparency</div><h2>Terms & Privacy</h2><p>Please review the basic terms for using Apna WDM and how information is described as being handled.</p></div>
+    <div class="legal">
+      <article class="card">
+        <h3>Terms & Conditions</h3>
+        <p><strong>Effective date: November 2026</strong><br>App: Apna WDM<br>Developer: Vivek Kumar (Independent Developer)</p>
+        <h4>1. Eligibility & Account</h4><p>Provide accurate registration details, keep your account secure and do not impersonate another person. Your account credentials and permanent 4-digit Ride PIN/OTP must be kept private.</p>
+        <h4>2. User Content & Conduct</h4><p>You are responsible for content you submit. Illegal, defamatory, abusive, sexually explicit, hateful, misleading, violent or spam content is not allowed. Content may be removed and accounts may be restricted or suspended for violations.</p>
+        <h4>3. Ride Services</h4><p>Apna WDM is a platform that connects passengers and riders; it is not the vehicle owner or rider's employer. Riders are expected to meet applicable verification and Motor Vehicles Act requirements. Fares may be estimates; cash or UPI payments are made directly between passenger and rider. Users should resolve fare or service concerns with the relevant party. Keep belongings secure and verify the vehicle and rider before travel.</p>
+        <h4>4. Ride Safety</h4><p>Never share a Ride OTP before the correct rider arrives and you are boarding the correct vehicle. Do not share passwords or account verification codes.</p>
+        <h4>5. Availability & Liability</h4><p>The app is provided on an “as is” and “as available” basis. Continuous access, error-free operation or precise GPS performance cannot be guaranteed, particularly in areas with weak network coverage. Use the service responsibly.</p>
+        <h4>6. Changes</h4><p>These terms may be updated. Continued use after an update means you accept the revised terms.</p>
+      </article>
+      <article class="card">
+        <h3>Privacy Policy</h3>
+        <p><strong>Effective date: November 2026</strong><br>Contact: <a class="email-link" href="mailto:thehostwost@gmail.com">thehostwost@gmail.com</a></p>
+        <h4>1. Information described</h4><p>Depending on the features you use, Apna WDM may process your name, username, profile photo, date of birth, gender, village/locality, mobile number and email; posts, news, photos and messages; and rider application details such as vehicle type, registration, photos, address and optional UPI ID.</p>
+        <h4>2. Location</h4><p>Location is requested for an active ride booking when needed. The app's stated design is not to use background location outside ride use. Check your device permission settings to control access.</p>
+        <h4>3. How information is used</h4><p>Information is used to support profiles, the permanent 4-digit Ride OTP, feeds, chats, creator listings, notifications, rider review and passenger-rider connections, and to help prevent abuse.</p>
+        <h4>4. Service providers</h4><p>The app has identified Firebase Authentication and Cloud Firestore, Cloudinary, and mapping/geocoding services such as OpenStreetMap, Esri and Nominatim as service components.</p>
+        <h4>5. Sharing & advertising</h4><p>The stated policy is that personal information is not sold, rented or traded to advertisers. Information may be processed by the service providers needed to operate app features.</p>
+        <h4>6. Your choices & deletion</h4><p>You can manage available profile controls and block/unblock users in the app. To request account deletion, contact <a class="email-link" href="mailto:thehostwost@gmail.com">thehostwost@gmail.com</a>.</p>
+        <h4>7. Children</h4><p>Apna WDM is not intended for children under 13. If information from a child under 13 is identified as collected without required parental consent, contact support to request its deletion.</p>
+        <div class="notice">Privacy note: This page describes the practices supplied for Apna WDM. The developer should verify that the live app, Firebase rules, analytics, permissions and third-party SDKs match these statements before publishing this policy.</div>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <a class="brand" href="#home"><img src="wdmlogo.jpg" alt=""><div>Apna <span>WDM</span></div></a>
+      <div class="footer-links"><a href="#features">Features</a><a href="#faq">FAQs</a><a href="#support">Help & Complaints</a><a href="#legal">Terms & Privacy</a><a href="mailto:thehostwost@gmail.com">Contact</a></div>
+    </div>
+    <p class="copyright">© <span id="year"></span> Apna WDM · Wyndhamganj, Sonbhadra, Uttar Pradesh · Developed by Vivek Kumar.</p>
+  </div>
+</footer>
+
+<script>
+  const menuBtn=document.getElementById('menuBtn');
+  const navLinks=document.getElementById('navLinks');
+  menuBtn.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));});
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');}));
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  function sendEmailForm(formId,subjectPrefix){
+    const form=document.getElementById(formId);
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      const data=new FormData(form);
+      const name=data.get('name')||'';
+      const email=data.get('email')||'';
+      const category=data.get('topic')||data.get('category')||'';
+      const message=data.get('message')||'';
+      const subject=encodeURIComponent(subjectPrefix+' - '+category);
+      const body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nCategory: '+category+'\n\nMessage:\n'+message);
+      window.location.href='mailto:thehostwost@gmail.com?subject='+subject+'&body='+body;
+    });
+  }
+  sendEmailForm('helpForm','Apna WDM Help Request');
+  sendEmailForm('complaintForm','Apna WDM Complaint');
+</script>
+</body>
+</html>
